@@ -90,7 +90,7 @@
    */
   angular.module('frontend.core.layout')
     .controller('NavigationController', [
-      '$scope', '$state', '$modal',
+      '$scope', '$state', '$uibModal',
       '_items',
       function controller(
         $scope, $state, $modal,
@@ -130,7 +130,7 @@
    */
   angular.module('frontend.core.layout')
     .controller('NavigationModalController', [
-      '$scope', '$modalInstance',
+      '$scope', '$uibModalInstance',
       'BackendConfig',
       '_title', '_files', '_template',
       function(
