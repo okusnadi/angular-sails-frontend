@@ -25,7 +25,7 @@
   angular.module('frontend')
     .config([
       '$stateProvider', '$locationProvider', '$urlRouterProvider', '$httpProvider', '$sailsSocketProvider',
-      '$tooltipProvider', 'cfpLoadingBarProvider',
+      '$uibTooltipProvider', 'cfpLoadingBarProvider',
       'toastrConfig',
       'AccessLevels',
       function config(
