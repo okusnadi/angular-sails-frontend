@@ -62,7 +62,7 @@
           ],
           'admin': [
             {
-              state: '',
+              state: 'admin.users',
               title: 'Users',
               access: AccessLevels.admin
             },
