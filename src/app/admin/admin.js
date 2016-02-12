@@ -12,7 +12,8 @@
   // Define frontend.admin module
   angular.module('frontend.admin', [
     'frontend.admin.login-history',
-    'frontend.admin.user'
+    'frontend.admin.user',
+    'frontend.admin.role'
   ]);
 
   // Module configuration
