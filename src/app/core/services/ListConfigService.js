@@ -23,6 +23,44 @@
          *        }}
          */
         var titleItems = {
+          role: [
+            {
+              title: 'Name',
+              column: 'name',
+              class: 'col-xs-3',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Description',
+              column: 'description',
+              class: 'col-xs-3',
+              searchable: false,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Access Level',
+              column: 'accessLevel',
+              class: 'col-xs-3',
+              searchable: false,
+              sortable: true,
+              inSearch: false,
+              inTitle: true
+            },
+            {
+              title: 'Users',
+              column: false,
+              class: 'col-xs-3',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: true
+            }
+          ],
           author: [
             {
               title: 'Author',

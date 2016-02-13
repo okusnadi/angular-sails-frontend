@@ -37,7 +37,7 @@
                       var config = ListConfig.getConfig();
 
                       var parameters = {
-                        populate: 'books',
+                        populate: 'users',
                         limit: config.itemsPerPage,
                         sort: 'name ASC'
                       };
@@ -74,24 +74,24 @@
                       return RoleModel.fetch($stateParams.id);
                     }
                   ],
-                  _books: [
+                  _users: [
                     '$stateParams',
-                    'BookModel',
+                    'UserModel',
                     function resolve(
                       $stateParams,
-                      BookModel
+                      UserModel
                     ) {
-                      return BookModel.load({role: $stateParams.id});
+                      return UserModel.load({role: $stateParams.id});
                     }
                   ],
-                  _booksCount: [
+                  _usersCount: [
                     '$stateParams',
-                    'BookModel',
+                    'UserModel',
                     function resolve(
                       $stateParams,
-                      BookModel
+                      UserModel
                     ) {
-                      return BookModel.count({role: $stateParams.id});
+                      return UserModel.count({role: $stateParams.id});
                     }
                   ]
                 }

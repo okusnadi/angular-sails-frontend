@@ -47,22 +47,22 @@
       '$scope', '$state',
       'UserService', 'MessageService',
       'RoleModel', 'BookModel',
-      '_role', '_books', '_booksCount',
+      '_role', '_users', '_usersCount',
       function controller(
         $scope, $state,
         UserService, MessageService,
         RoleModel, BookModel,
-        _role, _books, _booksCount
+        _role, _users, _usersCount
       ) {
         // Set current scope reference to models
         RoleModel.setScope($scope, 'role');
-        BookModel.setScope($scope, false, 'books', 'booksCount');
+        BookModel.setScope($scope, false, 'users', 'usersCount');
 
         // Expose necessary data
-        $scope.user = UserService.user();
+        $scope.currentUser = UserService.user();
         $scope.role = _role;
-        $scope.books = _books;
-        $scope.booksCount = _booksCount.count;
+        $scope.users = _users;
+        $scope.usersCount = _usersCount.count;
 
         // Role delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
@@ -135,7 +135,7 @@
         // Set initial data
         $scope.items = _items;
         $scope.itemCount = _count.count;
-        $scope.user = UserService.user();
+        $scope.currentUser = UserService.user();
 
         // Initialize used title items
         $scope.titleItems = ListConfig.getTitleItems(RoleModel.endpoint);
@@ -248,7 +248,7 @@
 
           // Data query specified parameters
           var parameters = {
-            populate: 'books',
+            populate: 'users',
             limit: $scope.itemsPerPage,
             skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
             sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')

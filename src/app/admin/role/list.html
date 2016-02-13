@@ -3,9 +3,9 @@
 
     <div class="col-xs-6 pull-right list-search">
         <a
-            data-ng-if="user.admin"
-            data-ui-sref="examples.author.add"
-            data-tooltip="Add new author"
+            data-ng-if="currentUser.admin"
+            data-ui-sref="admin.role.add"
+            data-tooltip="Add new role"
         ><i class="fa fa-plus-circle"></i></a>
 
         <list-search
@@ -49,11 +49,13 @@
     </tr>
     </thead>
     <tbody>
-        <tr data-ng-repeat="author in items">
-            <td class="col-md-11">
-                <a data-ui-sref="examples.author({id: author.id})">{{author.name}}</a>
+        <tr data-ng-repeat="role in items">
+            <td class="col-xs-3">
+                <a data-ui-sref="admin.role({id: role.id})">{{role.name}}</a>
             </td>
-            <td class="col-md-1 text-right">{{author.books.length}}</td>
+            <td class="col-xs-3">{{role.description}}</td>
+            <td class="col-xs-3">{{role.accessLevel}}</td>
+            <td class="col-xs-3">{{role.users.length}}</td>
         </tr>
 
         <tr data-ng-if="items.length === 0">

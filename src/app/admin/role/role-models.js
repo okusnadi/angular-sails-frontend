@@ -1,5 +1,5 @@
 /**
- * This file contains all necessary Angular model definitions for 'frontend.examples.author' module.
+ * This file contains all necessary Angular model definitions for 'frontend.admin.author' module.
  *
  * Note that this file should only contain models and nothing else. Also note that these "models" are just basically
  * services that wraps all things together.

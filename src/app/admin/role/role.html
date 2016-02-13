@@ -1,8 +1,8 @@
-<div data-ng-show="!author">
-    <h3>Requested author not found</h3>
+<div data-ng-show="!role">
+    <h3>Requested role not found</h3>
 </div>
 
-<div data-ng-show="author">
+<div data-ng-show="role">
     <form class="form-vertical" role="form"
         data-editable-form name="editableForm"
         data-onaftersave="saveAuthor()"
@@ -11,15 +11,15 @@
             <div class="col-md-8">
                 <h3>
                     <span style="width: 100%;"
-                        data-editable-text="author.name"
-                        data-e-name="author.name"
+                        data-editable-text="role.name"
+                        data-e-name="role.name"
                         data-e-required
                     >
-                        {{author.name}}
+                        {{role.name}}
                     </span>
 
                     <span class="pull-right"
-                        data-ng-show="!editableForm.$visible && user.admin"
+                        data-ng-show="!editableForm.$visible && currentUser.admin"
                     >
                         <a href="#"
                             data-ng-click="editableForm.$show()"
@@ -31,12 +31,12 @@
                 </h3>
 
                 <p style="white-space: pre-line"
-                    data-editable-textarea="author.description"
-                    data-e-name="author.description"
+                    data-editable-textarea="role.description"
+                    data-e-name="role.description"
                     data-e-class="editable-textarea"
                     data-e-required
                 >
-                    {{author.description}}
+                    {{role.description}}
                 </p>
 
                 <div>
@@ -54,7 +54,7 @@
                         </button>
                         <button type="button" class="btn btn-danger pull-right"
                             data-ng-bootbox-title="Danger - Danger - Danger"
-                            data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{author.name}}</strong> author delete?"
+                            data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
                             data-ng-bootbox-buttons="confirmButtonsDelete"
                         >
                             Delete
@@ -64,7 +64,7 @@
             </div>
 
             <div class="col-md-4">
-                <h4>Books ({{booksCount}})</h4>
+                <h4>Books ({{usersCount}})</h4>
                 <table class="table table-condensed table-hover">
                     <thead>
                         <tr>
@@ -77,12 +77,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-ng-repeat="book in books">
+                        <tr data-ng-repeat="user in users">
                             <td>
-                                <a data-ui-sref="examples.book({id: book.id})">{{book.title}}</a>
+                                <a data-ui-sref="admin.user({id: user.id})">{{user.title}}</a>
                             </td>
                             <td class="text-right">
-                                {{book.releaseDate | amDateFormat: 'YYYY'}}
+                                {{user.releaseDate | amDateFormat: 'YYYY'}}
                             </td>
                         </tr>
                     </tbody>
