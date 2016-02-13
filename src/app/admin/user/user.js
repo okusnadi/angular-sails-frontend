@@ -36,6 +36,7 @@
                       var config = ListConfig.getConfig();
 
                       var parameters = {
+                        populate: 'roles',
                         limit: config.itemsPerPage,
                         sort: 'username ASC'
                       };

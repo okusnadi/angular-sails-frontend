@@ -81,7 +81,7 @@
                       $stateParams,
                       UserModel
                     ) {
-                      return UserModel.load({role: $stateParams.id});
+                      return UserModel.load({roles: $stateParams.id});
                     }
                   ],
                   _usersCount: [
@@ -91,7 +91,7 @@
                       $stateParams,
                       UserModel
                     ) {
-                      return UserModel.count({role: $stateParams.id});
+                      return UserModel.count({roles: $stateParams.id});
                     }
                   ]
                 }

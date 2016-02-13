@@ -52,18 +52,23 @@
         <tr
             data-ng-repeat="user in items"
         >
-            <td class="col-md-9">
+            <td class="col-xs-2">
                 <a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a>
             </td>
-            <td class="col-md-2">
-                <a data-ui-sref="admin.role({id: getRole(user.role, 'id')})"
+            <td class="col-xs-2">{{user.firstName}}</td>
+            <td class="col-xs-2">{{user.lastName}}</td>
+            <td class="col-xs-2">{{user.email}}</td>
+            <!--<td class="col-xs-2">{{user.roles.length}}</td>-->
+            <td class="col-xs-4">
+                <span data-ng-repeat="role in user.roles">
+                    {{role.name}}
+                </span>
+<!--                <a data-ui-sref="admin.role({id: getRole(user.role, 'id')})"
                    data-ng-show="getRole(user.role, 'id', true) !== true"
                 >
                     {{getRole(user.role, 'name')}}
-                </a>
+                </a>-->
             </td>
-            <td class="col-md-1 text-right">{{user.email}}</td>
-            <!--<td class="col-md-1 text-right">{{user.releaseDate | amDateFormat: 'YYYY'}}</td>-->
         </tr>
 
         <tr data-ng-if="items.length === 0">

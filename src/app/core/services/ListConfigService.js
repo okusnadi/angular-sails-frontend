@@ -23,6 +23,53 @@
          *        }}
          */
         var titleItems = {
+          user: [
+            {
+              title: 'Username',
+              column: 'username',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'First name',
+              column: 'firstName',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Last name',
+              column: 'lastName',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Email',
+              column: 'email',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Roles',
+              column: false,
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: false
+            }
+          ],
           role: [
             {
               title: 'Name',

@@ -5,7 +5,7 @@
 <div data-ng-show="role">
     <form class="form-vertical" role="form"
         data-editable-form name="editableForm"
-        data-onaftersave="saveAuthor()"
+        data-onaftersave="saveRole()"
     >
         <div class="row">
             <div class="col-md-8">
@@ -64,7 +64,7 @@
             </div>
 
             <div class="col-md-4">
-                <h4>Books ({{usersCount}})</h4>
+                <h4>Users ({{usersCount}})</h4>
                 <table class="table table-condensed table-hover">
                     <thead>
                         <tr>
@@ -79,10 +79,10 @@
                     <tbody>
                         <tr data-ng-repeat="user in users">
                             <td>
-                                <a data-ui-sref="admin.user({id: user.id})">{{user.title}}</a>
+                                <a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a>
                             </td>
                             <td class="text-right">
-                                {{user.releaseDate | amDateFormat: 'YYYY'}}
+                                {{user.email}}
                             </td>
                         </tr>
                     </tbody>
