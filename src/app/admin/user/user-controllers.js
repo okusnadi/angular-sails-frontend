@@ -140,6 +140,7 @@
               .then(
                 function onSuccess(data) {
                   $scope.roles = data;
+                  console.log($scope.roles);
                 }
               )
             ;
