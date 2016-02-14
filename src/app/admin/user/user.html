@@ -1,8 +1,8 @@
-<div data-ng-show="!book">
-    <h3>Requested book not found</h3>
+<div data-ng-show="!user">
+    <h3>Requested user not found</h3>
 </div>
 
-<div data-ng-show="book">
+<div data-ng-show="user">
     <form class="form-vertical" role="form"
         data-editable-form name="editableForm"
         data-onaftersave="saveBook()"
@@ -11,11 +11,11 @@
             <div class="col-lg-8">
                 <h3>
                     <span style="width: 100%;"
-                        data-editable-text="book.title"
-                        data-e-name="book.title"
+                        data-editable-text="user.title"
+                        data-e-name="user.title"
                         data-e-required
                     >
-                        {{book.title}}
+                        {{user.title}}
                     </span>
 
                     <span class="pull-right"
@@ -31,12 +31,12 @@
                 </h3>
 
                 <p style="white-space: pre-line"
-                   data-editable-textarea="book.description"
-                   data-e-name="book.description"
+                   data-editable-textarea="user.description"
+                   data-e-name="user.description"
                    data-e-class="editable-textarea"
                    data-e-required
                 >
-                    {{book.description}}
+                    {{user.description}}
                 </p>
 
                 <div class="visible-lg">
@@ -54,7 +54,7 @@
                         </button>
                         <button type="button" class="btn btn-danger pull-right"
                             data-ng-bootbox-title="Danger - Danger - Danger"
-                            data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{book.title}}</strong> book delete?"
+                            data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{user.title}}</strong> user delete?"
                             data-ng-bootbox-buttons="confirmButtonsDelete"
                         >
                             Delete
@@ -70,14 +70,14 @@
                         <th style="vertical-align: middle;">Author</th>
                         <td>
                             <a
-                                data-ui-sref="examples.author({id: book.author.id})"
+                                data-ui-sref="examples.author({id: user.author.id})"
                                 data-editable-select="selectAuthor"
                                 data-onshow="loadAuthors()"
-                                data-e-name="book.author"
+                                data-e-name="user.author"
                                 data-e-required
                                 data-e-ng-options="a.id as a.name for a in authors"
                             >
-                                {{book.author.name}}
+                                {{user.author.name}}
                             </a>
                         </td>
                     </tr>
@@ -85,12 +85,12 @@
                         <th>Released</th>
                         <td>
                             <div data-ng-show="!editableForm.$visible">
-                                {{book.releaseDate | amDateFormat: 'YYYY'}}
+                                {{user.releaseDate | amDateFormat: 'YYYY'}}
                             </div>
 
                             <div data-ng-show="editableForm.$visible">
                                 <datepicker
-                                    data-ng-model="book.releaseDate"
+                                    data-ng-model="user.releaseDate"
                                     data-min-mode="year"
                                     data-datepicker-mode="'year'"
                                 ></datepicker>
@@ -113,7 +113,7 @@
                             Cancel
                         </button>
                         <button type="button" class="btn btn-danger pull-right"
-                            data-ng-bootbox-confirm="Are you sure about the book delete?"
+                            data-ng-bootbox-confirm="Are you sure about the user delete?"
                             data-ng-bootbox-confirm-action="deleteBook()"
                         >
                             Delete

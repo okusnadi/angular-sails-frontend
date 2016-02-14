@@ -182,8 +182,8 @@
 
         // Initialize default sort data
         $scope.sort = {
-          column: 'releaseDate',
-          direction: false
+          column: 'username',
+          direction: true
         };
 
         // Initialize filters
@@ -309,6 +309,7 @@
 
           // Data query specified parameters
           var parameters = {
+            populate: 'roles',
             limit: $scope.itemsPerPage,
             skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
             sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
