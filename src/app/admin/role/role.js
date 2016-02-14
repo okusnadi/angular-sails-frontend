@@ -71,7 +71,7 @@
                       $stateParams,
                       RoleModel
                     ) {
-                      return RoleModel.fetch($stateParams.id);
+                      return RoleModel.fetch($stateParams.id, {populate: 'users'});
                     }
                   ],
                   _users: [
