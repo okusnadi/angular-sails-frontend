@@ -87,12 +87,10 @@
             <div class="col-lg-4">
                 <h4 class="text-muted">Roles</h4>
                 
-                <span 
+                <span ng-model="user.roles"
                     data-editable-select="user.roles"
-                    data-value="1"
                     data-e-multiple 
-                    data-e-name="role"
-                    data-e-ng-options="r.id as r.name for r in roles"
+                    data-e-ng-options="r as r.name for r in roles track by r.id"
                     data-onshow="loadRoles()"
                     >
                     <span data-ng-repeat="role in user.roles">
