@@ -90,9 +90,18 @@
               inTitle: true
             },
             {
+              title: 'Active',
+              column: 'active',
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: true,
+              inSearch: false,
+              inTitle: true
+            },
+            {
               title: 'Access Level',
               column: 'accessLevel',
-              class: 'col-xs-3',
+              class: 'col-xs-2',
               searchable: false,
               sortable: true,
               inSearch: false,
@@ -101,7 +110,7 @@
             {
               title: 'Users',
               column: false,
-              class: 'col-xs-3',
+              class: 'col-xs-2',
               searchable: false,
               sortable: false,
               inSearch: false,

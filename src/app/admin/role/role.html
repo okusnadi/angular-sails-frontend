@@ -32,12 +32,33 @@
 
                 <p style="white-space: pre-line"
                     data-editable-text="role.description"
+                    data-e-title="Description:"
                     data-e-name="role.description"
-                    data-e-class="editable-textarea"
                     data-e-required
                 >
                     {{role.description}}
                 </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        Access level:
+                    <span style="width: 100%;"
+                        data-editable-number="role.accessLevel"
+                        data-e-name="role.accessLevel"
+                        data-e-required
+                    >
+                        {{role.accessLevel}}
+                    </span>
+                    </div>
+                    <div class="col-md-6">
+                        Active:
+                    <span style="width: 100%;"
+                        data-editable-checkbox="role.active"
+                        data-e-name="role.active"
+                    >
+                        {{role.active}}
+                    </span>
+                    </div>
+                </div>
 
                 <div>
                     <div data-ng-show="editableForm.$visible">

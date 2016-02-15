@@ -126,6 +126,23 @@
         };
 
         /**
+         * Scope function to delete current user role. 
+         * 
+         * @param   {Number}    index        Role index to remove
+         */
+        $scope.removeUserRole = function removeUserRole(index) {
+            $scope.user.roles.splice(index, 1);            
+        };
+
+        /**
+         * Scope function to add user's role. 
+         * 
+         */
+        $scope.addUserRole = function addUserRole() {
+            $scope.user.roles.push({id:1});
+        };
+
+        /**
          * Scope function to fetch role data when needed, this is triggered whenever user starts to edit
          * current user.
          *
@@ -140,7 +157,7 @@
               .then(
                 function onSuccess(data) {
                   $scope.roles = data;
-                  console.log($scope.roles);
+//                  console.log($scope.roles);
                 }
               )
             ;

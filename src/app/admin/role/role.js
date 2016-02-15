@@ -74,26 +74,26 @@
                       return RoleModel.fetch($stateParams.id, {populate: 'users'});
                     }
                   ],
-                  _users: [
-                    '$stateParams',
-                    'UserModel',
-                    function resolve(
-                      $stateParams,
-                      UserModel
-                    ) {
-                      return UserModel.load({roles: $stateParams.id});
-                    }
-                  ],
-                  _usersCount: [
-                    '$stateParams',
-                    'UserModel',
-                    function resolve(
-                      $stateParams,
-                      UserModel
-                    ) {
-                      return UserModel.count({roles: $stateParams.id});
-                    }
-                  ]
+//                  _users: [
+//                    '$stateParams',
+//                    'UserModel',
+//                    function resolve(
+//                      $stateParams,
+//                      UserModel
+//                    ) {
+//                      return UserModel.load({roles: $stateParams.id});
+//                    }
+//                  ],
+//                  _usersCount: [
+//                    '$stateParams',
+//                    'UserModel',
+//                    function resolve(
+//                      $stateParams,
+//                      UserModel
+//                    ) {
+//                      return UserModel.count({roles: $stateParams.id});
+//                    }
+//                  ]
                 }
               }
             }

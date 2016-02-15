@@ -46,23 +46,27 @@
     .controller('RoleController', [
       '$scope', '$state',
       'UserService', 'MessageService',
-      'RoleModel', 'BookModel',
-      '_role', '_users', '_usersCount',
+      'RoleModel', 
+//      'UserModel',
+      '_role', 
+//      '_users', '_usersCount',
       function controller(
         $scope, $state,
         UserService, MessageService,
-        RoleModel, BookModel,
-        _role, _users, _usersCount
+        RoleModel, 
+//        UserModel,
+        _role
+//        , _users, _usersCount
       ) {
         // Set current scope reference to models
         RoleModel.setScope($scope, 'role');
-        BookModel.setScope($scope, false, 'users', 'usersCount');
+//        UserModel.setScope($scope, false, 'users', 'usersCount');
 
         // Expose necessary data
         $scope.currentUser = UserService.user();
         $scope.role = _role;
-        $scope.users = _users;
-        $scope.usersCount = _usersCount.count;
+        $scope.users = $scope.role.users;
+        $scope.usersCount = $scope.users.length;
 
         // Role delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
