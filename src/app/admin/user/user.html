@@ -93,9 +93,9 @@
                     data-e-ng-options="r as r.name for r in roles track by r.id"
                     data-onshow="loadRoles()"
                     >
-                    <span data-ng-repeat="role in user.roles">
+                    <p data-ng-repeat="role in user.roles">
                                 {{role.name}}
-                    </span>
+                    </p>
                 </span>
                 
 <!--                <table class="table">
