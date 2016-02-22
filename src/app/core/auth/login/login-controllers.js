@@ -27,7 +27,7 @@
       ) {
         // Already authenticated so redirect back to books list
         if (AuthService.isAuthenticated()) {
-          $state.go('examples.books');
+          $state.go('welcome');
         }
 
         // Scope function to perform actual login request to server

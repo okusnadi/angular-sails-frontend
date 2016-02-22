@@ -1,5 +1,5 @@
 <header>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
                 <a href="/" class="navbar-brand">Boilerplate</a>
@@ -45,4 +45,50 @@
             </ul>
         </div>
     </div>
+    
+    <md-fab-toolbar md-open="false" count="0"
+                  md-direction="left">
+    <md-fab-trigger class="align-with-text">
+      <md-button aria-label="menu" class="md-fab md-primary">
+        <md-icon md-svg-src="/assets/img/menu.svg"></md-icon>
+      </md-button>
+    </md-fab-trigger>
+    <md-toolbar>
+      <md-fab-actions class="md-toolbar-tools">
+          
+        <md-button aria-label="comment"
+                   data-ui-sref="{{ item.state }}"
+                   data-ng-repeat="item in navigationItems"
+                   data-ng-show="auth.authorize(item.access)"
+                   data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
+                   data-ui-sref-active="active"
+        >
+            <!--<a href="#" data-ui-sref="{{ item.state }}">-->
+            
+            {{ item.title }}
+          <!--</a>-->  
+        </md-button>
+          
+ 
+        <md-button aria-label="label" class="md-icon-button float-left">
+          <md-icon md-svg-src="/assets/img/menu.svg"></md-icon>
+        </md-button>
+        <md-button aria-label="photo" class="md-icon-button float-left">
+          <md-icon md-svg-src="/assets/img/menu.svg"></md-icon>
+        </md-button>
+      </md-fab-actions>
+    </md-toolbar>
+  </md-fab-toolbar>
+    
+<section layout="row">
+    <md-button class="md-raised md-primary">Primary</md-button>
+    
+</section>
+    
+    <div style="display:block;width:200px;height:200px; background:red;">
+        <img src="/assets/img/menu.svg" />
+    </div>
+       <a href="#" data-ui-sref="examples.about">
+            about
+            </a>
 </header>
