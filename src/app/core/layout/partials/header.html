@@ -1,5 +1,5 @@
 <header>
-    <div class="navbar navbar-default">
+<!--    <div class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
                 <a href="/" class="navbar-brand">Boilerplate</a>
@@ -44,9 +44,9 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div>-->
     
-    <md-fab-toolbar md-open="false" count="0"
+    <md-fab-toolbar md-open="false" count="0" class="fixed-toolbar"
                   md-direction="left">
     <md-fab-trigger class="align-with-text">
       <md-button aria-label="menu" class="md-fab md-primary">
@@ -68,6 +68,8 @@
             {{ item.title }}
           <!--</a>-->  
         </md-button>
+        
+          
           
  
         <md-button aria-label="label" class="md-icon-button float-left">
@@ -80,15 +82,14 @@
     </md-toolbar>
   </md-fab-toolbar>
     
-<section layout="row">
-    <md-button class="md-raised md-primary">Primary</md-button>
     
-</section>
-    
-    <div style="display:block;width:200px;height:200px; background:red;">
-        <img src="/assets/img/menu.svg" />
-    </div>
-       <a href="#" data-ui-sref="examples.about">
-            about
-            </a>
 </header>
+<section layout="row">
+    <div class="flex-50">
+    <a href="#" data-ng-click="logout()">Logout</a>
+    </div>
+    <div class="flex-50">
+        hello there my name
+    <a href="#" data-ng-click="auth.login">Login</a>
+    </div>
+</section>

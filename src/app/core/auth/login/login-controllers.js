@@ -36,7 +36,7 @@
             .login($scope.credentials)
             .then(
               function successCallback() {
-                $state.go('examples.books');
+                $state.go('welcome');
               },
               function errorCallback() {
                 _reset();
