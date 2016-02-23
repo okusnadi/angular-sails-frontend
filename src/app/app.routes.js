@@ -40,6 +40,9 @@
               footer: {
                 templateUrl: '/frontend/core/layout/partials/footer.html',
                 controller: 'FooterController'
+              },
+              'topbar@frontend' : {
+                  templateUrl: '/frontend/core/layout/partials/topbar1.html'
               }
             }
           })

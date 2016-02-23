@@ -24,6 +24,7 @@
       function($stateProvider) {
         $stateProvider
           .state('welcome', {
+            parent: 'frontend',
             url: '/welcome',
             data: {
               access: 0
