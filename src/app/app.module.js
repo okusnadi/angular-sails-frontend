@@ -11,7 +11,7 @@
     'frontend-templates',
     'frontend.core',
     'frontend.examples',
-    'frontend.admin',
+    'frontend.admin'
   ]);
 
   /**
