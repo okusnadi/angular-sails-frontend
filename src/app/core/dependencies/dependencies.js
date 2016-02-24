@@ -23,6 +23,7 @@
     'xeditable',
     'sails.io',
     'highcharts-ng',
-    'ngMaterial'
+    'ngMaterial',
+    'md.data.table'
   ]);
 }());
