@@ -22,6 +22,8 @@
     'toastr',
     'xeditable',
     'sails.io',
-    'highcharts-ng'
+    'highcharts-ng',
+    'ng-material',
+    'angular-material-data-table'
   ]);
 }());

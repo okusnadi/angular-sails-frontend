@@ -12,7 +12,6 @@
     'frontend.core',
     'frontend.examples',
     'frontend.admin',
-    'ngMaterial'
   ]);
 
   /**

@@ -52,12 +52,6 @@
                     }
                   ]
                 }
-              },
-              'test@': {
-                  templateUrl: '/frontend/core/layout/partials/mainTopbar.html'
-              },
-              'topbar@' :{
-                templateUrl: '/frontend/core/layout/partials/mainTopbar.html'
               }
             }
             
