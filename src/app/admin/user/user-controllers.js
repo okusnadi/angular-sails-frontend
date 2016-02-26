@@ -24,10 +24,10 @@
 
         // Initialize user model
         $scope.user = {
-          title: '',
-          description: '',
-          role: '',
-          releaseDate: new Date()
+            username: '',
+            firstName: '',
+            lastName: '',
+            roles: []
         };
 
         /**

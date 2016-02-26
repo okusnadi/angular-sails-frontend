@@ -366,6 +366,7 @@
             .create(self.endpoint, data)
             .then(
               function onSuccess(result) {
+                  console.log(result);
                 return result;
               },
               function onError(error) {

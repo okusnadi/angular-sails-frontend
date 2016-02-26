@@ -1,23 +1,35 @@
-<form class="form-vertical" role="form" name="bookForm"
-    data-ng-submit="addBook()"
+<form class="form-vertical" role="form" name="userForm"
+    data-ng-submit="addUser()"
 >
     <div class="row">
         <div class="col-lg-8">
             <div class="form-group" style="margin-top: 10px;">
-                <input type="text" class="form-control" required="required" name="title" placeholder="Enter book title"
-                    data-ng-model="book.title"
+                <input type="text" class="form-control" required="required" name="username" placeholder="Enter username"
+                    data-ng-model="user.username"
                 />
             </div>
 
-            <div class="form-group">
-                <textarea name="book.description" class="form-control editable-textarea" required="required" placeholder="Enter book description"
-                    data-ng-model="book.description"
-                >{book.description}</textarea>
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="text" class="form-control" required="required" name="firstName" placeholder="Enter first name"
+                    data-ng-model="user.firstName"
+                />
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="text" class="form-control" required="required" name="lastName" placeholder="Enter last name"
+                    data-ng-model="user.lastName"
+                />
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="email" class="form-control" required="required" name="email" placeholder="Enter email"
+                    data-ng-model="user.email"
+                />
             </div>
 
             <div class="visible-lg">
                 <button type="submit" class="btn btn-primary"
-                    data-ng-disabled="!bookForm.$valid"
+                    data-ng-disabled="!userForm.$valid"
                 >
                     Save
                 </button>
@@ -28,31 +40,41 @@
             <h4 class="text-muted">Information</h4>
             <table class="table">
                 <tr>
-                    <th style="vertical-align: middle;">Author</th>
+                    <th style="vertical-align: middle;">Select roles</th>
                     <td>
-                        <select name="author" class="form-control" required="required"
-                            data-ng-model="book.author"
-                            data-ng-options="author.id as author.name for author in authors"
+                        <select name="roles" class="form-control" required="required"
+                            ng-model="user.roles"
+                            multiple="true"
+                            ng-options="r as r.name for r in roles track by r.id"
                         >
-                            <option value="">Select an author</option>
                         </select>
+<!--                        <span ng-model="user.roles"
+                            data-editable-select="user.roles"
+                            data-e-multiple 
+                            data-e-ng-options="r as r.name for r in roles track by r.id"
+                            data-onshow="loadRoles()"
+                            >-->
+<!--                            <p data-ng-repeat="role in user.roles">
+                                        {{role.name}}
+                        </span>
+                            </p>-->
                     </td>
                 </tr>
                 <tr>
                     <th>Released</th>
                     <td>
-                        <datepicker
-                            data-ng-model="book.releaseDate"
+<!--                        <datepicker
+                            data-ng-model="user.releaseDate"
                             data-min-mode="year"
                             data-datepicker-mode="'year'"
-                        ></datepicker>
+                        ></datepicker>-->
                     </td>
                 </tr>
             </table>
 
             <div class="hidden-lg">
                 <button type="submit" class="btn btn-primary"
-                    data-ng-disabled="!bookForm.$valid"
+                    data-ng-disabled="!userForm.$valid"
                 >
                     Save
                 </button>
