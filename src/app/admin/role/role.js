@@ -24,7 +24,7 @@
             url: '/admin/roles',
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/role/list.html',
+                templateUrl: '/frontend/admin/role/role-list.html',
                 controller: 'RoleListController',
                 resolve: {
                   _items: [
@@ -107,7 +107,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/role/add.html',
+                templateUrl: '/frontend/admin/role/role-add.html',
                 controller: 'RoleAddController'
               }
             }

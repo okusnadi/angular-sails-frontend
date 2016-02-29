@@ -92,7 +92,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/user/add.html',
+                templateUrl: '/frontend/admin/user/user-add.html',
                 controller: 'UserAddController',
                 resolve: {
                   _roles: [

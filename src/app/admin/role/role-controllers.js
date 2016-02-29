@@ -18,7 +18,9 @@
         // Initialize role model
         $scope.role = {
           name: '',
-          description: ''
+          description: '',
+          accessLevel: 100,
+          active: true          
         };
 
         /**
