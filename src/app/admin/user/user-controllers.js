@@ -27,9 +27,12 @@
             username: '',
             firstName: '',
             lastName: '',
-            roles: []
+            roles: [], 
+            passports: []
         };
-
+        $scope.password = '';
+        $scope.passwordConfirm = '';
+        
         /**
          * Scope function to store new user to database. After successfully save user will be redirected
          * to view that new created user.

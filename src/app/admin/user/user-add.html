@@ -1,11 +1,14 @@
 <form class="form-vertical" role="form" name="userForm"
+    autocomplete="off" 
     data-ng-submit="addUser()"
 >
     <div class="row">
         <div class="col-lg-8">
+            <!-- USERNAME GROUP -->
             <div class="form-group" style="margin-top: 10px;"
                 ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }" 
                 >
+                <label>Username</label>
                 <input type="text" class="form-control" 
                     data-ng-model="user.username"
                     data-ng-minlength="5"
@@ -15,14 +18,45 @@
                    class="help-block">Username is too short.
                 </p>
             </div>
+            <!-- PASSWORD GROUP -->
+            <div class="form-group" style="margin-top: 10px;"
+                ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }" 
+                >
+                <label>Password</label>
+                <input type="password" class="form-control" 
+                    data-ng-model="password"
+                    data-ng-minlength="6"
+                    required="required" name="password" placeholder="Enter password"
+                />
+                <p ng-show="userForm.password.$error.minlength" 
+                   class="help-block">Password is to short.
+                </p>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;"
+                ng-class="{ 'has-error' : userForm.passwordConfirm.$invalid && !userForm.passwordConfirm.$pristine }" 
+                >
+                <label>Confirm password</label>
+                <input type="password" class="form-control" 
+                    data-ng-model="passwordConfirm"
+                    ui-validate="'$value==password'"
+                    ui-validate-watch="'password'"
+                    required="required" name="passwordConfirm" placeholder="confirm password"
+                />
+                <p ng-show="userForm.passwordConfirm.$error.validator && !userForm.passwordConfirm.$pristine" 
+                   class="help-block">Passwords don't match.
+                </p>
+            </div>
 
             <div class="form-group" style="margin-top: 10px;">
+                <label>First name</label>
                 <input type="text" class="form-control" required="required" name="firstName" placeholder="Enter first name"
                     data-ng-model="user.firstName"
                 />
             </div>
 
             <div class="form-group" style="margin-top: 10px;">
+                <label>Last name</label>
                 <input type="text" class="form-control" required="required" name="lastName" placeholder="Enter last name"
                     data-ng-model="user.lastName"
                 />
@@ -31,6 +65,7 @@
             <div class="form-group" style="margin-top: 10px;"
                 ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }" 
                 >
+                <label>E-mail</label>
                 <input type="email" class="form-control" required="required" name="email" placeholder="Enter email"
                     data-ng-model="user.email"
                 />
