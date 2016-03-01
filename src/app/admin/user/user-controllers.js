@@ -38,7 +38,13 @@
          * to view that new created user.
          */
         $scope.addUser = function addUser() {
-          UserModel
+            $scope.user.passports.push(
+                {
+                    "protocol": "local",
+                    "password": $scope.password
+                }                    
+            );
+            UserModel
             .create(angular.copy($scope.user))
             .then(
               function onSuccess(result) {

@@ -9,7 +9,7 @@
                 ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }" 
                 >
                 <label>Username</label>
-                <input type="text" class="form-control" 
+                <input autocomplete="off" type="text" class="form-control" 
                     data-ng-model="user.username"
                     data-ng-minlength="5"
                     required="required" name="username" placeholder="Enter username"
