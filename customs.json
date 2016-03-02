@@ -1,8 +1,13 @@
 {
     "elements": {
         "ng-messages=\"roleForm.name.$error\"": {},
+        "ng-message": {},
         "md-input-container": {},
-        "ng-messages": {},
+        "ng-messages": {
+            "attributes": {
+                "multiple": {}
+            }
+        },
         "md-content": {}
     },
     "attributes": {}

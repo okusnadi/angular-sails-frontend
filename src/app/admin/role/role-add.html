@@ -2,27 +2,26 @@
   <md-content layout-padding>
 
     <form class="form-vertical" role="form" name="roleForm"
-        data-ng-submit="addRole()"
+        data-ng-submit="addRole()" disable
     >
-    
-        
+            
 <!--    <div class="row">
         <div class="col-md-12">-->
 <!--            <div class="form-group" style="margin-top: 10px;"
                 ng-class="{ 'has-error' : roleForm.name.$invalid && !roleForm.name.$pristine }" 
                  >-->
-            <md-input-container class="md-block" flex-gt-xs>
+            <md-input-container class="md-block">
                 <label>Role name</label>
                 <input type="text" name="name" 
                     ng-model="role.name"
                     ng-minlength="4"
                     required
-                >
+                />
                 <p>{{roleForm.name.$error}}</p>
-                <ng-messages for="roleForm.name.$error" multiple>
+                <div ng-messages="roleForm.name.$error" ng-messages-multiple>
                     <div ng-message="minlength">The name has to be at least 4 characters.</div>
                     <div ng-message="required">Name is required.</div>
-                </ng-messages>               
+                </div>
 <!--                <p ng-show="roleForm.name.$error.minlength" 
                    class="help-block">Role name is too short.
                 </p>-->
@@ -34,7 +33,7 @@
 <!--            <div class="form-group"
                 ng-class="{ 'has-error' : roleForm.description.$invalid && !roleForm.description.$pristine }" 
                 >-->
-            <md-input-container class="md-block" flex-gt-xs>
+            <md-input-container class="md-block">
                 <label>Description</label>
                 <input type="text" class="form-control" name="description" 
                     ng-minlength="4"
@@ -55,7 +54,7 @@
 <!--            <div class="form-group"
                 ng-class="{ 'has-error' : roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine }" 
                 >-->
-            <md-input-container class="md-block" flex-gt-xs>
+            <md-input-container class="md-block">
                 <label>Access Level</label>
                 <input type="number" class="form-control" name="accessLevel" 
                     step="1" min="0" max="100"
@@ -73,11 +72,11 @@
             </div>-->
           </md-input-container>
 
-            <button type="submit" class="btn btn-primary"
+            <md-button type="submit" class="md-primary md-raised "
                 data-ng-disabled="!roleForm.$valid"
             >
                 Save
-            </button>
+            </md-button>
 <!--        </div>
     </div>-->
     </form>
