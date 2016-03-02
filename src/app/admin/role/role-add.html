@@ -1,55 +1,84 @@
-<form class="form-vertical" role="form" name="roleForm"
-    data-ng-submit="addRole()"
->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group" style="margin-top: 10px;"
-                ng-class="{ 'has-error' : roleForm.name.$invalid && !roleForm.name.$pristine }" 
-                 >
-<!--                <input type="text" class="form-control" name="role.name" required="required" placeholder="Enter role name"
-                    data-ng-model="role.name"
-                />-->
-                <input type="text" class="form-control" name="name" 
-                    required="required" placeholder="Enter name"
-                    data-ng-minlength="4"
-                    data-ng-model="role.name"
-                />
-                <p ng-show="roleForm.name.$error.minlength" 
-                   class="help-block">Role name is too short.
-                </p>
-            </div>
 
-            <div class="form-group"
-                ng-class="{ 'has-error' : roleForm.description.$invalid && !roleForm.description.$pristine }" 
+  <md-content layout-padding>
+
+    <form class="form-vertical" role="form" name="roleForm"
+        data-ng-submit="addRole()"
+    >
+    
+        
+<!--    <div class="row">
+        <div class="col-md-12">-->
+<!--            <div class="form-group" style="margin-top: 10px;"
+                ng-class="{ 'has-error' : roleForm.name.$invalid && !roleForm.name.$pristine }" 
+                 >-->
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Role name</label>
+                <input type="text" name="name" 
+                    ng-model="role.name"
+                    ng-minlength="4"
+                    required
                 >
+                <p>{{roleForm.name.$error}}</p>
+                <ng-messages for="roleForm.name.$error" multiple>
+                    <div ng-message="minlength">The name has to be at least 4 characters.</div>
+                    <div ng-message="required">Name is required.</div>
+                </ng-messages>               
+<!--                <p ng-show="roleForm.name.$error.minlength" 
+                   class="help-block">Role name is too short.
+                </p>-->
+          </md-input-container>
+                
+            
+            <!--</div>-->
+
+<!--            <div class="form-group"
+                ng-class="{ 'has-error' : roleForm.description.$invalid && !roleForm.description.$pristine }" 
+                >-->
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Description</label>
                 <input type="text" class="form-control" name="description" 
-                    required="required" placeholder="Enter role description"
-                    data-ng-minlength="4"
-                    data-ng-model="role.description"
+                    ng-minlength="4"
+                    ng-model="role.description"
+                    required
                 />
-                <p ng-show="roleForm.description.$invalid && !roleForm.description.$pristine" 
+                <p>{{roleForm.description.$error}}</p>
+                <ng-messages for="roleForm.description.$error" multiple>
+                    <div ng-message="minlength">The description has to be at least 4 characters.</div>
+                    <div ng-message="required">Description is required.</div>
+                </ng-messages>               
+<!--                <p ng-show="roleForm.description.$invalid && !roleForm.description.$pristine" 
                    class="help-block">Description is required and it has to be longer than 4 characters.
                 </p>
-            </div>
+            </div>-->
+          </md-input-container>
 
-            <div class="form-group"
+<!--            <div class="form-group"
                 ng-class="{ 'has-error' : roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine }" 
-                >
+                >-->
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Access Level</label>
                 <input type="number" class="form-control" name="accessLevel" 
-                    required="required" placeholder="Enter role description"
                     step="1" min="0" max="100"
-                    data-ng-model="role.accessLevel"
+                    ng-model="role.accessLevel"
+                    required
                 />
-                <p ng-show="roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine" 
+                <ng-messages for="roleForm.accessLevel.$error" multiple>
+                    <div ng-message-exp="['required', 'min', 'max']">
+                      Access level needs to be a number between 0 and 100.
+                    </div>
+                </ng-messages>               
+                <!--                <p ng-show="roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine" 
                    class="help-block">Access level need to be number between 0 and 100.
                 </p>
-            </div>
+            </div>-->
+          </md-input-container>
 
             <button type="submit" class="btn btn-primary"
                 data-ng-disabled="!roleForm.$valid"
             >
                 Save
             </button>
-        </div>
-    </div>
-</form>
+<!--        </div>
+    </div>-->
+    </form>
+</md-content>      

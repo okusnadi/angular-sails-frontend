@@ -14,6 +14,7 @@
     'ngSanitize',
     'ngBootbox',
     'ngStorage',
+    'ngMessages',
     'ui.router',
     'ui.bootstrap',
     'ui.bootstrap.showErrors',
