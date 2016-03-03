@@ -2,14 +2,40 @@
     "elements": {
         "ng-messages=\"roleForm.name.$error\"": {},
         "ng-message": {},
-        "md-button": {},
-        "md-input-container": {},
+        "md-button": {
+            "attributes": {
+                "ng-show": {},
+                "data-ng-bootbox-custom-dialog": {},
+                "data-ng-disabled": {},
+                "data-ng-bootbox-title": {},
+                "type": {},
+                "class": {},
+                "data-ng-bootbox-buttons": {}
+            }
+        },
+        "md-input-container": {
+            "attributes": {
+                "ng-if": {},
+                "class": {}
+            }
+        },
         "ng-messages": {
             "attributes": {
                 "multiple": {}
             }
         },
-        "md-content": {}
+        "md-content": {
+            "attributes": {
+                "layout-padding": {}
+            }
+        }
     },
-    "attributes": {}
+    "attributes": {
+        "layout": {
+            "context": "div"
+        },
+        "flex": {
+            "context": "div"
+        }
+    }
 }

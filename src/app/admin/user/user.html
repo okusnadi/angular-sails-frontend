@@ -1,125 +1,126 @@
-<form class="form-vertical" role="form" name="userForm"
-    autocomplete="off" 
-    data-ng-submit="saveUser()"
->
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- USERNAME GROUP -->
-            <div class="form-group" style="margin-top: 10px;"
-                ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }" 
-                >
-                <label>Username</label>
-                <input autocomplete="off" type="text" class="form-control" 
-                    data-ng-model="user.username"
-                    data-ng-minlength="5"
-                    required="required" name="username" placeholder="Enter username"
-                />
-                <p ng-show="userForm.username.$error.minlength" 
-                   class="help-block">Username is too short.
-                </p>
-            </div>
-            <!-- PASSWORD GROUP -->
-            <div class="form-group" style="margin-top: 10px;"
-                ng-if="$state.current.name=='admin.user.add'"
-                ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }" 
-                >
-                <label>Password</label>
-                <input type="password" class="form-control" 
-                    data-ng-model="password"
-                    data-ng-minlength="6"
-                    required="required" name="password" placeholder="Enter password"
-                />
-                <p ng-show="userForm.password.$error.minlength" 
-                   class="help-block">Password is to short.
-                </p>
-            </div>
+<md-content layout-padding>
 
-            <div class="form-group" style="margin-top: 10px;"
-                ng-if="$state.current.name=='admin.user.add'"
-                ng-class="{ 'has-error' : userForm.passwordConfirm.$invalid && !userForm.passwordConfirm.$pristine }" 
+    <form class="form-vertical" role="form" name="userForm"
+          autocomplete="off" 
+          data-ng-submit="saveUser()"
+          >
+        <!--    <div class="row">
+                <div class="col-lg-8">
+                     USERNAME GROUP 
+                    <div class="form-group" style="margin-top: 10px;"
+                        ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }" 
+                        >-->
+        <div layout="row">
+            <div flex="66">
+                <md-input-container class="md-block">
+                    <label>Username</label>
+                    <input autocomplete="off" type="text" class="form-control" 
+                           data-ng-model="user.username"
+                           data-ng-minlength="5"
+                           required="required" name="username" 
+                           />
+                    <p ng-show="userForm.username.$error.minlength" 
+                       class="help-block">Username is too short.
+                    </p>
+                    <!--</div>-->
+                </md-input-container>
+
+                <!-- PASSWORD GROUP -->
+                <!--            <div class="form-group" style="margin-top: 10px;"
+                                ng-if="$state.current.name=='admin.user.add'"
+                                ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }" 
+                                >-->
+                <md-input-container class="md-block"
+                    ng-if="$state.current.name==='admin.user.add'"
                 >
-                <label>Confirm password</label>
-                <input type="password" class="form-control" 
-                    data-ng-model="passwordConfirm"
-                    ui-validate="'$value==password'"
-                    ui-validate-watch="'password'"
-                    required="required" name="passwordConfirm" placeholder="confirm password"
-                />
-                <p ng-show="userForm.passwordConfirm.$error.validator && !userForm.passwordConfirm.$pristine" 
-                   class="help-block">Passwords don't match.
-                </p>
-            </div>
+                    <label>Password</label>
+                    <input type="password" class="form-control" 
+                           data-ng-model="password"
+                           data-ng-minlength="6"
+                           required="required" name="password"
+                           />
+                    <p ng-show="userForm.password.$error.minlength" 
+                       class="help-block">Password is to short.
+                    </p>
+                </md-input-container>
+                <!--</div>-->
 
-            <div class="form-group" style="margin-top: 10px;">
-                <label>First name</label>
-                <input type="text" class="form-control" required="required" name="firstName" placeholder="Enter first name"
-                    data-ng-model="user.firstName"
-                />
-            </div>
-
-            <div class="form-group" style="margin-top: 10px;">
-                <label>Last name</label>
-                <input type="text" class="form-control" required="required" name="lastName" placeholder="Enter last name"
-                    data-ng-model="user.lastName"
-                />
-            </div>
-
-            <div class="form-group" style="margin-top: 10px;"
-                ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }" 
+                <!--            <div class="form-group" style="margin-top: 10px;"
+                                ng-if="$state.current.name=='admin.user.add'"
+                                ng-class="{ 'has-error' : userForm.passwordConfirm.$invalid && !userForm.passwordConfirm.$pristine }" 
+                                >-->
+                <md-input-container class="md-block"
+                    ng-if="$state.current.name==='admin.user.add'"
                 >
-                <label>E-mail</label>
-                <input type="email" class="form-control" required="required" name="email" placeholder="Enter email"
-                    data-ng-model="user.email"
-                />
-                <p data-ng-show="userForm.email.$invalid && !userForm.email.$pristine" 
-                   class="help-block">Enter a valid email.
-                </p>            
-            </div>
+                    <label>Confirm password</label>
+                    <input type="password" class="form-control" 
+                           data-ng-model="passwordConfirm"
+                           ui-validate="'$value==password'"
+                           ui-validate-watch="'password'"
+                           required="required" name="passwordConfirm"
+                           />
+                    <p ng-show="userForm.passwordConfirm.$error.validator && !userForm.passwordConfirm.$pristine" 
+                       class="help-block">Passwords don't match.
+                    </p>
+                </md-input-container>
+                <!--</div>-->
 
-            <div class="visible-lg">
-                <button type="submit" class="btn btn-primary"
-                    data-ng-disabled="!userForm.$valid"
-                >
+                <!--<div class="form-group" style="margin-top: 10px;">-->
+                <md-input-container class="md-block">
+                    <label>First name</label>
+                    <input type="text" class="form-control" required="required" name="firstName"
+                           data-ng-model="user.firstName"
+                           />
+                </md-input-container>
+                <!--</div>-->
+
+                <!--<div class="form-group" style="margin-top: 10px;">-->
+                <md-input-container class="md-block">
+                    <label>Last name</label>
+                    <input type="text" class="form-control" required="required" name="lastName"
+                           data-ng-model="user.lastName"
+                           />
+                </md-input-container>
+                <!--</div>-->
+
+                <!--            <div class="form-group" style="margin-top: 10px;"
+                                ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }" 
+                                >-->
+                <md-input-container class="md-block">
+                    <label>E-mail</label>
+                    <input type="email" class="form-control" required="required" name="email"
+                           data-ng-model="user.email"
+                           />
+                    <p data-ng-show="userForm.email.$invalid && !userForm.email.$pristine" 
+                       class="help-block">Enter a valid email.
+                    </p>            
+                </md-input-container>
+                <!--</div>-->
+
+                <md-button type="submit" class="md-primary md-raised "
+                           data-ng-disabled="!userForm.$valid"
+                           >
                     Save
-                </button>
+                </md-button>
             </div>
-        </div>
+            <!--</div>-->
 
-        <div class="col-lg-4">
-            <h4 class="text-muted">Information</h4>
-            <table class="table">
-                <tr>
-                    <th style="vertical-align: middle;">Select roles</th>
-                    <td data-ng-class="{ 'has-error' : userForm.roles.$invalid && !userForm.roles.$pristine }">
-                        <select name="roles" class="form-control" required="required"
-                            ng-model="user.roles"
-                            multiple="true"
-                            ng-options="r as r.name for r in roles track by r.id"
+            <div flex="33">
+                <h4 class="text-muted">Roles</h4>
+                <md-select name="roles" class="form-control" required="required"
+                        ng-model="user.roles"
+                        multiple="true"
+                        ng-model-options="{trackBy:'$value.id'}"
                         >
-                        </select>
-                        <p ng-show="userForm.roles.$error.required && !userForm.roles.$pristine" 
-                           class="help-block">Please select at least one role.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Some other info...</th>
-                    <td>
-<!--                        <datepicker
-                            data-ng-model="user.releaseDate"
-                            data-min-mode="year"
-                            data-datepicker-mode="'year'"
-                        ></datepicker>-->
-                    </td>
-                </tr>
-            </table>
-
-            <div class="hidden-lg">
-                <button type="submit" class="btn btn-primary"
-                    data-ng-disabled="!userForm.$valid"
-                >
-                    Save
-                </button>
+                        <!--ng-options="r as r.name for r in roles track by r.id"-->
+                    <md-option ng-value="r" ng-repeat="r in roles">
+                        {{r.name}}
+                    </md-option>
+                    
+                </md-select>
+                <p ng-show="userForm.roles.$error.required && !userForm.roles.$pristine" 
+                   class="help-block">Please select at least one role.</p>
             </div>
         </div>
-    </div>
-</form>
+        <!--</div>-->
+    </form>
