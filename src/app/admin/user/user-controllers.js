@@ -19,6 +19,9 @@
         UserModel,
         _roles
       ) {
+  
+        // expose state
+        $scope.$state = $state;
         // Store roles
         $scope.roles = _roles;
 
@@ -37,11 +40,11 @@
          * Scope function to store new user to database. After successfully save user will be redirected
          * to view that new created user.
          */
-        $scope.addUser = function addUser() {
+        $scope.saveUser = function() {
             $scope.user.passports.push(
                 {
-                    "protocol": "local",
-                    "password": $scope.password
+                    protocol: 'local',
+                    password: $scope.password
                 }                    
             );
             UserModel
@@ -65,20 +68,22 @@
       '$scope', '$state',
       'UserService', 'MessageService',
       'UserModel', 'RoleModel',
-      '_user',
+      '_user', '_roles',
       function controller(
         $scope, $state,
         UserService, MessageService,
         UserModel, RoleModel,
-        _user
+        _user, _roles
       ) {
+        // expose state
+        $scope.$state = $state;
         // Set current scope reference to model
         UserModel.setScope($scope, 'user');
 
         // Initialize scope data
         $scope.currentUser = UserService.user();
         $scope.user = _user;
-        $scope.roles = [];
+        $scope.roles = _roles;
         $scope.selectRole = _user.role ? _user.role.id : null;
 
         // User delete dialog buttons configuration
@@ -100,7 +105,7 @@
          * Scope function to save the modified user. This will send a
          * socket request to the backend server with the modified object.
          */
-        $scope.saveUser = function saveUser() {
+        $scope.saveUser = function() {
           var data = angular.copy($scope.user);
 
           // Set role id to update data
@@ -151,27 +156,6 @@
             $scope.user.roles.push({id:1});
         };
 
-        /**
-         * Scope function to fetch role data when needed, this is triggered whenever user starts to edit
-         * current user.
-         *
-         * @returns {null|promise}
-         */
-        $scope.loadRoles = function loadRoles() {
-          if ($scope.roles.length) {
-            return null;
-          } else {
-            return RoleModel
-              .load()
-              .then(
-                function onSuccess(data) {
-                  $scope.roles = data;
-//                  console.log($scope.roles);
-                }
-              )
-            ;
-          }
-        };
       }
     ])
   ;

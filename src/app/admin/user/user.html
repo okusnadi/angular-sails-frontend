@@ -1,6 +1,6 @@
 <form class="form-vertical" role="form" name="userForm"
     autocomplete="off" 
-    data-ng-submit="addUser()"
+    data-ng-submit="saveUser()"
 >
     <div class="row">
         <div class="col-lg-8">
@@ -20,6 +20,7 @@
             </div>
             <!-- PASSWORD GROUP -->
             <div class="form-group" style="margin-top: 10px;"
+                ng-if="$state.current.name=='admin.user.add'"
                 ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }" 
                 >
                 <label>Password</label>
@@ -34,6 +35,7 @@
             </div>
 
             <div class="form-group" style="margin-top: 10px;"
+                ng-if="$state.current.name=='admin.user.add'"
                 ng-class="{ 'has-error' : userForm.passwordConfirm.$invalid && !userForm.passwordConfirm.$pristine }" 
                 >
                 <label>Confirm password</label>

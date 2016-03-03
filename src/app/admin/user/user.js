@@ -78,7 +78,13 @@
                     ) {
                       return UserModel.fetch($stateParams.id, {populate: 'roles'});
                     }
-                  ]
+                  ],
+                  _roles: [
+                    'RoleModel',
+                    function resolve(RoleModel) {
+                      return RoleModel.load();
+                    }
+                  ]                  
                 }
               }
             }
@@ -92,7 +98,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/user/user-add.html',
+                templateUrl: '/frontend/admin/user/user.html',
                 controller: 'UserAddController',
                 resolve: {
                   _roles: [
