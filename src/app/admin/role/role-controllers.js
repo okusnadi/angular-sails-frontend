@@ -22,12 +22,14 @@
           accessLevel: 100,
           active: true          
         };
+        
+        $scope.$state = $state;
 
         /**
          * Scope function to store new role to database. After successfully save user will be redirected
          * to view that new created role.
          */
-        $scope.addRole = function addRole() {
+        $scope.saveRole = function() {
           RoleModel
             .create(angular.copy($scope.role))
             .then(
@@ -49,22 +51,18 @@
       '$scope', '$state',
       'UserService', 'MessageService',
       'RoleModel', 
-//      'UserModel',
       '_role', 
-//      '_users', '_usersCount',
       function controller(
         $scope, $state,
         UserService, MessageService,
         RoleModel, 
-//        UserModel,
         _role
-//        , _users, _usersCount
       ) {
         // Set current scope reference to models
         RoleModel.setScope($scope, 'role');
-//        UserModel.setScope($scope, false, 'users', 'usersCount');
 
-        // Expose necessary data
+        // Expose necessary data        
+        $scope.$state = $state;
         $scope.currentUser = UserService.user();
         $scope.role = _role;
         $scope.users = $scope.role.users;

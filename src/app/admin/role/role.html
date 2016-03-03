@@ -1,115 +1,96 @@
-<div data-ng-show="!role">
-    <h3>Requested role not found</h3>
-</div>
 
-<div data-ng-show="role">
-    <form class="form-vertical" role="form"
-        data-editable-form name="editableForm"
-        data-onaftersave="saveRole()"
+  <md-content layout-padding>
+
+    <form class="form-vertical" role="form" name="roleForm"
+        data-ng-submit="saveRole()" 
     >
-        <div class="row">
-            <div class="col-md-8">
-                <h3>
-                    <span style="width: 100%;"
-                        data-editable-text="role.name"
-                        data-e-name="role.name"
-                        data-e-title="Name"
-                        data-e-required
-                    >
-                        {{role.name}}
-                    </span>
+            
+<!--    <div class="row">
+        <div class="col-md-12">-->
+<!--            <div class="form-group" style="margin-top: 10px;"
+                ng-class="{ 'has-error' : roleForm.name.$invalid && !roleForm.name.$pristine }" 
+                 >-->
+            <md-input-container class="md-block">
+                <label>Role name</label>
+                <input type="text" name="name" 
+                    ng-model="role.name"
+                    ng-minlength="4"
+                    required
+                />
+                <div ng-messages="roleForm.name.$error" ng-messages-multiple>
+                    <div ng-message="minlength">The name has to be at least 4 characters.</div>
+                    <div ng-message="required">Name is required.</div>
+                </div>
+<!--                <p ng-show="roleForm.name.$error.minlength" 
+                   class="help-block">Role name is too short.
+                </p>-->
+          </md-input-container>
+                
+            
+            <!--</div>-->
 
-                    <span class="pull-right"
-                        data-ng-show="!editableForm.$visible && currentUser.admin"
-                    >
-                        <a href="#"
-                            data-ng-click="editableForm.$show()"
-                            data-tooltip="Toggle edit mode"
-                        >
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                    </span>
-                </h3>
-
-                <p style="white-space: pre-line"
-                    data-editable-text="role.description"
-                    data-e-title="Description"
-                    data-e-name="role.description"
-                    data-e-required
-                >
-                    {{role.description}}
+<!--            <div class="form-group"
+                ng-class="{ 'has-error' : roleForm.description.$invalid && !roleForm.description.$pristine }" 
+                >-->
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <input type="text" name="description" 
+                    ng-minlength="4"
+                    ng-model="role.description"
+                    required
+                />
+                <div ng-messages="roleForm.description.$error" ng-messages-multiple>
+                    <div ng-message="minlength">The description has to be at least 4 characters.</div>
+                    <div ng-message="required">Description is required.</div>
+                </div>
+<!--                <p ng-show="roleForm.description.$invalid && !roleForm.description.$pristine" 
+                   class="help-block">Description is required and it has to be longer than 4 characters.
                 </p>
-                <div class="row">
-                    <div class="col-md-6">
-                        Access level:
-                    <span style="width: 100%;"
-                        data-editable-number="role.accessLevel"
-                        data-e-name="role.accessLevel"
-                        data-e-required
-                    >
-                        {{role.accessLevel}}
-                    </span>
-                    </div>
-                    <div class="col-md-6">
-                        Active:
-                    <span style="width: 100%;"
-                        data-editable-checkbox="role.active"
-                        data-e-name="role.active"
-                    >
-                        {{role.active}}
-                    </span>
+            </div>-->
+          </md-input-container>
+
+<!--            <div class="form-group"
+                ng-class="{ 'has-error' : roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine }" 
+                >-->
+            <md-input-container class="md-block">
+                <label>Access Level</label>
+                <input type="number" name="accessLevel" 
+                    step="1" min="0" max="100"
+                    ng-model="role.accessLevel"
+                    required
+                />
+                <div ng-messages="roleForm.accessLevel.$error" ng-messages-multiple>
+                    <div ng-message-exp="['required', 'min', 'max']">
+                      Access level needs to be a number between 0 and 100.
                     </div>
                 </div>
+                <!--                <p ng-show="roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine" 
+                   class="help-block">Access level need to be number between 0 and 100.
+                </p>
+            </div>-->
+          </md-input-container>
 
-                <div>
-                    <div data-ng-show="editableForm.$visible">
-                        <button type="submit" class="btn btn-primary"
-                            data-ng-disabled="editableForm.$waiting"
-                        >
-                            Save
-                        </button>
-                        <button type="button" class="btn btn-default"
-                            data-ng-disabled="editableForm.$waiting"
-                            data-ng-click="editableForm.$cancel()"
-                        >
-                            Cancel
-                        </button>
-                        <button type="button" class="btn btn-danger pull-right"
-                            data-ng-bootbox-title="Danger - Danger - Danger"
-                            data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
-                            data-ng-bootbox-buttons="confirmButtonsDelete"
-                        >
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="role.active">
+                Active
+            </md-switch>
 
-            <div class="col-md-4">
-                <h4>Users ({{usersCount}})</h4>
-                <table class="table table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th class="col-xs-6">
-                                Username
-                            </th>
-                            <th class="col-xs-6 text-nowrap">
-                                Email
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-ng-repeat="user in users">
-                            <td>
-                                <a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a>
-                            </td>
-                            <td class="text-right">
-                                {{user.email}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <md-button type="submit" class="md-primary md-raised "
+                data-ng-disabled="!roleForm.$valid"
+            >
+                Save
+            </md-button>
+
+
+            <md-button type="button" class="md-warn md-raised"
+                ng-show="$state.current.name=='admin.role'"
+                data-ng-bootbox-title="Danger - Danger - Danger"
+                data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
+                data-ng-bootbox-buttons="confirmButtonsDelete"
+            >
+                Delete
+            </md-button>
+
+<!--        </div>
+    </div>-->
     </form>
-</div>
+</md-content>      

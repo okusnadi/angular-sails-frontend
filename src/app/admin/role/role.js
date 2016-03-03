@@ -107,7 +107,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/role/role-add.html',
+                templateUrl: '/frontend/admin/role/role.html',
                 controller: 'RoleAddController'
               }
             }

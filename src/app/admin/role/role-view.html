@@ -1,0 +1,115 @@
+<div data-ng-show="!role">
+    <h3>Requested role not found</h3>
+</div>
+
+<div data-ng-show="role">
+    <form class="form-vertical" role="form"
+        data-editable-form name="editableForm"
+        data-onaftersave="saveRole()"
+    >
+        <div class="row">
+            <div class="col-md-8">
+                <h3>
+                    <span style="width: 100%;"
+                        data-editable-text="role.name"
+                        data-e-name="role.name"
+                        data-e-title="Name"
+                        data-e-required
+                    >
+                        {{role.name}}
+                    </span>
+
+                    <span class="pull-right"
+                        data-ng-show="!editableForm.$visible && currentUser.admin"
+                    >
+                        <a href="#"
+                            data-ng-click="editableForm.$show()"
+                            data-tooltip="Toggle edit mode"
+                        >
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                    </span>
+                </h3>
+
+                <p style="white-space: pre-line"
+                    data-editable-text="role.description"
+                    data-e-title="Description"
+                    data-e-name="role.description"
+                    data-e-required
+                >
+                    {{role.description}}
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        Access level:
+                    <span style="width: 100%;"
+                        data-editable-number="role.accessLevel"
+                        data-e-name="role.accessLevel"
+                        data-e-required
+                    >
+                        {{role.accessLevel}}
+                    </span>
+                    </div>
+                    <div class="col-md-6">
+                        Active:
+                    <span style="width: 100%;"
+                        data-editable-checkbox="role.active"
+                        data-e-name="role.active"
+                    >
+                        {{role.active}}
+                    </span>
+                    </div>
+                </div>
+
+                <div>
+                    <div data-ng-show="editableForm.$visible">
+                        <button type="submit" class="btn btn-primary"
+                            data-ng-disabled="editableForm.$waiting"
+                        >
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-default"
+                            data-ng-disabled="editableForm.$waiting"
+                            data-ng-click="editableForm.$cancel()"
+                        >
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-danger pull-right"
+                            data-ng-bootbox-title="Danger - Danger - Danger"
+                            data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
+                            data-ng-bootbox-buttons="confirmButtonsDelete"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>Users ({{usersCount}})</h4>
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-6">
+                                Username
+                            </th>
+                            <th class="col-xs-6 text-nowrap">
+                                Email
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="user in users">
+                            <td>
+                                <a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a>
+                            </td>
+                            <td class="text-right">
+                                {{user.email}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
