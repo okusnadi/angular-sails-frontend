@@ -31,8 +31,8 @@
                                 ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }" 
                                 >-->
                 <md-input-container class="md-block"
-                    ng-if="$state.current.name==='admin.user.add'"
-                >
+                                    ng-if="$state.current.name === 'admin.user.add'"
+                                    >
                     <label>Password</label>
                     <input type="password" class="form-control" 
                            data-ng-model="password"
@@ -50,8 +50,8 @@
                                 ng-class="{ 'has-error' : userForm.passwordConfirm.$invalid && !userForm.passwordConfirm.$pristine }" 
                                 >-->
                 <md-input-container class="md-block"
-                    ng-if="$state.current.name==='admin.user.add'"
-                >
+                                    ng-if="$state.current.name === 'admin.user.add'"
+                                    >
                     <label>Confirm password</label>
                     <input type="password" class="form-control" 
                            data-ng-model="passwordConfirm"
@@ -102,21 +102,38 @@
                            >
                     Save
                 </md-button>
+
+                <md-button type="button" class="md-button md-raised "
+                           ng-click="$state.go('admin.users')"
+                           >
+                    Cancel
+                </md-button>
+
+                <md-button type="button" class="md-warn md-raised"
+                           ng-show="$state.current.name === 'admin.user'"
+                           ng-click="confirmDelete($event)"
+                           >
+                    Delete
+                </md-button>
+
+<!--                            data-ng-bootbox-confirm="Are you sure you want to delete user <strong>{{user.username}}</strong>?"
+                            data-ng-bootbox-confirm-action="deleteUser()"-->
+
             </div>
             <!--</div>-->
 
             <div flex="33">
                 <h4 class="text-muted">Roles</h4>
                 <md-select name="roles" class="form-control" required="required"
-                        ng-model="user.roles"
-                        multiple="true"
-                        ng-model-options="{trackBy:'$value.id'}"
-                        >
-                        <!--ng-options="r as r.name for r in roles track by r.id"-->
+                           ng-model="user.roles"
+                           multiple="true"
+                           ng-model-options="{trackBy: '$value.id'}"
+                           >
+                    <!--ng-options="r as r.name for r in roles track by r.id"-->
                     <md-option ng-value="r" ng-repeat="r in roles">
                         {{r.name}}
                     </md-option>
-                    
+
                 </md-select>
                 <p ng-show="userForm.roles.$error.required && !userForm.roles.$pristine" 
                    class="help-block">Please select at least one role.</p>

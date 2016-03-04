@@ -7,7 +7,10 @@
                 "ng-show": {},
                 "data-ng-bootbox-custom-dialog": {},
                 "data-ng-disabled": {},
+                "ng-click": {},
                 "data-ng-bootbox-title": {},
+                "data-ng-bootbox-confirm": {},
+                "data-ng-bootbox-confirm-action": {},
                 "type": {},
                 "class": {},
                 "data-ng-bootbox-buttons": {}

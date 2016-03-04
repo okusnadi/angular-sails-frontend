@@ -58,6 +58,7 @@
             )
           ;
         };
+        
       }
     ])
   ;
@@ -66,11 +67,13 @@
   angular.module('frontend.admin.user')
     .controller('UserController', [
       '$scope', '$state',
+      '$mdDialog',
       'UserService', 'MessageService',
       'UserModel', 'RoleModel',
       '_user', '_roles',
       function controller(
         $scope, $state,
+        $mdDialog,
         UserService, MessageService,
         UserModel, RoleModel,
         _user, _roles
@@ -138,6 +141,22 @@
             )
           ;
         };
+
+        $scope.confirmDelete = function(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.confirm()
+                  .title('Delete user')
+                  .textContent('Are you sure you want to delete user '+$scope.user.username+' ?')
+                  .ariaLabel('Lucky day')
+                  .targetEvent(ev)
+                  .ok('Yes!')
+                  .cancel('Cancel');
+            $mdDialog.show(confirm).then(function() {
+              $scope.deleteUser();
+            }, function() {
+                
+            });
+          };        
 
         /**
          * Scope function to delete current user role. 

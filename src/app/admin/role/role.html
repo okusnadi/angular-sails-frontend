@@ -1,96 +1,102 @@
 
-  <md-content layout-padding>
+<md-content layout-padding>
 
     <form class="form-vertical" role="form" name="roleForm"
-        data-ng-submit="saveRole()" 
-    >
-            
-<!--    <div class="row">
-        <div class="col-md-12">-->
-<!--            <div class="form-group" style="margin-top: 10px;"
-                ng-class="{ 'has-error' : roleForm.name.$invalid && !roleForm.name.$pristine }" 
-                 >-->
-            <md-input-container class="md-block">
-                <label>Role name</label>
-                <input type="text" name="name" 
-                    ng-model="role.name"
-                    ng-minlength="4"
-                    required
-                />
-                <div ng-messages="roleForm.name.$error" ng-messages-multiple>
-                    <div ng-message="minlength">The name has to be at least 4 characters.</div>
-                    <div ng-message="required">Name is required.</div>
-                </div>
-<!--                <p ng-show="roleForm.name.$error.minlength" 
-                   class="help-block">Role name is too short.
-                </p>-->
-          </md-input-container>
-                
-            
-            <!--</div>-->
+          data-ng-submit="saveRole()" 
+          >
 
-<!--            <div class="form-group"
-                ng-class="{ 'has-error' : roleForm.description.$invalid && !roleForm.description.$pristine }" 
-                >-->
-            <md-input-container class="md-block">
-                <label>Description</label>
-                <input type="text" name="description" 
-                    ng-minlength="4"
-                    ng-model="role.description"
-                    required
-                />
-                <div ng-messages="roleForm.description.$error" ng-messages-multiple>
-                    <div ng-message="minlength">The description has to be at least 4 characters.</div>
-                    <div ng-message="required">Description is required.</div>
+        <!--    <div class="row">
+                <div class="col-md-12">-->
+        <!--            <div class="form-group" style="margin-top: 10px;"
+                        ng-class="{ 'has-error' : roleForm.name.$invalid && !roleForm.name.$pristine }" 
+                         >-->
+        <md-input-container class="md-block">
+            <label>Role name</label>
+            <input type="text" name="name" 
+                   ng-model="role.name"
+                   ng-minlength="4"
+                   required
+                   />
+            <div ng-messages="roleForm.name.$error" ng-messages-multiple>
+                <div ng-message="minlength">The name has to be at least 4 characters.</div>
+                <div ng-message="required">Name is required.</div>
+            </div>
+            <!--                <p ng-show="roleForm.name.$error.minlength" 
+                               class="help-block">Role name is too short.
+                            </p>-->
+        </md-input-container>
+
+
+        <!--</div>-->
+
+        <!--            <div class="form-group"
+                        ng-class="{ 'has-error' : roleForm.description.$invalid && !roleForm.description.$pristine }" 
+                        >-->
+        <md-input-container class="md-block">
+            <label>Description</label>
+            <input type="text" name="description" 
+                   ng-minlength="4"
+                   ng-model="role.description"
+                   required
+                   />
+            <div ng-messages="roleForm.description.$error" ng-messages-multiple>
+                <div ng-message="minlength">The description has to be at least 4 characters.</div>
+                <div ng-message="required">Description is required.</div>
+            </div>
+            <!--                <p ng-show="roleForm.description.$invalid && !roleForm.description.$pristine" 
+                               class="help-block">Description is required and it has to be longer than 4 characters.
+                            </p>
+                        </div>-->
+        </md-input-container>
+
+        <!--            <div class="form-group"
+                        ng-class="{ 'has-error' : roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine }" 
+                        >-->
+        <md-input-container class="md-block">
+            <label>Access Level</label>
+            <input type="number" name="accessLevel" 
+                   step="1" min="0" max="100"
+                   ng-model="role.accessLevel"
+                   required
+                   />
+            <div ng-messages="roleForm.accessLevel.$error" ng-messages-multiple>
+                <div ng-message-exp="['required', 'min', 'max']">
+                    Access level needs to be a number between 0 and 100.
                 </div>
-<!--                <p ng-show="roleForm.description.$invalid && !roleForm.description.$pristine" 
-                   class="help-block">Description is required and it has to be longer than 4 characters.
-                </p>
+            </div>
+            <!--                <p ng-show="roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine" 
+               class="help-block">Access level need to be number between 0 and 100.
+            </p>
+        </div>-->
+        </md-input-container>
+
+        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="role.active">
+            Active
+        </md-switch>
+
+        <md-button type="submit" class="md-primary md-raised "
+                   data-ng-disabled="!roleForm.$valid"
+                   >
+            Save
+        </md-button>
+
+
+        <md-button type="button" class="md-button md-raised "
+                   ng-click="$state.go('admin.roles')"
+                   >
+            Cancel
+        </md-button>
+
+        <md-button type="button" class="md-warn md-raised"
+                   ng-show="$state.current.name === 'admin.role'"
+                   data-ng-bootbox-title="Danger - Danger - Danger"
+                   data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
+                   data-ng-bootbox-buttons="confirmButtonsDelete"
+                   >
+            Delete
+        </md-button>
+
+        <!--        </div>
             </div>-->
-          </md-input-container>
-
-<!--            <div class="form-group"
-                ng-class="{ 'has-error' : roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine }" 
-                >-->
-            <md-input-container class="md-block">
-                <label>Access Level</label>
-                <input type="number" name="accessLevel" 
-                    step="1" min="0" max="100"
-                    ng-model="role.accessLevel"
-                    required
-                />
-                <div ng-messages="roleForm.accessLevel.$error" ng-messages-multiple>
-                    <div ng-message-exp="['required', 'min', 'max']">
-                      Access level needs to be a number between 0 and 100.
-                    </div>
-                </div>
-                <!--                <p ng-show="roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine" 
-                   class="help-block">Access level need to be number between 0 and 100.
-                </p>
-            </div>-->
-          </md-input-container>
-
-            <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="role.active">
-                Active
-            </md-switch>
-
-            <md-button type="submit" class="md-primary md-raised "
-                data-ng-disabled="!roleForm.$valid"
-            >
-                Save
-            </md-button>
-
-
-            <md-button type="button" class="md-warn md-raised"
-                ng-show="$state.current.name=='admin.role'"
-                data-ng-bootbox-title="Danger - Danger - Danger"
-                data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
-                data-ng-bootbox-buttons="confirmButtonsDelete"
-            >
-                Delete
-            </md-button>
-
-<!--        </div>
-    </div>-->
     </form>
 </md-content>      
