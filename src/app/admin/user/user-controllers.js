@@ -33,8 +33,15 @@
             roles: [], 
             passports: []
         };
-        $scope.password = '';
-        $scope.passwordConfirm = '';
+        $scope.password = {
+            first: '',
+            second: ''
+        };
+        
+        $scope.check = function($value) {
+            console.log($scope.password);
+            console.log($value);
+        };
         
         /**
          * Scope function to store new user to database. After successfully save user will be redirected
@@ -44,7 +51,7 @@
             $scope.user.passports.push(
                 {
                     protocol: 'local',
-                    password: $scope.password
+                    password: $scope.password.first
                 }                    
             );
             UserModel
@@ -65,7 +72,8 @@
 
   // Controller to show single user on GUI.
   angular.module('frontend.admin.user')
-    .controller('UserController', [
+    .controller('UserController', 
+    [
       '$scope', '$state',
       '$mdDialog',
       'UserService', 'MessageService',
@@ -163,17 +171,17 @@
          * 
          * @param   {Number}    index        Role index to remove
          */
-        $scope.removeUserRole = function removeUserRole(index) {
-            $scope.user.roles.splice(index, 1);            
-        };
+//        $scope.removeUserRole = function removeUserRole(index) {
+//            $scope.user.roles.splice(index, 1);            
+//        };
 
         /**
          * Scope function to add user's role. 
          * 
          */
-        $scope.addUserRole = function addUserRole() {
-            $scope.user.roles.push({id:1});
-        };
+//        $scope.addUserRole = function addUserRole() {
+//            $scope.user.roles.push({id:1});
+//        };
 
       }
     ])
