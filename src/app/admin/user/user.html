@@ -14,7 +14,7 @@
             <div flex="66">
                 <md-input-container class="md-block">
                     <label>Username</label>
-                    <input autocomplete="off" type="text" class="form-control" 
+                    <input autocomplete="off" type="text"  
                            data-ng-model="user.username"
                            data-ng-minlength="5"
                            required="required" name="username" 
@@ -34,10 +34,10 @@
                                     ng-if="$state.current.name === 'admin.user.add'"
                                     >
                     <label>Password</label>
-                    <input type="password" class="form-control" 
-                           data-ng-model="password"
+                    <input type="password" name="password"
+                           data-ng-model="password.first"
                            data-ng-minlength="6"
-                           required="required" name="password"
+                           required="required"
                            />
                     <p ng-show="userForm.password.$error.minlength" 
                        class="help-block">Password is to short.
@@ -53,11 +53,11 @@
                                     ng-if="$state.current.name === 'admin.user.add'"
                                     >
                     <label>Confirm password</label>
-                    <input type="password" class="form-control" 
-                           data-ng-model="passwordConfirm"
-                           ui-validate="'$value==password'"
-                           ui-validate-watch="'password'"
-                           required="required" name="passwordConfirm"
+                    <input type="password" name="passwordConfirm" 
+                           data-ng-model="password.second"
+                           ui-validate="'$value==password.first'"
+                           ui-validate-watch="'password.first'"
+                           required="required"
                            />
                     <p ng-show="userForm.passwordConfirm.$error.validator && !userForm.passwordConfirm.$pristine" 
                        class="help-block">Passwords don't match.
@@ -68,7 +68,7 @@
                 <!--<div class="form-group" style="margin-top: 10px;">-->
                 <md-input-container class="md-block">
                     <label>First name</label>
-                    <input type="text" class="form-control" required="required" name="firstName"
+                    <input type="text" required="required" name="firstName"
                            data-ng-model="user.firstName"
                            />
                 </md-input-container>
@@ -77,7 +77,7 @@
                 <!--<div class="form-group" style="margin-top: 10px;">-->
                 <md-input-container class="md-block">
                     <label>Last name</label>
-                    <input type="text" class="form-control" required="required" name="lastName"
+                    <input type="text" required="required" name="lastName"
                            data-ng-model="user.lastName"
                            />
                 </md-input-container>
@@ -88,7 +88,7 @@
                                 >-->
                 <md-input-container class="md-block">
                     <label>E-mail</label>
-                    <input type="email" class="form-control" required="required" name="email"
+                    <input type="email" required="required" name="email"
                            data-ng-model="user.email"
                            />
                     <p data-ng-show="userForm.email.$invalid && !userForm.email.$pristine" 
@@ -124,7 +124,7 @@
 
             <div flex="33">
                 <h4 class="text-muted">Roles</h4>
-                <md-select name="roles" class="form-control" required="required"
+                <md-select name="roles" required="required"
                            ng-model="user.roles"
                            multiple="true"
                            ng-model-options="{trackBy: '$value.id'}"
