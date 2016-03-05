@@ -48,12 +48,14 @@
   // Controller to show single role on GUI.
   angular.module('frontend.admin.role')
     .controller('RoleController', [
-      '$scope', '$state',
+      '$scope', '$state', 
+      '$mdDialog',
       'UserService', 'MessageService',
       'RoleModel', 
       '_role', 
       function controller(
         $scope, $state,
+        $mdDialog,
         UserService, MessageService,
         RoleModel, 
         _role
@@ -111,6 +113,23 @@
             )
           ;
         };
+        
+        $scope.confirmDelete = function(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.confirm()
+                  .title('Delete role')
+                  .textContent('Are you sure you want to delete role '+$scope.role.name+' ?')
+                  .ariaLabel('Lucky day')
+                  .targetEvent(ev)
+                  .ok('Yes!')
+                  .cancel('Cancel');
+            $mdDialog.show(confirm).then(function() {
+              $scope.deleteRole();
+            }, function() {
+                
+            });
+          };        
+        
       }
     ])
   ;

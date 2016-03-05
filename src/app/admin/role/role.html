@@ -89,13 +89,14 @@
 
         <md-button type="button" class="md-warn md-raised"
                    ng-show="$state.current.name === 'admin.role'"
-                   data-ng-bootbox-title="Danger - Danger - Danger"
-                   data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
-                   data-ng-bootbox-buttons="confirmButtonsDelete"
+                   ng-click="confirmDelete($event)"
                    >
             Delete
         </md-button>
 
+<!--                   data-ng-bootbox-title="Danger - Danger - Danger"
+                   data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
+                   data-ng-bootbox-buttons="confirmButtonsDelete"-->
         <!--        </div>
             </div>-->
     </form>
