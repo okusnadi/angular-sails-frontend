@@ -1,0 +1,103 @@
+<md-content layout-padding>
+
+    <form class="form-vertical" role="form" name="clientForm"
+          autocomplete="off" 
+          data-ng-submit="saveClient()"
+          >
+        <!--    <div class="row">
+                <div class="col-lg-8">
+                     USERNAME GROUP 
+                    <div class="form-group" style="margin-top: 10px;"
+                        ng-class="{ 'has-error' : clientForm.name.$invalid && !clientForm.name.$pristine }" 
+                        >-->
+        <div layout="row">
+            <div flex="66">
+                <md-input-container class="md-block">
+                    <label>Name</label>
+                    <input autocomplete="off" type="text"  
+                           data-ng-model="client.name"
+                           data-ng-minlength="5"
+                           required="required" name="name" 
+                           />
+                    <p ng-show="clientForm.name.$error.minlength" 
+                       class="help-block">Name is too short.
+                    </p>
+                    <!--</div>-->
+                </md-input-container>
+
+                <!--<div class="form-group" style="margin-top: 10px;">-->
+                <md-input-container class="md-block">
+                    <label>First name</label>
+                    <input type="text" required="required" name="firstName"
+                           data-ng-model="client.firstName"
+                           />
+                </md-input-container>
+                <!--</div>-->
+
+                <!--<div class="form-group" style="margin-top: 10px;">-->
+                <md-input-container class="md-block">
+                    <label>Last name</label>
+                    <input type="text" required="required" name="lastName"
+                           data-ng-model="client.lastName"
+                           />
+                </md-input-container>
+                <!--</div>-->
+
+                <!--            <div class="form-group" style="margin-top: 10px;"
+                                ng-class="{ 'has-error' : clientForm.email.$invalid && !clientForm.email.$pristine }" 
+                                >-->
+                <md-input-container class="md-block">
+                    <label>E-mail</label>
+                    <input type="email" required="required" name="email"
+                           data-ng-model="client.email"
+                           />
+                    <p data-ng-show="clientForm.email.$invalid && !clientForm.email.$pristine" 
+                       class="help-block">Enter a valid email.
+                    </p>            
+                </md-input-container>
+                <!--</div>-->
+
+                <md-button type="submit" class="md-primary md-raised "
+                           data-ng-disabled="!clientForm.$valid"
+                           >
+                    Save
+                </md-button>
+
+                <md-button type="button" class="md-button md-raised "
+                           ng-click="$state.go('admin.clients')"
+                           >
+                    Cancel
+                </md-button>
+
+                <md-button type="button" class="md-warn md-raised"
+                           ng-show="$state.current.name === 'admin.client'"
+                           ng-click="confirmDelete($event)"
+                           >
+                    Delete
+                </md-button>
+
+<!--                            data-ng-bootbox-confirm="Are you sure you want to delete client <strong>{{client.name}}</strong>?"
+                            data-ng-bootbox-confirm-action="deleteClient()"-->
+
+            </div>
+            <!--</div>-->
+
+            <div flex="33">
+                <h4 class="text-muted">Roles</h4>
+                <md-select name="roles" required="required"
+                           ng-model="client.roles"
+                           multiple="true"
+                           ng-model-options="{trackBy: '$value.id'}"
+                           >
+                    <!--ng-options="r as r.name for r in roles track by r.id"-->
+                    <md-option ng-value="r" ng-repeat="r in roles">
+                        {{r.name}}
+                    </md-option>
+
+                </md-select>
+                <p ng-show="clientForm.roles.$error.required && !clientForm.roles.$pristine" 
+                   class="help-block">Please select at least one role.</p>
+            </div>
+        </div>
+        <!--</div>-->
+    </form>

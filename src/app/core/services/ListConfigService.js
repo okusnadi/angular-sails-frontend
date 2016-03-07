@@ -23,6 +23,44 @@
          *        }}
          */
         var titleItems = {
+          client: [
+            {
+              title: 'Name',
+              column: 'name',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Contact name',
+              column: 'contactName',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Campaigns',
+              column: false,
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: false
+            },
+            {
+              title: 'Active Campaigns',
+              column: false,
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: false
+            }
+          ],
           user: [
             {
               title: 'Username',
