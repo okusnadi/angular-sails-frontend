@@ -22,6 +22,9 @@
                     <p ng-show="userForm.username.$error.minlength" 
                        class="help-block">Username is too short.
                     </p>
+                    <p ng-show="userForm.username.$error.required && userForm.username.$dirty" 
+                       class="help-block">We have to call you something.
+                    </p>
                     <!--</div>-->
                 </md-input-container>
 

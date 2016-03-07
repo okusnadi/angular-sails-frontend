@@ -14,10 +14,10 @@
             <label>Role name</label>
             <input type="text" name="name" 
                    ng-model="role.name"
-                   ng-minlength="4"
+                   minlength="4"
                    required
                    />
-            <div ng-messages="roleForm.name.$error" ng-messages-multiple>
+            <div ng-messages="roleForm.name.$error" multiple md-auto-hide="false">
                 <div ng-message="minlength">The name has to be at least 4 characters.</div>
                 <div ng-message="required">Name is required.</div>
             </div>
@@ -35,13 +35,13 @@
         <md-input-container class="md-block">
             <label>Description</label>
             <input type="text" name="description" 
-                   ng-minlength="4"
                    ng-model="role.description"
+                   minlength="4"
                    required
                    />
-            <div ng-messages="roleForm.description.$error" ng-messages-multiple>
-                <div ng-message="minlength">The description has to be at least 4 characters.</div>
+            <div ng-messages="roleForm.description.$error" multiple md-auto-hide="false">
                 <div ng-message="required">Description is required.</div>
+                <div ng-message="minlength">The description has to be at least 4 characters.</div>
             </div>
             <!--                <p ng-show="roleForm.description.$invalid && !roleForm.description.$pristine" 
                                class="help-block">Description is required and it has to be longer than 4 characters.
@@ -59,7 +59,7 @@
                    ng-model="role.accessLevel"
                    required
                    />
-            <div ng-messages="roleForm.accessLevel.$error" ng-messages-multiple>
+            <div ng-messages="roleForm.accessLevel.$error">
                 <div ng-message-exp="['required', 'min', 'max']">
                     Access level needs to be a number between 0 and 100.
                 </div>

@@ -25,10 +25,12 @@
     </div>
 </h3>
 
-<section layout="row">
+<section layout="column">
     <h2>new pager</h2>
-<md-table-pagination md-limit="itemsPerPage" md-page="currentPage" md-total="itemCount" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+    <div flex>
+    <md-table-pagination md-limit="itemsPerPage" md-page="currentPage" md-total="itemCount" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
 <p>itemsperpage {{itemsPerPage }}</p>
+    </div>
 </section>
 
 <table class="table">

@@ -155,9 +155,9 @@
             var confirm = $mdDialog.confirm()
                   .title('Delete user')
                   .textContent('Are you sure you want to delete user '+$scope.user.username+' ?')
-                  .ariaLabel('Lucky day')
+                  .ariaLabel('Delete user')
                   .targetEvent(ev)
-                  .ok('Yes!')
+                  .ok('Yes')
                   .cancel('Cancel');
             $mdDialog.show(confirm).then(function() {
               $scope.deleteUser();
