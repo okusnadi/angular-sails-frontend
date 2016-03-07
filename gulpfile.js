@@ -13,7 +13,10 @@ var stylish = require('jshint-stylish');
 var bower = require('./bower');
 var mainBowerFiles = require('main-bower-files');
 var historyApiFallback = require('connect-history-api-fallback');
-var isWatching = false;
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
+
+var isWatching = true;
 
 var htmlminOpts = {
   removeComments: true,
@@ -211,27 +214,42 @@ gulp.task('production', g.serve({
 /**
  * Watch
  */
-gulp.task('serve', ['watch']);
+gulp.task('serve', ['watch1']);
 
-gulp.task('watch', ['statics', 'default'], function() {
+gulp.task('watch1', ['statics', 'default'], function() {
   isWatching = true;
 
   // Initiate livereload server:
   g.livereload();
+  
+//     console.log('HERE!!!!');
+//    watch('./src/app/**/*.js', { usePolling: true }, function(file) {
+//     console.log(file);
+//  });
 
-  gulp.watch('./src/app/**/*.js', ['jshint']).on('change', function(evt) {
+  watch('./src/app/**/*.js', { usePolling: true }, function() {
+        return gulp.start('jshint');
+    }).on('change', function(evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
     }
   });
 
-  gulp.watch('./src/app/index.html', ['index']);
-  gulp.watch(['./src/app/**/*.html', '!./src/app/index.html'], ['templates']);
-  gulp.watch(['./src/app/**/*.scss'], ['csslint', 'scsslint']).on('change', function(evt) {
+  watch('./src/app/index.html', { usePolling: true }, function() { 
+      gulp.start(['index']);
+  });
+  watch(['./src/app/**/*.html', '!./src/app/index.html'], { usePolling: true }, function() {
+    gulp.start(['templates']);
+  });
+  
+  watch(['./src/app/**/*.scss'], { usePolling: true }, function() {
+      return gulp.start(['csslint', 'scsslint']);
+    }).on('change', function(evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
     }
   });
+  
 });
 
 /**
