@@ -87,7 +87,7 @@
         ClientModel.setScope($scope, 'client');
 
         // Initialize scope data
-        $scope.currentClient = UserService.user();
+        $scope.currentUser = UserService.user();
         $scope.client = _client;
         $scope.campaigns = _campaigns;
         $scope.selectCampaign = _client.campaign ? _client.campaign.id : null;
@@ -208,7 +208,7 @@
         $scope.items = _items;
         $scope.itemCount = _count.count;
         $scope.campaigns = _campaigns;
-        $scope.currentClient = UserService.user();
+        $scope.currentUser = UserService.user();
 
         // Initialize used title items
         $scope.titleItems = ListConfig.getTitleItems(ClientModel.endpoint);

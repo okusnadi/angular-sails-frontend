@@ -23,6 +23,44 @@
          *        }}
          */
         var titleItems = {
+          campaign: [
+            {
+              title: 'Name',
+              column: 'name',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'OU 1',
+              column: 'orgUnit1',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'OU 2',
+              column: 'orgUnit2',
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: false
+            },
+            {
+              title: 'OU 3',
+              column: 'orgUnit3',
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: false
+            }
+          ],
           client: [
             {
               title: 'Name',

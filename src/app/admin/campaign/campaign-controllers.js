@@ -1,32 +1,32 @@
 /**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.client' module.
+ * This file contains all necessary Angular controller definitions for 'frontend.admin.campaign' module.
  *
  * Note that this file should only contain controllers and nothing else.
  */
 (function() {
   'use strict';
 
-  // Controller for new client creation.
-  angular.module('frontend.admin.client')
-    .controller('ClientAddController', [
+  // Controller for new campaign creation.
+  angular.module('frontend.admin.campaign')
+    .controller('CampaignAddController', [
       '$scope', '$state',
       'MessageService',
-      'ClientModel',
-      '_campaigns',
+      'CampaignModel',
+      '_lists',
       function controller(
         $scope, $state,
         MessageService,
-        ClientModel,
-        _campaigns
+        CampaignModel,
+        _lists
       ) {
   
         // expose state
         $scope.$state = $state;
-        // Store campaigns
-        $scope.campaigns = _campaigns;
+        // Store lists
+        $scope.lists = _lists;
 
-        // Initialize client model
-        $scope.client = {
+        // Initialize campaign model
+        $scope.campaign = {
             name: '',
             address1: '',
             address2: '',
@@ -45,17 +45,17 @@
         
         
         /**
-         * Scope function to store new client to database. After successfully save client will be redirected
-         * to view that new created client.
+         * Scope function to store new campaign to database. After successfully save campaign will be redirected
+         * to view that new created campaign.
          */
-        $scope.saveClient = function() {
-            ClientModel
-            .create(angular.copy($scope.client))
+        $scope.saveCampaign = function() {
+            CampaignModel
+            .create(angular.copy($scope.campaign))
             .then(
               function onSuccess(result) {
-                MessageService.success('New client added successfully');
+                MessageService.success('New campaign added successfully');
 
-                $state.go('admin.client', {id: result.data.id});
+                $state.go('admin.campaign', {id: result.data.id});
               }
             )
           ;
@@ -65,40 +65,40 @@
     ])
   ;
 
-  // Controller to show single client on GUI.
-  angular.module('frontend.admin.client')
-    .controller('ClientController', 
+  // Controller to show single campaign on GUI.
+  angular.module('frontend.admin.campaign')
+    .controller('CampaignController', 
     [
       '$scope', '$state',
       '$mdDialog',
       'UserService', 'MessageService',
-      'ClientModel', 'CampaignModel',
-      '_client', '_campaigns',
+      'CampaignModel', 'ListModel',
+      '_campaign', '_lists',
       function controller(
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
-        ClientModel, CampaignModel,
-        _client, _campaigns
+        CampaignModel, ListModel,
+        _campaign, _lists
       ) {
         // expose state
         $scope.$state = $state;
         // Set current scope reference to model
-        ClientModel.setScope($scope, 'client');
+        CampaignModel.setScope($scope, 'campaign');
 
         // Initialize scope data
-        $scope.currentClient = UserService.user();
-        $scope.client = _client;
-        $scope.campaigns = _campaigns;
-        $scope.selectCampaign = _client.campaign ? _client.campaign.id : null;
+        $scope.currentUser = UserService.user();
+        $scope.campaign = _campaign;
+        $scope.lists = _lists;
+        $scope.selectList = _campaign.list ? _campaign.list.id : null;
 
-        // Client delete dialog buttons configuration
+        // Campaign delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
           ok: {
             label: 'Delete',
             className: 'btn-danger',
             callback: function callback() {
-              $scope.deleteClient();
+              $scope.deleteCampaign();
             }
           },
           cancel: {
@@ -108,38 +108,38 @@
         };
 
         /**
-         * Scope function to save the modified client. This will send a
+         * Scope function to save the modified campaign. This will send a
          * socket request to the backend server with the modified object.
          */
-        $scope.saveClient = function() {
-          var data = angular.copy($scope.client);
+        $scope.saveCampaign = function() {
+          var data = angular.copy($scope.campaign);
 
-          // Set campaign id to update data
-//          data.campaign = $scope.selectCampaign;
+          // Set list id to update data
+//          data.list = $scope.selectList;
 
           // Make actual data update
-          ClientModel
+          CampaignModel
             .update(data.id, data)
             .then(
               function onSuccess() {
-                MessageService.success('Client "' + $scope.client.name + '" updated successfully');
+                MessageService.success('Campaign "' + $scope.campaign.name + '" updated successfully');
               }
             )
           ;
         };
 
         /**
-         * Scope function to delete current client. This will send DELETE query to backend via web socket
-         * query and after successfully delete redirect client back to client list.
+         * Scope function to delete current campaign. This will send DELETE query to backend via web socket
+         * query and after successfully delete redirect campaign back to campaign list.
          */
-        $scope.deleteClient = function deleteClient() {
-          ClientModel
-            .delete($scope.client.id)
+        $scope.deleteCampaign = function deleteCampaign() {
+          CampaignModel
+            .delete($scope.campaign.id)
             .then(
               function onSuccess() {
-                MessageService.success('Client "' + $scope.client.title + '" deleted successfully');
+                MessageService.success('Campaign "' + $scope.campaign.title + '" deleted successfully');
 
-                $state.go('admin.clients');
+                $state.go('admin.campaigns');
               }
             )
           ;
@@ -148,58 +148,58 @@
         $scope.confirmDelete = function(ev) {
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
-                  .title('Delete client')
-                  .textContent('Are you sure you want to delete client '+$scope.client.clientname+' ?')
+                  .title('Delete campaign')
+                  .textContent('Are you sure you want to delete campaign '+$scope.campaign.campaignname+' ?')
                   .ariaLabel('Lucky day')
                   .targetEvent(ev)
                   .ok('Yes!')
                   .cancel('Cancel');
             $mdDialog.show(confirm).then(function() {
-              $scope.deleteClient();
+              $scope.deleteCampaign();
             }, function() {
                 
             });
           };        
 
         /**
-         * Scope function to delete current client campaign. 
+         * Scope function to delete current campaign list. 
          * 
-         * @param   {Number}    index        Campaign index to remove
+         * @param   {Number}    index        List index to remove
          */
-//        $scope.removeClientCampaign = function removeClientCampaign(index) {
-//            $scope.client.campaigns.splice(index, 1);            
+//        $scope.removeCampaignList = function removeCampaignList(index) {
+//            $scope.campaign.lists.splice(index, 1);            
 //        };
 
         /**
-         * Scope function to add client's campaign. 
+         * Scope function to add campaign's list. 
          * 
          */
-//        $scope.addClientCampaign = function addClientCampaign() {
-//            $scope.client.campaigns.push({id:1});
+//        $scope.addCampaignList = function addCampaignList() {
+//            $scope.campaign.lists.push({id:1});
 //        };
 
       }
     ])
   ;
 
-  // Controller which contains all necessary logic for client list GUI on boilerplate application.
-  angular.module('frontend.admin.client')
-    .controller('ClientListController', [
+  // Controller which contains all necessary logic for campaign list GUI on boilerplate application.
+  angular.module('frontend.admin.campaign')
+    .controller('CampaignListController', [
       '$scope', '$q', '$timeout',
       '_',
       'ListConfig', 'SocketHelperService',
-      'UserService', 'ClientModel', 'CampaignModel',
-      '_items', '_count', '_campaigns',
+      'UserService', 'CampaignModel', 'ListModel',
+      '_items', '_count', '_lists',
       function controller(
         $scope, $q, $timeout,
         _,
         ListConfig, SocketHelperService,
-        UserService, ClientModel, CampaignModel,
-        _items, _count, _campaigns
+        UserService, CampaignModel, ListModel,
+        _items, _count, _lists
       ) {
         // Set current scope reference to models
-        ClientModel.setScope($scope, false, 'items', 'itemCount');
-        CampaignModel.setScope($scope, false, 'campaigns');
+        CampaignModel.setScope($scope, false, 'items', 'itemCount');
+        ListModel.setScope($scope, false, 'lists');
 
         // Add default list configuration variable to current scope
         $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
@@ -207,15 +207,15 @@
         // Set initial data
         $scope.items = _items;
         $scope.itemCount = _count.count;
-        $scope.campaigns = _campaigns;
-        $scope.currentClient = UserService.user();
+        $scope.lists = _lists;
+        $scope.currentUser = UserService.user();
 
         // Initialize used title items
-        $scope.titleItems = ListConfig.getTitleItems(ClientModel.endpoint);
+        $scope.titleItems = ListConfig.getTitleItems(CampaignModel.endpoint);
 
         // Initialize default sort data
         $scope.sort = {
-          column: 'clientname',
+          column: 'campaignname',
           direction: true
         };
 
@@ -240,28 +240,28 @@
         };
 
         /**
-         * Helper function to fetch specified campaign property.
+         * Helper function to fetch specified list property.
          *
-         * @param   {Number}    campaignId        Campaign id to search
-         * @param   {String}    [property]      Property to return, if not given returns whole campaign object
-         * @param   {String}    [defaultValue]  Default value if campaign or property is not founded
+         * @param   {Number}    listId        List id to search
+         * @param   {String}    [property]      Property to return, if not given returns whole list object
+         * @param   {String}    [defaultValue]  Default value if list or property is not founded
          *
          * @returns {*}
          */
-        $scope.getCampaign = function getCampaign(campaignId, property, defaultValue) {
+        $scope.getList = function getList(listId, property, defaultValue) {
           defaultValue = defaultValue || 'Unknown';
           property = property || true;
 
-          // Find campaign
-          var campaign = _.find($scope.campaigns, function iterator(campaign) {
-            return parseInt(campaign.id, 10) === parseInt(campaignId.toString(), 10);
+          // Find list
+          var list = _.find($scope.lists, function iterator(list) {
+            return parseInt(list.id, 10) === parseInt(listId.toString(), 10);
           });
 
-          return campaign ? (property === true ? campaign : campaign[property]) : defaultValue;
+          return list ? (property === true ? list : list[property]) : defaultValue;
         };
 
         /**
-         * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch client data
+         * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch campaign data
          * from server.
          */
         $scope.$watch('currentPage', function watcher(valueNew, valueOld) {
@@ -271,7 +271,7 @@
         });
 
         /**
-         * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch client data
+         * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch campaign data
          * from server.
          */
         $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
@@ -328,7 +328,7 @@
          *  1) Data count by given filter parameters
          *  2) Actual data fetch for current page with filter parameters
          *
-         * These are fetched via 'ClientModel' service with promises.
+         * These are fetched via 'CampaignModel' service with promises.
          *
          * @private
          */
@@ -342,14 +342,14 @@
 
           // Data query specified parameters
           var parameters = {
-            populate: 'campaigns',
+            populate: 'lists',
             limit: $scope.itemsPerPage,
             skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
             sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
           };
 
           // Fetch data count
-          var count = ClientModel
+          var count = CampaignModel
             .count(commonParameters)
             .then(
               function onSuccess(response) {
@@ -359,7 +359,7 @@
           ;
 
           // Fetch actual data
-          var load = ClientModel
+          var load = CampaignModel
             .load(_.merge({}, commonParameters, parameters))
             .then(
               function onSuccess(response) {

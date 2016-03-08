@@ -17,11 +17,5 @@
         return new DataModel('client');
       }
     ])
-    .factory('CampaignModel', [
-      'DataModel',
-      function factory(DataModel) {
-        return new DataModel('campaign');
-      }
-    ])
   ;
 }());

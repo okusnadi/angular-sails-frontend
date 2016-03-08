@@ -1,11 +1,11 @@
 <h3>
-    Clients ({{itemCount}})
+    Campaigns ({{itemCount}})
 
     <div class="col-xs-6 pull-right list-search">
         <a
-            data-ng-if="currentClient.admin"
-            data-ui-sref="admin.client.add"
-            data-tooltip="Add new client"
+            data-ng-if="currentUser.admin"
+            data-ui-sref="admin.campaign.add"
+            data-tooltip="Add new campaign"
         ><i class="fa fa-plus-circle"></i></a>
 
         <list-search
@@ -56,15 +56,15 @@
     </thead>
     <tbody>
         <tr
-            data-ng-repeat="client in items"
+            data-ng-repeat="campaign in items"
         >
             <td class="col-xs-2">
-                <a data-ui-sref="admin.client({id: client.id})">{{client.name}}</a>
+                <a data-ui-sref="admin.campaign({id: campaign.id})">{{campaign.name}}</a>
             </td>
-            <td class="col-xs-2">{{client.contactName}}</td>
+            <td class="col-xs-2">{{campaign.contactName}}</td>
             <td class="col-xs-2">1234</td>
             <td class="col-xs-2">1234</td>
-            <!--<td class="col-xs-2">{{client.campaigns.length}}</td>-->
+            <!--<td class="col-xs-2">{{campaign.lists.length}}</td>-->
         </tr>
 
         <tr data-ng-if="items.length === 0">
