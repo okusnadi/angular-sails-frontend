@@ -16,14 +16,14 @@
                     <label>Username</label>
                     <input autocomplete="off" type="text"  
                            data-ng-model="user.username"
-                           data-ng-minlength="5"
+                           data-ng-minlength="3"
                            required="required" name="username" 
                            />
                     <p ng-show="userForm.username.$error.minlength" 
                        class="help-block">Username is too short.
                     </p>
                     <p ng-show="userForm.username.$error.required && userForm.username.$dirty" 
-                       class="help-block">We have to call you something.
+                       class="help-block">We have to call you something!
                     </p>
                     <!--</div>-->
                 </md-input-container>
@@ -39,7 +39,7 @@
                     <label>Password</label>
                     <input type="password" name="password"
                            data-ng-model="password.first"
-                           data-ng-minlength="6"
+                           data-ng-minlength="4"
                            required="required"
                            />
                     <p ng-show="userForm.password.$error.minlength" 
@@ -127,7 +127,7 @@
 
             <div flex="33">
                 <h4 class="text-muted">Roles</h4>
-                <md-select name="roles" required="required"
+                <md-select name="roles" required="required" title="Select Role"
                            ng-model="user.roles"
                            multiple="true"
                            ng-model-options="{trackBy: '$value.id'}"

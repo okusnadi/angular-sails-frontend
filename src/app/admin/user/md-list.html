@@ -24,93 +24,59 @@
         ></pagination>
     </div>
 </h3>
-
 <section layout="column">
     <!--Table header-->
-    <md-toolbar class="md-table-toolbar">
-        <div class="md-toolbar-tools">
-            <span>Users</span>
-        </div>
-    </md-toolbar>
-    <!--table-->
-    <md-table-container>
-        <table md-table md-row-select ng-model="items" md-progress="promise">
-            <thead md-head>
-                <tr md-row>
-                    <th ng-repeat="item in titleItems" class="{{item.class}}">{{ item.title }}</th>
-                </tr>
-            </thead>
-        </table>
-    </md-table-container>
+    <md-card>
+        <md-toolbar class="md-table-toolbar md-default-theme" ng-hide="filter.show">
+            <div class="md-toolbar-tools">
+                <span>Users</span>
+                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="filter.show = true">
+                    <md-icon class="material-icons md-light">filter_list</md-icon>
+                    <div class="md-ripple-container"></div>
+                </button>
+            </div>
+        </md-toolbar>
+
+        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show" aria-hidden="false">
+            <div class="md-toolbar-tools">
+              <md-icon class="material-icons">search</md-icon>
+              <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
+                <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
+              </form>
+              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="removeFilter()">
+                <md-icon class="material-icons">close</md-icon>
+                <div class="md-ripple-container"></div>
+              </button>
+            </div>
+        </md-toolbar>
+
+        <!--table-->
+        <md-table-container>
+            <table md-table md-row-select ng-model="items" ng-model="selected" md-progress="promise">
+                <thead md-head>
+                    <tr md-row>
+                        <th md-column ng-repeat="item in titleItems">{{ item.title }}</th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-auto-select md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
+                        <td md-cell><a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a></td>
+                        <td md-cell>{{user.firstName}}</td>
+                        <td md-cell>{{user.lastName}}</td>
+                        <td md-cell>{{user.email}}</td>
+                        <td md-cell>
+                            <span ng-repeat="role in user.roles">{{role.name}}</span>
+                        </td>
+                    </tr>
+                    <tr md-row ng-if="items.length === 0">
+                        <td md-cell><em>No users found.<span ng-if="currentUser.admin">Go ahead and <a
+                            data-ui-sref="admin.user.add"
+                            data-tooltip="Add new user"><em>create one.</em></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="itemsPerPage" md-page="currentPage" md-total="itemCount" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        </md-card>
 </section>
-
-<section layout="column">
-    <h2>new pager</h2>
-    <div flex>
-    <md-table-pagination md-limit="itemsPerPage" md-page="currentPage" md-total="itemCount" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-<p>itemsperpage {{itemsPerPage }}</p>
-    </div>
-</section>
-
-<table class="table">
-    <thead class="no-select">
-        <tr>
-            <th class="text-nowrap {{item.class}}"
-                data-ng-repeat="item in titleItems"
-            >
-                <a
-                    data-ng-show="item.column"
-                    data-ng-click="changeSort(item)"
-                    data-ng-bind-html="item.title"
-                ></a>
-                <span
-                    data-ng-show="!item.column"
-                    data-ng-bind-html="item.title"
-                ></span>
-
-                <i class="fa"
-                    data-ng-show="sort.column == item.column"
-                    data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
-                ></i>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr
-            data-ng-repeat="user in items"
-        >
-            <td class="col-xs-2">
-                <a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a>
-            </td>
-            <td class="col-xs-2">{{user.firstName}}</td>
-            <td class="col-xs-2">{{user.lastName}}</td>
-            <td class="col-xs-2">{{user.email}}</td>
-            <!--<td class="col-xs-2">{{user.roles.length}}</td>-->
-            <td class="col-xs-4">
-                <span data-ng-repeat="role in user.roles">
-                    {{role.name}}
-                </span>
-<!--                <a data-ui-sref="admin.role({id: getRole(user.role, 'id')})"
-                   data-ng-show="getRole(user.role, 'id', true) !== true"
-                >
-                    {{getRole(user.role, 'name')}}
-                </a>-->
-            </td>
-        </tr>
-
-        <tr data-ng-if="items.length === 0">
-            <td colspan="100%" class="text-center text-muted">
-                <em>no data founded...</em>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<pagination class="pagination-sm pull-right"
-    data-total-items="itemCount"
-    data-ng-model="currentPage"
-    data-items-per-page="itemsPerPage"
-    data-max-size="10"
-    data-boundary-links="true"
-    data-rotate="false"
-></pagination>

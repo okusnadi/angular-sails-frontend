@@ -227,7 +227,7 @@ gulp.task('watch1', ['statics', 'default'], function() {
 //     console.log(file);
 //  });
 
-  watch('./src/app/**/*.js', { usePolling: true }, function() {
+  watch('./src/app/**/*.js', { usePolling: true, interval: 50 }, function() {
         return gulp.start('jshint');
     }).on('change', function(evt) {
     if (evt.type !== 'changed') {
@@ -238,11 +238,11 @@ gulp.task('watch1', ['statics', 'default'], function() {
   watch('./src/app/index.html', { usePolling: true }, function() { 
       gulp.start(['index']);
   });
-  watch(['./src/app/**/*.html', '!./src/app/index.html'], { usePolling: true }, function() {
+  watch(['./src/app/**/*.html', '!./src/app/index.html'], { usePolling: true, interval: 20 }, function() {
     gulp.start(['templates']);
   });
   
-  watch(['./src/app/**/*.scss'], { usePolling: true }, function() {
+  watch(['./src/app/**/*.scss'], { usePolling: true, interval: 20 }, function() {
       return gulp.start(['csslint', 'scsslint']);
     }).on('change', function(evt) {
     if (evt.type !== 'changed') {

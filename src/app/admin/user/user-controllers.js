@@ -202,9 +202,29 @@
         UserService, UserModel, RoleModel,
         _items, _count, _roles
       ) {
+        
         // Set current scope reference to models
         UserModel.setScope($scope, false, 'items', 'itemCount');
         RoleModel.setScope($scope, false, 'roles');
+        
+        //selected array
+        $scope.selected = [];
+        
+        //filter
+        $scope.filter = {
+            options: {
+                debounce: 500
+            }
+        };
+        
+        $scope.removeFilter = function () {
+            $scope.filter.show = false;
+            $scope.query.filter = '';
+
+            if($scope.filter.form.$dirty) {
+              $scope.filter.form.$setPristine();
+            }
+        };
 
         // Add default list configuration variable to current scope
         $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
