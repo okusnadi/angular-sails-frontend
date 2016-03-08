@@ -26,6 +26,25 @@
 </h3>
 
 <section layout="column">
+    <!--Table header-->
+    <md-toolbar class="md-table-toolbar">
+        <div class="md-toolbar-tools">
+            <span>Users</span>
+        </div>
+    </md-toolbar>
+    <!--table-->
+    <md-table-container>
+        <table md-table md-row-select ng-model="items" md-progress="promise">
+            <thead md-head>
+                <tr md-row>
+                    <th ng-repeat="item in titleItems" class="{{item.class}}">{{ item.title }}</th>
+                </tr>
+            </thead>
+        </table>
+    </md-table-container>
+</section>
+
+<section layout="column">
     <h2>new pager</h2>
     <div flex>
     <md-table-pagination md-limit="itemsPerPage" md-page="currentPage" md-total="itemCount" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
