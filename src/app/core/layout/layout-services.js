@@ -77,7 +77,7 @@
               access: AccessLevels.admin
             },
             {
-              state: '',
+              state: 'admin.campaigns',
               title: 'Campaigns',
               access: AccessLevels.admin
             },
