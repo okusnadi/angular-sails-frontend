@@ -24,9 +24,6 @@ and open the template in the editor.
 .material-icons.md-light { color: rgba(255, 255, 255, 1) !important; }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3) !important; }
 
-
-
-
 /*MD TABLE COPIED STYLES*/
 md-toolbar.md-table-toolbar.alternate .md-toolbar-tools {
   color: #1e88e5;
@@ -50,7 +47,7 @@ md-dialog > md-dialog-content.md-dialog-content {
 }
 md-dialog > md-dialog-content > p {
   margin: 16px 0;
-  color: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, .54);
   line-height: 22px;
 }
 md-dialog > md-dialog-content > p.md-warn {

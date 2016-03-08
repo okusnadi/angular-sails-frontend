@@ -49,6 +49,14 @@
               </button>
             </div>
         </md-toolbar>
+        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+            <div class="md-toolbar-tools" layout-align="space-between">
+              <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</div>
+              <md-button class="md-icon-button" ng-click="delete($event)">
+                <md-icon>delete</md-icon>
+              </md-button>
+            </div>
+        </md-toolbar>
 
         <!--table-->
         <md-table-container>
@@ -59,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
+                    <tr md-row md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
                         <td md-cell><a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a></td>
                         <td md-cell>{{user.firstName}}</td>
                         <td md-cell>{{user.lastName}}</td>
