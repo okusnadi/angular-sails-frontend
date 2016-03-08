@@ -27,13 +27,16 @@
 <section layout="column">
     <!--Table header-->
     <md-card>
-        <md-toolbar class="md-table-toolbar md-default-theme" ng-hide="filter.show || selected.length">
+        <md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">
             <div class="md-toolbar-tools">
-                <span>Users</span>
-                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="filter.show = true">
-                    <md-icon class="material-icons md-light">filter_list</md-icon>
-                    <div class="md-ripple-container"></div>
-                </button>
+                <h2>Users</h2>
+                <div flex></div>
+                <md-button ng-click="filter.show = true">
+                    <md-icon class="material-icons md-light">search</md-icon>
+                </md-button>
+                <md-button class="md-fab" data-ui-sref="admin.user.add">
+                    <md-icon class="material-icons md-light" >person_add</md-icon>
+                </md-button>
             </div>
         </md-toolbar>
 
@@ -43,7 +46,7 @@
               <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
                 <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
               </form>
-              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="removeFilter()">
+              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeFilter()">
                 <md-icon class="material-icons">close</md-icon>
                 <div class="md-ripple-container"></div>
               </button>
@@ -51,7 +54,7 @@
         </md-toolbar>
         <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
             <div class="md-toolbar-tools" layout-align="space-between">
-              <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</div>
+              <div>{{selected.length}} {{selected.length > 1 ? 'users' : 'user'}} selected</div>
               <md-button class="md-icon-button" ng-click="delete($event)">
                 <md-icon>delete</md-icon>
               </md-button>
@@ -60,7 +63,11 @@
 
         <!--table-->
         <md-table-container>
-            <table md-table md-row-select ng-model="items" ng-model="selected" md-progress="promise">
+            <!--FAB-->
+<!--            <md-button class="md-fab overlap-up" aria-label="Eat cake">
+                <md-icon class="material-icons">person_add</md-icon>
+            </md-button>-->
+            <table md-table md-row-select ng-model="selected" md-progress="promise">
                 <thead md-head>
                     <tr md-row>
                         <th md-column ng-repeat="item in titleItems">{{ item.title }}</th>
@@ -85,6 +92,6 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="itemsPerPage" md-page="currentPage" md-total="itemCount" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        <md-table-pagination md-limit="itemsPerPage" md-page="querly.page" md-total="itemCount" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
         </md-card>
 </section>
