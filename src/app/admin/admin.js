@@ -15,7 +15,7 @@
     'frontend.admin.user',
     'frontend.admin.role',
     'frontend.admin.client',
-//    'frontend.admin.campaign'
+    'frontend.admin.campaign'
   ]);
 
   // Module configuration

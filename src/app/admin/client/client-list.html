@@ -59,22 +59,12 @@
             data-ng-repeat="client in items"
         >
             <td class="col-xs-2">
-                <a data-ui-sref="admin.client({id: client.id})">{{client.clientname}}</a>
+                <a data-ui-sref="admin.client({id: client.id})">{{client.name}}</a>
             </td>
-            <td class="col-xs-2">{{client.firstName}}</td>
-            <td class="col-xs-2">{{client.lastName}}</td>
-            <td class="col-xs-2">{{client.email}}</td>
+            <td class="col-xs-2">{{client.contactName}}</td>
+            <td class="col-xs-2">1234</td>
+            <td class="col-xs-2">1234</td>
             <!--<td class="col-xs-2">{{client.campaigns.length}}</td>-->
-            <td class="col-xs-4">
-                <span data-ng-repeat="campaign in client.campaigns">
-                    {{campaign.name}}
-                </span>
-<!--                <a data-ui-sref="admin.campaign({id: getCampaign(client.campaign, 'id')})"
-                   data-ng-show="getCampaign(client.campaign, 'id', true) !== true"
-                >
-                    {{getCampaign(client.campaign, 'name')}}
-                </a>-->
-            </td>
         </tr>
 
         <tr data-ng-if="items.length === 0">

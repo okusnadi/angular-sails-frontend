@@ -27,33 +27,28 @@
 
         // Initialize client model
         $scope.client = {
-            clientname: '',
-            firstName: '',
-            lastName: '',
-            campaigns: [], 
-            passports: []
-        };
-        $scope.password = {
-            first: '',
-            second: ''
+            name: '',
+            address1: '',
+            address2: '',
+            address3: '',
+            town: '',
+            county: '',
+            country: '',
+            
+            contactName: '',
+            phone1: '',
+            phone2: '',
+            email1: '',
+            email2: '',
+            notes: ''
         };
         
-        $scope.check = function($value) {
-            console.log($scope.password);
-            console.log($value);
-        };
         
         /**
          * Scope function to store new client to database. After successfully save client will be redirected
          * to view that new created client.
          */
         $scope.saveClient = function() {
-            $scope.client.passports.push(
-                {
-                    protocol: 'local',
-                    password: $scope.password.first
-                }                    
-            );
             ClientModel
             .create(angular.copy($scope.client))
             .then(
@@ -120,14 +115,14 @@
           var data = angular.copy($scope.client);
 
           // Set campaign id to update data
-          data.campaign = $scope.selectCampaign;
+//          data.campaign = $scope.selectCampaign;
 
           // Make actual data update
           ClientModel
             .update(data.id, data)
             .then(
               function onSuccess() {
-                MessageService.success('Client "' + $scope.client.title + '" updated successfully');
+                MessageService.success('Client "' + $scope.client.name + '" updated successfully');
               }
             )
           ;

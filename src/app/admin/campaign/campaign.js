@@ -1,59 +1,59 @@
 /**
- * Client component to wrap all client specified stuff together. This component is divided to following logical components:
+ * Campaign component to wrap all campaign specified stuff together. This component is divided to following logical components:
  *
  *  Controllers
  *  Models
  *
- * All of these are wrapped to 'frontend.admin.client' angular module.
+ * All of these are wrapped to 'frontend.admin.campaign' angular module.
  */
 (function() {
   'use strict';
 
-  // Define frontend.admin.client angular module
-  angular.module('frontend.admin.client', []);
+  // Define frontend.admin.campaign angular module
+  angular.module('frontend.admin.campaign', []);
 
   // Module configuration
-  angular.module('frontend.admin.client')
+  angular.module('frontend.admin.campaign')
     .config([
       '$stateProvider',
       function config($stateProvider) {
         $stateProvider
-          // Client list
-          .state('admin.clients', {
-            url: '/admin/clients',
+          // Campaign list
+          .state('admin.campaigns', {
+            url: '/admin/campaigns',
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client/client-list.html',
-                controller: 'ClientListController',
+                templateUrl: '/frontend/admin/campaign/campaign-list.html',
+                controller: 'CampaignListController',
                 resolve: {
                   _items: [
                     'ListConfig',
-                    'ClientModel',
+                    'CampaignModel',
                     function resolve(
                       ListConfig,
-                      ClientModel
+                      CampaignModel
                     ) {
                       var config = ListConfig.getConfig();
 
                       var parameters = {
-                        populate: 'campaigns',
+                        populate: 'lists',
                         limit: config.itemsPerPage,
                         sort: 'name ASC'
                       };
 
-                      return ClientModel.load(parameters);
+                      return CampaignModel.load(parameters);
                     }
                   ],
                   _count: [
-                    'ClientModel',
-                    function resolve(ClientModel) {
-                      return ClientModel.count();
-                    }
-                  ],
-                  _campaigns: [
                     'CampaignModel',
                     function resolve(CampaignModel) {
-                      return CampaignModel.load();
+                      return CampaignModel.count();
+                    }
+                  ],
+                  _lists: [
+                    'ListModel',
+                    function resolve(ListModel) {
+                      return ListModel.load();
                     }
                   ]
                 }
@@ -61,28 +61,28 @@
             }
           })
 
-          // Single client
-          .state('admin.client', {
-            url: '/admin/client/:id',
+          // Single campaign
+          .state('admin.campaign', {
+            url: '/admin/campaign/:id',
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client/client.html',
-                controller: 'ClientController',
+                templateUrl: '/frontend/admin/campaign/campaign.html',
+                controller: 'CampaignController',
                 resolve: {
-                  _client: [
+                  _campaign: [
                     '$stateParams',
-                    'ClientModel',
+                    'CampaignModel',
                     function resolve(
                       $stateParams,
-                      ClientModel
+                      CampaignModel
                     ) {
-                      return ClientModel.fetch($stateParams.id, {populate: 'campaigns'});
+                      return CampaignModel.fetch($stateParams.id, {populate: 'lists'});
                     }
                   ],
-                  _campaigns: [
-                    'CampaignModel',
-                    function resolve(CampaignModel) {
-                      return CampaignModel.load();
+                  _lists: [
+                    'ListModel',
+                    function resolve(ListModel) {
+                      return ListModel.load();
                     }
                   ]                  
                 }
@@ -90,21 +90,21 @@
             }
           })
 
-          // Add new client
-          .state('admin.client.add', {
-            url: '/admin/client/add',
+          // Add new campaign
+          .state('admin.campaign.add', {
+            url: '/admin/campaign/add',
             data: {
               access: 2
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client/client.html',
-                controller: 'ClientAddController',
+                templateUrl: '/frontend/admin/campaign/campaign.html',
+                controller: 'CampaignAddController',
                 resolve: {
-                  _campaigns: [
-                    'CampaignModel',
-                    function resolve(CampaignModel) {
-                      return CampaignModel.load();
+                  _lists: [
+                    'ListModel',
+                    function resolve(ListModel) {
+                      return ListModel.load();
                     }
                   ]
                 }
