@@ -304,6 +304,14 @@
             _triggerFetchData();
           }
         });
+        
+        $scope.onPaginate = function (currentPage, itemsPerPage) {
+            console.log(currentPage);
+//            getDesserts(angular.extend({}, $scope.query, {page: currentPage, limit: itemsPerPage}));
+                $scope.currentPage = currentPage;
+                $scope.itemsPerPage = itemsPerPage;
+                _triggerFetchData();
+          };
 
         var searchWordTimer;
 

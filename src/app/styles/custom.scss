@@ -8,6 +8,13 @@ and open the template in the editor.
     Author     : Amon Jafarbay <amonjafarbay at 22pointsix.co.uk>
 */
 
+//FAB
+//=========================================
+
+.md-fab{
+
+}
+
 /*MATERIAL ICONS*/
 /*==========================================*/
 /* Rules for sizing the icon. */
@@ -15,6 +22,7 @@ and open the template in the editor.
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
+
 
 /* Rules for using icons as black on a light background. */
 .material-icons.md-dark { color: rgba(0, 0, 0, 0.54) !important; }
@@ -24,7 +32,10 @@ and open the template in the editor.
 .material-icons.md-light { color: rgba(255, 255, 255, 1) !important; }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3) !important; }
 
-/*MD TABLE COPIED STYLES*/
+
+//MD TABLE COPIED STYLES
+md-toolbar h2,h3,h4,h5 {color:white;}
+md-toolbar.md-dark h2,h3,h4,h5 {color:#444;}
 md-toolbar.md-table-toolbar.alternate .md-toolbar-tools {
   color: #1e88e5;
   font-size: 16px;
