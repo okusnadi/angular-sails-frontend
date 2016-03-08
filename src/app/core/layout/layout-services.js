@@ -72,6 +72,16 @@
               access: AccessLevels.admin
             },
             {
+              state: 'admin.clients',
+              title: 'Clients',
+              access: AccessLevels.admin
+            },
+            {
+              state: '',
+              title: 'Campaigns',
+              access: AccessLevels.admin
+            },
+            {
               state: '',
               title: 'Request log',
               access: AccessLevels.admin

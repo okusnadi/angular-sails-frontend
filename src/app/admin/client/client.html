@@ -1,0 +1,90 @@
+<md-content layout-padding>
+
+    <form class="form-vertical" role="form" name="clientForm"
+          autocomplete="off" 
+          data-ng-submit="saveClient()"
+          >
+        <div layout="row">
+            <div flex="66">
+                <md-input-container class="md-block">
+                    <label>Name</label>
+                    <input type="text" name="name" 
+                           ng-model="client.name"
+                           minlength="5"
+                           required 
+                           />
+                    <div ng-messages="clientForm.name.$error" multiple md-auto-hide="false">
+                        <div ng-message="minlength">The name has to be at least 4 characters.</div>
+                        <div ng-message="required">Name is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>First name</label>
+                    <input type="text" required="required" name="firstName"
+                           data-ng-model="client.firstName"
+                           />
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Last name</label>
+                    <input type="text" required="required" name="lastName"
+                           data-ng-model="client.lastName"
+                           />
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>E-mail</label>
+                    <input type="email" required="required" name="email"
+                           data-ng-model="client.email"
+                           />
+                    <p data-ng-show="clientForm.email.$invalid && !clientForm.email.$pristine" 
+                       class="help-block">Enter a valid email.
+                    </p>            
+                </md-input-container>
+                <!--</div>-->
+
+                <md-button type="submit" class="md-primary md-raised "
+                           data-ng-disabled="!clientForm.$valid"
+                           >
+                    Save
+                </md-button>
+
+                <md-button type="button" class="md-button md-raised "
+                           ng-click="$state.go('admin.clients')"
+                           >
+                    Cancel
+                </md-button>
+
+                <md-button type="button" class="md-warn md-raised"
+                           ng-show="$state.current.name === 'admin.client'"
+                           ng-click="confirmDelete($event)"
+                           >
+                    Delete
+                </md-button>
+
+<!--                            data-ng-bootbox-confirm="Are you sure you want to delete client <strong>{{client.name}}</strong>?"
+                            data-ng-bootbox-confirm-action="deleteClient()"-->
+
+            </div>
+            <!--</div>-->
+
+            <div flex="33">
+                <h4 class="text-muted">Roles</h4>
+                <md-select name="roles" required="required"
+                           ng-model="client.roles"
+                           multiple="true"
+                           ng-model-options="{trackBy: '$value.id'}"
+                           >
+                    <!--ng-options="r as r.name for r in roles track by r.id"-->
+                    <md-option ng-value="r" ng-repeat="r in roles">
+                        {{r.name}}
+                    </md-option>
+
+                </md-select>
+                <p ng-show="clientForm.roles.$error.required && !clientForm.roles.$pristine" 
+                   class="help-block">Please select at least one role.</p>
+            </div>
+        </div>
+        <!--</div>-->
+    </form>

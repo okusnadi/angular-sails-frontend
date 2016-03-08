@@ -13,7 +13,9 @@
   angular.module('frontend.admin', [
     'frontend.admin.login-history',
     'frontend.admin.user',
-    'frontend.admin.role'
+    'frontend.admin.role',
+    'frontend.admin.client',
+//    'frontend.admin.campaign'
   ]);
 
   // Module configuration

@@ -1,19 +1,49 @@
 {
     "elements": {
         "ng-messages=\"roleForm.name.$error\"": {},
+        "md-fab-toolbar": {
+            "attributes": {
+                "count": {},
+                "md-open": {},
+                "md-direction": {},
+                "class": {}
+            }
+        },
+        "md-fab-actions": {
+            "attributes": {
+                "class": {}
+            }
+        },
         "ng-message": {},
+        "md-toolbar": {},
+        "md-icon": {
+            "attributes": {
+                "md-svg-src": {}
+            }
+        },
+        "md-fab-trigger": {
+            "attributes": {
+                "class": {}
+            }
+        },
         "md-button": {
             "attributes": {
-                "ng-show": {},
-                "data-ng-bootbox-custom-dialog": {},
-                "data-ng-disabled": {},
                 "ng-click": {},
                 "data-ng-bootbox-title": {},
-                "data-ng-bootbox-confirm": {},
-                "data-ng-bootbox-confirm-action": {},
+                "data-ng-class": {},
                 "type": {},
+                "data-ng-bootbox-buttons": {},
+                "ng-show": {},
+                "data-ng-repeat": {},
+                "data-ng-bootbox-custom-dialog": {},
+                "data-ui-sref-active": {},
+                "data-ng-disabled": {},
+                "data-ng-show": {},
+                "data-ng-bootbox-confirm": {},
+                "data-ui-sref": {},
+                "data-ng-bootbox-confirm-action": {},
                 "class": {},
-                "data-ng-bootbox-buttons": {}
+                "aria-label": {}
             }
         },
         "md-input-container": {
@@ -30,6 +60,15 @@
         "md-content": {
             "attributes": {
                 "layout-padding": {}
+            }
+        },
+        "md-table-pagination": {
+            "attributes": {
+                "md-page-select": {},
+                "md-limit": {},
+                "md-on-paginate": {},
+                "md-total": {},
+                "md-page": {}
             }
         }
     },
