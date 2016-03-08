@@ -27,7 +27,7 @@
 <section layout="column">
     <!--Table header-->
     <md-card>
-        <md-toolbar class="md-table-toolbar md-default-theme" ng-hide="filter.show">
+        <md-toolbar class="md-table-toolbar md-default-theme" ng-hide="filter.show || selected.length">
             <div class="md-toolbar-tools">
                 <span>Users</span>
                 <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="filter.show = true">
@@ -37,7 +37,7 @@
             </div>
         </md-toolbar>
 
-        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show" aria-hidden="false">
+        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length">
             <div class="md-toolbar-tools">
               <md-icon class="material-icons">search</md-icon>
               <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
@@ -67,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
+                    <tr md-row md-auto-select md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
                         <td md-cell><a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a></td>
                         <td md-cell>{{user.firstName}}</td>
                         <td md-cell>{{user.lastName}}</td>
