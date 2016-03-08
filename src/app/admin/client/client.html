@@ -4,48 +4,35 @@
           autocomplete="off" 
           data-ng-submit="saveClient()"
           >
-        <!--    <div class="row">
-                <div class="col-lg-8">
-                     USERNAME GROUP 
-                    <div class="form-group" style="margin-top: 10px;"
-                        ng-class="{ 'has-error' : clientForm.name.$invalid && !clientForm.name.$pristine }" 
-                        >-->
         <div layout="row">
             <div flex="66">
                 <md-input-container class="md-block">
                     <label>Name</label>
-                    <input autocomplete="off" type="text"  
-                           data-ng-model="client.name"
-                           data-ng-minlength="5"
-                           required="required" name="name" 
+                    <input type="text" name="name" 
+                           ng-model="client.name"
+                           minlength="5"
+                           required 
                            />
-                    <p ng-show="clientForm.name.$error.minlength" 
-                       class="help-block">Name is too short.
-                    </p>
-                    <!--</div>-->
+                    <div ng-messages="clientForm.name.$error" multiple md-auto-hide="false">
+                        <div ng-message="minlength">The name has to be at least 4 characters.</div>
+                        <div ng-message="required">Name is required.</div>
+                    </div>
                 </md-input-container>
 
-                <!--<div class="form-group" style="margin-top: 10px;">-->
                 <md-input-container class="md-block">
                     <label>First name</label>
                     <input type="text" required="required" name="firstName"
                            data-ng-model="client.firstName"
                            />
                 </md-input-container>
-                <!--</div>-->
 
-                <!--<div class="form-group" style="margin-top: 10px;">-->
                 <md-input-container class="md-block">
                     <label>Last name</label>
                     <input type="text" required="required" name="lastName"
                            data-ng-model="client.lastName"
                            />
                 </md-input-container>
-                <!--</div>-->
 
-                <!--            <div class="form-group" style="margin-top: 10px;"
-                                ng-class="{ 'has-error' : clientForm.email.$invalid && !clientForm.email.$pristine }" 
-                                >-->
                 <md-input-container class="md-block">
                     <label>E-mail</label>
                     <input type="email" required="required" name="email"
