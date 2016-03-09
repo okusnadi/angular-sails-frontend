@@ -141,7 +141,7 @@
               column: false,
               class: 'col-xs-2',
               searchable: false,
-              sortable: false,
+              sortable: undefined,
               inSearch: false,
               inTitle: false
             }

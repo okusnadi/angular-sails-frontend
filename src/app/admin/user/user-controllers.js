@@ -256,39 +256,18 @@
         };
 
         // Function to change sort column / direction on list
-        $scope.changeSort = function changeSort(item) {
-          var sort = $scope.sort;
-
-          if (sort.column === item.column) {
-            sort.direction = !sort.direction;
-          } else {
-            sort.column = item.column;
-            sort.direction = true;
-          }
-
-          _triggerFetchData();
-        };
-
-        /**
-         * Helper function to fetch specified role property.
-         *
-         * @param   {Number}    roleId        Role id to search
-         * @param   {String}    [property]      Property to return, if not given returns whole role object
-         * @param   {String}    [defaultValue]  Default value if role or property is not founded
-         *
-         * @returns {*}
-         */
-        $scope.getRole = function getRole(roleId, property, defaultValue) {
-          defaultValue = defaultValue || 'Unknown';
-          property = property || true;
-
-          // Find role
-          var role = _.find($scope.roles, function iterator(role) {
-            return parseInt(role.id, 10) === parseInt(roleId.toString(), 10);
-          });
-
-          return role ? (property === true ? role : role[property]) : defaultValue;
-        };
+//        $scope.changeSort = function changeSort(item) {
+//          var sort = $scope.sort;
+//
+//          if (sort.column === item.column) {
+//            sort.direction = !sort.direction;
+//          } else {
+//            sort.column = item.column;
+//            sort.direction = true;
+//          }
+//
+//          _triggerFetchData();
+//        };
 
         /**
          * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch user data
@@ -310,12 +289,24 @@
           }
         });
         
+        /*
+         * Method to call when order-by column changed
+         */
+        $scope.onReorder = function (order) {
+            // first char is '-' if direction is ascending
+            $scope.sort.direction = order.charAt(0) !== '-';
+            if( !$scope.sort.direction ) {
+                order = order.substring(1);
+            }            
+            $scope.sort.column = order;
+            _triggerFetchData();
+        };
+        
+        
         $scope.onPaginate = function (currentPage, itemsPerPage) {
-            console.log(currentPage);
-//            getDesserts(angular.extend({}, $scope.query, {page: currentPage, limit: itemsPerPage}));
-                $scope.currentPage = currentPage;
-                $scope.itemsPerPage = itemsPerPage;
-                _triggerFetchData();
+            $scope.currentPage = currentPage;
+            $scope.itemsPerPage = itemsPerPage;
+            _fetchData();
           };
 
         var searchWordTimer;

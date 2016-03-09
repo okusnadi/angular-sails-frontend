@@ -23,7 +23,7 @@
             url: '/admin/users',
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/user/md-list.html',
+                templateUrl: '/frontend/admin/user/user-list.html',
                 controller: 'UserListController',
                 resolve: {
                   _items: [
