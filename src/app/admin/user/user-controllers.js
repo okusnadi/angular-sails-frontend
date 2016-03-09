@@ -234,6 +234,11 @@
         $scope.itemCount = _count.count;
         $scope.roles = _roles;
         $scope.currentUser = UserService.user();
+        $scope.query =  {
+            order: 'name',
+            page: 1,
+            limit: $scope.itemsPerPage
+        };
 
         // Initialize used title items
         $scope.titleItems = ListConfig.getTitleItems(UserModel.endpoint);
