@@ -141,7 +141,7 @@
               column: false,
               class: 'col-xs-2',
               searchable: false,
-              sortable: undefined,
+              sortable: false,
               inSearch: false,
               inTitle: false
             }
@@ -188,7 +188,7 @@
               column: false,
               class: 'col-xs-2',
               searchable: false,
-              sortable: undefined,
+              sortable: false,
               inSearch: false,
               inTitle: true
             }

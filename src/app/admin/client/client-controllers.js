@@ -161,23 +161,6 @@
             });
           };        
 
-        /**
-         * Scope function to delete current client campaign. 
-         * 
-         * @param   {Number}    index        Campaign index to remove
-         */
-//        $scope.removeClientCampaign = function removeClientCampaign(index) {
-//            $scope.client.campaigns.splice(index, 1);            
-//        };
-
-        /**
-         * Scope function to add client's campaign. 
-         * 
-         */
-//        $scope.addClientCampaign = function addClientCampaign() {
-//            $scope.client.campaigns.push({id:1});
-//        };
-
       }
     ])
   ;
@@ -209,6 +192,11 @@
         $scope.itemCount = _count.count;
         $scope.campaigns = _campaigns;
         $scope.currentUser = UserService.user();
+        $scope.query =  {
+            order: 'name',
+            page: 1,
+            limit: $scope.itemsPerPage
+        };
 
         // Initialize used title items
         $scope.titleItems = ListConfig.getTitleItems(ClientModel.endpoint);
@@ -223,41 +211,6 @@
         $scope.filters = {
           searchWord: '',
           columns: $scope.titleItems
-        };
-
-        // Function to change sort column / direction on list
-        $scope.changeSort = function changeSort(item) {
-          var sort = $scope.sort;
-
-          if (sort.column === item.column) {
-            sort.direction = !sort.direction;
-          } else {
-            sort.column = item.column;
-            sort.direction = true;
-          }
-
-          _triggerFetchData();
-        };
-
-        /**
-         * Helper function to fetch specified campaign property.
-         *
-         * @param   {Number}    campaignId        Campaign id to search
-         * @param   {String}    [property]      Property to return, if not given returns whole campaign object
-         * @param   {String}    [defaultValue]  Default value if campaign or property is not founded
-         *
-         * @returns {*}
-         */
-        $scope.getCampaign = function getCampaign(campaignId, property, defaultValue) {
-          defaultValue = defaultValue || 'Unknown';
-          property = property || true;
-
-          // Find campaign
-          var campaign = _.find($scope.campaigns, function iterator(campaign) {
-            return parseInt(campaign.id, 10) === parseInt(campaignId.toString(), 10);
-          });
-
-          return campaign ? (property === true ? campaign : campaign[property]) : defaultValue;
         };
 
         /**
@@ -279,6 +232,27 @@
             _triggerFetchData();
           }
         });
+
+        /*
+         * Method to call when order-by column changed
+         */
+        $scope.onReorder = function (order) {
+            // first char is '-' if direction is ascending
+            $scope.sort.direction = order.charAt(0) !== '-';
+            if( !$scope.sort.direction ) {
+                order = order.substring(1);
+            }            
+            $scope.sort.column = order;
+            _triggerFetchData();
+        };
+        
+        
+        $scope.onPaginate = function (currentPage, itemsPerPage) {
+            $scope.currentPage = currentPage;
+            $scope.itemsPerPage = itemsPerPage;
+            _fetchData();
+          };
+
 
         var searchWordTimer;
 

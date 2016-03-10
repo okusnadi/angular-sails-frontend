@@ -1,4 +1,4 @@
-<h3>
+<!--<h3>
     Users ({{itemCount}})
 
     <div class="col-xs-6 pull-right list-search">
@@ -23,7 +23,9 @@
             data-rotate="false"
         ></pagination>
     </div>
-</h3>
+</h3>-->
+
+
 <section layout="column">
     <!--Table header-->
     <md-card>
@@ -77,10 +79,10 @@
                 <thead md-head md-order="query.order" md-on-reorder="onReorder">
                     <tr md-row>
                         <th md-column 
-                            ng-attr-md-order-by="{{item.sortable===undefined?undefined:item.column}}" 
+                            ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
                             ng-repeat="item in titleItems"
                         >
-                            <md-tooltip ng-if="item.sortable!==undefined">Sort by {{ item.title }}</md-tooltip>
+                            <md-tooltip ng-if="item.sortable!==false">Sort by {{ item.title }}</md-tooltip>
                             {{ item.title }}
                         </th>
                     </tr>
