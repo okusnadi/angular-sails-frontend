@@ -160,7 +160,7 @@
               title: 'Description',
               column: 'description',
               class: 'col-xs-3',
-              searchable: false,
+              searchable: true,
               sortable: true,
               inSearch: true,
               inTitle: true
@@ -188,7 +188,7 @@
               column: false,
               class: 'col-xs-2',
               searchable: false,
-              sortable: false,
+              sortable: undefined,
               inSearch: false,
               inTitle: true
             }

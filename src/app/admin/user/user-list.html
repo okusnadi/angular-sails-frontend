@@ -32,13 +32,15 @@
             <div class="md-toolbar-tools">
                 <h2>Users</h2>
                 <div flex></div>
+                <!--<md-button ng-click="filter.show = true">-->
               <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
                 <input type="text" ng-model="filters.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
               </form>
-                <md-button ng-click="filter.show = true">
+                <md-button>
                     <md-icon class="material-icons md-light">search</md-icon>
                 </md-button>
                 <md-button class="md-fab" data-ui-sref="admin.user.add">
+                    <md-tooltip>Add user</md-tooltip>
                     <md-icon class="material-icons md-light" >person_add</md-icon>
                 </md-button>
             </div>
@@ -76,7 +78,10 @@
                     <tr md-row>
                         <th md-column 
                             ng-attr-md-order-by="{{item.sortable===undefined?undefined:item.column}}" 
-                            ng-repeat="item in titleItems">{{ item.title }}
+                            ng-repeat="item in titleItems"
+                        >
+                            <md-tooltip ng-if="item.sortable!==undefined">Sort by {{ item.title }}</md-tooltip>
+                            {{ item.title }}
                         </th>
                     </tr>
                 </thead>

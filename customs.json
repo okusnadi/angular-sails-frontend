@@ -23,6 +23,11 @@
                 "ng-hide": {}
             }
         },
+        "md-tooltip": {
+            "attributes": {
+                "ng-if": {}
+            }
+        },
         "ng-messages": {
             "attributes": {
                 "multiple": {}
@@ -36,7 +41,12 @@
         "ng-messages=\"roleForm.name.$error\"": {},
         "div": {
             "attributes": {
+                "ng-message-exp": {},
+                "ng-message": {},
+                "multiple": {},
+                "md-auto-hide": {},
                 "class": {},
+                "ng-messages": {},
                 "layout-align": {}
             }
         },

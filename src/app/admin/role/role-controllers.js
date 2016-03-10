@@ -159,6 +159,11 @@
         $scope.items = _items;
         $scope.itemCount = _count.count;
         $scope.currentUser = UserService.user();
+        $scope.query =  {
+            order: 'name',
+            page: 1,
+            limit: $scope.itemsPerPage
+        };
 
         // Initialize used title items
         $scope.titleItems = ListConfig.getTitleItems(RoleModel.endpoint);
@@ -208,6 +213,26 @@
             _triggerFetchData();
           }
         });
+
+        /*
+         * Method to call when order-by column changed
+         */
+        $scope.onReorder = function (order) {
+            // first char is '-' if direction is ascending
+            $scope.sort.direction = order.charAt(0) !== '-';
+            if( !$scope.sort.direction ) {
+                order = order.substring(1);
+            }            
+            $scope.sort.column = order;
+            _triggerFetchData();
+        };
+        
+        
+        $scope.onPaginate = function (currentPage, itemsPerPage) {
+            $scope.currentPage = currentPage;
+            $scope.itemsPerPage = itemsPerPage;
+            _fetchData();
+          };
 
         var searchWordTimer;
 
