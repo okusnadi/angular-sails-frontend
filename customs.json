@@ -1,6 +1,5 @@
 {
     "elements": {
-        "ng-messages=\"roleForm.name.$error\"": {},
         "md-fab-toolbar": {
             "attributes": {
                 "count": {},
@@ -9,16 +8,48 @@
                 "class": {}
             }
         },
+        "ng-message": {},
+        "list-search": {
+            "attributes": {
+                "data-options": {},
+                "data-items": {},
+                "data-filters": {}
+            }
+        },
+        "md-toolbar": {
+            "attributes": {
+                "ng-show": {},
+                "class": {},
+                "ng-hide": {}
+            }
+        },
+        "ng-messages": {
+            "attributes": {
+                "multiple": {}
+            }
+        },
+        "md-content": {
+            "attributes": {
+                "layout-padding": {}
+            }
+        },
+        "ng-messages=\"roleForm.name.$error\"": {},
+        "div": {
+            "attributes": {
+                "class": {},
+                "layout-align": {}
+            }
+        },
+        "md-card": {},
         "md-fab-actions": {
             "attributes": {
                 "class": {}
             }
         },
-        "ng-message": {},
-        "md-toolbar": {},
         "md-icon": {
             "attributes": {
-                "md-svg-src": {}
+                "md-svg-src": {},
+                "class": {}
             }
         },
         "md-fab-trigger": {
@@ -46,20 +77,11 @@
                 "aria-label": {}
             }
         },
+        "md-table-container": {},
         "md-input-container": {
             "attributes": {
                 "ng-if": {},
                 "class": {}
-            }
-        },
-        "ng-messages": {
-            "attributes": {
-                "multiple": {}
-            }
-        },
-        "md-content": {
-            "attributes": {
-                "layout-padding": {}
             }
         },
         "md-table-pagination": {
@@ -76,8 +98,20 @@
         "layout": {
             "context": "div"
         },
+        "md-head": {
+            "context": "thead"
+        },
+        "md-row": {
+            "context": "tr"
+        },
         "flex": {
             "context": "div"
+        },
+        "md-body": {
+            "context": "tbody"
+        },
+        "md-cell": {
+            "context": "td"
         }
     }
 }

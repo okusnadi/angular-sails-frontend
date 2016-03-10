@@ -165,24 +165,6 @@
                 
             });
           };        
-
-        /**
-         * Scope function to delete current user role. 
-         * 
-         * @param   {Number}    index        Role index to remove
-         */
-//        $scope.removeUserRole = function removeUserRole(index) {
-//            $scope.user.roles.splice(index, 1);            
-//        };
-
-        /**
-         * Scope function to add user's role. 
-         * 
-         */
-//        $scope.addUserRole = function addUserRole() {
-//            $scope.user.roles.push({id:1});
-//        };
-
       }
     ])
   ;
@@ -254,20 +236,6 @@
           searchWord: '',
           columns: $scope.titleItems
         };
-
-        // Function to change sort column / direction on list
-//        $scope.changeSort = function changeSort(item) {
-//          var sort = $scope.sort;
-//
-//          if (sort.column === item.column) {
-//            sort.direction = !sort.direction;
-//          } else {
-//            sort.column = item.column;
-//            sort.direction = true;
-//          }
-//
-//          _triggerFetchData();
-//        };
 
         /**
          * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch user data
