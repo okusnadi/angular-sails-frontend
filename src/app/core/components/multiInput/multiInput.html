@@ -1,0 +1,14 @@
+
+<md-input-container class="md-block"
+                    ng-if="$state.current.name === 'admin.user.add'"
+                    >
+    <label>Password</label>
+    <input type="password" name="password"
+           data-ng-model="password.first"
+           data-ng-minlength="4"
+           required="required"
+           />
+    <p ng-show="userForm.password.$error.minlength" 
+       class="help-block">Password is to short.
+    </p>
+</md-input-container>

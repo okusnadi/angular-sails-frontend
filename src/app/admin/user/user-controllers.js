@@ -217,7 +217,7 @@
         $scope.roles = _roles;
         $scope.currentUser = UserService.user();
         $scope.query =  {
-            order: 'name',
+            order: 'username',
             page: 1,
             limit: $scope.itemsPerPage
         };

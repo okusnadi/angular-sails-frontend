@@ -160,24 +160,6 @@
                 
             });
           };        
-
-        /**
-         * Scope function to delete current campaign list. 
-         * 
-         * @param   {Number}    index        List index to remove
-         */
-//        $scope.removeCampaignList = function removeCampaignList(index) {
-//            $scope.campaign.lists.splice(index, 1);            
-//        };
-
-        /**
-         * Scope function to add campaign's list. 
-         * 
-         */
-//        $scope.addCampaignList = function addCampaignList() {
-//            $scope.campaign.lists.push({id:1});
-//        };
-
       }
     ])
   ;
@@ -209,6 +191,11 @@
         $scope.itemCount = _count.count;
         $scope.lists = _lists;
         $scope.currentUser = UserService.user();
+        $scope.query =  {
+            order: 'name',
+            page: 1,
+            limit: $scope.itemsPerPage
+        };
 
         // Initialize used title items
         $scope.titleItems = ListConfig.getTitleItems(CampaignModel.endpoint);
@@ -223,41 +210,6 @@
         $scope.filters = {
           searchWord: '',
           columns: $scope.titleItems
-        };
-
-        // Function to change sort column / direction on list
-        $scope.changeSort = function changeSort(item) {
-          var sort = $scope.sort;
-
-          if (sort.column === item.column) {
-            sort.direction = !sort.direction;
-          } else {
-            sort.column = item.column;
-            sort.direction = true;
-          }
-
-          _triggerFetchData();
-        };
-
-        /**
-         * Helper function to fetch specified list property.
-         *
-         * @param   {Number}    listId        List id to search
-         * @param   {String}    [property]      Property to return, if not given returns whole list object
-         * @param   {String}    [defaultValue]  Default value if list or property is not founded
-         *
-         * @returns {*}
-         */
-        $scope.getList = function getList(listId, property, defaultValue) {
-          defaultValue = defaultValue || 'Unknown';
-          property = property || true;
-
-          // Find list
-          var list = _.find($scope.lists, function iterator(list) {
-            return parseInt(list.id, 10) === parseInt(listId.toString(), 10);
-          });
-
-          return list ? (property === true ? list : list[property]) : defaultValue;
         };
 
         /**
@@ -279,6 +231,26 @@
             _triggerFetchData();
           }
         });
+
+        /*
+         * Method to call when order-by column changed
+         */
+        $scope.onReorder = function (order) {
+            // first char is '-' if direction is ascending
+            $scope.sort.direction = order.charAt(0) !== '-';
+            if( !$scope.sort.direction ) {
+                order = order.substring(1);
+            }            
+            $scope.sort.column = order;
+            _triggerFetchData();
+        };
+        
+        
+        $scope.onPaginate = function (currentPage, itemsPerPage) {
+            $scope.currentPage = currentPage;
+            $scope.itemsPerPage = itemsPerPage;
+            _fetchData();
+          };
 
         var searchWordTimer;
 
