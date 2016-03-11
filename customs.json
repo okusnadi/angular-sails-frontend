@@ -8,15 +8,10 @@
                 "class": {}
             }
         },
-        "ng-form": {
-            "attributes": {
-                "name": {}
-            }
-        },
+        "ng-form": {},
         "md-multi-input": {
             "attributes": {
-                "mi-items": {},
-                "mi-max": {}
+                "items": {}
             }
         },
         "ng-message": {},
@@ -57,7 +52,6 @@
                 "multiple": {},
                 "ng-repeat": {},
                 "md-auto-hide": {},
-                "layout-margin": {},
                 "class": {},
                 "ng-messages": {},
                 "layout-align": {}
@@ -107,6 +101,7 @@
             "attributes": {
                 "md-item-text": {},
                 "md-selected-item": {},
+                "md-min-length": {},
                 "md-items": {},
                 "md-search-text": {}
             }
@@ -114,6 +109,7 @@
         "md-table-container": {},
         "md-input-container": {
             "attributes": {
+                "ng-repeat": {},
                 "ng-if": {},
                 "class": {}
             }

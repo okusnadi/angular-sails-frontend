@@ -58,7 +58,7 @@
 //        },
                 bindings: {
                     miItems: '=',
-                    miSuggestions: '<?',
+                    miSuggestions: '=?',
                     miMax: '<?'
                 }
             });
