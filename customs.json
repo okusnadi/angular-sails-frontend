@@ -8,9 +8,15 @@
                 "class": {}
             }
         },
+        "ng-form": {
+            "attributes": {
+                "name": {}
+            }
+        },
         "md-multi-input": {
             "attributes": {
-                "items": {}
+                "mi-items": {},
+                "mi-max": {}
             }
         },
         "ng-message": {},
@@ -51,12 +57,14 @@
                 "multiple": {},
                 "ng-repeat": {},
                 "md-auto-hide": {},
+                "layout-margin": {},
                 "class": {},
                 "ng-messages": {},
                 "layout-align": {}
             }
         },
         "md-card": {},
+        "md-item-template": {},
         "md-fab-actions": {
             "attributes": {
                 "class": {}
@@ -78,6 +86,7 @@
                 "ng-click": {},
                 "data-ng-bootbox-title": {},
                 "data-ng-class": {},
+                "tabIndex": {},
                 "type": {},
                 "data-ng-bootbox-buttons": {},
                 "ng-disabled": {},
@@ -94,10 +103,17 @@
                 "aria-label": {}
             }
         },
+        "md-autocomplete": {
+            "attributes": {
+                "md-item-text": {},
+                "md-selected-item": {},
+                "md-items": {},
+                "md-search-text": {}
+            }
+        },
         "md-table-container": {},
         "md-input-container": {
             "attributes": {
-                "ng-repeat": {},
                 "ng-if": {},
                 "class": {}
             }
@@ -124,6 +140,9 @@
         },
         "flex": {
             "context": "div"
+        },
+        "md-highlight-text": {
+            "context": "span"
         },
         "md-body": {
             "context": "tbody"

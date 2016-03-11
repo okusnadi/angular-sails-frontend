@@ -1,23 +1,37 @@
+<ng-form name="miForm">
+    <div layout="row" ng-repeat="item in $ctrl.miItems" flex>
+        <md-input-container flex class="md-block"                     
+                            >
+            <label if-ng="item.label">{{item.label}}</label>
+            <input type="text" name="input_{{$index}}"
+                   data-ng-model="item.value"
+                   required="required"
+                   />
 
-<div layout="row" ng-repeat="item in $ctrl.items" flex>
-    <md-input-container flex class="md-block"                     
-                        >
-        <label if-ng="item.label">{{item.label}}</label>
-        <input type="text" name="{{item.name}}"
-               data-ng-model="item.value"
-               required="required"
-               />
-        <div ng-messages="$ctrl.parentForm[item.name].$error" multiple md-auto-hide="false">
-            <div ng-message="minlength">The name has to be at least 3 characters.</div>
-            <div ng-message="required">Name is required.</div>
-        </div>
-    </md-input-container>
-    <md-button class="md-fab md-mini" data-ui-sref="admin.role.add">
-        <md-tooltip>Remove current line</md-tooltip>
-        <md-icon class="material-icons md-light" >remove_circle</md-icon>
-    </md-button>
-    <md-button class="md-fab md-mini md-primary" data-ui-sref="admin.role.add">
-        <md-tooltip>Add field after</md-tooltip>
-        <md-icon class="material-icons md-light" >add_circle</md-icon>
-    </md-button>
-</div>
+            <div ng-messages="miForm['input_'+$index].$error" multiple md-auto-hide="false">
+                <div ng-message="required">This field is required.</div>
+            </div>
+        </md-input-container>
+        <md-button class="md-fab md-mini md-primary" ng-click="$ctrl.addField($index)" tabIndex="-1">
+            <md-tooltip>Add field after</md-tooltip>
+            <md-icon class="material-icons md-light" >add</md-icon>
+        </md-button>
+        <md-button class="md-fab md-mini" ng-click="$ctrl.deleteField($index)" tabIndex="-1">
+            <md-tooltip>Remove current line</md-tooltip>
+            <md-icon class="material-icons md-light" >clear</md-icon>
+        </md-button>
+        <md-autocomplete 
+            md-selected-item="item.selectedItem" 
+            md-search-text="item.searchText" 
+            md-items="sugg in ctrl.querySearch(item.searchText)" 
+            md-item-text="sugg.display"
+            >
+            <md-item-template>
+                <span md-highlight-text="item.searchText">{{sugg.display}}</span>
+            </md-item-template>
+
+        </md-autocomplete>
+        {{item.searchText}}
+    </div>
+
+</ng-form>

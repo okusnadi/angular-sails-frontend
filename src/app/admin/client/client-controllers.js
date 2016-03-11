@@ -45,10 +45,10 @@
         
         
         $scope.items = [
-            { name: 'input1', value: 'val1', label: 'label1' },
-            { name: 'input2', value: 'val2' }
+            { value: '' }
         ];
             
+        $scope.suggestions = 'Country, County, Region, Branch, Department';
         
         /**
          * Scope function to store new client to database. After successfully save client will be redirected
