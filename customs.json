@@ -8,6 +8,11 @@
                 "class": {}
             }
         },
+        "md-multi-input": {
+            "attributes": {
+                "items": {}
+            }
+        },
         "ng-message": {},
         "list-search": {
             "attributes": {
@@ -44,6 +49,7 @@
                 "ng-message-exp": {},
                 "ng-message": {},
                 "multiple": {},
+                "ng-repeat": {},
                 "md-auto-hide": {},
                 "class": {},
                 "ng-messages": {},
@@ -74,6 +80,7 @@
                 "data-ng-class": {},
                 "type": {},
                 "data-ng-bootbox-buttons": {},
+                "ng-disabled": {},
                 "ng-show": {},
                 "data-ng-repeat": {},
                 "data-ng-bootbox-custom-dialog": {},
@@ -90,6 +97,7 @@
         "md-table-container": {},
         "md-input-container": {
             "attributes": {
+                "ng-repeat": {},
                 "ng-if": {},
                 "class": {}
             }

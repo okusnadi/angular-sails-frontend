@@ -1,14 +1,23 @@
 
-<md-input-container class="md-block"
-                    ng-if="$state.current.name === 'admin.user.add'"
-                    >
-    <label>Password</label>
-    <input type="password" name="password"
-           data-ng-model="password.first"
-           data-ng-minlength="4"
-           required="required"
-           />
-    <p ng-show="userForm.password.$error.minlength" 
-       class="help-block">Password is to short.
-    </p>
-</md-input-container>
+<div layout="row" ng-repeat="item in $ctrl.items" flex>
+    <md-input-container flex class="md-block"                     
+                        >
+        <label if-ng="item.label">{{item.label}}</label>
+        <input type="text" name="{{item.name}}"
+               data-ng-model="item.value"
+               required="required"
+               />
+        <div ng-messages="$ctrl.parentForm[item.name].$error" multiple md-auto-hide="false">
+            <div ng-message="minlength">The name has to be at least 3 characters.</div>
+            <div ng-message="required">Name is required.</div>
+        </div>
+    </md-input-container>
+    <md-button class="md-fab md-mini" data-ui-sref="admin.role.add">
+        <md-tooltip>Remove current line</md-tooltip>
+        <md-icon class="material-icons md-light" >remove_circle</md-icon>
+    </md-button>
+    <md-button class="md-fab md-mini md-primary" data-ui-sref="admin.role.add">
+        <md-tooltip>Add field after</md-tooltip>
+        <md-icon class="material-icons md-light" >add_circle</md-icon>
+    </md-button>
+</div>

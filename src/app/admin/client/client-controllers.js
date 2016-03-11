@@ -44,6 +44,12 @@
         };
         
         
+        $scope.items = [
+            { name: 'input1', value: 'val1', label: 'label1' },
+            { name: 'input2', value: 'val2' }
+        ];
+            
+        
         /**
          * Scope function to store new client to database. After successfully save client will be redirected
          * to view that new created client.
