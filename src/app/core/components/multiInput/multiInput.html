@@ -12,10 +12,11 @@
                 <div ng-message="required">This field is required.</div>
             </div>
         </md-input-container>-->
-        <md-autocomplete 
+        <md-autocomplete
+            required="true"
             md-selected-item="item.selectedItem" 
             md-search-text="item.searchText" 
-            md-items="sugg in $ctrl.querySearch(item.searchText)" 
+            md-items="sugg in $ctrl.querySearch(item.searchText, item)" 
             md-item-text="sugg.display"
             md-min-length="0"            
             flex

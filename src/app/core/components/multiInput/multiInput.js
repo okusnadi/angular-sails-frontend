@@ -22,10 +22,10 @@
             }
         };
 
-        ctrl.querySearch = function (query) {
-            console.log(query);
+        ctrl.querySearch = function (query, item) {
+            console.log(item);
             var result = query ? ctrl.suggestions.filter(createFilterFor(query)) : ctrl.suggestions;
-            console.log(result);
+            console.log(item);
             return result;
         };
 
@@ -58,7 +58,7 @@
 //        },
                 bindings: {
                     miItems: '=',
-                    miSuggestions: '=?',
+                    miSuggestions: '<?',
                     miMax: '<?'
                 }
             });

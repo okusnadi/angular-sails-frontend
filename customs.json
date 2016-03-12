@@ -8,7 +8,11 @@
                 "class": {}
             }
         },
-        "ng-form": {},
+        "ng-form": {
+            "attributes": {
+                "name": {}
+            }
+        },
         "md-multi-input": {
             "attributes": {
                 "items": {}
@@ -103,7 +107,8 @@
                 "md-selected-item": {},
                 "md-min-length": {},
                 "md-items": {},
-                "md-search-text": {}
+                "md-search-text": {},
+                "required": {}
             }
         },
         "md-table-container": {},
