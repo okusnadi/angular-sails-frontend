@@ -110,21 +110,6 @@
         $scope.items = angular.fromJson($scope.client.orgUnits);
         $scope.suggestions = organisationalUnits;
                 
-        // Client delete dialog buttons configuration
-        $scope.confirmButtonsDelete = {
-          ok: {
-            label: 'Delete',
-            className: 'btn-danger',
-            callback: function callback() {
-              $scope.deleteClient();
-            }
-          },
-          cancel: {
-            label: 'Cancel',
-            className: 'btn-default pull-left'
-          }
-        };
-
         /**
          * Scope function to save the modified client. This will send a
          * socket request to the backend server with the modified object.
