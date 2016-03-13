@@ -15,14 +15,15 @@
         <md-autocomplete
             required="true"
             md-selected-item="item.selectedItem" 
-            md-search-text="item.searchText" 
-            md-items="sugg in $ctrl.querySearch(item.searchText, item)" 
+            md-search-text="item.value" 
+            md-items="sugg in $ctrl.querySearch(item.value, item)" 
             md-item-text="sugg.display"
-            md-min-length="0"            
+            md-min-length="0"
+            ng-click=""
             flex
             >
             <md-item-template>
-                <span md-highlight-text="item.searchText">{{sugg.display}}</span>
+                <span md-highlight-text="item.value">{{sugg.display}}</span>
             </md-item-template>
 
         </md-autocomplete>
@@ -34,6 +35,10 @@
             <md-tooltip>Remove current line</md-tooltip>
             <md-icon class="material-icons md-light" >clear</md-icon>
         </md-button>
+<!--        <md-button class="md-fab md-mini" ng-click="$ctrl.logger(item)" tabIndex="-1">
+            <md-tooltip>Remove current line</md-tooltip>
+            <md-icon class="material-icons md-light" >info</md-icon>
+        </md-button>-->
     </div>
 
 </ng-form>

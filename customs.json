@@ -15,7 +15,10 @@
         },
         "md-multi-input": {
             "attributes": {
-                "items": {}
+                "mi-suggestions": {},
+                "mi-items": {},
+                "items": {},
+                "mi-max": {}
             }
         },
         "ng-message": {},
@@ -104,7 +107,9 @@
         "md-autocomplete": {
             "attributes": {
                 "md-item-text": {},
+                "md-selected-item-change": {},
                 "md-selected-item": {},
+                "ng-click": {},
                 "md-min-length": {},
                 "md-items": {},
                 "md-search-text": {},

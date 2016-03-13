@@ -7,7 +7,6 @@
 
         var ctrl = this;
         ctrl.suggestions = loadAll();
-        ctrl.searchText = '';
 
         console.log(this.suggestions);
 
@@ -23,10 +22,12 @@
         };
 
         ctrl.querySearch = function (query, item) {
-            console.log(item);
             var result = query ? ctrl.suggestions.filter(createFilterFor(query)) : ctrl.suggestions;
-            console.log(item);
             return result;
+        };
+        
+        ctrl.logger = function (item ) {
+            console.log(item);            
         };
 
         function loadAll() {
@@ -53,9 +54,6 @@
             .component('mdMultiInput', {
                 controller: MultiInputController,
                 templateUrl: '/frontend/core/components/multiInput/multiInput.html',
-//        require: { 
-//            parentForm: '^form'
-//        },
                 bindings: {
                     miItems: '=',
                     miSuggestions: '<?',

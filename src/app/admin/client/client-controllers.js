@@ -6,6 +6,8 @@
 (function() {
   'use strict';
 
+    var organisationalUnits = 'Country, County, Region, Branch, Department';
+
   // Controller for new client creation.
   angular.module('frontend.admin.client')
     .controller('ClientAddController', [
@@ -48,13 +50,20 @@
             { value: '' }
         ];
             
-        $scope.suggestions = 'Country, County, Region, Branch, Department';
+        $scope.suggestions = organisationalUnits;
         
         /**
          * Scope function to store new client to database. After successfully save client will be redirected
          * to view that new created client.
          */
         $scope.saveClient = function() {
+            var ounits = $scope.items.map( function( ou, index ) {
+                return {
+                    order: index,
+                    value: ou.value
+                };
+            });
+            $scope.client.orgUnits = angular.toJson(ounits);
             ClientModel
             .create(angular.copy($scope.client))
             .then(
@@ -98,6 +107,9 @@
         $scope.campaigns = _campaigns;
         $scope.selectCampaign = _client.campaign ? _client.campaign.id : null;
 
+        $scope.items = angular.fromJson($scope.client.orgUnits);
+        $scope.suggestions = organisationalUnits;
+                
         // Client delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
           ok: {
@@ -120,8 +132,13 @@
         $scope.saveClient = function() {
           var data = angular.copy($scope.client);
 
-          // Set campaign id to update data
-//          data.campaign = $scope.selectCampaign;
+            var ounits = $scope.items.map( function( ou, index ) {
+                return {
+                    order: index,
+                    value: ou.value
+                };
+            });
+            data.orgUnits = angular.toJson(ounits);
 
           // Make actual data update
           ClientModel
