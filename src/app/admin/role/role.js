@@ -101,7 +101,7 @@
 
           // Add new role
           .state('admin.role.add', {
-            url: '/admin/role/add',
+            url: '/add',
             data: {
               access: 2
             },

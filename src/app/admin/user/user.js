@@ -92,7 +92,7 @@
 
           // Add new user
           .state('admin.user.add', {
-            url: '/admin/user/add',
+            url: '/add',
             data: {
               access: 2
             },

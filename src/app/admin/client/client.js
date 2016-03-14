@@ -92,7 +92,7 @@
 
           // Add new client
           .state('admin.client.add', {
-            url: '/admin/client/add',
+            url: '/add',
             data: {
               access: 2
             },
