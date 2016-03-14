@@ -10,7 +10,7 @@
   /**
    * Model for User API, this is used to wrap all User objects specified actions and data change actions.
    */
-  angular.module('frontend.admin.campaign')
+  angular.module('frontend.admin.client.campaign')
     .factory('CampaignModel', [
       'DataModel',
       function factory(DataModel) {

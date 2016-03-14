@@ -1,5 +1,5 @@
 /**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.campaign' module.
+ * This file contains all necessary Angular controller definitions for 'frontend.admin.client.campaign' module.
  *
  * Note that this file should only contain controllers and nothing else.
  */
@@ -7,7 +7,7 @@
   'use strict';
 
   // Controller for new campaign creation.
-  angular.module('frontend.admin.campaign')
+  angular.module('frontend.admin.client.campaign')
     .controller('CampaignAddController', [
       '$scope', '$state',
       'MessageService',
@@ -55,7 +55,7 @@
               function onSuccess(result) {
                 MessageService.success('New campaign added successfully');
 
-                $state.go('admin.campaign', {id: result.data.id});
+                $state.go('admin.client.campaign', {id: result.data.id});
               }
             )
           ;
@@ -66,7 +66,7 @@
   ;
 
   // Controller to show single campaign on GUI.
-  angular.module('frontend.admin.campaign')
+  angular.module('frontend.admin.client.campaign')
     .controller('CampaignController', 
     [
       '$scope', '$state',
@@ -139,7 +139,7 @@
               function onSuccess() {
                 MessageService.success('Campaign "' + $scope.campaign.title + '" deleted successfully');
 
-                $state.go('admin.campaigns');
+                $state.go('admin.client.campaigns');
               }
             )
           ;
@@ -165,18 +165,20 @@
   ;
 
   // Controller which contains all necessary logic for campaign list GUI on boilerplate application.
-  angular.module('frontend.admin.campaign')
+  angular.module('frontend.admin.client.campaign')
     .controller('CampaignListController', [
       '$scope', '$q', '$timeout',
       '_',
       'ListConfig', 'SocketHelperService',
       'UserService', 'CampaignModel', 'ListModel',
+      '_client',
       '_items', '_count', '_lists',
       function controller(
         $scope, $q, $timeout,
         _,
         ListConfig, SocketHelperService,
         UserService, CampaignModel, ListModel,
+        _client,
         _items, _count, _lists
       ) {
         // Set current scope reference to models

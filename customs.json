@@ -138,6 +138,9 @@
         "md-head": {
             "context": "thead"
         },
+        "md-table": {
+            "context": "table"
+        },
         "md-row": {
             "context": "tr"
         },
@@ -152,6 +155,9 @@
         },
         "md-cell": {
             "context": "td"
+        },
+        "ui-sref": {
+            "context": "a"
         }
     }
 }

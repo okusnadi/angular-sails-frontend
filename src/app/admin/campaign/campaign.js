@@ -4,23 +4,24 @@
  *  Controllers
  *  Models
  *
- * All of these are wrapped to 'frontend.admin.campaign' angular module.
+ * All of these are wrapped to 'frontend.admin.client.campaign' angular module.
  */
 (function() {
   'use strict';
 
-  // Define frontend.admin.campaign angular module
-  angular.module('frontend.admin.campaign', []);
+  // Define frontend.admin.client.campaign angular module
+  angular.module('frontend.admin.client.campaign', []);
 
   // Module configuration
-  angular.module('frontend.admin.campaign')
+  angular.module('frontend.admin.client.campaign')
     .config([
       '$stateProvider',
       function config($stateProvider) {
+          console.log($stateProvider);
         $stateProvider
           // Campaign list
-          .state('admin.campaigns', {
-            url: '/admin/campaigns',
+          .state('admin.client.campaigns', {
+            url: '/campaigns',
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/campaign/campaign-list.html',
@@ -62,8 +63,8 @@
           })
 
           // Single campaign
-          .state('admin.campaign', {
-            url: '/admin/campaign/:id',
+          .state('admin.client.campaign', {
+            url: '/campaign/:id',
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/campaign/campaign.html',
@@ -91,8 +92,8 @@
           })
 
           // Add new campaign
-          .state('admin.campaign.add', {
-            url: '/admin/campaign/add',
+          .state('admin.client.campaign.add', {
+            url: '/add',
             data: {
               access: 2
             },
