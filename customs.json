@@ -15,7 +15,9 @@
         },
         "md-multi-input": {
             "attributes": {
+                "mi-suggestions": {},
                 "mi-items": {},
+                "items": {},
                 "mi-max": {}
             }
         },
@@ -106,6 +108,7 @@
         "md-autocomplete": {
             "attributes": {
                 "md-item-text": {},
+                "md-selected-item-change": {},
                 "md-selected-item": {},
                 "ng-click": {},
                 "md-min-length": {},
@@ -117,6 +120,7 @@
         "md-table-container": {},
         "md-input-container": {
             "attributes": {
+                "ng-repeat": {},
                 "ng-if": {},
                 "class": {}
             }
@@ -155,9 +159,6 @@
         },
         "md-cell": {
             "context": "td"
-        },
-        "ui-sref": {
-            "context": "a"
         }
     }
 }
