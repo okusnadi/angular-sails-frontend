@@ -12,11 +12,13 @@
       '$scope', '$state',
       'MessageService',
       'CampaignModel',
+      '_client',
       '_lists',
       function controller(
         $scope, $state,
         MessageService,
         CampaignModel,
+        _client,
         _lists
       ) {
   
@@ -24,6 +26,8 @@
         $scope.$state = $state;
         // Store lists
         $scope.lists = _lists;
+        // Store parent client
+        $scope.client = _client;
 
         // Initialize campaign model
         $scope.campaign = {
@@ -49,13 +53,14 @@
          * to view that new created campaign.
          */
         $scope.saveCampaign = function() {
+            $scope.campaign.client = $scope.client;
             CampaignModel
             .create(angular.copy($scope.campaign))
             .then(
               function onSuccess(result) {
                 MessageService.success('New campaign added successfully');
 
-                $state.go('admin.client.campaign', {id: result.data.id});
+                $state.go('admin.client.campaign', {campaignId: result.data.id});
               }
             )
           ;
@@ -73,12 +78,14 @@
       '$mdDialog',
       'UserService', 'MessageService',
       'CampaignModel', 'ListModel',
+      '_client',
       '_campaign', '_lists',
       function controller(
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
         CampaignModel, ListModel,
+        _client,
         _campaign, _lists
       ) {
         // expose state
@@ -112,10 +119,8 @@
          * socket request to the backend server with the modified object.
          */
         $scope.saveCampaign = function() {
+          $scope.campaign.client = $scope.client;
           var data = angular.copy($scope.campaign);
-
-          // Set list id to update data
-//          data.list = $scope.selectList;
 
           // Make actual data update
           CampaignModel

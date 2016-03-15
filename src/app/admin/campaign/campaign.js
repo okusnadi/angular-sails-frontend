@@ -35,7 +35,6 @@
                       CampaignModel,
                       _client
                     ) {
-//                      console.log(_client);
                       var config = ListConfig.getConfig();
 
                       var parameters = {
@@ -69,22 +68,24 @@
 
           // Single campaign
           .state('admin.client.campaign', {
-            url: '/campaign/:id',
-            views: {
-              'content@': {
-                templateUrl: '/frontend/admin/campaign/campaign.html',
-                controller: 'CampaignController',
-                resolve: {
-                  _campaign: [
+            url: '/campaign/:campaignId',
+            resolve: {
+                _campaign: [
                     '$stateParams',
                     'CampaignModel',
                     function resolve(
                       $stateParams,
                       CampaignModel
                     ) {
-                      return CampaignModel.fetch($stateParams.id, {populate: 'lists'});
+                      return CampaignModel.fetch($stateParams.campaignId, {populate: 'lists'});
                     }
-                  ],
+                  ]
+            },
+            views: {
+              'content@': {
+                templateUrl: '/frontend/admin/campaign/campaign.html',
+                controller: 'CampaignController',
+                resolve: {
                   _lists: [
                     'ListModel',
                     function resolve(ListModel) {

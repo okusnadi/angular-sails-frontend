@@ -1,5 +1,5 @@
 <!--<h3>
-    Clients ({{itemCount}})
+    Campaigns ({{itemCount}})
 
     <div class="col-xs-6 pull-right list-search">
         <a
@@ -33,7 +33,7 @@
         <!--<md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">-->
         <md-toolbar class="md-table-toolbar">
             <div class="md-toolbar-tools">
-                <h2>Clients ({{itemCount}})</h2>
+                <h2><strong>{{client.name}}</strong> Campaigns ({{itemCount}})</h2>
                 <div flex></div>
                 <!--<md-button ng-click="filter.show = true">-->
               <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
@@ -79,10 +79,10 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row md-auto-select md-select="campaign" md-select-id="{{campaign.name}}" ng-repeat="campaign in items">
-                        <td md-cell><a data-ui-sref="admin.client.campaign({id: campaign.id})">{{campaign.name}}</a></td>
+                        <td md-cell><a data-ui-sref="admin.client.campaign({campaignId: campaign.id})">{{campaign.name}}</a></td>
                         <td md-cell>{{campaign.createdAt}}</td>
                         <td md-cell>{{campaign.updatedAt}}</td>
-                        <td md-cell>{{campaign.lists.length}}<a ui-sref="admin.client.campaign.lists({id: campaign.id})"> View</a></td>
+                        <td md-cell>{{campaign.lists.length}}<a ui-sref="admin.client.campaign.lists({campaignId: campaign.id})"> View</a></td>
                         <td md-cell>4567</td>
                     </tr>
                     <tr md-row ng-if="items.length === 0">
