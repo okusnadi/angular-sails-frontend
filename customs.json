@@ -112,6 +112,7 @@
                 "md-selected-item": {},
                 "ng-click": {},
                 "md-min-length": {},
+                "md-floating-label": {},
                 "md-items": {},
                 "md-search-text": {},
                 "required": {}

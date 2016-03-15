@@ -32,21 +32,22 @@
         // Initialize campaign model
         $scope.campaign = {
             name: '',
-            address1: '',
-            address2: '',
-            address3: '',
-            town: '',
-            county: '',
-            country: '',
             
             contactName: '',
             phone1: '',
-            phone2: '',
             email1: '',
-            email2: '',
             notes: ''
         };
         
+        $scope.ounits = $scope.client.orgUnits.map( function(ou, index){
+            return {
+                order: ou.order,
+                label: ou.value,
+                value: ''
+            };
+        });
+        
+        console.log($scope.ounits);
         
         /**
          * Scope function to store new campaign to database. After successfully save campaign will be redirected

@@ -27,7 +27,7 @@
                 </md-input-container>
 
                 <md-input-container class="md-block">
-                    <label>Primary E-mail</label>
+                    <label>E-mail</label>
                     <input type="email"  name="email1"
                            ng-model="campaign.email1"
                            />
@@ -35,32 +35,14 @@
                         <div ng-message="email">Please enter a valid e-mail.</div>
                     </div>
                 </md-input-container>
-                
-                <md-input-container class="md-block">
-                    <label>Secondary E-mail</label>
-                    <input type="email"  name="email2"
-                           ng-model="campaign.email2"
-                           />
-                    <div ng-messages="campaignForm.email2.$error" multiple md-auto-hide="false">
-                        <div ng-message="email">Please enter a valid e-mail.</div>
-                    </div>
-                </md-input-container>
-                
 
                 <md-input-container class="md-block">
-                    <label>Primary phone number</label>
+                    <label>Phone number</label>
                     <input type="text"  name="phone1"
                            ng-model="campaign.phone1"
                            />
                 </md-input-container>
-                
-                <md-input-container class="md-block">
-                    <label>Secondary phone number</label>
-                    <input type="text"  name="phone2"
-                           ng-model="campaign.phone2"
-                           />
-                </md-input-container>
-                
+                                
                 <md-input-container class="md-block">
                     <label>Notes</label>
                     <textarea name="notes" rows="5"
@@ -73,6 +55,8 @@
 
             <div flex="50" layout-margin>
                 
+                <md-multi-input mi-items="ounits" mi-max="6" mi-suggestions="suggestions">
+                </md-multi-input>
                 
             </div>
 
