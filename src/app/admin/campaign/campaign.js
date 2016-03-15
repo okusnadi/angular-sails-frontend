@@ -17,7 +17,6 @@
     .config([
       '$stateProvider',
       function config($stateProvider) {
-          console.log($stateProvider);
         $stateProvider
           // Campaign list
           .state('admin.client.campaigns', {
@@ -30,16 +29,22 @@
                   _items: [
                     'ListConfig',
                     'CampaignModel',
+                    '_client',
                     function resolve(
                       ListConfig,
-                      CampaignModel
+                      CampaignModel,
+                      _client
                     ) {
+//                      console.log(_client);
                       var config = ListConfig.getConfig();
 
                       var parameters = {
                         populate: 'lists',
                         limit: config.itemsPerPage,
-                        sort: 'name ASC'
+                        sort: 'name ASC',
+                        where: { 
+                            client: _client.id
+                        }
                       };
 
                       return CampaignModel.load(parameters);

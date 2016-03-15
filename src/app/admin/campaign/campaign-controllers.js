@@ -181,6 +181,8 @@
         _client,
         _items, _count, _lists
       ) {
+      console.log(_client);
+  
         // Set current scope reference to models
         CampaignModel.setScope($scope, false, 'items', 'itemCount');
         ListModel.setScope($scope, false, 'lists');
@@ -190,6 +192,7 @@
 
         // Set initial data
         $scope.items = _items;
+        $scope.client = _client;
         $scope.itemCount = _count.count;
         $scope.lists = _lists;
         $scope.currentUser = UserService.user();
@@ -204,7 +207,7 @@
 
         // Initialize default sort data
         $scope.sort = {
-          column: 'campaignname',
+          column: 'name',
           direction: true
         };
 

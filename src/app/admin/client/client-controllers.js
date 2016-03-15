@@ -70,7 +70,7 @@
               function onSuccess(result) {
                 MessageService.success('New client added successfully');
 
-                $state.go('admin.client', {id: result.data.id});
+                $state.go('admin.client', {clientId: result.data.id});
               }
             )
           ;
@@ -96,6 +96,8 @@
         ClientModel, CampaignModel,
         _client, _campaigns
       ) {
+        console.log(_client);
+  
         // expose state
         $scope.$state = $state;
         // Set current scope reference to model
