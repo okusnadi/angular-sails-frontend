@@ -96,7 +96,6 @@
         ClientModel, CampaignModel,
         _client, _campaigns
       ) {
-        console.log(_client);
   
         // expose state
         $scope.$state = $state;
