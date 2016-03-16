@@ -1,19 +1,19 @@
 <md-content layout-padding>
 
-    <form class="form-vertical" role="form" name="campaignForm"
+    <form class="form-vertical" role="form" name="emailTemplateForm"
           autocomplete="off" 
-          ng-submit="saveCampaign()"
+          ng-submit="saveEmailTemplate()"
           >
         <div layout="row">
             <div flex="50" layout-margin>
                 <md-input-container class="md-block">
-                    <label>Campaign Name</label>
+                    <label>Email template name</label>
                     <input type="text" name="name" 
-                           ng-model="campaign.name"
+                           ng-model="emailTemplate.name"
                            minlength="3"
                            required 
                            />
-                    <div ng-messages="campaignForm.name.$error" multiple md-auto-hide="false">
+                    <div ng-messages="emailTemplateForm.name.$error" multiple md-auto-hide="false">
                         <div ng-message="minlength">The name has to be at least 3 characters.</div>
                         <div ng-message="required">Name is required.</div>
                     </div>
@@ -22,63 +22,33 @@
                 <md-input-container class="md-block">
                     <label>Contact name</label>
                     <input type="text" name="contactName"
-                           ng-model="campaign.contactName"
+                           ng-model="emailTemplate.contactName"
                            />
                 </md-input-container>
 
-                <md-input-container class="md-block">
-                    <label>E-mail</label>
-                    <input type="email"  name="email1"
-                           ng-model="campaign.email1"
-                           />
-                    <div ng-messages="campaignForm.email1.$error" multiple md-auto-hide="false">
-                        <div ng-message="email">Please enter a valid e-mail.</div>
-                    </div>
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <label>Phone number</label>
-                    <input type="text"  name="phone1"
-                           ng-model="campaign.phone1"
-                           />
-                </md-input-container>
-                                
-                <md-input-container class="md-block">
-                    <label>Notes</label>
-                    <textarea name="notes" rows="5"
-                        ng-model="campaign.notes"
-                        >                                  
-                    </textarea>
-                </md-input-container>
 
             </div>
 
             <div flex="50" layout-margin>
                 
-                <md-multi-input 
-                    mi-static="true"
-                    mi-items="ounits" 
-                    mi-max="6"
-                    mi-suggestions="suggestions">
-                </md-multi-input>
                 
             </div>
 
         </div>
             <md-button type="submit" class="md-primary md-raised "
-                       ng-disabled="!campaignForm.$valid"
+                       ng-disabled="!emailTemplateForm.$valid"
                        >
                 Save
             </md-button>
 
             <md-button type="button" class="md-button md-raised "
-                       ng-click="$state.go('campaigns')"
+                       ng-click="$state.go('emailTemplates')"
                        >
                 Cancel
             </md-button>
 
             <md-button type="button" class="md-warn md-raised"
-                       ng-show="$state.current.name === 'campaign'"
+                       ng-show="$state.current.name === 'emailTemplate'"
                        ng-click="confirmDelete($event)"
                        >
                 Delete

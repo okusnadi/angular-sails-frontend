@@ -41,7 +41,7 @@
                       var config = ListConfig.getConfig();
 
                       var parameters = {
-                        populate: 'lists',
+                        populate: ['lists', 'emailTemplates'],
                         limit: config.itemsPerPage,
                         sort: 'name ASC',
                         where: { 
