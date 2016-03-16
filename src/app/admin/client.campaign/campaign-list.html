@@ -42,7 +42,7 @@
                 <md-button>
                     <md-icon class="material-icons md-light">search</md-icon>
                 </md-button>
-                <md-button class="md-fab" data-ui-sref="admin.client.campaign.add">
+                <md-button class="md-fab" data-ui-sref="campaign.add">
                     <md-tooltip>Add campaign</md-tooltip>
                     <md-icon class="material-icons md-light" >person_add</md-icon>
                 </md-button>
@@ -79,16 +79,16 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row md-auto-select md-select="campaign" md-select-id="{{campaign.name}}" ng-repeat="campaign in items">
-                        <td md-cell><a data-ui-sref="admin.client.campaign({campaignId: campaign.id})">{{campaign.name}}</a></td>
+                        <td md-cell><a data-ui-sref="campaign({campaignId: campaign.id})">{{campaign.name}}</a></td>
                         <td md-cell>{{campaign.createdAt}}</td>
                         <td md-cell>{{campaign.updatedAt}}</td>
-                        <td md-cell>{{campaign.lists.length}}<a ui-sref="admin.client.campaign.lists({campaignId: campaign.id})"> View</a></td>
-                        <td md-cell>{{campaign.scripts.length}}<a ui-sref="admin.client.campaign.lists({campaignId: campaign.id})"> View</a></td>
-                        <td md-cell>{{campaign.emailTemplates.length}}<a ui-sref="admin.client.campaign.lists({campaignId: campaign.id})"> View</a></td>
+                        <td md-cell>{{campaign.lists.length}}<a ui-sref="campaign.lists({campaignId: campaign.id})"> View</a></td>
+                        <td md-cell>{{campaign.scripts.length}}<a ui-sref="campaign.lists({campaignId: campaign.id})"> View</a></td>
+                        <td md-cell>{{campaign.emailTemplates.length}}<a ui-sref="campaign.lists({campaignId: campaign.id})"> View</a></td>
                     </tr>
                     <tr md-row ng-if="items.length === 0">
                         <td md-cell><em>No campaigns found.</em><span ng-if="currentUser.admin">Go ahead and <a
-                            data-ui-sref="admin.client.campaign.add"
+                            data-ui-sref="campaign.add"
                             data-tooltip="Add new campaign"><em>create one.</em></a></span>
                         </td>
                     </tr>

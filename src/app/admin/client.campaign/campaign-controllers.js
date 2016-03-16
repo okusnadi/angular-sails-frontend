@@ -39,7 +39,7 @@
             notes: ''
         };
         
-        $scope.ounits = $scope.client.orgUnits.map( function(ou, index){
+        $scope.ounits = $scope.client.orgUnits.map( function(ou){
             return {
                 order: ou.order,
                 label: ou.value,
@@ -60,7 +60,7 @@
               function onSuccess(result) {
                 MessageService.success('New campaign added successfully');
 
-                $state.go('admin.client.campaign', {campaignId: result.data.id});
+                $state.go('campaign', {campaignId: result.data.id});
               }
             )
           ;
@@ -146,7 +146,7 @@
               function onSuccess() {
                 MessageService.success('Campaign "' + $scope.campaign.title + '" deleted successfully');
 
-                $state.go('admin.client.campaigns');
+                $state.go('campaigns');
               }
             )
           ;

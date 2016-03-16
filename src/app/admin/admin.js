@@ -14,8 +14,7 @@
     'frontend.admin.login-history',
     'frontend.admin.user',
     'frontend.admin.role',
-    'frontend.admin.client',
-    'frontend.admin.client.campaign'
+    'frontend.admin.client'
   ]);
 
   // Module configuration

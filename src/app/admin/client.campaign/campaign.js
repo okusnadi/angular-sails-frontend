@@ -19,11 +19,12 @@
       function config($stateProvider) {
         $stateProvider
           // Campaign list
-          .state('admin.client.campaigns', {
+          .state('campaigns', {
+            parent: 'admin.client',
             url: '/campaigns',
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/campaign/campaign-list.html',
+                templateUrl: '/frontend/admin/client.campaign/campaign-list.html',
                 controller: 'CampaignListController',
                 resolve: {
                   _items: [
@@ -67,7 +68,8 @@
           })
 
           // Single campaign
-          .state('admin.client.campaign', {
+          .state('campaign', {
+            parent: 'admin.client',
             url: '/campaign/:campaignId',
             resolve: {
                 _campaign: [
@@ -83,7 +85,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/campaign/campaign.html',
+                templateUrl: '/frontend/admin/client.campaign/campaign.html',
                 controller: 'CampaignController',
                 resolve: {
                   _lists: [
@@ -98,14 +100,15 @@
           })
 
           // Add new campaign
-          .state('admin.client.campaign.add', {
+          .state('campaign.add', {
+//            parent: 'admin.client',
             url: '/add',
             data: {
               access: 2
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/campaign/campaign.html',
+                templateUrl: '/frontend/admin/client.campaign/campaign.html',
                 controller: 'CampaignAddController',
                 resolve: {
                   _lists: [

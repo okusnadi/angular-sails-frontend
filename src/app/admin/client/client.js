@@ -10,7 +10,9 @@
   'use strict';
 
   // Define frontend.admin.client angular module
-  angular.module('frontend.admin.client', []);
+  angular.module('frontend.admin.client', [
+    'frontend.admin.client.campaign'
+  ]);
 
   // Module configuration
   angular.module('frontend.admin.client')
