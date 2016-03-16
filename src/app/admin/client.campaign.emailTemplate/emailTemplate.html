@@ -20,12 +20,13 @@
                 </md-input-container>
 
                 <md-input-container class="md-block">
-                    <label>Contact name</label>
-                    <input type="text" name="contactName"
-                           ng-model="emailTemplate.contactName"
-                           />
+                    <text-angular 
+                        required
+                        ng-model="emailTemplate.body"
+                        >                        
+                    </text-angular>
                 </md-input-container>
-
+                
 
             </div>
 

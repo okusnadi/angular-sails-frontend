@@ -10,7 +10,9 @@
   'use strict';
 
   // Define frontend.admin.client.emailTemplate.emailTemplate angular module
-  angular.module('frontend.admin.client.campaign.emailTemplate', []);
+  angular.module('frontend.admin.client.campaign.emailTemplate', [
+      'textAngular'
+  ]);
 
   // Module configuration
   angular.module('frontend.admin.client.campaign.emailTemplate')
@@ -30,7 +32,7 @@
                   _items: [
                     'ListConfig',
                     'EmailTemplateModel',
-                    '_client',
+                    '_campaign',
                     function resolve(
                       ListConfig,
                       EmailTemplateModel,
