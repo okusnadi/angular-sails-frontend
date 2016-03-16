@@ -10,7 +10,9 @@
   'use strict';
 
   // Define frontend.admin.client.campaign angular module
-  angular.module('frontend.admin.client.campaign', []);
+  angular.module('frontend.admin.client.campaign', [
+      'frontend.admin.client.campaign.emailTemplate'
+  ]);
 
   // Module configuration
   angular.module('frontend.admin.client.campaign')

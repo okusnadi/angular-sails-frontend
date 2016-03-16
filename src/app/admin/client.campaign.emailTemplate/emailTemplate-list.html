@@ -1,0 +1,57 @@
+
+<section layout="column">
+    <!--Table header-->
+    <md-card>
+        <!--<md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">-->
+        <md-toolbar class="md-table-toolbar">
+            <div class="md-toolbar-tools">
+                <h2><strong>{{campaign.name}} </strong> Email templates ({{itemCount}})</h2>
+                <div flex></div>
+                <!--<md-button ng-click="filter.show = true">-->
+              <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
+                <input type="text" ng-model="filters.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
+              </form>
+                <md-button>
+                    <md-icon class="material-icons md-light">search</md-icon>
+                </md-button>
+                <md-button class="md-fab" data-ui-sref="campaign.add">
+                    <md-tooltip>Add email template</md-tooltip>
+                    <md-icon class="material-icons md-light" >note_add</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <!--table-->
+        <md-table-container>
+            <!--FAB-->
+            <table md-table >
+                <thead md-head md-order="query.order" md-on-reorder="onReorder">
+                    <tr md-row>
+                        <th md-column 
+                            ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
+                            ng-repeat="item in titleItems"
+                        >
+                            <md-tooltip ng-if="item.sortable!==false">Sort by {{ item.title }}</md-tooltip>
+                            {{ item.title }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-auto-select md-select="emailTemplate" md-select-id="{{emailTemplate.name}}" ng-repeat="emailTemplate in items">
+                        <td md-cell><a data-ui-sref="emailTemplate({emailTemplateId: emailTemplate.id})">{{emailTemplate.name}}</a></td>
+                        <td md-cell>{{emailTemplate.createdAt}}</td>
+                        <td md-cell>{{emailTemplate.updatedAt}}</td>
+                    </tr>
+                    <tr md-row ng-if="items.length === 0">
+                        <td md-cell><em>No emailTemplates found.</em><span ng-if="currentUser.admin">Go ahead and <a
+                            data-ui-sref="emailTemplate.add"
+                            data-tooltip="Add new email template"><em>create one.</em></a></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{itemCount}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        </md-card>
+</section>
+

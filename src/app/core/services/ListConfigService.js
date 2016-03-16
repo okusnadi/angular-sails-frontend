@@ -23,6 +23,35 @@
          *        }}
          */
         var titleItems = {
+          emailTemplate: [
+            {
+              title: 'Name',
+              column: 'name',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Created',
+              column: 'createdAt',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Updated',
+              column: 'updatedAt',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            }
+          ],
           campaign: [
             {
               title: 'Name',
@@ -46,10 +75,10 @@
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
-              searchable: false,
-              sortable: false,
-              inSearch: false,
-              inTitle: false
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
             },
             {
               title: 'Lists',
