@@ -17,6 +17,7 @@
             "attributes": {
                 "mi-suggestions": {},
                 "mi-items": {},
+                "mi-static": {},
                 "items": {},
                 "mi-max": {}
             }
@@ -90,6 +91,7 @@
                 "data-ng-class": {},
                 "tabIndex": {},
                 "type": {},
+                "ng-if": {},
                 "data-ng-bootbox-buttons": {},
                 "ng-disabled": {},
                 "ng-show": {},
@@ -160,6 +162,9 @@
         },
         "md-cell": {
             "context": "td"
+        },
+        "ui-sref": {
+            "context": "a"
         }
     }
 }

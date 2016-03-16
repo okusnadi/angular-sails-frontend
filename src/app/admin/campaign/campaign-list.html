@@ -83,7 +83,8 @@
                         <td md-cell>{{campaign.createdAt}}</td>
                         <td md-cell>{{campaign.updatedAt}}</td>
                         <td md-cell>{{campaign.lists.length}}<a ui-sref="admin.client.campaign.lists({campaignId: campaign.id})"> View</a></td>
-                        <td md-cell>4567</td>
+                        <td md-cell>{{campaign.scripts.length}}<a ui-sref="admin.client.campaign.lists({campaignId: campaign.id})"> View</a></td>
+                        <td md-cell>{{campaign.emailTemplates.length}}<a ui-sref="admin.client.campaign.lists({campaignId: campaign.id})"> View</a></td>
                     </tr>
                     <tr md-row ng-if="items.length === 0">
                         <td md-cell><em>No campaigns found.</em><span ng-if="currentUser.admin">Go ahead and <a

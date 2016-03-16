@@ -47,14 +47,13 @@
             };
         });
         
-        console.log($scope.ounits);
-        
         /**
          * Scope function to store new campaign to database. After successfully save campaign will be redirected
          * to view that new created campaign.
          */
         $scope.saveCampaign = function() {
             $scope.campaign.client = $scope.client;
+            $scope.campaign.orgUnits = angular.toJson($scope.ounits);
             CampaignModel
             .create(angular.copy($scope.campaign))
             .then(
@@ -100,6 +99,8 @@
         $scope.lists = _lists;
         $scope.selectList = _campaign.list ? _campaign.list.id : null;
 
+        $scope.ounits = angular.fromJson($scope.campaign.orgUnits);
+        
         // Campaign delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
           ok: {
@@ -120,7 +121,7 @@
          * socket request to the backend server with the modified object.
          */
         $scope.saveCampaign = function() {
-          $scope.campaign.client = $scope.client;
+          $scope.campaign.orgUnits = angular.toJson($scope.ounits);
           var data = angular.copy($scope.campaign);
 
           // Make actual data update
