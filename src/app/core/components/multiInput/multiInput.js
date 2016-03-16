@@ -7,6 +7,7 @@
 
         var ctrl = this;
         ctrl.suggestions = loadAll();
+        console.log(ctrl.miStatic);
         
 //        console.log(ctrl.miItems);
         if( !angular.isDefined(ctrl.miItems.length) || ctrl.miItems.length < 1 ) {
@@ -60,7 +61,8 @@
                 bindings: {
                     miItems: '=',
                     miSuggestions: '<?',
-                    miMax: '<?'
+                    miMax: '<?',
+                    miStatic: '<?'
                 }
             });
 
