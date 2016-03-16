@@ -34,8 +34,8 @@
               inTitle: true
             },
             {
-              title: 'OU 1',
-              column: 'orgUnit1',
+              title: 'Created',
+              column: 'createdAt',
               class: 'col-xs-2',
               searchable: true,
               sortable: true,
@@ -43,8 +43,8 @@
               inTitle: true
             },
             {
-              title: 'OU 2',
-              column: 'orgUnit2',
+              title: 'Updated',
+              column: 'updatedAt',
               class: 'col-xs-2',
               searchable: false,
               sortable: false,
@@ -52,7 +52,25 @@
               inTitle: false
             },
             {
-              title: 'OU 3',
+              title: 'Lists',
+              column: 'orgUnit3',
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: false
+            },
+            {
+              title: 'Scripts',
+              column: 'orgUnit3',
+              class: 'col-xs-2',
+              searchable: false,
+              sortable: false,
+              inSearch: false,
+              inTitle: false
+            },
+            {
+              title: 'Email templates',
               column: 'orgUnit3',
               class: 'col-xs-2',
               searchable: false,
