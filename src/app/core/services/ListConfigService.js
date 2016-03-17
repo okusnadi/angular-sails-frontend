@@ -23,6 +23,64 @@
          *        }}
          */
         var titleItems = {
+          script: [
+            {
+              title: 'Name',
+              column: 'name',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Created',
+              column: 'createdAt',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Updated',
+              column: 'updatedAt',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            }
+          ],
+          list: [
+            {
+              title: 'Name',
+              column: 'name',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Created',
+              column: 'createdAt',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Updated',
+              column: 'updatedAt',
+              class: 'col-xs-2',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            }
+          ],
           emailTemplate: [
             {
               title: 'Name',
