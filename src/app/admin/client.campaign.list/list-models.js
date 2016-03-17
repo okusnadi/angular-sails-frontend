@@ -10,11 +10,11 @@
   /**
    * Model for User API, this is used to wrap all User objects specified actions and data change actions.
    */
-  angular.module('frontend.admin.client.campaign.emailTemplate')
-    .factory('EmailTemplateModel', [
+  angular.module('frontend.admin.client.campaign.list')
+    .factory('ListModel', [
       'DataModel',
       function factory(DataModel) {
-        return new DataModel('emailTemplate');
+        return new DataModel('list');
       }
     ])
   ;

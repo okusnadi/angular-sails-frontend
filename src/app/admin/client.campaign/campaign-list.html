@@ -33,7 +33,13 @@
         <!--<md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">-->
         <md-toolbar class="md-table-toolbar">
             <div class="md-toolbar-tools">
-                <h2><strong>{{client.name}}</strong> Campaigns ({{itemCount}})</h2>
+                <h2>
+                    <a data-ui-sref="admin.clients">
+                        <md-tooltip>Go back to clients list</md-tooltip>
+                        <md-icon class="material-icons md-light">arrow_back</md-icon>
+                        <strong>{{client.name}}</strong>
+                        </a> Campaigns ({{itemCount}})
+                </h2>
                 <div flex></div>
                 <!--<md-button ng-click="filter.show = true">-->
               <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
@@ -44,7 +50,7 @@
                 </md-button>
                 <md-button class="md-fab" data-ui-sref="campaign.add">
                     <md-tooltip>Add campaign</md-tooltip>
-                    <md-icon class="material-icons md-light" >person_add</md-icon>
+                    <md-icon class="material-icons md-light" >note_add</md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -82,7 +88,7 @@
                         <td md-cell><a data-ui-sref="campaign({campaignId: campaign.id})">{{campaign.name}}</a></td>
                         <td md-cell>{{campaign.createdAt}}</td>
                         <td md-cell>{{campaign.updatedAt}}</td>
-                        <td md-cell>{{campaign.lists.length}}<a ui-sref="campaign.lists({campaignId: campaign.id})"> View</a></td>
+                        <td md-cell>{{campaign.lists.length}}<a ui-sref="lists({campaignId: campaign.id})"> View</a></td>
                         <td md-cell>{{campaign.scripts.length}}<a ui-sref="campaign.lists({campaignId: campaign.id})"> View</a></td>
                         <td md-cell>{{campaign.emailTemplates.length}}<a ui-sref="emailTemplates({campaignId: campaign.id})"> View</a></td>
                     </tr>

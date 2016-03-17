@@ -17,11 +17,11 @@
         return new DataModel('campaign');
       }
     ])
-    .factory('ListModel', [
-      'DataModel',
-      function factory(DataModel) {
-        return new DataModel('list');
-      }
-    ])
+//    .factory('ListModel', [
+//      'DataModel',
+//      function factory(DataModel) {
+//        return new DataModel('list');
+//      }
+//    ])
   ;
 }());

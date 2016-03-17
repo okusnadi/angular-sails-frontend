@@ -77,11 +77,6 @@
               access: AccessLevels.admin
             },
             {
-              state: 'admin.campaigns',
-              title: 'Campaigns',
-              access: AccessLevels.admin
-            },
-            {
               state: '',
               title: 'Request log',
               access: AccessLevels.admin

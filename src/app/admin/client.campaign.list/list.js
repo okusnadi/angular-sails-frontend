@@ -1,41 +1,41 @@
 /**
- * EmailTemplate component to wrap all emailTemplate specified stuff together. This component is divided to following logical components:
+ * List component to wrap all list specified stuff together. This component is divided to following logical components:
  *
  *  Controllers
  *  Models
  *
- * All of these are wrapped to 'frontend.admin.client.emailTemplate.emailTemplate' angular module.
+ * All of these are wrapped to 'frontend.admin.client.list.list' angular module.
  */
 (function() {
   'use strict';
 
-  // Define frontend.admin.client.emailTemplate.emailTemplate angular module
-  angular.module('frontend.admin.client.campaign.emailTemplate', [
+  // Define frontend.admin.client.list.list angular module
+  angular.module('frontend.admin.client.campaign.list', [
       'textAngular'
   ]);
 
   // Module configuration
-  angular.module('frontend.admin.client.campaign.emailTemplate')
+  angular.module('frontend.admin.client.campaign.list')
     .config([
       '$stateProvider',
       function config($stateProvider) {
         $stateProvider
-          // EmailTemplate list
-          .state('emailTemplates', {
+          // List list
+          .state('lists', {
             parent: 'campaign',
-            url: '/emailTemplates',
+            url: '/lists',
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client.campaign.emailTemplate/emailTemplate-list.html',
-                controller: 'EmailTemplateListController',
+                templateUrl: '/frontend/admin/client.campaign.list/list-list.html',
+                controller: 'ListListController',
                 resolve: {
                   _items: [
                     'ListConfig',
-                    'EmailTemplateModel',
+                    'ListModel',
                     '_campaign',
                     function resolve(
                       ListConfig,
-                      EmailTemplateModel,
+                      ListModel,
                       _campaign
                     ) {
                       var config = ListConfig.getConfig();
@@ -48,13 +48,13 @@
                         }
                       };
 
-                      return EmailTemplateModel.load(parameters);
+                      return ListModel.load(parameters);
                     }
                   ],
                   _count: [
-                    'EmailTemplateModel',
-                    function resolve(EmailTemplateModel) {
-                      return EmailTemplateModel.count();
+                    'ListModel',
+                    function resolve(ListModel) {
+                      return ListModel.count();
                     }
                   ]
                 }
@@ -62,26 +62,26 @@
             }
           })
 
-          // Single emailTemplate
-          .state('emailTemplate', {
+          // Single list
+          .state('list', {
             parent: 'campaign',
-            url: '/emailTemplate/:emailTemplateId',
+            url: '/list/:listId',
             resolve: {
-                _emailTemplate: [
+                _list: [
                     '$stateParams',
-                    'EmailTemplateModel',
+                    'ListModel',
                     function resolve(
                       $stateParams,
-                      EmailTemplateModel
+                      ListModel
                     ) {
-                      return EmailTemplateModel.fetch($stateParams.emailTemplateId);
+                      return ListModel.fetch($stateParams.listId);
                     }
                   ]
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client.campaign.emailTemplate/emailTemplate.html',
-                controller: 'EmailTemplateController',
+                templateUrl: '/frontend/admin/client.campaign.list/list.html',
+                controller: 'ListController',
                 resolve: {
                   _lists: [
                     'ListModel',
@@ -94,8 +94,8 @@
             }
           })
 
-          // Add new emailTemplate
-          .state('emailTemplate.add', {
+          // Add new list
+          .state('list.add', {
 //            parent: 'admin.client',
             url: '/add',
             data: {
@@ -103,8 +103,8 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client.campaign.emailTemplate/emailTemplate.html',
-                controller: 'EmailTemplateAddController',
+                templateUrl: '/frontend/admin/client.campaign.list/list.html',
+                controller: 'ListAddController',
                 resolve: {
                 }
               }

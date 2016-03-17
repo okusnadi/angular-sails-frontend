@@ -5,7 +5,13 @@
         <!--<md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">-->
         <md-toolbar class="md-table-toolbar">
             <div class="md-toolbar-tools">
-                <h2><strong>{{campaign.name}} </strong> Email templates ({{itemCount}})</h2>
+                <h2>
+                    <a data-ui-sref="campaigns">
+                        <md-tooltip>Go back to campaign list</md-tooltip>
+                        <md-icon class="material-icons md-light">arrow_back</md-icon>
+                        <strong>{{campaign.name}}</strong>
+                        </a> Email templates ({{itemCount}})
+                </h2>
                 <div flex></div>
                 <!--<md-button ng-click="filter.show = true">-->
               <form flex="" name="filter.form" class="ng-valid flex ng-pristine">

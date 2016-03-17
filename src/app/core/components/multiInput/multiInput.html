@@ -1,5 +1,5 @@
 <ng-form name="miForm">
-    <div layout="row" ng-repeat="item in $ctrl.miItems" flex>
+    <div layout="row" ng-repeat="item in $ctrl.miItems">
 <!--        <md-input-container flex class="md-block"                     
                             >
             <label if-ng="item.label">{{item.label}}</label>
@@ -14,7 +14,7 @@
         </md-input-container>-->
         <md-autocomplete
             required="true"
-            md-floating-label="{{item.label?item.label:'Level '+$index+1}}"
+            md-floating-label="{{item.label?item.label:'Level '+($index+1)}}"
             md-selected-item="item.selectedItem" 
             md-search-text="item.value" 
             md-items="sugg in $ctrl.querySearch(item.value, item)" 

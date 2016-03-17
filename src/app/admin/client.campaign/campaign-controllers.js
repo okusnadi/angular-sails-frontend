@@ -188,7 +188,6 @@
         _client,
         _items, _count, _lists
       ) {
-      console.log(_client);
   
         // Set current scope reference to models
         CampaignModel.setScope($scope, false, 'items', 'itemCount');

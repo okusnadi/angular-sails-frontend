@@ -7,9 +7,7 @@
 
         var ctrl = this;
         ctrl.suggestions = loadAll();
-        console.log(ctrl.miStatic);
         
-//        console.log(ctrl.miItems);
         if( !angular.isDefined(ctrl.miItems.length) || ctrl.miItems.length < 1 ) {
             ctrl.miItems = [{value:''}];
         }
@@ -30,10 +28,6 @@
             return result;
         };
         
-//        ctrl.logger = function (item ) {
-//            console.log(item);            
-//        };
-
         function loadAll() {
             if( !angular.isDefined(ctrl.miSuggestions) ) {
                 return [];

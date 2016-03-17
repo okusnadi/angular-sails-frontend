@@ -11,7 +11,8 @@
 
   // Define frontend.admin.client.campaign angular module
   angular.module('frontend.admin.client.campaign', [
-      'frontend.admin.client.campaign.emailTemplate'
+      'frontend.admin.client.campaign.emailTemplate',
+      'frontend.admin.client.campaign.list'
   ]);
 
   // Module configuration
