@@ -205,7 +205,10 @@
         $scope.query =  {
             order: 'name',
             page: 1,
-            limit: $scope.itemsPerPage
+            limit: $scope.itemsPerPage,
+            where: { 
+                client: _client.id
+            }
         };
 
         // Initialize used title items
@@ -328,7 +331,8 @@
             populate: 'lists',
             limit: $scope.itemsPerPage,
             skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
-            sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
+            sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC'),
+            where: angular.isDefined($scope.query.where)?$scope.query.where:{}
           };
 
           // Fetch data count
