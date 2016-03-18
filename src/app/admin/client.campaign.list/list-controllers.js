@@ -32,7 +32,7 @@
         $scope.list = {
             name: '',
             
-            body: ''
+            info: ''
         };
                 
         /**

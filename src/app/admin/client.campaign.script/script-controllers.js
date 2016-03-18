@@ -1,23 +1,23 @@
 /**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.campaign.campaign.emailTemplate' module.
+ * This file contains all necessary Angular controller definitions for 'frontend.admin.campaign.campaign.script' module.
  *
  * Note that this file should only contain controllers and nothing else.
  */
 (function() {
   'use strict';
 
-  // Controller for new emailTemplate creation.
-  angular.module('frontend.admin.client.campaign.emailTemplate')
-    .controller('EmailTemplateAddController', [
+  // Controller for new script creation.
+  angular.module('frontend.admin.client.campaign.script')
+    .controller('ScriptAddController', [
       '$scope', '$state',
       'MessageService',
-      'EmailTemplateModel',
+      'ScriptModel',
       '_client',
       '_campaign', 
       function controller(
         $scope, $state,
         MessageService,
-        EmailTemplateModel,
+        ScriptModel,
         _client,
         _campaign
       ) {
@@ -28,26 +28,26 @@
         $scope.campaign = _campaign;
         $scope.client = _client;
 
-        // Initialize emailTemplate model
-        $scope.emailTemplate = {
+        // Initialize script model
+        $scope.script = {
             name: '',
             
-            body: ''
+            info: ''
         };
                 
         /**
-         * Scope function to store new emailTemplate to database. After successfully save emailTemplate will be redirected
-         * to view that new created emailTemplate.
+         * Scope function to store new script to database. After successfully save script will be redirected
+         * to view that new created script.
          */
-        $scope.saveEmailTemplate = function() {
-            $scope.emailTemplate.campaign = $scope.campaign;
-            EmailTemplateModel
-            .create(angular.copy($scope.emailTemplate))
+        $scope.saveScript = function() {
+            $scope.script.campaign = $scope.campaign;
+            ScriptModel
+            .create(angular.copy($scope.script))
             .then(
               function onSuccess(result) {
-                MessageService.success('New emailTemplate added successfully');
+                MessageService.success('New script added successfully');
 
-                $state.go('emailTemplate', {emailTemplateId: result.data.id});
+                $state.go('script', {scriptId: result.data.id});
               }
             )
           ;
@@ -57,41 +57,41 @@
     ])
   ;
 
-  // Controller to show single emailTemplate on GUI.
-  angular.module('frontend.admin.client.campaign.emailTemplate')
-    .controller('EmailTemplateController', 
+  // Controller to show single script on GUI.
+  angular.module('frontend.admin.client.campaign.script')
+    .controller('ScriptController', 
     [
       '$scope', '$state',
       '$mdDialog',
       'UserService', 'MessageService',
-      'EmailTemplateModel', 
+      'ScriptModel', 
       '_campaign',
-      '_emailTemplate',
+      '_script',
       function controller(
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
-        EmailTemplateModel, 
+        ScriptModel, 
         _campaign,
-        _emailTemplate
+        _script
       ) {
         // expose state
         $scope.$state = $state;
         // Set current scope reference to model
-        EmailTemplateModel.setScope($scope, 'emailTemplate');
+        ScriptModel.setScope($scope, 'script');
 
         // Initialize scope data
         $scope.currentUser = UserService.user();
-        $scope.emailTemplate = _emailTemplate;
-        $scope.selectList = _emailTemplate.list ? _emailTemplate.list.id : null;
+        $scope.script = _script;
+        $scope.selectList = _script.list ? _script.list.id : null;
 
-        // EmailTemplate delete dialog buttons configuration
+        // Script delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
           ok: {
             label: 'Delete',
             className: 'btn-danger',
             callback: function callback() {
-              $scope.deleteEmailTemplate();
+              $scope.deleteScript();
             }
           },
           cancel: {
@@ -101,35 +101,35 @@
         };
 
         /**
-         * Scope function to save the modified emailTemplate. This will send a
+         * Scope function to save the modified script. This will send a
          * socket request to the backend server with the modified object.
          */
-        $scope.saveEmailTemplate = function() {
-          var data = angular.copy($scope.emailTemplate);
+        $scope.saveScript = function() {
+          var data = angular.copy($scope.script);
 
           // Make actual data update
-          EmailTemplateModel
+          ScriptModel
             .update(data.id, data)
             .then(
               function onSuccess() {
-                MessageService.success('Email template "' + $scope.emailTemplate.name + '" updated successfully');
+                MessageService.success('Email template "' + $scope.script.name + '" updated successfully');
               }
             )
           ;
         };
 
         /**
-         * Scope function to delete current emailTemplate. This will send DELETE query to backend via web socket
-         * query and after successfully delete redirect emailTemplate back to emailTemplate list.
+         * Scope function to delete current script. This will send DELETE query to backend via web socket
+         * query and after successfully delete redirect script back to script list.
          */
-        $scope.deleteEmailTemplate = function deleteEmailTemplate() {
-          EmailTemplateModel
-            .delete($scope.emailTemplate.id)
+        $scope.deleteScript = function deleteScript() {
+          ScriptModel
+            .delete($scope.script.id)
             .then(
               function onSuccess() {
-                MessageService.success('Email template "' + $scope.emailTemplate.title + '" deleted successfully');
+                MessageService.success('Email template "' + $scope.script.title + '" deleted successfully');
 
-                $state.go('emailTemplates');
+                $state.go('scripts');
               }
             )
           ;
@@ -138,14 +138,14 @@
         $scope.confirmDelete = function(ev) {
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
-                  .title('Delete emailTemplate')
-                  .textContent('Are you sure you want to delete email template '+$scope.emailTemplate.name+' ?')
+                  .title('Delete script')
+                  .textContent('Are you sure you want to delete email template '+$scope.script.name+' ?')
                   .ariaLabel('Lucky day')
                   .targetEvent(ev)
                   .ok('Yes!')
                   .cancel('Cancel');
             $mdDialog.show(confirm).then(function() {
-              $scope.deleteEmailTemplate();
+              $scope.deleteScript();
             }, function() {
                 
             });
@@ -154,27 +154,27 @@
     ])
   ;
 
-  // Controller which contains all necessary logic for emailTemplate list GUI on boilerplate application.
-  angular.module('frontend.admin.client.campaign.emailTemplate')
-    .controller('EmailTemplateListController', [
+  // Controller which contains all necessary logic for script list GUI on boilerplate application.
+  angular.module('frontend.admin.client.campaign.script')
+    .controller('ScriptListController', [
       '$scope', '$q', '$timeout',
       '_',
       'ListConfig', 'SocketHelperService',
-      'UserService', 'EmailTemplateModel', 
+      'UserService', 'ScriptModel', 
       '_campaign',
       '_items', '_count', 
       function controller(
         $scope, $q, $timeout,
         _,
         ListConfig, SocketHelperService,
-        UserService, EmailTemplateModel, 
+        UserService, ScriptModel, 
         _campaign,
         _items, _count
       ) {
       console.log(_campaign);
   
         // Set current scope reference to models
-        EmailTemplateModel.setScope($scope, false, 'items', 'itemCount');
+        ScriptModel.setScope($scope, false, 'items', 'itemCount');
 
         // Add default list configuration variable to current scope
         $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
@@ -194,7 +194,7 @@
         };
 
         // Initialize used title items
-        $scope.titleItems = ListConfig.getTitleItems(EmailTemplateModel.endpoint);
+        $scope.titleItems = ListConfig.getTitleItems(ScriptModel.endpoint);
 
         // Initialize default sort data
         $scope.sort = {
@@ -209,7 +209,7 @@
         };
 
         /**
-         * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch emailTemplate data
+         * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch script data
          * from server.
          */
         $scope.$watch('currentPage', function watcher(valueNew, valueOld) {
@@ -219,7 +219,7 @@
         });
 
         /**
-         * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch emailTemplate data
+         * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch script data
          * from server.
          */
         $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
@@ -296,7 +296,7 @@
          *  1) Data count by given filter parameters
          *  2) Actual data fetch for current page with filter parameters
          *
-         * These are fetched via 'EmailTemplateModel' service with promises.
+         * These are fetched via 'ScriptModel' service with promises.
          *
          * @private
          */
@@ -317,7 +317,7 @@
           };
 
           // Fetch data count
-          var count = EmailTemplateModel
+          var count = ScriptModel
             .count(commonParameters)
             .then(
               function onSuccess(response) {
@@ -327,7 +327,7 @@
           ;
 
           // Fetch actual data
-          var load = EmailTemplateModel
+          var load = ScriptModel
             .load(_.merge({}, commonParameters, parameters))
             .then(
               function onSuccess(response) {

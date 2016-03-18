@@ -20,8 +20,8 @@
                 <md-button>
                     <md-icon class="material-icons md-light">search</md-icon>
                 </md-button>
-                <md-button class="md-fab" data-ui-sref="emailTemplate.add">
-                    <md-tooltip>Add email template</md-tooltip>
+                <md-button class="md-fab" data-ui-sref="script.add">
+                    <md-tooltip>Add script</md-tooltip>
                     <md-icon class="material-icons md-light" >note_add</md-icon>
                 </md-button>
             </div>
@@ -43,15 +43,15 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select md-select="emailTemplate" md-select-id="{{emailTemplate.name}}" ng-repeat="emailTemplate in items">
-                        <td md-cell><a data-ui-sref="emailTemplate({emailTemplateId: emailTemplate.id})">{{emailTemplate.name}}</a></td>
-                        <td md-cell>{{emailTemplate.createdAt}}</td>
-                        <td md-cell>{{emailTemplate.updatedAt}}</td>
+                    <tr md-row md-auto-select md-select="script" md-select-id="{{script.name}}" ng-repeat="script in items">
+                        <td md-cell><a data-ui-sref="script({scriptId: script.id})">{{script.name}}</a></td>
+                        <td md-cell>{{script.createdAt}}</td>
+                        <td md-cell>{{script.updatedAt}}</td>
                     </tr>
                     <tr md-row ng-if="items.length === 0">
-                        <td md-cell><em>No emailTemplates found.</em><span ng-if="currentUser.admin">Go ahead and <a
-                            data-ui-sref="emailTemplate.add"
-                            data-tooltip="Add new email template"><em>create one.</em></a></span>
+                        <td md-cell><em>No scripts found.</em><span ng-if="currentUser.admin">Go ahead and <a
+                            data-ui-sref="script.add"
+                            data-tooltip="Add new script"><em>create one.</em></a></span>
                         </td>
                     </tr>
                 </tbody>

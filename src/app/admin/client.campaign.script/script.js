@@ -1,41 +1,41 @@
 /**
- * EmailTemplate component to wrap all emailTemplate specified stuff together. This component is divided to following logical components:
+ * Script component to wrap all script specified stuff together. This component is divided to following logical components:
  *
  *  Controllers
  *  Models
  *
- * All of these are wrapped to 'frontend.admin.client.emailTemplate.emailTemplate' angular module.
+ * All of these are wrapped to 'frontend.admin.client.script.script' angular module.
  */
 (function() {
   'use strict';
 
-  // Define frontend.admin.client.emailTemplate.emailTemplate angular module
-  angular.module('frontend.admin.client.campaign.emailTemplate', [
+  // Define frontend.admin.client.script.script angular module
+  angular.module('frontend.admin.client.campaign.script', [
       'textAngular'
   ]);
 
   // Module configuration
-  angular.module('frontend.admin.client.campaign.emailTemplate')
+  angular.module('frontend.admin.client.campaign.script')
     .config([
       '$stateProvider',
       function config($stateProvider) {
         $stateProvider
-          // EmailTemplate list
-          .state('emailTemplates', {
+          // Script list
+          .state('scripts', {
             parent: 'campaign',
-            url: '/emailTemplates',
+            url: '/scripts',
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client.campaign.emailTemplate/emailTemplate-list.html',
-                controller: 'EmailTemplateListController',
+                templateUrl: '/frontend/admin/client.campaign.script/script-list.html',
+                controller: 'ScriptListController',
                 resolve: {
                   _items: [
                     'ListConfig',
-                    'EmailTemplateModel',
+                    'ScriptModel',
                     '_campaign',
                     function resolve(
                       ListConfig,
-                      EmailTemplateModel,
+                      ScriptModel,
                       _campaign
                     ) {
                       var config = ListConfig.getConfig();
@@ -48,13 +48,13 @@
                         }
                       };
 
-                      return EmailTemplateModel.load(parameters);
+                      return ScriptModel.load(parameters);
                     }
                   ],
                   _count: [
-                    'EmailTemplateModel',
-                    function resolve(EmailTemplateModel) {
-                      return EmailTemplateModel.count();
+                    'ScriptModel',
+                    function resolve(ScriptModel) {
+                      return ScriptModel.count();
                     }
                   ]
                 }
@@ -62,26 +62,26 @@
             }
           })
 
-          // Single emailTemplate
-          .state('emailTemplate', {
+          // Single script
+          .state('script', {
             parent: 'campaign',
-            url: '/emailTemplate/:emailTemplateId',
+            url: '/script/:scriptId',
             resolve: {
-                _emailTemplate: [
+                _script: [
                     '$stateParams',
-                    'EmailTemplateModel',
+                    'ScriptModel',
                     function resolve(
                       $stateParams,
-                      EmailTemplateModel
+                      ScriptModel
                     ) {
-                      return EmailTemplateModel.fetch($stateParams.emailTemplateId);
+                      return ScriptModel.fetch($stateParams.scriptId);
                     }
                   ]
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client.campaign.emailTemplate/emailTemplate.html',
-                controller: 'EmailTemplateController',
+                templateUrl: '/frontend/admin/client.campaign.script/script.html',
+                controller: 'ScriptController',
                 resolve: {
                   _lists: [
                     'ListModel',
@@ -94,8 +94,8 @@
             }
           })
 
-          // Add new emailTemplate
-          .state('emailTemplate.add', {
+          // Add new script
+          .state('script.add', {
 //            parent: 'admin.client',
             url: '/add',
             data: {
@@ -103,8 +103,8 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client.campaign.emailTemplate/emailTemplate.html',
-                controller: 'EmailTemplateAddController',
+                templateUrl: '/frontend/admin/client.campaign.script/script.html',
+                controller: 'ScriptAddController',
                 resolve: {
                 }
               }

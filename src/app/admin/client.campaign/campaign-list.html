@@ -89,7 +89,7 @@
                         <td md-cell>{{campaign.createdAt}}</td>
                         <td md-cell>{{campaign.updatedAt}}</td>
                         <td md-cell>{{campaign.lists.length}}<a ui-sref="lists({campaignId: campaign.id})"> View</a></td>
-                        <td md-cell>{{campaign.scripts.length}}<a ui-sref="campaign.lists({campaignId: campaign.id})"> View</a></td>
+                        <td md-cell>{{campaign.scripts.length}}<a ui-sref="scripts({campaignId: campaign.id})"> View</a></td>
                         <td md-cell>{{campaign.emailTemplates.length}}<a ui-sref="emailTemplates({campaignId: campaign.id})"> View</a></td>
                     </tr>
                     <tr md-row ng-if="items.length === 0">
