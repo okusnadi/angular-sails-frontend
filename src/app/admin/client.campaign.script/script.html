@@ -1,19 +1,19 @@
 <md-content layout-padding>
 
-    <form class="form-vertical" role="form" name="emailTemplateForm"
+    <form class="form-vertical" role="form" name="scriptForm"
           autocomplete="off" 
-          ng-submit="saveEmailTemplate()"
+          ng-submit="saveScript()"
           >
         <div layout="row">
             <div flex="50" layout-margin>
                 <md-input-container class="md-block">
-                    <label>Email template name</label>
+                    <label>Script name</label>
                     <input type="text" name="name" 
-                           ng-model="emailTemplate.name"
+                           ng-model="script.name"
                            minlength="3"
                            required 
                            />
-                    <div ng-messages="emailTemplateForm.name.$error" multiple md-auto-hide="false">
+                    <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
                         <div ng-message="minlength">The name has to be at least 3 characters.</div>
                         <div ng-message="required">Name is required.</div>
                     </div>
@@ -22,7 +22,7 @@
                 <md-input-container class="md-block">
                     <text-angular 
                         required
-                        ng-model="emailTemplate.body"
+                        ng-model="script.info"
                         >                        
                     </text-angular>
                 </md-input-container>
@@ -37,19 +37,19 @@
 
         </div>
             <md-button type="submit" class="md-primary md-raised "
-                       ng-disabled="!emailTemplateForm.$valid"
+                       ng-disabled="!scriptForm.$valid"
                        >
                 Save
             </md-button>
 
             <md-button type="button" class="md-button md-raised "
-                       ng-click="$state.go('emailTemplates')"
+                       ng-click="$state.go('scripts')"
                        >
                 Cancel
             </md-button>
 
             <md-button type="button" class="md-warn md-raised"
-                       ng-show="$state.current.name === 'emailTemplate'"
+                       ng-show="$state.current.name === 'script'"
                        ng-click="confirmDelete($event)"
                        >
                 Delete
