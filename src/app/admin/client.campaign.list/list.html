@@ -19,6 +19,13 @@
                     </div>
                 </md-input-container>
 
+                <md-input-container>
+                    <label>Default script</label>
+                    <md-select ng-model="list.defaultScript">
+                        <md-option ng-value="script.id" ng-repeat="script in campaign.scripts">{{ script.name }}</md-option>
+                    </md-select>
+                </md-input-container>
+                
                 <md-input-container class="md-block">
                     <text-angular 
                         required

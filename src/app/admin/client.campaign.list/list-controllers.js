@@ -30,9 +30,9 @@
 
         // Initialize list model
         $scope.list = {
-            name: '',
-            
-            info: ''
+            name: '',            
+            info: '',
+            defaultScript: null
         };
                 
         /**
