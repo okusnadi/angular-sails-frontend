@@ -1,7 +1,7 @@
 ( function() {
     'use strict';
-    angular.module('frontend.core.services')
-      .service( 'FileUpload', [
+    angular.module('frontend.core.components')
+      .service( 'fileUploadService', [
         '$http',
         function($http){
             this.toUrl = function( file, url ) {

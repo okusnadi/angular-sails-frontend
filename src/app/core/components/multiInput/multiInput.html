@@ -1,17 +1,5 @@
 <ng-form name="miForm">
     <div layout="row" ng-repeat="item in $ctrl.miItems">
-<!--        <md-input-container flex class="md-block"                     
-                            >
-            <label if-ng="item.label">{{item.label}}</label>
-            <input type="text" name="input_{{$index}}"
-                   data-ng-model="item.value"
-                   required="required"
-                   />
-
-            <div ng-messages="miForm['input_'+$index].$error" multiple md-auto-hide="false">
-                <div ng-message="required">This field is required.</div>
-            </div>
-        </md-input-container>-->
         <md-autocomplete
             required="true"
             md-floating-label="{{item.label?item.label:'Level '+($index+1)}}"
@@ -35,10 +23,6 @@
             <md-tooltip>Remove current line</md-tooltip>
             <md-icon class="material-icons md-light" >clear</md-icon>
         </md-button>
-<!--        <md-button class="md-fab md-mini" ng-click="$ctrl.logger(item)" tabIndex="-1">
-            <md-tooltip>Remove current line</md-tooltip>
-            <md-icon class="material-icons md-light" >info</md-icon>
-        </md-button>-->
     </div>
 
 </ng-form>

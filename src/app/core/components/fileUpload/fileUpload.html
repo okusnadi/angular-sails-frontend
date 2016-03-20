@@ -1,18 +1,13 @@
 <ng-form name="fuForm">
-<input id="fileInput" ng-model="$ctrl.fileName" ng-change="$ctrl.changed()" name="avatar" type="file" class="ng-hide">
-<md-input-container md-no-float>
-    <input id="textInput" ng-click="$ctrl.clicked()" ng-model="$ctrl.file" type="text" ng-readonly="true" required>
-    <label>Please choose a file</label>
-</md-input-container>
-<md-button id="uploadButton"
-           ng-disabled="!fuForm.$valid"
-           class="md-raised md-primary"
-           aria-label="attach_file">
-    Upload
-</md-button>
-<!--<md-button id="uploadButton"
-           class="md-raised md-primary"
-           aria-label="attach_file">
-    Upload file
-</md-button>-->
+    <input id="fileInput" ng-model="$ctrl.fileName" ng-change="$ctrl.changed()" name="avatar" type="file" class="ng-hide">
+    <md-input-container md-no-float>
+        <input id="textInput" ng-click="$ctrl.inputClicked()" ng-model="$ctrl.file" type="text" ng-readonly="true" required>
+        <label>Click to select file</label>
+    </md-input-container>
+    <md-button id="uploadButton"
+               ng-disabled="!fuForm.$valid"
+               class="md-raised md-primary"
+               aria-label="attach_file">
+        Upload
+    </md-button>
 </ng-form>
