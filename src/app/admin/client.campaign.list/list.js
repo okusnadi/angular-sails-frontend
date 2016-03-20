@@ -83,12 +83,16 @@
                 templateUrl: '/frontend/admin/client.campaign.list/list.html',
                 controller: 'ListController',
                 resolve: {
-                  _lists: [
-                    'ListModel',
-                    function resolve(ListModel) {
-                      return ListModel.load();
+                  _scripts: [
+                    'ScriptModel', '_campaign',
+                    function resolve(ScriptModel, _campaign) {
+                      return ScriptModel.load({
+                        where: { 
+                            campaign: _campaign.id
+                        }
+                      });
                     }
-                  ]                  
+                  ]
                 }
               }
             }
@@ -106,6 +110,16 @@
                 templateUrl: '/frontend/admin/client.campaign.list/list.html',
                 controller: 'ListAddController',
                 resolve: {
+                  _scripts: [
+                    'ScriptModel', '_campaign',
+                    function resolve(ScriptModel, _campaign) {
+                      return ScriptModel.load({
+                        where: { 
+                            campaign: _campaign.id
+                        }
+                      });
+                    }
+                  ]
                 }
               }
             }

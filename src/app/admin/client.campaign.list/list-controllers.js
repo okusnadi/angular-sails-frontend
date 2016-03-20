@@ -12,21 +12,21 @@
       '$scope', '$state',
       'MessageService',
       'ListModel',
-      '_client',
+      '_scripts',
       '_campaign', 
       function controller(
         $scope, $state,
         MessageService,
         ListModel,
-        _client,
+        _scripts,
         _campaign
       ) {
   
         // expose state
         $scope.$state = $state;
         // Store parent campaign
+        $scope.scripts = _scripts;
         $scope.campaign = _campaign;
-        $scope.client = _client;
 
         // Initialize list model
         $scope.list = {
@@ -65,6 +65,7 @@
       '$mdDialog',
       'UserService', 'MessageService',
       'ListModel', 
+       '_scripts',
       '_campaign',
       '_list',
       function controller(
@@ -72,6 +73,7 @@
         $mdDialog,
         UserService, MessageService,
         ListModel, 
+        _scripts,
         _campaign,
         _list
       ) {
@@ -82,8 +84,10 @@
 
         // Initialize scope data
         $scope.currentUser = UserService.user();
+        $scope.scripts = _scripts;
         $scope.list = _list;
         $scope.selectList = _list.list ? _list.list.id : null;
+        
 
         // List delete dialog buttons configuration
         $scope.confirmButtonsDelete = {

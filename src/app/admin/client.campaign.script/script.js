@@ -83,12 +83,12 @@
                 templateUrl: '/frontend/admin/client.campaign.script/script.html',
                 controller: 'ScriptController',
                 resolve: {
-                  _lists: [
-                    'ListModel',
-                    function resolve(ListModel) {
-                      return ListModel.load();
-                    }
-                  ]                  
+//                  _lists: [
+//                    'ListModel',
+//                    function resolve(ListModel) {
+//                      return ListModel.load();
+//                    }
+//                  ]                  
                 }
               }
             }

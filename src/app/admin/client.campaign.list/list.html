@@ -22,7 +22,7 @@
                 <md-input-container>
                     <label>Default script</label>
                     <md-select ng-model="list.defaultScript">
-                        <md-option ng-value="script.id" ng-repeat="script in campaign.scripts">{{ script.name }}</md-option>
+                        <md-option ng-value="script.id" ng-repeat="script in scripts">{{ script.name }}</md-option>
                     </md-select>
                 </md-input-container>
                 
@@ -38,8 +38,10 @@
             </div>
 
             <div flex="50" layout-margin>
-                
-                
+       
+                <md-file-upload>
+                    
+                </md-file-upload>
             </div>
 
         </div>
@@ -63,4 +65,21 @@
             </md-button>
 
     </form>
+    
+<!-- enctype="multipart/form-data" -->
+<form id="uploadForm"
+      enctype="multipart/form-data"
+      action="http://localhost:5037/list/upload"
+      method="post">
+    	<!--<input type="file" name="avatar" />-->
+<input id="fileInput" name="avatar" type="file" class="ng-hide">
+<label for="fileInput" id="uploadButton"
+           class="md-button md-raised md-primary"
+           aria-label="attach_file">
+    Upload file
+</label>
+    	<input type="submit" value="submit"/>
+</form>         
+
+
 </md-content>

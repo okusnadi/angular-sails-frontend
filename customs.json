@@ -87,6 +87,7 @@
         "md-button": {
             "attributes": {
                 "ng-click": {},
+                "for": {},
                 "data-ng-bootbox-title": {},
                 "data-ng-class": {},
                 "tabIndex": {},
@@ -103,6 +104,7 @@
                 "data-ng-bootbox-confirm": {},
                 "data-ui-sref": {},
                 "data-ng-bootbox-confirm-action": {},
+                "id": {},
                 "class": {},
                 "aria-label": {}
             }
@@ -123,6 +125,7 @@
         "md-table-container": {},
         "md-input-container": {
             "attributes": {
+                "md-no-float": {},
                 "ng-repeat": {},
                 "ng-if": {},
                 "class": {}

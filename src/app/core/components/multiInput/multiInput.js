@@ -7,9 +7,9 @@
 
         var ctrl = this;
         ctrl.suggestions = loadAll();
-        
-        if( !angular.isDefined(ctrl.miItems.length) || ctrl.miItems.length < 1 ) {
-            ctrl.miItems = [{value:''}];
+
+        if (!angular.isDefined(ctrl.miItems.length) || ctrl.miItems.length < 1) {
+            ctrl.miItems = [{value: ''}];
         }
 
         ctrl.addField = function (index) {
@@ -27,9 +27,9 @@
             var result = query ? ctrl.suggestions.filter(createFilterFor(query)) : ctrl.suggestions;
             return result;
         };
-        
+
         function loadAll() {
-            if( !angular.isDefined(ctrl.miSuggestions) ) {
+            if (!angular.isDefined(ctrl.miSuggestions)) {
                 return [];
             }
             return ctrl.miSuggestions.split(/, +/g).map(function (suggestion) {
@@ -49,15 +49,15 @@
     }
 
     angular.module('frontend.core.components')
-            .component('mdMultiInput', {
-                controller: MultiInputController,
-                templateUrl: '/frontend/core/components/multiInput/multiInput.html',
-                bindings: {
-                    miItems: '=',
-                    miSuggestions: '<?',
-                    miMax: '<?',
-                    miStatic: '<?'
-                }
-            });
+      .component('mdMultiInput', {
+          controller: MultiInputController,
+          templateUrl: '/frontend/core/components/multiInput/multiInput.html',
+          bindings: {
+              miItems: '=',
+              miSuggestions: '<?',
+              miMax: '<?',
+              miStatic: '<?'
+          }
+      });
 
 }());
