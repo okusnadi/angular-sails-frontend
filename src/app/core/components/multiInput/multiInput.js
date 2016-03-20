@@ -8,12 +8,12 @@
         var ctrl = this;
         ctrl.suggestions = loadAll();
 
-        if (!angular.isDefined(ctrl.miItems.length) || ctrl.miItems.length < 1) {
+        if ( angular.isUndefined(ctrl.miItems.length) || ctrl.miItems.length < 1) {
             ctrl.miItems = [{value: ''}];
         }
 
         ctrl.addField = function (index) {
-            if (!angular.isDefined(ctrl.miMax) || ctrl.miItems.length < ctrl.miMax) {
+            if ( angular.isUndefined(ctrl.miMax) || ctrl.miItems.length < ctrl.miMax) {
                 ctrl.miItems.splice(index + 1, 0, {value: ''});
             }
         };
@@ -29,7 +29,7 @@
         };
 
         function loadAll() {
-            if (!angular.isDefined(ctrl.miSuggestions)) {
+            if (angular.isUndefined(ctrl.miSuggestions)) {
                 return [];
             }
             return ctrl.miSuggestions.split(/, +/g).map(function (suggestion) {

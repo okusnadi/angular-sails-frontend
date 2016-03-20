@@ -1,12 +1,13 @@
 <ng-form name="fuForm">
-    <input id="fileInput" ng-model="$ctrl.fileName" ng-change="$ctrl.changed()" name="avatar" type="file" class="ng-hide">
+    <input id="fileInput" ng-model="$ctrl.fileName" ng-change="$ctrl.changed()" name="$ctrl.fuFileName" type="file" class="ng-hide">
     <md-input-container md-no-float>
-        <input id="textInput" ng-click="$ctrl.inputClicked()" ng-model="$ctrl.file" type="text" ng-readonly="true" required>
+        <input id="textInput" ng-click="$ctrl.inputClicked()" ng-model="$ctrl.file.name" type="text" ng-readonly="true" required>
         <label>Click to select file</label>
     </md-input-container>
     <md-button id="uploadButton"
                ng-disabled="!fuForm.$valid"
                class="md-raised md-primary"
+               ng-click="$ctrl.uploadClicked()"
                aria-label="attach_file">
         Upload
     </md-button>
