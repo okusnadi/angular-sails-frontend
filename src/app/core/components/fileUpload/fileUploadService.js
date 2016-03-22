@@ -4,10 +4,14 @@
       .service( 'fileUploadService', [
         '$http',
         function($http){
-            this.toUrl = function( files, uploadName, url ) {
+            this.toUrl = function( files, payload, uploadName, url ) {
                 var fd = new FormData();
                 angular.forEach(files, function(file) {
                     fd.append( uploadName, file );
+                });
+                
+                angular.forEach(payload, function(value, name) {
+                    fd.append( name, value );
                 });
                 
                 $http.post( url, fd, {

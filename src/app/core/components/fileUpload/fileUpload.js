@@ -9,6 +9,9 @@
         if( angular.isUndefined(ctrl.fuFileName) ) {
             ctrl.fuFileName = 'filesToUpload';
         }
+        if( angular.isUndefined(ctrl.fuPayload) ) {
+            ctrl.fuPayload = [];
+        }
         if( angular.isUndefined(ctrl.fuUploadUrl) ) {
             throw new Error('Please specify fu-upload-url attribute!');
         }
@@ -22,7 +25,7 @@
         };
 
         ctrl.uploadClicked = function () {
-            fileUploadService.toUrl($element.find('#fileInput')[0].files, ctrl.fuFileName, ctrl.fuUploadUrl);
+            fileUploadService.toUrl($element.find('#fileInput')[0].files, ctrl.fuPayload, ctrl.fuFileName, ctrl.fuUploadUrl);
         };
     }
 
@@ -32,6 +35,7 @@
           templateUrl: '/frontend/core/components/fileUpload/fileUpload.html',
           bindings: {
               fuFileName: '<?',
+              fuPayload: '<?',
               fuUploadUrl: '<'
           }
 

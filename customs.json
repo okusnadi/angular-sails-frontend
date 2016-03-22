@@ -76,7 +76,8 @@
         "md-file-upload": {
             "attributes": {
                 "fu-file-name": {},
-                "fu-upload-url": {}
+                "fu-upload-url": {},
+                "fu-payload": {}
             }
         },
         "md-icon": {
