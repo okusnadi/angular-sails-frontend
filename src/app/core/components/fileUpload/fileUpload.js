@@ -22,7 +22,7 @@
         };
 
         ctrl.uploadClicked = function () {
-            fileUploadService.toUrl(ctrl.file, ctrl.fuFileName, ctrl.fuUploadUrl);
+            fileUploadService.toUrl($element.find('#fileInput')[0].files, ctrl.fuFileName, ctrl.fuUploadUrl);
         };
     }
 
