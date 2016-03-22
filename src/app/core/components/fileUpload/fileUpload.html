@@ -1,5 +1,12 @@
 <ng-form name="fuForm">
-    <input id="fileInput" ng-model="$ctrl.fileName" ng-change="$ctrl.changed()" name="$ctrl.fuFileName" type="file" class="ng-hide">
+    <input class="ng-hide"
+        id="fileInput" 
+        ng-model="$ctrl.fileName" 
+        ng-change="$ctrl.changed()" 
+        name="$ctrl.fuFileName" 
+        type="file" 
+        multiple
+    >
     <md-input-container md-no-float>
         <input id="textInput" ng-click="$ctrl.inputClicked()" ng-model="$ctrl.file.name" type="text" ng-readonly="true" required>
         <label>Click to select file</label>

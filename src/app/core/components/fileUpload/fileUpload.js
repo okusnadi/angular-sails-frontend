@@ -7,7 +7,7 @@
         var ctrl = this;
 
         if( angular.isUndefined(ctrl.fuFileName) ) {
-            ctrl.fuFileName = 'file';
+            ctrl.fuFileName = 'filesToUpload';
         }
         if( angular.isUndefined(ctrl.fuUploadUrl) ) {
             throw new Error('Please specify fu-upload-url attribute!');
