@@ -6,6 +6,8 @@
 
         var ctrl = this;
 
+        console.log(ctrl.fuAcceptedFiles);
+        
         if( angular.isUndefined(ctrl.fuFileName) ) {
             ctrl.fuFileName = 'filesToUpload';
         }
@@ -36,6 +38,7 @@
           bindings: {
               fuFileName: '<?',
               fuPayload: '<?',
+              fuAcceptedFiles: '<?',
               fuUploadUrl: '<'
           }
 
