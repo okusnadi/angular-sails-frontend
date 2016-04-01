@@ -11,10 +11,10 @@
   angular.module('frontend')
     .config([
       '$locationProvider', '$httpProvider', '$sailsSocketProvider',
-      '$uibTooltipProvider', 'cfpLoadingBarProvider', 'toastrConfig',
+      '$uibTooltipProvider', 'cfpLoadingBarProvider', 'toastrConfig', '$mdThemingProvider',
       function config(
         $locationProvider, $httpProvider, $sailsSocketProvider,
-        $tooltipProvider, cfpLoadingBarProvider, toastrConfig
+        $tooltipProvider, cfpLoadingBarProvider, toastrConfig, $mdThemingProvider
       ) {
         $httpProvider.defaults.useXDomain = true;
 
@@ -55,7 +55,11 @@
             requireBase: false
           })
           .hashPrefix('!')
-        ;
+         ;
+        
+        //theme colour
+        $mdThemingProvider.theme('default')
+                .accentPalette('orange');
       }
     ])
   ;

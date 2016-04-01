@@ -15,6 +15,21 @@ and open the template in the editor.
 
 }
 
+#main-toolbar {
+    position:fixed;
+    top:0;
+    padding-bottom:4px;
+    background-color: lightslategray;
+    h2 {margin:0;}
+}
+
+#user-toolbar {
+    color:white;
+    h1,h2,h3,h4,h5 {color:white}
+    a {color:#777}
+    
+}
+
 /*MATERIAL ICONS*/
 /*==========================================*/
 /* Rules for sizing the icon. */
