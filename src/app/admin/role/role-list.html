@@ -65,7 +65,7 @@
             </md-button>-->
             <!--<table md-table md-row-select ng-model="selected" md-progress="promise">-->
             <table md-table>
-                <thead md-head md-order="query.order" md-on-reorder="onReorder">
+                <thead md-head ng-if="items.length > 0" md-order="query.order" md-on-reorder="onReorder">
                     <tr md-row>
                         <th md-column 
                             ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
@@ -77,7 +77,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select md-select="role" md-select-id="{{role.name}}" ng-repeat="role in items">
+                    <tr md-row ng-if="items.length > 0" md-auto-select md-select="role" md-select-id="{{role.name}}" ng-repeat="role in items">
                         <td md-cell><a data-ui-sref="admin.role({id: role.id})">{{role.name}}</a></td>
                         <td md-cell>{{role.description}}</td>
                         <td md-cell>{{role.active}}</td>

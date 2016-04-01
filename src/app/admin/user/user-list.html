@@ -50,7 +50,7 @@
             </md-button>-->
             <table md-table md-row-select ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="onReorder">
-                    <tr md-row>
+                    <tr md-row ng-if="items.length > 0">
                         <th md-column 
                             ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
                             ng-repeat="item in titleItems"
@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
+                    <tr ng-if="items.length > 0" md-row md-auto-select md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
                         <td md-cell><a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a></td>
                         <td md-cell>{{user.firstName}}</td>
                         <td md-cell>{{user.lastName}}</td>
@@ -80,6 +80,8 @@
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{itemCount}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        
+        
         </md-card>
 </section>
 

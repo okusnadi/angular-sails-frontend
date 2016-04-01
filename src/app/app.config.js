@@ -59,6 +59,7 @@
         
         //theme colour
         $mdThemingProvider.theme('default')
+                .primaryPalette('grey')
                 .accentPalette('orange');
       }
     ])

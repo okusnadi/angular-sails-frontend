@@ -67,7 +67,7 @@
             <!--<table md-table md-row-select ng-model="selected" md-progress="promise">-->
             <table md-table >
                 <thead md-head md-order="query.order" md-on-reorder="onReorder">
-                    <tr md-row>
+                    <tr md-row ng-if="items.length > 0">
                         <th md-column 
                             ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
                             ng-repeat="item in titleItems"
@@ -78,7 +78,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select md-select="client" md-select-id="{{client.name}}" ng-repeat="client in items">
+                    <tr md-row ng-if="items.length > 0" md-auto-select md-select="client" md-select-id="{{client.name}}" ng-repeat="client in items">
                         <td md-cell><a data-ui-sref="admin.client({clientId: client.id})">{{client.name}}</a></td>
                         <td md-cell>{{client.contactName}}</td>
                         <td md-cell>{{client.campaigns.length}}<a ui-sref="campaigns({clientId: client.id})"> View</a></td>
