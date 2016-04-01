@@ -4,7 +4,8 @@
         ng-model="$ctrl.fileName" 
         ng-change="$ctrl.changed()" 
         name="$ctrl.fuFileName" 
-        type="file" 
+        type="file"
+        ng-attr-accept="{{$ctrl.fuAcceptedFiles}}"
         multiple
     >
     <md-input-container md-no-float>
