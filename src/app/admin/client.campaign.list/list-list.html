@@ -26,10 +26,21 @@
                 </md-button>
             </div>
         </md-toolbar>
-
+        
+        <md-data-table 
+            dt-items="items"
+            dt-item-count="itemCount"
+            dt-columns="titleItems"
+            dt-page="query.page"
+            dt-order="query.order"
+            dt-limit="query.limit"
+            dt-on-reorder="onReorder"
+            dt-on-paginate="onPaginate"
+            >
+        </md-data-table>
         <!--table-->
-        <md-table-container>
-            <!--FAB-->
+<!--        <md-table-container>
+            FAB
             <table md-table >
                 <thead md-head md-order="query.order" md-on-reorder="onReorder">
                     <tr md-row>
@@ -58,6 +69,8 @@
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{itemCount}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-        </md-card>
+-->
+
+    </md-card>
 </section>
 

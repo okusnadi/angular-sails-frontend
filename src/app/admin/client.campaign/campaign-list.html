@@ -84,7 +84,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select md-select="campaign" md-select-id="{{campaign.name}}" ng-repeat="campaign in items">
+                    <tr md-row ng-repeat="campaign in items">
                         <td md-cell><a data-ui-sref="campaign({campaignId: campaign.id})">{{campaign.name}}</a></td>
                         <td md-cell>{{campaign.createdAt}}</td>
                         <td md-cell>{{campaign.updatedAt}}</td>

@@ -139,6 +139,18 @@
                 "class": {}
             }
         },
+        "md-data-table": {
+            "attributes": {
+                "dt-on-paginate": {},
+                "dt-columns": {},
+                "dt-order": {},
+                "dt-items": {},
+                "dt-item-count": {},
+                "dt-page": {},
+                "dt-limit": {},
+                "dt-on-reorder": {}
+            }
+        },
         "md-table-pagination": {
             "attributes": {
                 "md-page-select": {},

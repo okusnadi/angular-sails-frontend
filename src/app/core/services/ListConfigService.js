@@ -60,7 +60,8 @@
               searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
+              inTitle: true,
+              sref: 'list({listId: item.id})'
             },
             {
               title: 'Created',
@@ -212,7 +213,8 @@
               searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
+              inTitle: true,
+              sref: 'admin.user({id: item.id})'
             },
             {
               title: 'First name',
