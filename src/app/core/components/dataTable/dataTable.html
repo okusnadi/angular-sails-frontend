@@ -19,7 +19,7 @@
                     <td md-cell
                         ng-repeat="column in $ctrl.dtColumns"
                         >
-                        <a ng-if="column.sref && column.sref!==false" data-ui-sref="{{column.sref}}">{{item[column.column]}}</a>
+                        <a ng-if="column.sref && column.sref!==false" data-ui-sref="{{column.sref}}">{{$ctrl.isArray(item[column.column])}}</a>
                         <span ng-if="!(column.sref && column.sref!==false)">{{item[column.column]}}</span>
                     </td>
                 </tr>
