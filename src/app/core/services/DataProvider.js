@@ -29,7 +29,9 @@
                   self.query.currentPage = 1;
                   self.query.itemsPerPage = config.itemsPerPage;
                   self.query.itemCount = config.itemsPerPage;
-                  self.query.columns = ListConfig.getTitleItems(dataModel.endpoint);
+                  if( angular.isUndefined(self.query.columns) ) {
+                        self.query.columns = ListConfig.getTitleItems(dataModel.endpoint);
+                  }
 
                   var onReorder = function (order) {
                       self.query.order = order;

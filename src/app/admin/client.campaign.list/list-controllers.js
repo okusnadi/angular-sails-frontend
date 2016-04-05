@@ -64,7 +64,8 @@
       '$scope', '$state',
       '$mdDialog',
       'UserService', 'MessageService',
-      'ListModel', 
+      'DataProvider',
+      'ListModel', 'ProspectModel',
        '_scripts',
       '_campaign',
       '_list',
@@ -72,7 +73,8 @@
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
-        ListModel, 
+        DataProvider,
+        ListModel, ProspectModel,
         _scripts,
         _campaign,
         _list
@@ -81,6 +83,7 @@
         $scope.$state = $state;
         // Set current scope reference to model
         ListModel.setScope($scope, 'list');
+        ProspectModel.setScope($scope, 'prospect');
 
         // Initialize scope data
         $scope.currentUser = UserService.user();
@@ -88,6 +91,16 @@
         $scope.list = _list;
         $scope.selectList = _list.list ? _list.list.id : null;
         
+        // Initialize query parameters
+        $scope.query =  {
+            order: 'id',
+            searchWord: '',
+            where: { 
+                list: _list.id
+            }
+        };
+        
+        $scope.dataProvider = new DataProvider(ProspectModel, $scope.query);
 
         // List delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
@@ -193,7 +206,6 @@
         };
         
         $scope.dataProvider = new DataProvider(ListModel, $scope.query);
-
 
         var searchWordTimer;
 

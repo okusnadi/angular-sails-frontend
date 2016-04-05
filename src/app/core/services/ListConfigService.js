@@ -23,6 +23,29 @@
          *        }}
          */
         var titleItems = {
+          prospect: [
+            {
+              title: 'Name',
+              column: ['fields','Name'],
+              class: 'col-xs-2',
+              sortable: false,
+              inSearch: false,
+            },
+            {
+              title: 'Year',
+              column: ['fields','Year'],
+              class: 'col-xs-2',
+              sortable: false,
+              inSearch: false,
+            },
+            {
+              title: 'House',
+              column: ['fields','House'],
+              class: 'col-xs-2',
+              sortable: false,
+              inSearch: false,
+            }
+          ],
           script: [
             {
               title: 'Name',
