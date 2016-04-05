@@ -28,28 +28,22 @@
               title: 'Name',
               column: 'name',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             }
           ],
           list: [
@@ -57,29 +51,23 @@
               title: 'Name',
               column: 'name',
               class: 'col-xs-2',
-              searchable: true,
               inSearch: true,
               sortable: true,
-              inTitle: true,
               sref: 'list({listId: item.id})'
             },
             {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
-              searchable: false,
               inSearch: false,
               sortable: true,
-              inTitle: true
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
-              searchable: false,
               inSearch: false,
               sortable: true,
-              inTitle: true
             }
           ],
           emailTemplate: [
@@ -87,28 +75,22 @@
               title: 'Name',
               column: 'name',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             }
           ],
           campaign: [
@@ -116,55 +98,47 @@
               title: 'Name',
               column: 'name',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
+              sref: 'campaign({campaignId: item.id})'
             },
             {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Lists',
-              column: 'orgUnit3',
+              column: 'lists',
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: false
+              sref: 'lists({campaignId: item.id})'
             },
             {
               title: 'Scripts',
-              column: 'orgUnit3',
+              column: 'scripts',
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: false
+              sref: 'scripts({campaignId: item.id})'
             },
             {
               title: 'Email templates',
-              column: 'orgUnit3',
+              column: 'emailTemplates',
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: false
+              sref: 'emailTemplates({campaignId: item.id})'
             }
           ],
           client: [
@@ -172,37 +146,29 @@
               title: 'Name',
               column: 'name',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Contact name',
               column: 'contactName',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Campaigns',
               column: false,
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: false
             },
             {
               title: 'Active Campaigns',
               column: false,
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: false
             }
           ],
           user: [
@@ -210,47 +176,37 @@
               title: 'Username',
               column: 'username',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true,
               sref: 'admin.user({id: item.id})'
             },
             {
               title: 'First name',
               column: 'firstName',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Last name',
               column: 'lastName',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Email',
               column: 'email',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Roles',
               column: false,
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: false
             }
           ],
           role: [
@@ -258,46 +214,36 @@
               title: 'Name',
               column: 'name',
               class: 'col-xs-3',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Description',
               column: 'description',
               class: 'col-xs-3',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Active',
               column: 'active',
               class: 'col-xs-2',
-              searchable: false,
               sortable: true,
               inSearch: false,
-              inTitle: true
             },
             {
               title: 'Access Level',
               column: 'accessLevel',
               class: 'col-xs-2',
-              searchable: false,
               sortable: true,
               inSearch: false,
-              inTitle: true
             },
             {
               title: 'Users',
               column: false,
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: true
             }
           ],
           author: [
@@ -305,19 +251,15 @@
               title: 'Author',
               column: 'name',
               class: 'col-xs-11',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Books',
               column: false,
               class: 'text-right col-xs-1',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: true
             }
           ],
           book: [
@@ -325,28 +267,22 @@
               title: 'Title',
               column: 'title',
               class: 'col-xs-8',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Author',
               column: false,
               class: 'col-xs-3',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: true
             },
             {
               title: 'Year',
               column: 'releaseDate',
               class: 'col-xs-1 text-right',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             }
           ],
           userlogin: [
@@ -354,46 +290,36 @@
               title: 'IP-address',
               column: 'ip',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Browser',
               column: 'browser',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Operating System',
               column: 'os',
               class: 'col-xs-2',
-              searchable: true,
               sortable: true,
               inSearch: true,
-              inTitle: true
             },
             {
               title: 'Username',
               column: false,
               class: 'col-xs-2',
-              searchable: false,
               sortable: false,
               inSearch: false,
-              inTitle: true
             },
             {
               title: 'Login time',
               column: 'createdAt',
               class: 'col-xs-4',
-              searchable: false,
               sortable: true,
               inSearch: false,
-              inTitle: true
             }
           ]
         };

@@ -8,22 +8,28 @@
 
     angular.module('frontend.core.services')
       .factory('DataProvider', [
-          'SocketHelperService',
+          'SocketHelperService', 'ListConfig',
           '$log', '$q',
           '_',
           function (
-            SocketHelperService,
+            SocketHelperService, ListConfig,
             $log, $q,
             _
             ) {
 
               var self = this;
 
-              return(function (dataModel, query) {
+              return function (dataModel, query) {
                   self.dataModel = dataModel;
                   self.query = query;
+                  
+                  var config = ListConfig.getConfig();
 
-//                  this.fetchData();
+                  self.query.items = [];
+                  self.query.currentPage = 1;
+                  self.query.itemsPerPage = config.itemsPerPage;
+                  self.query.itemCount = config.itemsPerPage;
+                  self.query.columns = ListConfig.getTitleItems(dataModel.endpoint);
 
                   var onReorder = function (order) {
                       self.query.order = order;
@@ -49,7 +55,9 @@
 
                       // Common parameters for count and data query
                       var commonParameters = {
-                          where: _.merge({}, angular.isDefined(self.query.where) ? self.query.where : {}, SocketHelperService.getWhere(self.query))
+                          where: _.merge({}, 
+                          angular.isDefined(self.query.where) ? self.query.where : {}, 
+                          SocketHelperService.getWhere(self.query))
                       };
 
                       var order = self.query.order;
@@ -62,7 +70,8 @@
                       var parameters = {
                           limit: self.query.itemsPerPage,
                           skip: (self.query.currentPage - 1) * self.query.itemsPerPage,
-                          sort: order + ' ' + (direction ? 'ASC' : 'DESC')
+                          sort: order + ' ' + (direction ? 'ASC' : 'DESC'),
+                          populate: angular.isDefined(self.query.populate) ? self.query.populate : {}
                       };
 
                       // Fetch data count
@@ -108,7 +117,7 @@
                   };
 
 
-              });
+              };
 
           }]);
 }());
