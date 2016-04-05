@@ -58,8 +58,8 @@
               column: 'name',
               class: 'col-xs-2',
               searchable: true,
-              sortable: true,
               inSearch: true,
+              sortable: true,
               inTitle: true,
               sref: 'list({listId: item.id})'
             },
@@ -67,18 +67,18 @@
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
-              searchable: true,
+              searchable: false,
+              inSearch: false,
               sortable: true,
-              inSearch: true,
               inTitle: true
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
-              searchable: true,
+              searchable: false,
+              inSearch: false,
               sortable: true,
-              inSearch: true,
               inTitle: true
             }
           ],

@@ -164,7 +164,8 @@
       '$scope', '$q', '$timeout',
       '_',
       'ListConfig', 'SocketHelperService',
-      'UserService', 'ListModel', 
+      'UserService', 'ListModel',
+      'DataProvider',
       '_campaign',
       '_items', '_count', 
       function controller(
@@ -172,85 +173,37 @@
         _,
         ListConfig, SocketHelperService,
         UserService, ListModel, 
+        DataProvider,
         _campaign,
         _items, _count
       ) {
-      console.log(_campaign);
-  
+      
         // Set current scope reference to models
         ListModel.setScope($scope, false, 'items', 'itemCount');
 
         // Add default list configuration variable to current scope
-        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
+        $scope.config = ListConfig.getConfig();
 
-        // Set initial data
-        $scope.items = _items;
+        // Set initial data        
         $scope.campaign = _campaign;
-        $scope.itemCount = _count.count;
         $scope.currentUser = UserService.user();
+
+        // Initialize used title items        
         $scope.query =  {
+            items: _items,
+            currentPage: 1,
+            itemsPerPage: $scope.config.itemsPerPage,
+            itemCount: _count.count,
             order: 'name',
-            page: 1,
-            limit: $scope.itemsPerPage,
+            searchWord: '',
+            columns: ListConfig.getTitleItems(ListModel.endpoint),
             where: { 
                 campaign: _campaign.id
             }
         };
-
-        // Initialize used title items
-        $scope.titleItems = ListConfig.getTitleItems(ListModel.endpoint);
-
-        // Initialize default sort data
-        $scope.sort = {
-          column: 'name',
-          direction: true
-        };
-
-        // Initialize filters
-        $scope.filters = {
-          searchWord: '',
-          columns: $scope.titleItems
-        };
-
-        /**
-         * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch list data
-         * from server.
-         */
-        $scope.$watch('currentPage', function watcher(valueNew, valueOld) {
-          if (valueNew !== valueOld) {
-            _fetchData();
-          }
-        });
-
-        /**
-         * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch list data
-         * from server.
-         */
-        $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
-          if (valueNew !== valueOld) {
-            _triggerFetchData();
-          }
-        });
-
-        /*
-         * Method to call when order-by column changed
-         */
-        $scope.onReorder = function (order) {
-            // first char is '-' if direction is ascending
-            $scope.sort.direction = order.charAt(0) !== '-';
-            if( !$scope.sort.direction ) {
-                order = order.substring(1);
-            }            
-            $scope.sort.column = order;
-            _triggerFetchData();
-        };
         
-        
-        $scope.onPaginate = function (currentPage, itemsPerPage) {
-            $scope.currentPage = currentPage;
-            $scope.itemsPerPage = itemsPerPage;
-            _fetchData();
-          };
+        $scope.dataProvider = new DataProvider(ListModel, $scope.query);
+
 
         var searchWordTimer;
 
@@ -264,93 +217,16 @@
          *
          * If those are ok, then watcher will call 'fetchData' function.
          */
-        $scope.$watch('filters', function watcher(valueNew, valueOld) {
+        $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
           if (valueNew !== valueOld) {
             if (searchWordTimer) {
               $timeout.cancel(searchWordTimer);
             }
 
-            searchWordTimer = $timeout(_triggerFetchData, 400);
+            searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
-
-        /**
-         * Helper function to trigger actual data fetch from backend. This will just check current page
-         * scope variable and if it is 1 call 'fetchData' function right away. Any other case just set
-         * 'currentPage' scope variable to 1, which will trigger watcher to fetch data.
-         *
-         * @private
-         */
-        function _triggerFetchData() {
-          if ($scope.currentPage === 1) {
-            _fetchData();
-          } else {
-            $scope.currentPage = 1;
-          }
-        }
-
-        /**
-         * Helper function to fetch actual data for GUI from backend server with current parameters:
-         *  1) Current page
-         *  2) Search word
-         *  3) Sort order
-         *  4) Items per page
-         *
-         * Actually this function is doing two request to backend:
-         *  1) Data count by given filter parameters
-         *  2) Actual data fetch for current page with filter parameters
-         *
-         * These are fetched via 'ListModel' service with promises.
-         *
-         * @private
-         */
-        function _fetchData() {
-          $scope.loading = true;
-
-          // Common parameters for count and data query
-          var commonParameters = {
-            where: SocketHelperService.getWhere($scope.filters)
-          };
-
-          // Data query specified parameters
-          var parameters = {
-            limit: $scope.itemsPerPage,
-            skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
-            sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC'),
-            where: angular.isDefined($scope.query.where)?$scope.query.where:{}
-          };
-
-          // Fetch data count
-          var count = ListModel
-            .count(commonParameters)
-            .then(
-              function onSuccess(response) {
-                $scope.itemCount = response.count;
-              }
-            )
-          ;
-
-          // Fetch actual data
-          var load = ListModel
-            .load(_.merge({}, commonParameters, parameters))
-            .then(
-              function onSuccess(response) {
-                $scope.items = response;
-              }
-            )
-          ;
-
-          // Load all needed data
-          $q
-            .all([count, load])
-            .finally(
-              function onFinally() {
-                $scope.loaded = true;
-                $scope.loading = false;
-              }
-            )
-          ;
-        }
+        
       }
     ])
   ;
