@@ -27,37 +27,7 @@
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/client.campaign.list/list-list.html',
-                controller: 'ListListController',
-                resolve: {
-                  _items: [
-                    'ListConfig',
-                    'ListModel',
-                    '_campaign',
-                    function resolve(
-                      ListConfig,
-                      ListModel,
-                      _campaign
-                    ) {
-                      var config = ListConfig.getConfig();
-
-                      var parameters = {
-                        limit: config.itemsPerPage,
-                        sort: 'name ASC',
-                        where: { 
-                            campaign: _campaign.id
-                        }
-                      };
-
-                      return ListModel.load(parameters);
-                    }
-                  ],
-                  _count: [
-                    'ListModel',
-                    function resolve(ListModel) {
-                      return ListModel.count();
-                    }
-                  ]
-                }
+                controller: 'ListListController'
               }
             }
           })

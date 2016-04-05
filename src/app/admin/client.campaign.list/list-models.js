@@ -17,5 +17,11 @@
         return new DataModel('list');
       }
     ])
+    .factory('ProspectModel', [
+      'DataModel',
+      function factory(DataModel) {
+        return new DataModel('prospect');
+      }
+    ])
   ;
 }());

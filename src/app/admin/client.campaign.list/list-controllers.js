@@ -167,36 +167,26 @@
       'UserService', 'ListModel',
       'DataProvider',
       '_campaign',
-      '_items', '_count', 
       function controller(
         $scope, $q, $timeout,
         _,
         ListConfig, SocketHelperService,
         UserService, ListModel, 
         DataProvider,
-        _campaign,
-        _items, _count
+        _campaign
       ) {
       
         // Set current scope reference to models
         ListModel.setScope($scope, false, 'items', 'itemCount');
 
-        // Add default list configuration variable to current scope
-        $scope.config = ListConfig.getConfig();
-
         // Set initial data        
         $scope.campaign = _campaign;
         $scope.currentUser = UserService.user();
 
-        // Initialize used title items        
+        // Initialize query parameters
         $scope.query =  {
-            items: _items,
-            currentPage: 1,
-            itemsPerPage: $scope.config.itemsPerPage,
-            itemCount: _count.count,
             order: 'name',
             searchWord: '',
-            columns: ListConfig.getTitleItems(ListModel.endpoint),
             where: { 
                 campaign: _campaign.id
             }
@@ -207,16 +197,6 @@
 
         var searchWordTimer;
 
-        /**
-         * Watcher for 'filter' scope variable, which contains multiple values that we're interested
-         * within actual GUI. This will trigger new data fetch query to server if following conditions
-         * have been met:
-         *
-         *  1) Actual filter variable is different than old one
-         *  2) Search word have not been changed in 400ms
-         *
-         * If those are ok, then watcher will call 'fetchData' function.
-         */
         $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
           if (valueNew !== valueOld) {
             if (searchWordTimer) {
