@@ -20,7 +20,7 @@
                         ng-repeat="column in $ctrl.dtColumns"
                         >
                         <a ng-if="column.sref && column.sref!==false" data-ui-sref="{{column.sref}}">{{$ctrl.isArray(item[column.column])}}</a>
-                        <span ng-if="!(column.sref && column.sref!==false)">{{item[column.column]}}</span>
+                        <span ng-if="!(column.sref && column.sref!==false)">{{$ctrl.isArray(item[column.column])}}</span>
                     </td>
                 </tr>
                 <tr md-row ng-if="$ctrl.dtItems.length === 0">
