@@ -26,21 +26,21 @@
           prospect: [
             {
               title: 'Name',
-              column: ['fields','Name'],
+              column: ['fields','Name', 'value'],
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,
             },
             {
               title: 'Year',
-              column: ['fields','Year'],
+              column: ['fields','Year', 'value'],
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,
             },
             {
               title: 'House',
-              column: ['fields','House'],
+              column: ['fields','House', 'value'],
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,

@@ -93,7 +93,7 @@
         
         // Initialize query parameters
         $scope.query =  {
-            order: 'id',
+            order: "fields->'Name'->>'value'",
             searchWord: '',
             where: { 
                 list: _list.id
