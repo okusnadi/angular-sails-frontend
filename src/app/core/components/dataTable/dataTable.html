@@ -20,7 +20,9 @@
                         ng-repeat="column in $ctrl.dtColumns"
                         >
                         <a ng-if="column.sref && column.sref!==false" data-ui-sref="{{column.sref}}">{{$ctrl.getValue(item, column)}}</a>
-                        <a ng-if="column.titleClick && column.titleClick!==false" ng-click="{{column.titleClick}}">{{$ctrl.getValue(item, column)}}</a>
+                        <a ng-if="column.titleClick && column.titleClick!==false" ng-click="{{column.titleClick}}">
+                            {{$ctrl.getValue(item, column)}}
+                        </a>
                         <span ng-if="!((column.sref && column.sref!==false) || (column.titleClick && column.titleClick!==false))">{{$ctrl.getValue(item, column)}}</span>
                     </td>
                 </tr>
