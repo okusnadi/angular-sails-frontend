@@ -5,26 +5,21 @@
  */
 (function() {
   'use strict';
-
-  // Controller for new user creation.
-  angular.module('frontend.admin.user')
-    .controller('UserAddController', [
-      '$scope', '$state',
-      'MessageService',
-      'UserModel',
-      '_roles',
-      function controller(
-        $scope, $state,
+  
+  var UserAddController = function (
+        $scope,
         MessageService,
-        UserModel,
-        _roles
+        UserModel, RoleModel, $mdDialog
       ) {
   
         // expose state
         $scope.$state = $state;
         // Store roles
-        $scope.roles = _roles;
-
+        RoleModel.load()
+                .then(function(response){
+                    $scope.roles = response;
+                });
+        console.log($scope.roles);
         // Initialize user model
         $scope.user = {
             username: '',
@@ -39,8 +34,8 @@
         };
         
         $scope.check = function($value) {
-            console.log($scope.password);
-            console.log($value);
+//            console.log($scope.password);
+//            console.log($value);
         };
         
         /**
@@ -59,14 +54,118 @@
             .then(
               function onSuccess(result) {
                 MessageService.success('New user added successfully');
-
-                $state.go('admin.user', {id: result.data.id});
+                $mdDialog.hide();
+//                $state.go('admin.user', {id: result.data.id});
               }
             )
           ;
         };
         
-      }
+        $scope.cancelDialog = function(){$mdDialog.cancel();};
+        
+};
+
+
+//controller for editing user
+var UserEditController =  function (
+        $scope,
+        $mdDialog,
+        UserService, MessageService,
+        UserModel, RoleModel
+      ) {
+        // expose state
+        $scope.$state = $state;
+        // Set current scope reference to model
+        UserModel.setScope($scope, 'user');
+
+        // Initialize scope data
+        $scope.currentUser = UserService.user();
+        $scope.user = _user;
+        // Store roles
+        RoleModel.load()
+                .then(function(response){
+                    $scope.roles = response;
+                });
+        $scope.selectRole = _user.role ? _user.role.id : null;
+
+        // User delete dialog buttons configuration
+        $scope.confirmButtonsDelete = {
+          ok: {
+            label: 'Delete',
+            className: 'btn-danger',
+            callback: function callback() {
+              $scope.deleteUser();
+            }
+          },
+          cancel: {
+            label: 'Cancel',
+            className: 'btn-default pull-left'
+          }
+        };
+
+        /**
+         * Scope function to save the modified user. This will send a
+         * socket request to the backend server with the modified object.
+         */
+        $scope.saveUser = function() {
+          var data = angular.copy($scope.user);
+
+          // Set role id to update data
+          data.role = $scope.selectRole;
+
+          // Make actual data update
+          UserModel
+            .update(data.id, data)
+            .then(
+              function onSuccess() {
+                MessageService.success('User "' + $scope.user.title + '" updated successfully');
+              }
+            )
+          ;
+        };
+
+        /**
+         * Scope function to delete current user. This will send DELETE query to backend via web socket
+         * query and after successfully delete redirect user back to user list.
+         */
+        $scope.deleteUser = function deleteUser() {
+          UserModel
+            .delete($scope.user.id)
+            .then(
+              function onSuccess() {
+                MessageService.success('User "' + $scope.user.title + '" deleted successfully');
+
+                $state.go('admin.users');
+              }
+            )
+          ;
+        };
+
+        $scope.confirmDelete = function(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.confirm()
+                  .title('Delete user')
+                  .textContent('Are you sure you want to delete user '+$scope.user.username+' ?')
+                  .ariaLabel('Delete user')
+                  .targetEvent(ev)
+                  .ok('Yes')
+                  .cancel('Cancel');
+            $mdDialog.show(confirm).then(function() {
+              $scope.deleteUser();
+            }, function() {
+                
+            });
+          };        
+      };
+
+  // Controller for new user creation.
+  angular.module('frontend.admin.user')
+    .controller('UserAddController', [
+      '$scope', '$state',
+      'MessageService',
+      'UserModel', 'RoleModel',
+      UserAddController
+
     ])
   ;
 
@@ -172,13 +271,13 @@
   // Controller which contains all necessary logic for user list GUI on boilerplate application.
   angular.module('frontend.admin.user')
     .controller('UserListController', [
-      '$scope', '$q', '$timeout',
+      '$scope', '$q', '$timeout', '$mdDialog', '$state',
       '_',
       'ListConfig', 'SocketHelperService',
       'UserService', 'UserModel', 'RoleModel',
       '_items', '_count', '_roles',
       function controller(
-        $scope, $q, $timeout,
+        $scope, $q, $timeout, $mdDialog, $state,
         _,
         ListConfig, SocketHelperService,
         UserService, UserModel, RoleModel,
@@ -236,6 +335,59 @@
           searchWord: '',
           columns: $scope.titleItems
         };
+        
+        //alert dialogs
+        $scope.showAlert = function(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            // Modal dialogs should fully cover application
+            // to prevent interaction outside of dialog
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#container')))
+                .clickOutsideToClose(true)
+                .title('This is an alert title')
+                .textContent('You can specify some description text in here.')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Got it!')
+                .targetEvent(ev)
+            );
+          };
+        
+          
+        $scope.addUserDialog = function(ev) {
+//            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+            $mdDialog.show({
+              controller: UserAddController,
+              templateUrl: '/frontend/admin/user/user.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+//              fullscreen: useFullScreen
+            });
+        };
+        $scope.editUserDialog = function(ev,userId ) {
+//            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+            $mdDialog.show({
+              controller: EditUserController, 
+              resolve: {
+                  userId: [
+                    function() {
+                      return userId;
+                    }
+                  ]},
+              templateUrl: '/frontend/admin/user/user.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+//              fullscreen: useFullScreen
+            });
+//          
+//            $scope.$watch(function() {
+//              return $mdMedia('xs') || $mdMedia('sm');
+//            }, function(wantsFullScreen) {
+//              $scope.customFullscreen = (wantsFullScreen === true);
+//            });
+          };
 
         /**
          * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch user data

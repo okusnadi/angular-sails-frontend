@@ -201,7 +201,9 @@
               class: 'col-xs-2',
               sortable: true,
               inSearch: true,
-              sref: 'admin.user({id: item.id})'
+//              sref: 'admin.user({id: item.id})',
+              titleClick: 'editUserDialog($event, item.id)',
+              
             },
             {
               title: 'First name',
