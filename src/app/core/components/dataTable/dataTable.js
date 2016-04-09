@@ -6,6 +6,7 @@
     function DataTableController() {
 
         var ctrl = this;
+        ctrl.event = 1;
 
         ctrl.getValue = function( item, column ) {
             var value; 
@@ -21,6 +22,12 @@
             }
             return angular.isArray(value)? value.length + ' - View': value;
         };
+        
+        ctrl.clicked = function( event, item, column ) {
+            console.log( event, item, column );
+//            ctrl.dtOnClick( {event:event, item:item, column:column} );
+            ctrl.dtClick( {ev:ctrl.event} );
+        };
     }
 
     angular.module('frontend.core.components')
@@ -35,7 +42,8 @@
               dtOrder: '=',
               dtLimit: '=',
               dtOnReorder: '&',
-              dtOnPaginate: '&'
+              dtOnPaginate: '&',
+              dtOnClick: '&?'
           }
       });
 
