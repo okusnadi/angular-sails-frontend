@@ -2,13 +2,13 @@
 <section layout="column">
     <!--Table header-->
     <md-card>
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="filter.show">
+        <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="showFilter">
             <div class="md-toolbar-tools">
-                <h2>Users ({{itemCount}})</h2>
+                <h2>Users ({{query.itemCount}})</h2>
                 <div flex></div>
                 <!--<md-button ng-click="filter.show = true">-->
               
-                <md-button ng-click="filter.show = true" 
+                <md-button ng-click="showFilter = true" 
                            onclick="event.stopPropagation(); setTimeout( function(){$('#table-filter').focus() }, 200); "
                            >
                      <md-tooltip>Search filter</md-tooltip>
@@ -25,16 +25,16 @@
         </md-toolbar>
         
         <!--prev-->
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="filter.show && !selected.length">
-                <div ng-if="filter.show">
+        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !selected.length">
+                <div ng-if="showFilter">
                 <script>
                     $('#table-filter').focus();
                 </script>
                 </div>
             <div class="md-toolbar-tools">
               <md-icon class="material-icons">search</md-icon>
-              <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
-                  <input id='table-filter' tabindex="1" type="text" ng-model="filters.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
+              <form flex="" name="filterForm" class="ng-valid flex ng-pristine">
+                  <input id='table-filter' tabindex="1" type="text" ng-model="query.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
               </form>
               <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeFilter()">
                 <md-icon class="material-icons">close</md-icon>
@@ -55,54 +55,18 @@
 
         <!--table-->
         <md-data-table 
-            dt-items="items"
-            dt-item-count="itemCount"
-            dt-columns="titleItems"
-            dt-page="query.page"
+            dt-items="query.items"
+            dt-item-count="query.itemCount"
+            dt-columns="query.columns"
+            dt-page="query.currentPage"
+            dt-limit="query.itemsPerPage"
             dt-order="query.order"
-            dt-limit="query.limit"
-            dt-on-reorder="onReorder"
-            dt-on-paginate="onPaginate"
+            dt-on-reorder="dataProvider.onReorder"
+            dt-on-paginate="dataProvider.onPaginate"
             dt-on-click="editUserDialog(event, item, column)"
             >
-            <!--dt-on-click="editUserDialog(event, item, column)"-->
         </md-data-table>
         
-<!--        <md-table-container>
-            <table md-table md-row-select ng-model="selected" md-progress="promise">
-                <thead md-head md-order="query.order" md-on-reorder="onReorder">
-                    <tr md-row ng-if="items.length > 0">
-                        <th md-column 
-                            ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
-                            ng-repeat="item in titleItems"
-                        >
-                            <md-tooltip ng-if="item.sortable!==false">Sort by {{ item.title }}</md-tooltip>
-                            {{ item.title }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr ng-if="items.length > 0" md-row md-auto-select md-select="user" md-select-id="{{user.username}}" ng-repeat="user in items">
-                        <td md-cell><a data-ui-sref="admin.user({id: user.id})">{{user.username}}</a></td>
-                        <td md-cell>{{user.firstName}}</td>
-                        <td md-cell>{{user.lastName}}</td>
-                        <td md-cell>{{user.email}}</td>
-                        <td md-cell>
-                            <span ng-repeat="role in user.roles">{{role.name}}</span>
-                        </td>
-                    </tr>
-                    <tr md-row ng-if="items.length === 0">
-                        <td md-cell><em>No users found.</em><span ng-if="currentUser.admin">Go ahead and <a
-                            data-ui-sref="admin.user.add"
-                            data-tooltip="Add new user"><em>create one.</em></a></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{itemCount}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
--->
-              
         </md-card>
 </section>
 

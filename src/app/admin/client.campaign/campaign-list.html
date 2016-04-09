@@ -10,7 +10,7 @@
                         <md-tooltip>Go back to clients list</md-tooltip>
                         <md-icon class="material-icons md-light">arrow_back</md-icon>
                         <strong>{{client.name}}</strong>
-                        </a> Campaigns ({{itemCount}})
+                        </a> Campaigns ({{query.itemCount}})
                 </h2>
                 <div flex></div>
                 <!--<md-button ng-click="filter.show = true">-->
@@ -48,40 +48,6 @@
             >
         </md-data-table>
         
-        <!--table-->
-<!--        <md-table-container>
-            <table md-table >
-                <thead md-head md-order="query.order" md-on-reorder="onReorder">
-                    <tr md-row>
-                        <th md-column 
-                            ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
-                            ng-repeat="item in titleItems"
-                        >
-                            <md-tooltip ng-if="item.sortable!==false">Sort by {{ item.title }}</md-tooltip>
-                            {{ item.title }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row ng-repeat="campaign in items">
-                        <td md-cell><a data-ui-sref="campaign({campaignId: campaign.id})">{{campaign.name}}</a></td>
-                        <td md-cell>{{campaign.createdAt}}</td>
-                        <td md-cell>{{campaign.updatedAt}}</td>
-                        <td md-cell>{{campaign.lists.length}}<a ui-sref="lists({campaignId: campaign.id})"> View</a></td>
-                        <td md-cell>{{campaign.scripts.length}}<a ui-sref="scripts({campaignId: campaign.id})"> View</a></td>
-                        <td md-cell>{{campaign.emailTemplates.length}}<a ui-sref="emailTemplates({campaignId: campaign.id})"> View</a></td>
-                    </tr>
-                    <tr md-row ng-if="items.length === 0">
-                        <td md-cell><em>No campaigns found.</em><span ng-if="currentUser.admin">Go ahead and <a
-                            data-ui-sref="campaign.add"
-                            data-tooltip="Add new campaign"><em>create one.</em></a></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>-->
-        
-        <!--<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{itemCount}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>-->
     </md-card>
 </section>
 

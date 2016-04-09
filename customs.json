@@ -61,6 +61,7 @@
                 "ng-repeat": {},
                 "md-auto-hide": {},
                 "layout-margin": {},
+                "ng-if": {},
                 "class": {},
                 "ng-messages": {},
                 "layout-align": {}
@@ -95,6 +96,7 @@
         "md-button": {
             "attributes": {
                 "ng-click": {},
+                "onclick": {},
                 "for": {},
                 "data-ng-bootbox-title": {},
                 "data-ng-class": {},

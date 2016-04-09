@@ -194,21 +194,6 @@
         // Set current scope reference to models
         CampaignModel.setScope($scope, false, 'items', 'itemCount');
 
-        // Set initial data
-//        $scope.items = _items;
-//        $scope.client = _client;
-//        $scope.itemCount = _count.count;
-//        $scope.lists = _lists;
-//        $scope.currentUser = UserService.user();
-//        $scope.query =  {
-//            order: 'name',
-//            page: 1,
-//            limit: $scope.itemsPerPage,
-//            where: { 
-//                client: _client.id
-//            }
-//        };
-
         // Initialize query parameters
         $scope.query =  {
             order: 'name',
