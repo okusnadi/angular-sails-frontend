@@ -242,6 +242,7 @@
               class: 'col-xs-3',
               sortable: true,
               inSearch: true,
+              sref: 'admin.role({id: item.id})'
             },
             {
               title: 'Description',
@@ -264,13 +265,13 @@
               sortable: true,
               inSearch: false,
             },
-            {
-              title: 'Users',
-              column: false,
-              class: 'col-xs-2',
-              sortable: false,
-              inSearch: false,
-            }
+//            {
+//              title: 'Users',
+//              column: false,
+//              class: 'col-xs-2',
+//              sortable: false,
+//              inSearch: false,
+//            }
           ],
           author: [
             {

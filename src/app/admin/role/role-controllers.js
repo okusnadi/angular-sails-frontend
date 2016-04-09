@@ -141,118 +141,111 @@
       '_',
       'ListConfig',
       'SocketHelperService', 'UserService', 'RoleModel',
+      'DataProvider',
       '_items', '_count',
       function controller(
         $scope, $q, $timeout,
         _,
         ListConfig,
         SocketHelperService, UserService, RoleModel,
+        DataProvider,
         _items, _count
       ) {
         // Set current scope reference to model
         RoleModel.setScope($scope, false, 'items', 'itemCount');
 
         // Add default list configuration variable to current scope
-        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
+//        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
 
         // Set initial data
-        $scope.items = _items;
-        $scope.itemCount = _count.count;
-        $scope.currentUser = UserService.user();
+//        $scope.items = _items;
+//        $scope.itemCount = _count.count;
+//        $scope.currentUser = UserService.user();
         $scope.query =  {
             order: 'name',
-            page: 1,
-            limit: $scope.itemsPerPage
+            searchWord: '',            
         };
+
+        $scope.dataProvider = new DataProvider(RoleModel, $scope.query);
 
         // Initialize used title items
-        $scope.titleItems = ListConfig.getTitleItems(RoleModel.endpoint);
+//        $scope.titleItems = ListConfig.getTitleItems(RoleModel.endpoint);
 
         // Initialize default sort data
-        $scope.sort = {
-          column: 'name',
-          direction: true
-        };
+//        $scope.sort = {
+//          column: 'name',
+//          direction: true
+//        };
 
         // Initialize filters
-        $scope.filters = {
-          searchWord: '',
-          columns: $scope.titleItems
-        };
+//        $scope.filters = {
+//          searchWord: '',
+//          columns: $scope.titleItems
+//        };
 
         // Function to change sort column / direction on list
-        $scope.changeSort = function changeSort(item) {
-          var sort = $scope.sort;
-
-          if (sort.column === item.column) {
-            sort.direction = !sort.direction;
-          } else {
-            sort.column = item.column;
-            sort.direction = true;
-          }
-
-          _triggerFetchData();
-        };
+//        $scope.changeSort = function changeSort(item) {
+//          var sort = $scope.sort;
+//
+//          if (sort.column === item.column) {
+//            sort.direction = !sort.direction;
+//          } else {
+//            sort.column = item.column;
+//            sort.direction = true;
+//          }
+//
+//          _triggerFetchData();
+//        };
 
         /**
          * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch role data
          * from server.
          */
-        $scope.$watch('currentPage', function watcher(valueNew, valueOld) {
-          if (valueNew !== valueOld) {
-            _fetchData();
-          }
-        });
+//        $scope.$watch('currentPage', function watcher(valueNew, valueOld) {
+//          if (valueNew !== valueOld) {
+//            _fetchData();
+//          }
+//        });
 
         /**
          * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch role data
          * from server.
          */
-        $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
-          if (valueNew !== valueOld) {
-            _triggerFetchData();
-          }
-        });
+//        $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
+//          if (valueNew !== valueOld) {
+//            _triggerFetchData();
+//          }
+//        });
 
         /*
          * Method to call when order-by column changed
          */
-        $scope.onReorder = function (order) {
-            // first char is '-' if direction is ascending
-            $scope.sort.direction = order.charAt(0) !== '-';
-            if( !$scope.sort.direction ) {
-                order = order.substring(1);
-            }            
-            $scope.sort.column = order;
-            _triggerFetchData();
-        };
-        
-        
-        $scope.onPaginate = function (currentPage, itemsPerPage) {
-            $scope.currentPage = currentPage;
-            $scope.itemsPerPage = itemsPerPage;
-            _fetchData();
-          };
-
+//        $scope.onReorder = function (order) {
+//            // first char is '-' if direction is ascending
+//            $scope.sort.direction = order.charAt(0) !== '-';
+//            if( !$scope.sort.direction ) {
+//                order = order.substring(1);
+//            }            
+//            $scope.sort.column = order;
+//            _triggerFetchData();
+//        };
+//        
+//        
+//        $scope.onPaginate = function (currentPage, itemsPerPage) {
+//            $scope.currentPage = currentPage;
+//            $scope.itemsPerPage = itemsPerPage;
+//            _fetchData();
+//          };
+//
         var searchWordTimer;
 
-        /**
-         * Watcher for 'filter' scope variable, which contains multiple values that we're interested
-         * within actual GUI. This will trigger new data fetch query to server if following conditions
-         * have been met:
-         *
-         *  1) Actual filter variable is different than old one
-         *  2) Search word have not been changed in 400ms
-         *
-         * If those are ok, then watcher will call 'fetchData' function.
-         */
-        $scope.$watch('filters', function watcher(valueNew, valueOld) {
+        $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
           if (valueNew !== valueOld) {
             if (searchWordTimer) {
               $timeout.cancel(searchWordTimer);
             }
 
-            searchWordTimer = $timeout(_triggerFetchData, 400);
+            searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
 
@@ -263,13 +256,13 @@
          *
          * @private
          */
-        function _triggerFetchData() {
-          if ($scope.currentPage === 1) {
-            _fetchData();
-          } else {
-            $scope.currentPage = 1;
-          }
-        }
+//        function _triggerFetchData() {
+//          if ($scope.currentPage === 1) {
+//            _fetchData();
+//          } else {
+//            $scope.currentPage = 1;
+//          }
+//        }
 
         /**
          * Helper function to fetch actual data for GUI from backend server with current parameters:
@@ -286,53 +279,54 @@
          *
          * @private
          */
-        function _fetchData() {
-          $scope.loading = true;
-
-          // Common parameters for count and data query
-          var commonParameters = {
-            where: SocketHelperService.getWhere($scope.filters)
-          };
-
-          // Data query specified parameters
-          var parameters = {
-            populate: 'users',
-            limit: $scope.itemsPerPage,
-            skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
-            sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
-          };
-
-          // Fetch data count
-          var count = RoleModel
-            .count(commonParameters)
-            .then(
-              function onSuccess(response) {
-                $scope.itemCount = response.count;
-              }
-            )
-          ;
-
-          // Fetch actual data
-          var load = RoleModel
-            .load(_.merge({}, commonParameters, parameters))
-            .then(
-              function onSuccess(response) {
-                $scope.items = response;
-              }
-            )
-          ;
-
-          // And wrap those all to promise loading
-          $q
-            .all([count, load])
-            .finally(
-              function onFinally() {
-                $scope.loaded = true;
-                $scope.loading = false;
-              }
-            )
-          ;
-        }
+//        function _fetchData() {
+//          $scope.loading = true;
+//
+//          // Common parameters for count and data query
+//          var commonParameters = {
+//            where: SocketHelperService.getWhere($scope.filters)
+//          };
+//
+//          // Data query specified parameters
+//          var parameters = {
+//            populate: 'users',
+//            limit: $scope.itemsPerPage,
+//            skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
+//            sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
+//          };
+//
+//          // Fetch data count
+//          var count = RoleModel
+//            .count(commonParameters)
+//            .then(
+//              function onSuccess(response) {
+//                $scope.itemCount = response.count;
+//              }
+//            )
+//          ;
+//
+//          // Fetch actual data
+//          var load = RoleModel
+//            .load(_.merge({}, commonParameters, parameters))
+//            .then(
+//              function onSuccess(response) {
+//                $scope.items = response;
+//              }
+//            )
+//          ;
+//
+//          // And wrap those all to promise loading
+//          $q
+//            .all([count, load])
+//            .finally(
+//              function onFinally() {
+//                $scope.loaded = true;
+//                $scope.loading = false;
+//              }
+//            )
+//          ;
+//        }
+        
       }
     ])
   ;
