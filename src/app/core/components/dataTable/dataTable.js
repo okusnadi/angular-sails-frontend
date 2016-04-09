@@ -9,6 +9,7 @@
         ctrl.event = 1;
 
         ctrl.getValue = function( item, column ) {
+            console.log(item);
             var value; 
             
             if( angular.isArray(column.column) ) {
@@ -20,6 +21,15 @@
             else {
                 value = item[column.column];
             }
+
+            if( angular.isArray(value) && angular.isDefined(column.arrayColumn) ) {
+                var v = '';
+                angular.forEach( value, function(item) {
+                    v += item[column.arrayColumn] + ' ';
+                });
+                value = v;
+            }
+            
             return angular.isArray(value)? value.length + ' - View': value;
         };
         

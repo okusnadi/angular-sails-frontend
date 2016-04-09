@@ -228,7 +228,8 @@
             },
             {
               title: 'Roles',
-              column: false,
+              column: 'roles',
+              arrayColumn: 'name',
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,
