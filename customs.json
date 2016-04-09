@@ -147,6 +147,8 @@
                 "dt-items": {},
                 "dt-item-count": {},
                 "dt-page": {},
+                "dt-on-click": {},
+                "dt-click": {},
                 "dt-limit": {},
                 "dt-on-reorder": {}
             }

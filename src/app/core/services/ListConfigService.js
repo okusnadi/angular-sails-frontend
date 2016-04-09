@@ -199,10 +199,10 @@
               title: 'Username',
               column: 'username',
               class: 'col-xs-2',
+              clickable: true,
               sortable: true,
               inSearch: true,
 //              sref: 'admin.user({id: item.id})',
-              titleClick: 'editUserDialog($event, item.id)',
               
             },
             {

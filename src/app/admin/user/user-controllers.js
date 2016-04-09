@@ -12,14 +12,6 @@
         UserModel, RoleModel, $mdDialog
       ) {
   
-        // expose state
-        $scope.$state = $state;
-        // Store roles
-        RoleModel.load()
-                .then(function(response){
-                    $scope.roles = response;
-                });
-        console.log($scope.roles);
         // Initialize user model
         $scope.user = {
             username: '',
@@ -33,15 +25,12 @@
             second: ''
         };
         
-        $scope.check = function($value) {
-//            console.log($scope.password);
-//            console.log($value);
-        };
-        
-        /**
-         * Scope function to store new user to database. After successfully save user will be redirected
-         * to view that new created user.
-         */
+        // Load roles
+        RoleModel.load()
+            .then(function(response){
+                $scope.roles = response;
+            });
+                
         $scope.saveUser = function() {
             $scope.user.passports.push(
                 {
@@ -71,22 +60,27 @@ var UserEditController =  function (
         $scope,
         $mdDialog,
         UserService, MessageService,
-        UserModel, RoleModel
+        UserModel, RoleModel, 
+        userId
       ) {
         // expose state
-        $scope.$state = $state;
+//        $scope.$state = $state;
         // Set current scope reference to model
         UserModel.setScope($scope, 'user');
 
         // Initialize scope data
         $scope.currentUser = UserService.user();
-        $scope.user = _user;
+//        $scope.user = _user;
         // Store roles
         RoleModel.load()
                 .then(function(response){
                     $scope.roles = response;
                 });
-        $scope.selectRole = _user.role ? _user.role.id : null;
+        UserModel.fetch(userId, {populate: 'roles'})
+                .then(function(response){
+                    $scope.user = response;
+                    $scope.selectRole = $scope.user.role ? $scope.user.role.id : null;
+                });
 
         // User delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
@@ -103,6 +97,7 @@ var UserEditController =  function (
           }
         };
 
+        $scope.cancelDialog = function(){$mdDialog.cancel();};
         /**
          * Scope function to save the modified user. This will send a
          * socket request to the backend server with the modified object.
@@ -135,7 +130,7 @@ var UserEditController =  function (
               function onSuccess() {
                 MessageService.success('User "' + $scope.user.title + '" deleted successfully');
 
-                $state.go('admin.users');
+//                $state.go('admin.users');
               }
             )
           ;
@@ -365,19 +360,21 @@ var UserEditController =  function (
 //              fullscreen: useFullScreen
             });
         };
-        $scope.editUserDialog = function(ev,userId ) {
+        
+        $scope.editUserDialog = function(event, item, column ) {
+            console.log(event);
 //            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
-              controller: EditUserController, 
+              controller: UserEditController, 
               resolve: {
-                  userId: [
+                  userId: 
                     function() {
-                      return userId;
+                      return item.id;
                     }
-                  ]},
+                  },
               templateUrl: '/frontend/admin/user/user.html',
               parent: angular.element(document.body),
-              targetEvent: ev,
+              targetEvent: event,
               clickOutsideToClose:true,
 //              fullscreen: useFullScreen
             });
