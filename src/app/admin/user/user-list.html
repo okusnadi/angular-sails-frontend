@@ -7,49 +7,52 @@
                 <h2>Users ({{query.itemCount}})</h2>
                 <div flex></div>
                 <!--<md-button ng-click="filter.show = true">-->
-              
+
                 <md-button ng-click="showFilter = true" 
-                           onclick="event.stopPropagation(); setTimeout( function(){$('#table-filter').focus() }, 200); "
+                           onclick="event.stopPropagation(); setTimeout(function () {
+                                       $('#table-filter').focus()
+                                   }, 200);
+                                   "
                            >
-                     <md-tooltip>Search filter</md-tooltip>
+                    <md-tooltip>Search filter</md-tooltip>
                     <md-icon class="material-icons">search</md-icon>
                 </md-button>
                 <md-button ng-click="addUserDialog($event)">
                     <md-tooltip>Add user</md-tooltip>
                     <md-icon class="material-icons" >person_add</md-icon>
                 </md-button>
-                 <md-button class="md-primary md-raised" ng-click="showAlert($event)"   >
+                <md-button class="md-primary md-raised" ng-click="showAlert($event)"   >
                     Alert Dialog
                 </md-button>
             </div>
         </md-toolbar>
-        
+
         <!--prev-->
         <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !selected.length">
-                <div ng-if="showFilter">
+            <div ng-if="showFilter">
                 <script>
                     $('#table-filter').focus();
                 </script>
-                </div>
+            </div>
             <div class="md-toolbar-tools">
-              <md-icon class="material-icons">search</md-icon>
-              <form flex="" name="filterForm" class="ng-valid flex ng-pristine">
-                  <input id='table-filter' tabindex="1" type="text" ng-model="query.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
-              </form>
-              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeFilter()">
-                <md-icon class="material-icons">close</md-icon>
-                <div class="md-ripple-container"></div>
-              </button>
+                <md-icon class="material-icons">search</md-icon>
+                <form flex="" name="filterForm" class="ng-valid flex ng-pristine">
+                    <input id='table-filter' tabindex="1" type="text" ng-model="query.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
+                </form>
+                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeFilter()">
+                    <md-icon class="material-icons">close</md-icon>
+                    <div class="md-ripple-container"></div>
+                </button>
             </div>
         </md-toolbar>
         <!--end prev-->
 
         <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="selected.length">
             <div class="md-toolbar-tools" layout-align="space-between">
-              <div>{{selected.length}} {{selected.length > 1 ? 'users' : 'user'}} selected</div>
-              <md-button class="md-icon-button" ng-click="delete($event)">
-                <md-icon>delete</md-icon>
-              </md-button>
+                <div>{{selected.length}} {{selected.length > 1 ? 'users' : 'user'}} selected</div>
+                <md-button class="md-icon-button" ng-click="delete($event)">
+                    <md-icon>delete</md-icon>
+                </md-button>
             </div>
         </md-toolbar>
 
@@ -66,7 +69,6 @@
             dt-on-click="editUserDialog(event, item, column)"
             >
         </md-data-table>
-        
-        </md-card>
+    </md-card>
 </section>
 

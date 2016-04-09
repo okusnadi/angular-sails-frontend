@@ -130,14 +130,14 @@
               column: 'createdAt',
               class: 'col-xs-2',
               sortable: true,
-              inSearch: true,
+              inSearch: false,
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
               sortable: true,
-              inSearch: true,
+              inSearch: false,
             },
             {
               title: 'Lists',
