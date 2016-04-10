@@ -93,7 +93,8 @@
         
         // Initialize query parameters
         $scope.query =  {
-            order: "fields->'Name'->>'value'",
+//            order: "fields->'Name'->>'value'",
+            order: "id",
             searchWord: '',
             where: { 
                 list: _list.id
@@ -176,15 +177,13 @@
     .controller('ListListController', [
       '$scope', '$q', '$timeout',
       '_',
-      'ListConfig', 'SocketHelperService',
-      'UserService', 'ListModel',
+      'ListModel',
       'DataProvider',
       '_campaign',
       function controller(
         $scope, $q, $timeout,
         _,
-        ListConfig, SocketHelperService,
-        UserService, ListModel, 
+        ListModel, 
         DataProvider,
         _campaign
       ) {
@@ -194,9 +193,6 @@
 
         // Set initial data        
         $scope.campaign = _campaign;
-        $scope.currentUser = UserService.user();
-
-        // Initialize query parameters
         $scope.query =  {
             order: 'name',
             searchWord: '',

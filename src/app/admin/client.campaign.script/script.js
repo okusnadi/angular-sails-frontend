@@ -28,36 +28,6 @@
               'content@': {
                 templateUrl: '/frontend/admin/client.campaign.script/script-list.html',
                 controller: 'ScriptListController',
-                resolve: {
-                  _items: [
-                    'ListConfig',
-                    'ScriptModel',
-                    '_campaign',
-                    function resolve(
-                      ListConfig,
-                      ScriptModel,
-                      _campaign
-                    ) {
-                      var config = ListConfig.getConfig();
-
-                      var parameters = {
-                        limit: config.itemsPerPage,
-                        sort: 'name ASC',
-                        where: { 
-                            campaign: _campaign.id
-                        }
-                      };
-
-                      return ScriptModel.load(parameters);
-                    }
-                  ],
-                  _count: [
-                    'ScriptModel',
-                    function resolve(ScriptModel) {
-                      return ScriptModel.count();
-                    }
-                  ]
-                }
               }
             }
           })

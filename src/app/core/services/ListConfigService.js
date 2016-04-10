@@ -53,20 +53,21 @@
               class: 'col-xs-2',
               sortable: true,
               inSearch: true,
+              sref: 'script({scriptId: item.id})'
             },
             {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
+              inSearch: false,
               sortable: true,
-              inSearch: true,
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
+              inSearch: false,
               sortable: true,
-              inSearch: true,
             }
           ],
           list: [
@@ -100,20 +101,21 @@
               class: 'col-xs-2',
               sortable: true,
               inSearch: true,
+              sref: 'emailTemplate({emailTemplateId: item.id})'
             },
             {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
               sortable: true,
-              inSearch: true,
+              inSearch: false,
             },
             {
               title: 'Updated',
               column: 'updatedAt',
               class: 'col-xs-2',
               sortable: true,
-              inSearch: true,
+              inSearch: false,
             }
           ],
           campaign: [
