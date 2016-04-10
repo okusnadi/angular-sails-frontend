@@ -88,13 +88,13 @@
       '$mdDialog',
       'UserService', 'MessageService',
       'ClientModel', 'CampaignModel',
-      '_client', '_campaigns',
+      '_client', 
       function controller(
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
         ClientModel, CampaignModel,
-        _client, _campaigns
+        _client
       ) {
   
         // expose state
@@ -105,8 +105,8 @@
         // Initialize scope data
         $scope.currentUser = UserService.user();
         $scope.client = _client;
-        $scope.campaigns = _campaigns;
-        $scope.selectCampaign = _client.campaign ? _client.campaign.id : null;
+//        $scope.campaigns = _campaigns;
+//        $scope.selectCampaign = _client.campaign ? _client.campaign.id : null;
 
         $scope.items = angular.fromJson($scope.client.orgUnits);
         $scope.suggestions = organisationalUnits;
@@ -179,89 +179,88 @@
     .controller('ClientListController', [
       '$scope', '$q', '$timeout',
       '_',
-      'ListConfig', 'SocketHelperService',
-      'UserService', 'ClientModel', 'CampaignModel',
-      '_items', '_count', '_campaigns',
+      'ListConfig', 'ClientModel', 
+      'DataProvider',      
+//      '_items', '_count', '_campaigns',
       function controller(
         $scope, $q, $timeout,
         _,
-        ListConfig, SocketHelperService,
-        UserService, ClientModel, CampaignModel,
-        _items, _count, _campaigns
+        ListConfig, ClientModel, 
+        DataProvider
+//        _items, _count, _campaigns
       ) {
         // Set current scope reference to models
         ClientModel.setScope($scope, false, 'items', 'itemCount');
-        CampaignModel.setScope($scope, false, 'campaigns');
-
-        // Add default list configuration variable to current scope
-        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
+//        CampaignModel.setScope($scope, false, 'campaigns');
 
         // Set initial data
-        $scope.items = _items;
-        $scope.itemCount = _count.count;
-        $scope.campaigns = _campaigns;
-        $scope.currentUser = UserService.user();
+//        $scope.items = _items;
+//        $scope.itemCount = _count.count;
+//        $scope.campaigns = _campaigns;
+//        $scope.currentUser = UserService.user();
         $scope.query =  {
             order: 'name',
-            page: 1,
-            limit: $scope.itemsPerPage
+            searchWord: '',            
+            populate: ['campaigns']
         };
+
+        $scope.dataProvider = new DataProvider(ClientModel, $scope.query);
 
         // Initialize used title items
-        $scope.titleItems = ListConfig.getTitleItems(ClientModel.endpoint);
+//        $scope.titleItems = ListConfig.getTitleItems(ClientModel.endpoint);
 
         // Initialize default sort data
-        $scope.sort = {
-          column: 'clientname',
-          direction: true
-        };
+//        $scope.sort = {
+//          column: 'clientname',
+//          direction: true
+//        };
 
         // Initialize filters
-        $scope.filters = {
-          searchWord: '',
-          columns: $scope.titleItems
-        };
+//        $scope.filters = {
+//          searchWord: '',
+//          columns: $scope.titleItems
+//        };
 
         /**
          * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch client data
          * from server.
          */
-        $scope.$watch('currentPage', function watcher(valueNew, valueOld) {
-          if (valueNew !== valueOld) {
-            _fetchData();
-          }
-        });
+//        $scope.$watch('currentPage', function watcher(valueNew, valueOld) {
+//          if (valueNew !== valueOld) {
+//            _fetchData();
+//          }
+//        });
 
         /**
          * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch client data
          * from server.
          */
-        $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
-          if (valueNew !== valueOld) {
-            _triggerFetchData();
-          }
-        });
+//        $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
+//          if (valueNew !== valueOld) {
+//            _triggerFetchData();
+//          }
+//        });
 
         /*
          * Method to call when order-by column changed
          */
-        $scope.onReorder = function (order) {
-            // first char is '-' if direction is ascending
-            $scope.sort.direction = order.charAt(0) !== '-';
-            if( !$scope.sort.direction ) {
-                order = order.substring(1);
-            }            
-            $scope.sort.column = order;
-            _triggerFetchData();
-        };
-        
-        
-        $scope.onPaginate = function (currentPage, itemsPerPage) {
-            $scope.currentPage = currentPage;
-            $scope.itemsPerPage = itemsPerPage;
-            _fetchData();
-          };
-
+//        $scope.onReorder = function (order) {
+//            // first char is '-' if direction is ascending
+//            $scope.sort.direction = order.charAt(0) !== '-';
+//            if( !$scope.sort.direction ) {
+//                order = order.substring(1);
+//            }            
+//            $scope.sort.column = order;
+//            _triggerFetchData();
+//        };
+//        
+//        
+//        $scope.onPaginate = function (currentPage, itemsPerPage) {
+//            $scope.currentPage = currentPage;
+//            $scope.itemsPerPage = itemsPerPage;
+//            _fetchData();
+//          };
+//
 
         var searchWordTimer;
 
@@ -275,13 +274,13 @@
          *
          * If those are ok, then watcher will call 'fetchData' function.
          */
-        $scope.$watch('filters', function watcher(valueNew, valueOld) {
+        $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
           if (valueNew !== valueOld) {
             if (searchWordTimer) {
               $timeout.cancel(searchWordTimer);
             }
 
-            searchWordTimer = $timeout(_triggerFetchData, 400);
+            searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
 
@@ -292,13 +291,13 @@
          *
          * @private
          */
-        function _triggerFetchData() {
-          if ($scope.currentPage === 1) {
-            _fetchData();
-          } else {
-            $scope.currentPage = 1;
-          }
-        }
+//        function _triggerFetchData() {
+//          if ($scope.currentPage === 1) {
+//            _fetchData();
+//          } else {
+//            $scope.currentPage = 1;
+//          }
+//        }
 
         /**
          * Helper function to fetch actual data for GUI from backend server with current parameters:
@@ -315,53 +314,55 @@
          *
          * @private
          */
-        function _fetchData() {
-          $scope.loading = true;
-
-          // Common parameters for count and data query
-          var commonParameters = {
-            where: SocketHelperService.getWhere($scope.filters)
-          };
-
-          // Data query specified parameters
-          var parameters = {
-            populate: 'campaigns',
-            limit: $scope.itemsPerPage,
-            skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
-            sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
-          };
-
-          // Fetch data count
-          var count = ClientModel
-            .count(commonParameters)
-            .then(
-              function onSuccess(response) {
-                $scope.itemCount = response.count;
-              }
-            )
-          ;
-
-          // Fetch actual data
-          var load = ClientModel
-            .load(_.merge({}, commonParameters, parameters))
-            .then(
-              function onSuccess(response) {
-                $scope.items = response;
-              }
-            )
-          ;
-
-          // Load all needed data
-          $q
-            .all([count, load])
-            .finally(
-              function onFinally() {
-                $scope.loaded = true;
-                $scope.loading = false;
-              }
-            )
-          ;
-        }
+//        function _fetchData() {
+//          $scope.loading = true;
+//
+//          // Common parameters for count and data query
+//          var commonParameters = {
+//            where: SocketHelperService.getWhere($scope.filters)
+//          };
+//
+//          // Data query specified parameters
+//          var parameters = {
+//            populate: 'campaigns',
+//            limit: $scope.itemsPerPage,
+//            skip: ($scope.currentPage - 1) * $scope.itemsPerPage,
+//            sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
+//          };
+//
+//          // Fetch data count
+//          var count = ClientModel
+//            .count(commonParameters)
+//            .then(
+//              function onSuccess(response) {
+//                $scope.itemCount = response.count;
+//              }
+//            )
+//          ;
+//
+//          // Fetch actual data
+//          var load = ClientModel
+//            .load(_.merge({}, commonParameters, parameters))
+//            .then(
+//              function onSuccess(response) {
+//                $scope.items = response;
+//              }
+//            )
+//          ;
+//
+//          // Load all needed data
+//          $q
+//            .all([count, load])
+//            .finally(
+//              function onFinally() {
+//                $scope.loaded = true;
+//                $scope.loading = false;
+//              }
+//            )
+//          ;
+//        }
+        
+        
       }
     ])
   ;

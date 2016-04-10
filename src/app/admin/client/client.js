@@ -28,36 +28,36 @@
                 templateUrl: '/frontend/admin/client/client-list.html',
                 controller: 'ClientListController',
                 resolve: {
-                  _items: [
-                    'ListConfig',
-                    'ClientModel',
-                    function resolve(
-                      ListConfig,
-                      ClientModel
-                    ) {
-                      var config = ListConfig.getConfig();
-
-                      var parameters = {
-                        populate: 'campaigns',
-                        limit: config.itemsPerPage,
-                        sort: 'name ASC'
-                      };
-
-                      return ClientModel.load(parameters);
-                    }
-                  ],
-                  _count: [
-                    'ClientModel',
-                    function resolve(ClientModel) {
-                      return ClientModel.count();
-                    }
-                  ],
-                  _campaigns: [
-                    'CampaignModel',
-                    function resolve(CampaignModel) {
-                      return CampaignModel.load();
-                    }
-                  ]
+//                  _items: [
+//                    'ListConfig',
+//                    'ClientModel',
+//                    function resolve(
+//                      ListConfig,
+//                      ClientModel
+//                    ) {
+//                      var config = ListConfig.getConfig();
+//
+//                      var parameters = {
+//                        populate: 'campaigns',
+//                        limit: config.itemsPerPage,
+//                        sort: 'name ASC'
+//                      };
+//
+//                      return ClientModel.load(parameters);
+//                    }
+//                  ],
+//                  _count: [
+//                    'ClientModel',
+//                    function resolve(ClientModel) {
+//                      return ClientModel.count();
+//                    }
+//                  ],
+//                  _campaigns: [
+//                    'CampaignModel',
+//                    function resolve(CampaignModel) {
+//                      return CampaignModel.load();
+//                    }
+//                  ]
                 }
               }
             }
@@ -84,12 +84,12 @@
                 templateUrl: '/frontend/admin/client/client.html',
                 controller: 'ClientController',
                 resolve: {
-                  _campaigns: [
-                    'CampaignModel',
-                    function resolve(CampaignModel) {
-                      return CampaignModel.load();
-                    }
-                  ]                  
+//                  _campaigns: [
+//                    'CampaignModel',
+//                    function resolve(CampaignModel) {
+//                      return CampaignModel.load();
+//                    }
+//                  ]                  
                 }
               }
             }
@@ -106,12 +106,12 @@
                 templateUrl: '/frontend/admin/client/client.html',
                 controller: 'ClientAddController',
                 resolve: {
-                  _campaigns: [
-                    'CampaignModel',
-                    function resolve(CampaignModel) {
-                      return CampaignModel.load();
-                    }
-                  ]
+//                  _campaigns: [
+//                    'CampaignModel',
+//                    function resolve(CampaignModel) {
+//                      return CampaignModel.load();
+//                    }
+//                  ]
                 }
               }
             }

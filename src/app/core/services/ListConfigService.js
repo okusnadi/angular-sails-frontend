@@ -171,6 +171,7 @@
               class: 'col-xs-2',
               sortable: true,
               inSearch: true,
+              sref: 'admin.client({clientId: item.id})'
             },
             {
               title: 'Contact name',
@@ -181,14 +182,15 @@
             },
             {
               title: 'Campaigns',
-              column: false,
+              column: 'campaigns',
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,
+              sref: 'campaigns({clientId: item.id})'
             },
             {
               title: 'Active Campaigns',
-              column: false,
+              column: 'campaigns',
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,
