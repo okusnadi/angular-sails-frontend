@@ -2,7 +2,6 @@
 <section layout="column">
     <!--Table header-->
     <md-card>
-        <!--<md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">-->
         <md-toolbar class="md-table-toolbar">
             <div class="md-toolbar-tools">
                 <h2>Clients ({{query.itemCount}})</h2>
@@ -43,36 +42,6 @@
             >
         </md-data-table>
         
-<!--        <md-table-container>
-            <table md-table >
-                <thead md-head md-order="query.order" md-on-reorder="onReorder">
-                    <tr md-row ng-if="items.length > 0">
-                        <th md-column 
-                            ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
-                            ng-repeat="item in titleItems"
-                        >
-                            <md-tooltip ng-if="item.sortable!==false">Sort by {{ item.title }}</md-tooltip>
-                            {{ item.title }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row ng-if="items.length > 0" md-auto-select md-select="client" md-select-id="{{client.name}}" ng-repeat="client in items">
-                        <td md-cell><a data-ui-sref="admin.client({clientId: client.id})">{{client.name}}</a></td>
-                        <td md-cell>{{client.contactName}}</td>
-                        <td md-cell>{{client.campaigns.length}}<a ui-sref="campaigns({clientId: client.id})"> View</a></td>
-                        <td md-cell>4567</td>
-                    </tr>
-                    <tr md-row ng-if="items.length === 0">
-                        <td md-cell><em>No clients found.</em><span ng-if="currentUser.admin">Go ahead and <a
-                            data-ui-sref="admin.client.add"
-                            data-tooltip="Add new client"><em>create one.</em></a></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{itemCount}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>-->
         </md-card>
 </section>
 
