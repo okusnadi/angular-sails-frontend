@@ -14,18 +14,16 @@
       '$scope', '$state',
       'MessageService',
       'ClientModel',
-      '_campaigns',
       function controller(
         $scope, $state,
         MessageService,
-        ClientModel,
-        _campaigns
+        ClientModel
       ) {
   
         // expose state
         $scope.$state = $state;
         // Store campaigns
-        $scope.campaigns = _campaigns;
+//        $scope.campaigns = _campaigns;
 
         // Initialize client model
         $scope.client = {
