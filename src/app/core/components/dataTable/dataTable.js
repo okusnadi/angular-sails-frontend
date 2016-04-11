@@ -6,6 +6,7 @@
     function DataTableController() {
 
         var ctrl = this;
+        ctrl.event = 1;
 
         ctrl.getValue = function( item, column ) {
             var value; 
@@ -19,8 +20,17 @@
             else {
                 value = item[column.column];
             }
+
+            if( angular.isArray(value) && angular.isDefined(column.arrayColumn) ) {
+                var v = '';
+                angular.forEach( value, function(item) {
+                    v += item[column.arrayColumn] + ' ';
+                });
+                value = v;
+            }
+            
             return angular.isArray(value)? value.length + ' - View': value;
-        };
+        };        
     }
 
     angular.module('frontend.core.components')
@@ -35,7 +45,8 @@
               dtOrder: '=',
               dtLimit: '=',
               dtOnReorder: '&',
-              dtOnPaginate: '&'
+              dtOnPaginate: '&',
+              dtOnClick: '&?'
           }
       });
 

@@ -26,30 +26,6 @@
                 templateUrl: '/frontend/admin/user/user-list.html',
                 controller: 'UserListController',
                 resolve: {
-                  _items: [
-                    'ListConfig',
-                    'UserModel',
-                    function resolve(
-                      ListConfig,
-                      UserModel
-                    ) {
-                      var config = ListConfig.getConfig();
-
-                      var parameters = {
-                        populate: 'roles',
-                        limit: config.itemsPerPage,
-                        sort: 'username ASC'
-                      };
-
-                      return UserModel.load(parameters);
-                    }
-                  ],
-                  _count: [
-                    'UserModel',
-                    function resolve(UserModel) {
-                      return UserModel.count();
-                    }
-                  ],
                   _roles: [
                     'RoleModel',
                     function resolve(RoleModel) {

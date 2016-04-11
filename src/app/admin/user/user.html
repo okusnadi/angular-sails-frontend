@@ -34,7 +34,7 @@
                                 ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }" 
                                 >-->
                 <md-input-container class="md-block"
-                                    ng-if="$state.current.name === 'admin.user.add'"
+                                    ng-if="!user.id"
                                     >
                     <label>Password</label>
                     <input type="password" name="password"

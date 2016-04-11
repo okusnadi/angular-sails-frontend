@@ -1,30 +1,3 @@
-<!--<h3>
-    Roles ({{itemCount}})
-
-    <div class="col-xs-6 pull-right list-search">
-        <a
-            data-ng-if="currentUser.admin"
-            data-ui-sref="admin.role.add"
-            data-tooltip="Add new role"
-        ><i class="fa fa-plus-circle"></i></a>
-
-        <list-search
-            data-filters="filters"
-            data-options="itemsPerPageOptions"
-            data-items="itemsPerPage"
-        ></list-search>
-
-        <pagination class="pagination-sm"
-            data-total-items="itemCount"
-            data-ng-model="currentPage"
-            data-items-per-page="itemsPerPage"
-            data-max-size="10"
-            data-boundary-links="true"
-            data-rotate="false"
-        ></pagination>
-    </div>
-</h3>-->
-
 
 <section layout="column">
     <!--Table header-->
@@ -32,11 +5,11 @@
         <!--<md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">-->
         <md-toolbar class="md-table-toolbar">
             <div class="md-toolbar-tools">
-                <h2>Roles ({{itemCount}})</h2>
+                <h2>Roles ({{query.itemCount}})</h2>
                 <div flex></div>
                 <!--<md-button ng-click="filter.show = true">-->
-              <form flex="" name="filter.form" class="ng-valid flex ng-pristine">
-                <input type="text" ng-model="filters.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
+              <form flex="" name="filterForm" class="flex">
+                <input type="text" ng-model="query.searchWord" placeholder="search" aria-invalid="false">
               </form>
                 <md-button>
                     <md-icon class="material-icons md-light">search</md-icon>
@@ -58,92 +31,18 @@
         </md-toolbar>
 
         <!--table-->
-        <md-table-container>
-            <!--FAB-->
-<!--            <md-button class="md-fab overlap-up" aria-label="Eat cake">
-                <md-icon class="material-icons">person_add</md-icon>
-            </md-button>-->
-            <!--<table md-table md-row-select ng-model="selected" md-progress="promise">-->
-            <table md-table>
-                <thead md-head ng-if="items.length > 0" md-order="query.order" md-on-reorder="onReorder">
-                    <tr md-row>
-                        <th md-column 
-                            ng-attr-md-order-by="{{item.sortable===false?undefined:item.column}}" 
-                            ng-repeat="item in titleItems"
-                        >
-                            <md-tooltip ng-if="item.sortable!==false">Sort by {{ item.title }}</md-tooltip>
-                            {{ item.title }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row ng-if="items.length > 0" md-auto-select md-select="role" md-select-id="{{role.name}}" ng-repeat="role in items">
-                        <td md-cell><a data-ui-sref="admin.role({id: role.id})">{{role.name}}</a></td>
-                        <td md-cell>{{role.description}}</td>
-                        <td md-cell>{{role.active}}</td>
-                        <td md-cell>{{role.accessLevel}}</td>
-                        <td md-cell>{{role.users.length}}</td>
-                    </tr>
-                    <tr md-row ng-if="items.length === 0">
-                        <td md-cell><em>No users found.</em><span ng-if="currentUser.admin">Go ahead and <a
-                            data-ui-sref="admin.user.add"
-                            data-tooltip="Add new user"><em>create one.</em></a></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{itemCount}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-        </md-card>
+        <md-data-table 
+            dt-items="query.items"
+            dt-item-count="query.itemCount"
+            dt-columns="query.columns"
+            dt-page="query.currentPage"
+            dt-limit="query.itemsPerPage"
+            dt-order="query.order"
+            dt-on-reorder="dataProvider.onReorder"
+            dt-on-paginate="dataProvider.onPaginate"
+            >
+        </md-data-table>
+    
+    </md-card>
 </section>
         
-<!--<table class="table">
-    <thead class="no-select">
-    <tr>
-        <th class="text-nowrap {{item.class}}"
-            data-ng-repeat="item in titleItems | filter:titleFilter"
-        >
-            <a
-                data-ng-show="item.column"
-                data-ng-click="changeSort(item)"
-                data-ng-bind-html="item.title"
-            ></a>
-            <span
-                data-ng-show="!item.column"
-                data-ng-bind-html="item.title"
-            ></span>
-
-            <i class="fa"
-                data-ng-show="sort.column == item.column"
-                data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
-            ></i>
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr data-ng-repeat="role in items">
-            <td class="col-xs-3">
-                <a data-ui-sref="admin.role({id: role.id})">{{role.name}}</a>
-            </td>
-            <td class="col-xs-3">{{role.description}}</td>
-            <td class="col-xs-2">{{role.active}}</td>
-            <td class="col-xs-2">{{role.accessLevel}}</td>
-            <td class="col-xs-2">{{role.users.length}}</td>
-        </tr>
-
-        <tr data-ng-if="items.length === 0">
-            <td colspan="100%" class="text-center text-muted">
-                <em>no data found...</em>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<pagination class="pagination-sm pull-right"
-    data-total-items="itemCount"
-    data-ng-model="currentPage"
-    data-items-per-page="itemsPerPage"
-    data-max-size="10"
-    data-boundary-links="true"
-    data-rotate="false"
-></pagination>-->

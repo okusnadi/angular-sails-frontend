@@ -28,36 +28,36 @@
               'content@': {
                 templateUrl: '/frontend/admin/client.campaign.emailTemplate/emailTemplate-list.html',
                 controller: 'EmailTemplateListController',
-                resolve: {
-                  _items: [
-                    'ListConfig',
-                    'EmailTemplateModel',
-                    '_campaign',
-                    function resolve(
-                      ListConfig,
-                      EmailTemplateModel,
-                      _campaign
-                    ) {
-                      var config = ListConfig.getConfig();
-
-                      var parameters = {
-                        limit: config.itemsPerPage,
-                        sort: 'name ASC',
-                        where: { 
-                            campaign: _campaign.id
-                        }
-                      };
-
-                      return EmailTemplateModel.load(parameters);
-                    }
-                  ],
-                  _count: [
-                    'EmailTemplateModel',
-                    function resolve(EmailTemplateModel) {
-                      return EmailTemplateModel.count();
-                    }
-                  ]
-                }
+//                resolve: {
+//                  _items: [
+//                    'ListConfig',
+//                    'EmailTemplateModel',
+//                    '_campaign',
+//                    function resolve(
+//                      ListConfig,
+//                      EmailTemplateModel,
+//                      _campaign
+//                    ) {
+//                      var config = ListConfig.getConfig();
+//
+//                      var parameters = {
+//                        limit: config.itemsPerPage,
+//                        sort: 'name ASC',
+//                        where: { 
+//                            campaign: _campaign.id
+//                        }
+//                      };
+//
+//                      return EmailTemplateModel.load(parameters);
+//                    }
+//                  ],
+//                  _count: [
+//                    'EmailTemplateModel',
+//                    function resolve(EmailTemplateModel) {
+//                      return EmailTemplateModel.count();
+//                    }
+//                  ]
+//                }
               }
             }
           })
