@@ -2,7 +2,7 @@
 <section layout="column">
     <!--Table header-->
     <md-card>
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="showFilter">
+        <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="showFilter || query.selected.length">
             <div class="md-toolbar-tools">
                 <h2>Users ({{query.itemCount}})</h2>
                 <div flex></div>
@@ -21,14 +21,11 @@
                     <md-tooltip>Add user</md-tooltip>
                     <md-icon class="material-icons" >person_add</md-icon>
                 </md-button>
-                <md-button class="md-primary md-raised" ng-click="showAlert($event)"   >
-                    Alert Dialog
-                </md-button>
             </div>
         </md-toolbar>
 
         <!--prev-->
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !selected.length">
+        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !query.selected.length">
             <div ng-if="showFilter">
                 <script>
                     $('#table-filter').focus();
@@ -47,10 +44,10 @@
         </md-toolbar>
         <!--end prev-->
 
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="selected.length">
+        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="query.selected.length">
             <div class="md-toolbar-tools" layout-align="space-between">
-                <div>{{selected.length}} {{selected.length > 1 ? 'users' : 'user'}} selected</div>
-                <md-button class="md-icon-button" ng-click="delete($event)">
+                <div>{{query.selected.length}} {{query.selected.length > 1 ? 'users' : 'user'}} selected</div>
+                <md-button class="md-icon-button" ng-click="deleteUserDialog(query.selected)">
                     <md-icon>delete</md-icon>
                 </md-button>
             </div>
@@ -67,6 +64,7 @@
             dt-on-reorder="dataProvider.onReorder"
             dt-on-paginate="dataProvider.onPaginate"
             dt-on-click="editUserDialog(event, item, column)"
+            dt-selected="query.selected"
             >
         </md-data-table>
     </md-card>

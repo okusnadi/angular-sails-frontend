@@ -1,7 +1,7 @@
     <!--table-->
     <md-table-container>
         <!--FAB-->
-        <table md-table >
+        <table md-table md-row-select ng-model="$ctrl.dtSelected" multiple>
             <thead md-head md-order="$ctrl.dtOrder" md-on-reorder="$ctrl.dtOnReorder({order:order})">
                 <tr md-row>
                     <th md-column 
@@ -15,7 +15,7 @@
             </thead>
             <tbody md-body>
                 <!--<tr md-row md-auto-select md-select="list" md-select-id="{{list.name}}" ng-repeat="list in items">-->
-                <tr md-row ng-repeat="item in $ctrl.dtItems">
+                <tr md-row md-auto-select md-select="item" md-select-id="" ng-repeat="item in $ctrl.dtItems">
                     <td md-cell
                         ng-repeat="column in $ctrl.dtColumns"
                         >

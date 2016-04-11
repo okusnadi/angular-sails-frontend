@@ -7,6 +7,7 @@
 
         var ctrl = this;
         ctrl.event = 1;
+        
 
         ctrl.getValue = function( item, column ) {
             var value; 
@@ -46,8 +47,10 @@
               dtLimit: '=',
               dtOnReorder: '&',
               dtOnPaginate: '&',
-              dtOnClick: '&?'
+              dtOnClick: '&?',
+              dtSelected: '=?'
           }
+          
       });
 
 }());

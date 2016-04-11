@@ -44,6 +44,7 @@
               function onSuccess(result) {
                 MessageService.success('New user added successfully');
                 $mdDialog.hide();
+                
 //                $state.go('admin.user', {id: result.data.id});
               }
             )
@@ -112,6 +113,7 @@ var UserEditController =  function (
             .then(
               function onSuccess() {
                 MessageService.success('User "' + $scope.user.title + '" updated successfully');
+                $mdDialog.hide();
               }
             )
           ;
@@ -187,7 +189,8 @@ var UserEditController =  function (
         $scope.query =  {
             order: 'username',
             searchWord: '',            
-            populate: ['roles']
+            populate: ['roles'],
+            selected : []
         };
         
 
@@ -214,8 +217,31 @@ var UserEditController =  function (
             }
         };        
         
+        //delete user 
+        $scope.deleteUser = function deleteUser(user) {
+          UserModel
+            .delete(user.id)
+//            .delete(91919129)
+            .then(
+              function onSuccess() {
+//                MessageService.success('User "' + $scope.user.title + '" deleted successfully');
+                if(--$scope.functionCounter === 0) {
+                    $scope.showAlert('Success', 'User(s) deleted');
+                    $scope.dataProvider.triggerFetchData();
+                }
+                
+                    
+                
+              },
+             function onError(error){
+//                 console.log('shit' + error);
+             }
+            )
+          ;
+        };
+        
         //alert dialogs
-        $scope.showAlert = function(ev) {
+        $scope.showAlert = function(title, content) {
             // Appending dialog to document.body to cover sidenav in docs app
             // Modal dialogs should fully cover application
             // to prevent interaction outside of dialog
@@ -223,11 +249,11 @@ var UserEditController =  function (
               $mdDialog.alert()
                 .parent(angular.element(document.querySelector('#container')))
                 .clickOutsideToClose(true)
-                .title('This is an alert title')
-                .textContent('You can specify some description text in here.')
-                .ariaLabel('Alert Dialog Demo')
+                .title(title)
+                .textContent(content)
+                .ariaLabel('Alert Dialog')
                 .ok('Got it!')
-                .targetEvent(ev)
+//                .targetEvent(ev)
             );
           };
         
@@ -241,6 +267,32 @@ var UserEditController =  function (
               targetEvent: ev,
               clickOutsideToClose:true,
 //              fullscreen: useFullScreen
+            });
+        };
+        
+        $scope.functionCounter;
+        
+        $scope.deleteUserDialog = function(items) {
+//            console.log(items);
+//            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+             $scope.functionCounter = items.length;
+             var confirm = $mdDialog.confirm()
+                .parent(angular.element(document.querySelector('#container')))
+                .title('Careful!')
+                .textContent('Are you sure you want to delete user(s)?')
+                .ariaLabel('delete user dialog')
+                .ok('Delete the fucker(s)!')
+                .cancel("Let'em stew a bit.");
+            $mdDialog.show(confirm).then(function() {
+               angular.forEach(items, function(item){
+//                   $scope.deleteUser(item.id);
+                   $scope.deleteUser(item);
+                    
+               });
+               $scope.status = 'User(s) deleted.'; 
+               
+            }, function() {
+                $scope.status = 'Cancelled';
             });
         };
         
@@ -341,6 +393,7 @@ var UserEditController =  function (
             .then(
               function onSuccess() {
                 MessageService.success('User "' + $scope.user.title + '" updated successfully');
+                $scope.dataProvider.triggerFetchData();
               }
             )
           ;
