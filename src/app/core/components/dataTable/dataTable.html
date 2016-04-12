@@ -1,7 +1,7 @@
     <!--table-->
     <md-table-container>
         <!--FAB-->
-        <table md-table md-row-select ng-model="$ctrl.dtSelected" multiple>
+        <table md-table ng-attr-md-row-select="$ctrl.dtSelected !== undefined ? '' :undefined" ng-attr-ng-model="$ctrl.dtSelected"  multiple>
             <thead md-head md-order="$ctrl.dtOrder" md-on-reorder="$ctrl.dtOnReorder({order:order})">
                 <tr md-row>
                     <th md-column 
