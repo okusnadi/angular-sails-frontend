@@ -1,5 +1,4 @@
-
-<section layout="column">
+<section layout="column" id="user-list-container">
     <!--Table header-->
     <md-card>
         <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="showFilter || query.selected.length">
@@ -26,11 +25,6 @@
 
         <!--prev-->
         <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !query.selected.length">
-            <div ng-if="showFilter">
-                <script>
-                    $('#table-filter').focus();
-                </script>
-            </div>
             <div class="md-toolbar-tools">
                 <md-icon class="material-icons">search</md-icon>
                 <form flex="" name="filterForm" class="ng-valid flex ng-pristine">
@@ -45,10 +39,18 @@
         <!--end prev-->
 
         <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="query.selected.length">
+            
             <div class="md-toolbar-tools" layout-align="space-between">
-                <div>{{query.selected.length}} {{query.selected.length > 1 ? 'users' : 'user'}} selected</div>
+                <h2>{{query.selected.length}} {{query.selected.length > 1 ? 'users' : 'user'}} selected</h2>
+                <div flex></div>
+                
+                <md-button class="md-icon-button" ng-click="query.selected.length=0;">
+                    <md-tooltip>Clear selection</md-tooltip>
+                    <md-icon>not_interested</md-icon>
+                </md-button>
+                
                 <md-button class="md-icon-button" ng-click="deleteUserDialog(query.selected)">
-                    <md-icon>delete</md-icon>
+                        <md-icon ng-style="{color: 'red'}">delete</md-icon>
                 </md-button>
             </div>
         </md-toolbar>

@@ -64,12 +64,15 @@ var UserEditController =  function (
         UserModel, RoleModel, 
         userId
       ) {
+  
 
         // Set current scope reference to model
         UserModel.setScope($scope, 'user');
 
         // Initialize scope data
         $scope.currentUser = UserService.user();
+        
+        
         // Store roles
         RoleModel.load()
                 .then(function(response){
@@ -102,8 +105,9 @@ var UserEditController =  function (
          * socket request to the backend server with the modified object.
          */
         $scope.saveUser = function() {
+          $scope.$emit('dataTableRefresh', [1,2,3]);
           var data = angular.copy($scope.user);
-
+          
           // Set role id to update data
           data.role = $scope.selectRole;
 
@@ -168,6 +172,10 @@ var UserEditController =  function (
         DataProvider,
         _roles
       ) {
+  
+        //datatable refresh event
+        $scope.$on('dataTableRefresh', function(event, data) { console.log(data); });
+
         
         // Set current scope reference to models
         UserModel.setScope($scope, false, 'items', 'itemCount');
@@ -259,6 +267,7 @@ var UserEditController =  function (
         
           
         $scope.addUserDialog = function(ev) {
+
 //            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
               controller: UserAddController,
@@ -307,7 +316,7 @@ var UserEditController =  function (
                     }
                   },
               templateUrl: '/frontend/admin/user/user.html',
-              parent: angular.element(document.body),
+              parent: angular.element(document.querySelector('#user-list-container')),
               targetEvent: event,
               clickOutsideToClose:true,
 //              fullscreen: useFullScreen
@@ -393,7 +402,7 @@ var UserEditController =  function (
             .then(
               function onSuccess() {
                 MessageService.success('User "' + $scope.user.title + '" updated successfully');
-                $scope.dataProvider.triggerFetchData();
+               
               }
             )
           ;
