@@ -84,6 +84,7 @@
         },
         "md-icon": {
             "attributes": {
+                "ng-style": {},
                 "md-svg-src": {},
                 "class": {}
             }
@@ -146,6 +147,7 @@
                 "dt-on-paginate": {},
                 "dt-columns": {},
                 "dt-order": {},
+                "dt-selected": {},
                 "dt-items": {},
                 "dt-item-count": {},
                 "dt-page": {},

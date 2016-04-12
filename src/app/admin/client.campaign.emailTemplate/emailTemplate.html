@@ -23,15 +23,19 @@
                     <text-angular 
                         required
                         ng-model="emailTemplate.body"
+                        ta-file-drop="dropHandler"
                         >                        
                     </text-angular>
                 </md-input-container>
-                
+               
 
             </div>
 
             <div flex="50" layout-margin>
-                
+                <h2>name shortcode (drag and drop)</h2>
+                <span style="display:block">[name]</span>
+                <h2>email shortcode (drag and drop)</h2>
+                <span style="display:block">[email]</span>
                 
             </div>
 

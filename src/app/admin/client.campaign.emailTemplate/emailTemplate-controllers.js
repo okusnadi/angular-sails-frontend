@@ -33,6 +33,13 @@
                   name: '',
                   body: ''
               };
+              
+              $scope.dropHandler = function(file, insertAction) {
+                  
+                  console.log( 'DROPPED - ', file, insertAction);
+                  
+              };
+
 
               /**
                * Scope function to store new emailTemplate to database. After successfully save emailTemplate will be redirected

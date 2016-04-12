@@ -46,6 +46,29 @@
               inSearch: false,
             }
           ],
+          settingFields: [
+            {
+              title: 'Name',
+              column: 'name',
+              class: 'col-xs-2',
+              sortable: false,
+              inSearch: false,
+            },
+            {
+              title: 'Key',
+              column: 'key',
+              class: 'col-xs-2',
+              sortable: false,
+              inSearch: false,
+            },
+            {
+              title: 'Mappings',
+              column: 'mappedTo',
+              class: 'col-xs-2',
+              sortable: false,
+              inSearch: false,
+            }
+          ],
           script: [
             {
               title: 'Name',
