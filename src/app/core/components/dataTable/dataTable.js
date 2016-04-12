@@ -29,6 +29,14 @@
                 value = v;
             }
             
+            if( angular.isArray(value) && angular.isDefined(column.csv) ) {
+                var v = '';
+                angular.forEach( value, function(item) {
+                    v += item + ', ';
+                });
+                value = v.slice(0,-1);
+            }
+            
             return angular.isArray(value)? value.length + ' - View': value;
         };        
     }

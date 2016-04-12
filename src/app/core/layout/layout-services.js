@@ -77,6 +77,11 @@
               access: AccessLevels.admin
             },
             {
+              state: 'admin.settings',
+              title: 'Settings',
+              access: AccessLevels.admin
+            },
+            {
               state: '',
               title: 'Request log',
               access: AccessLevels.admin

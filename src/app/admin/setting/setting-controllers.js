@@ -135,14 +135,14 @@
           '$scope', '$q', '$timeout', '$mdDialog', '$state',
           '_',
           'UserService', 'SettingModel', 'RoleModel',
-          'DataProvider', 'MessageService',
-          '_roles',
+          'DataProvider', 'MessageService', 'ListConfig',
+          '_settings',
           function controller(
             $scope, $q, $timeout, $mdDialog, $state,
             _,
             UserService, SettingModel, RoleModel,
-            DataProvider, MessageService,
-            _roles
+            DataProvider, MessageService, ListConfig,
+            _settings
             ) {
 
               // Set current scope reference to models
@@ -158,17 +158,21 @@
                   }
               };
 
-              $scope.roles = _roles;
+              $scope.settings = _settings;
               $scope.showFilter = false;
 
               $scope.query = {
-                  order: 'settingname',
+                  order: 'name',
+                  currentPage: 1,
+                  itemsPerPage: 10,
                   searchWord: '',
-                  selected: []
+                  selected: [],
+                  columns: ListConfig.getTitleItems('settingFields')
               };
 
+              
 
-              $scope.dataProvider = new DataProvider(SettingModel, $scope.query);
+//              $scope.dataProvider = new DataProvider(SettingModel, $scope.query);
 
               var searchWordTimer;
 
@@ -283,42 +287,43 @@
 
 
               $scope.fetchData = function () {
-                  $scope.loading = true;
+//                  $scope.loading = true;
 
                   // Common parameters for count and data query
-                  var commonParameters = {
-                      where: _.merge({},
-                        angular.isDefined($scope.query.where) ? $scope.query.where : {},
-                        SocketHelperService.getWhere($scope.query))
-                  };
+//                  var commonParameters = {
+//                      where: _.merge({},
+//                        angular.isDefined($scope.query.where) ? $scope.query.where : {},
+//                        SocketHelperService.getWhere($scope.query))
+//                  };
 
-                  var order = $scope.query.order;
-                  var direction = order.charAt(0) !== '-';
-                  if (!direction) {
-                      order = order.substring(1);
-                  }
-
-                  // Data query specified parameters
-                  var parameters = {
-                      limit: $scope.query.itemsPerPage,
-                      skip: ($scope.query.currentPage - 1) * $scope.query.itemsPerPage,
-                      sort: order + ' ' + (direction ? 'ASC' : 'DESC'),
-                      populate: angular.isDefined($scope.query.populate) ? $scope.query.populate : {}
-                  };
-
-                  // Fetch data count
-                  var count = $scope.dataModel
-                    .count(commonParameters)
-                    .then(
-                      function onSuccess(response) {
-                          $scope.query.itemCount = response.count;
-                      }
-                    )
-                    ;
+//                  var order = $scope.query.order;
+//                  var direction = order.charAt(0) !== '-';
+//                  if (!direction) {
+//                      order = order.substring(1);
+//                  }
+//
+//                  // Data query specified parameters
+//                  var parameters = {
+//                      limit: $scope.query.itemsPerPage,
+//                      skip: ($scope.query.currentPage - 1) * $scope.query.itemsPerPage,
+//                      sort: order + ' ' + (direction ? 'ASC' : 'DESC'),
+//                      populate: angular.isDefined($scope.query.populate) ? $scope.query.populate : {}
+//                  };
+//
+//                  // Fetch data count
+//                  var count = $scope.dataModel
+//                    .count(commonParameters)
+//                    .then(
+//                      function onSuccess(response) {
+//                          $scope.query.itemCount = response.count;
+//                      }
+//                    )
+//                    ;
 
                     
                   // Fetch actual data
-                   $scope.query.items = $scope.items;
+                   $scope.query.items = $scope.settings[0].settings;
+                   $scope.query.itemCount = $scope.query.items.length;
 
                   // Load all needed data
 //                  $q
@@ -331,6 +336,10 @@
 //                    )
 //                    ;
               };
+
+              $scope.fetchData();
+
+              console.log($scope.query);
 
           }
       ])

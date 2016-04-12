@@ -67,6 +67,7 @@
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,
+              csv: true
             }
           ],
           script: [
