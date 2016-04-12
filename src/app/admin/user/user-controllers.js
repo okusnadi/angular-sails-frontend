@@ -9,7 +9,8 @@
   var UserAddController = function (
         $scope,
         MessageService,
-        UserModel, RoleModel, $mdDialog
+        UserModel, RoleModel, $mdDialog,
+        dataProvider
       ) {
   
         // Initialize user model
@@ -44,8 +45,7 @@
               function onSuccess(result) {
                 MessageService.success('New user added successfully');
                 $mdDialog.hide();
-                
-//                $state.go('admin.user', {id: result.data.id});
+                dataProvider.triggerFetchData();
               }
             )
           ;
@@ -62,7 +62,7 @@ var UserEditController =  function (
         $mdDialog,
         UserService, MessageService,
         UserModel, RoleModel, 
-        userId
+        userId, dataProvider
       ) {
   
 
@@ -118,43 +118,11 @@ var UserEditController =  function (
               function onSuccess() {
                 MessageService.success('User "' + $scope.user.title + '" updated successfully');
                 $mdDialog.hide();
+                dataProvider.triggerFetchData();
               }
             )
           ;
         };
-
-        /**
-         * Scope function to delete current user. This will send DELETE query to backend via web socket
-         * query and after successfully delete redirect user back to user list.
-         */
-        $scope.deleteUser = function deleteUser() {
-          UserModel
-            .delete($scope.user.id)
-            .then(
-              function onSuccess() {
-                MessageService.success('User "' + $scope.user.title + '" deleted successfully');
-
-//                $state.go('admin.users');
-              }
-            )
-          ;
-        };
-
-        $scope.confirmDelete = function(ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.confirm()
-                  .title('Delete user')
-                  .textContent('Are you sure you want to delete user '+$scope.user.username+' ?')
-                  .ariaLabel('Delete user')
-                  .targetEvent(ev)
-                  .ok('Yes')
-                  .cancel('Cancel');
-            $mdDialog.show(confirm).then(function() {
-              $scope.deleteUser();
-            }, function() {
-                
-            });
-          };        
       };
 
   // Controller which contains all necessary logic for user list GUI on boilerplate application.
@@ -163,13 +131,13 @@ var UserEditController =  function (
       '$scope', '$q', '$timeout', '$mdDialog', '$state',
       '_',
       'UserService', 'UserModel', 'RoleModel',
-      'DataProvider',
+      'DataProvider', 'MessageService',
        '_roles',
       function controller(
         $scope, $q, $timeout, $mdDialog, $state,
         _,
         UserService, UserModel, RoleModel,
-        DataProvider,
+        DataProvider, MessageService,
         _roles
       ) {
   
@@ -229,17 +197,13 @@ var UserEditController =  function (
         $scope.deleteUser = function deleteUser(user) {
           UserModel
             .delete(user.id)
-//            .delete(91919129)
             .then(
               function onSuccess() {
-//                MessageService.success('User "' + $scope.user.title + '" deleted successfully');
                 if(--$scope.functionCounter === 0) {
-                    $scope.showAlert('Success', 'User(s) deleted');
+                    MessageService.success('User(s) deleted successfully');
+//                    $scope.showAlert('Success', 'User(s) deleted');
                     $scope.dataProvider.triggerFetchData();
                 }
-                
-                    
-                
               },
              function onError(error){
 //                 console.log('shit' + error);
@@ -247,7 +211,26 @@ var UserEditController =  function (
             )
           ;
         };
+
+        $scope.deleteUserDialog = function(items) {
+//            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+             $scope.functionCounter = items.length;
+             var confirm = $mdDialog.confirm()
+//                .parent(angular.element(document.querySelector('#container')))
+                .title('Careful!')
+                .textContent('Are you sure you want to delete user(s)?')
+                .ariaLabel('delete user dialog')
+                .ok('Delete the fucker(s)!')
+                .cancel("Let'em stew a bit.");
+            $mdDialog.show(confirm).then(function() {
+               angular.forEach(items, function(item){
+                   $scope.deleteUser(item);                    
+               });
+            });
+        };
         
+          
+          
         //alert dialogs
         $scope.showAlert = function(title, content) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -255,7 +238,7 @@ var UserEditController =  function (
             // to prevent interaction outside of dialog
             $mdDialog.show(
               $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#container')))
+//                .parent(angular.element(document.querySelector('#container')))
                 .clickOutsideToClose(true)
                 .title(title)
                 .textContent(content)
@@ -267,41 +250,15 @@ var UserEditController =  function (
         
           
         $scope.addUserDialog = function(ev) {
-
-//            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
               controller: UserAddController,
+              locals: {
+                  dataProvider: $scope.dataProvider
+              },
               templateUrl: '/frontend/admin/user/user.html',
-              parent: angular.element(document.body),
+//              parent: angular.element(document.body),
               targetEvent: ev,
-              clickOutsideToClose:true,
-//              fullscreen: useFullScreen
-            });
-        };
-        
-        $scope.functionCounter;
-        
-        $scope.deleteUserDialog = function(items) {
-//            console.log(items);
-//            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-             $scope.functionCounter = items.length;
-             var confirm = $mdDialog.confirm()
-                .parent(angular.element(document.querySelector('#container')))
-                .title('Careful!')
-                .textContent('Are you sure you want to delete user(s)?')
-                .ariaLabel('delete user dialog')
-                .ok('Delete the fucker(s)!')
-                .cancel("Let'em stew a bit.");
-            $mdDialog.show(confirm).then(function() {
-               angular.forEach(items, function(item){
-//                   $scope.deleteUser(item.id);
-                   $scope.deleteUser(item);
-                    
-               });
-               $scope.status = 'User(s) deleted.'; 
-               
-            }, function() {
-                $scope.status = 'Cancelled';
+              clickOutsideToClose:false
             });
         };
         
@@ -309,19 +266,16 @@ var UserEditController =  function (
 //            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
               controller: UserEditController, 
-              resolve: {
-                  userId: 
-                    function() {
-                      return item.id;
-                    }
-                  },
+              locals: {
+                  userId: item.id,
+                  dataProvider: $scope.dataProvider
+              },
               templateUrl: '/frontend/admin/user/user.html',
-              parent: angular.element(document.querySelector('#user-list-container')),
+//              parent: angular.element(document.querySelector('#user-list-container')),
               targetEvent: event,
-              clickOutsideToClose:true,
+              clickOutsideToClose:false
 //              fullscreen: useFullScreen
             });
-//          
 //            $scope.$watch(function() {
 //              return $mdMedia('xs') || $mdMedia('sm');
 //            }, function(wantsFullScreen) {
