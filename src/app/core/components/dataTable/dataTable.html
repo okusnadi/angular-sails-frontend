@@ -1,7 +1,7 @@
     <!--table-->
     <md-table-container>
         <!--FAB-->
-        <table md-table ng-attr-md-row-select="$ctrl.dtSelected !== undefined ? '' :undefined" ng-attr-ng-model="$ctrl.dtSelected"  multiple>
+        <table md-table ng-attr-md-row-select="$ctrl.dtSelected === undefined?undefined:true" ng-attr-ng-model="$ctrl.dtSelected"  multiple>
             <thead md-head md-order="$ctrl.dtOrder" md-on-reorder="$ctrl.dtOnReorder({order:order})">
                 <tr md-row>
                     <th md-column 
@@ -20,7 +20,7 @@
                         ng-repeat="column in $ctrl.dtColumns"
                         >
                         <a ng-if="column.sref" data-ui-sref="{{column.sref}}">{{$ctrl.getValue(item, column)}}</a>
-                        <a ng-if="column.clickable && $ctrl.dtOnClick" ng-click="$ctrl.dtOnClick({event:$event, item:item, column:column});">{{$ctrl.getValue(item, column)}}</a>
+                        <a ng-if="column.clickable && $ctrl.dtOnClick" ng-click="$ctrl.dtOnClick({event:$event, item:item, column:column});$event.stopPropagation();">{{$ctrl.getValue(item, column)}}</a>
                         <span ng-if="!(column.sref || (column.clickable && $ctrl.dtOnClick))">{{$ctrl.getValue(item, column)}}</span>
                     </td>
                 </tr>
