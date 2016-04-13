@@ -5,32 +5,42 @@
           data-ng-submit="local.saveSetting()"
           >
 
-        <md-input-container class="md-block">
-            <label>Name</label>
-            <input autocomplete="off" type="text"  
-                   data-ng-model="local.setting.name"
-                   data-ng-minlength="3"
-                   required="required" name="name" 
-                   />
-            <p ng-show="settingForm.name.$error.minlength" 
-               class="help-block">Name is too short.
-            </p>
-            <p ng-show="settingForm.name.$error.required && settingForm.name.$dirty" 
-               class="help-block">Please enter name!
-            </p>
-        </md-input-container>
+        <div layout="row">
+            <div flex="50" layout-margin>
+                <md-input-container class="md-block">
+                    <label>Name</label>
+                    <input autocomplete="off" type="text"  
+                           data-ng-model="local.setting.name"
+                           data-ng-minlength="3"
+                           required="required" name="name" 
+                           />
+                    <p ng-show="settingForm.name.$error.minlength" 
+                       class="help-block">Name is too short.
+                    </p>
+                    <p ng-show="settingForm.name.$error.required && settingForm.name.$dirty" 
+                       class="help-block">Please enter name!
+                    </p>
+                </md-input-container>
 
-        <md-input-container class="md-block">
-            <label>Key</label>
-            <input type="text" 
-                   data-ng-model="local.setting.key"
-                   data-ng-minlength="3"
-                   required="required" name="key"
-                   />
-            <p data-ng-show="settingForm.key.$invalid && !settingForm.key.$pristine" 
-               class="help-block">Enter a valid key.
-            </p>            
-        </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Key</label>
+                    <input type="text" 
+                           data-ng-model="local.setting.key"
+                           data-ng-minlength="3"
+                           required="required" name="key"
+                           />
+                    <p data-ng-show="settingForm.key.$invalid && !settingForm.key.$pristine" 
+                       class="help-block">Enter a valid key.
+                    </p>            
+                </md-input-container>
+
+            </div>
+
+            <div flex="50" layout-margin>
+                <md-multi-input mi-items="local.setting.mappedTo" mi-max="10" mi-label-prefix="'Mapping'">
+                </md-multi-input>
+            </div>
+        </div>
 
         <div flex="100" layout="row">
             <div flex></div>

@@ -14,7 +14,9 @@
             name: '',
             key: '',
             type: 'string',
-            mappedTo: []
+            mappedTo: [
+                { value: '' }            
+            ]
         };
 
         $scope.local.saveSetting = function () {
@@ -28,10 +30,14 @@
     var SettingEditController = function( $scope, item ) {
 
         $scope.local = {
-            setting: item
+            setting: angular.copy(item)
         };
 
         $scope.local.saveSetting = function () {
+            item.name = $scope.local.setting.name;
+            item.key = $scope.local.setting.key;
+            item.type = $scope.local.setting.type;
+            item.mappedTo = $scope.local.setting.mappedTo;
             $scope.updateSettings('Setting "' + $scope.local.setting.name + '" updated successfully');
         };        
     };
@@ -41,14 +47,12 @@
       .controller('SettingListController', [
           '$scope', '$q', '$timeout', '$mdDialog', '$state',
           '_',
-          'UserService', 'SettingModel', 'RoleModel',
-          'DataProvider', 'MessageService', 'ListConfig',
+          'SettingModel', 'MessageService', 'ListConfig',
           '_settings',
           function controller(
             $scope, $q, $timeout, $mdDialog, $state,
             _,
-            UserService, SettingModel, RoleModel,
-            DataProvider, MessageService, ListConfig,
+            SettingModel, MessageService, ListConfig,
             _settings
             ) {
 
@@ -125,25 +129,26 @@
               };
               
               //delete setting 
-              $scope.deleteSetting = function deleteSetting(setting) {
-                  SettingModel
-                    .delete(setting.id)
-                    .then(
-                      function onSuccess() {
-                          if (--$scope.functionCounter === 0) {
-                              MessageService.success('Setting(s) deleted successfully');
-                              $scope.dataProvider.triggerFetchData();
-                          }
-                      },
-                      function onError(error) {
-                      }
-                    )
-                    ;
-              };
+//              $scope.deleteSetting = function deleteSetting(setting) {
+//                  SettingModel
+//                    .delete(setting.id)
+//                    .then(
+//                      function onSuccess() {
+//                          if (--$scope.functionCounter === 0) {
+//                              MessageService.success('Setting(s) deleted successfully');
+//                              $scope.dataProvider.triggerFetchData();
+//                          }
+//                      },
+//                      function onError(error) {
+//                      }
+//                    )
+//                    ;
+//              };
 
               $scope.cancelDialog = function () {
                   $mdDialog.cancel();
               };
+              
               $scope.deleteSettingDialog = function (items) {
 //            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
                   $scope.functionCounter = items.length;
@@ -155,9 +160,14 @@
                     .ok('Delete the fucker(s)!')
                     .cancel("Let'em stew a bit.");
                   $mdDialog.show(confirm).then(function () {
+                      var arr = $scope.settings.fields.settings;
                       angular.forEach(items, function (item) {
-                          $scope.deleteSetting(item);
+                           arr.splice( _.findIndex(arr, function(element) {
+                              return item.key === element.key;
+                          }), 1);
                       });
+                      $scope.query.selected = [];
+                      $scope.updateSettings('Settings deleted.');
                   });
               };
 

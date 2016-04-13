@@ -16,6 +16,7 @@
         "md-multi-input": {
             "attributes": {
                 "mi-suggestions": {},
+                "mi-label-prefix": {},
                 "mi-items": {},
                 "mi-static": {},
                 "items": {},

@@ -23,18 +23,14 @@
 
             if( angular.isArray(value) && angular.isDefined(column.arrayColumn) ) {
                 var v = '';
-                angular.forEach( value, function(item) {
-                    v += item[column.arrayColumn] + ' ';
+                var l = value.length;
+                angular.forEach( value, function(item, key) {
+                    v += item[column.arrayColumn];
+                    if( l-1 > key) { 
+                        v+= angular.isDefined(column.columnDelimiter)?column.columnDelimiter:' '; 
+                    }
                 });
                 value = v;
-            }
-            
-            if( angular.isArray(value) && angular.isDefined(column.csv) ) {
-                var v = '';
-                angular.forEach( value, function(item) {
-                    v += item + ', ';
-                });
-                value = v.slice(0,-1);
             }
             
             return angular.isArray(value)? value.length + ' - View': value;

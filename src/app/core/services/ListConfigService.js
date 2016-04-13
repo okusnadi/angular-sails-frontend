@@ -65,10 +65,11 @@
             {
               title: 'Mappings',
               column: 'mappedTo',
+              arrayColumn: 'value',
+              columnDelimiter: ', ',
               class: 'col-xs-2',
               sortable: false,
               inSearch: false,
-              csv: true
             }
           ],
           script: [
