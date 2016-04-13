@@ -1,0 +1,62 @@
+<md-content layout-padding class="wide-min-width">
+    <h4>Setting Details</h4>
+    <form class="" role="form" name="settingForm"
+          autocomplete="off" 
+          data-ng-submit="local.saveSetting()"
+          >
+
+        <md-input-container class="md-block">
+            <label>Name</label>
+            <input autocomplete="off" type="text"  
+                   data-ng-model="local.setting.name"
+                   data-ng-minlength="3"
+                   required="required" name="name" 
+                   />
+            <p ng-show="settingForm.name.$error.minlength" 
+               class="help-block">Name is too short.
+            </p>
+            <p ng-show="settingForm.name.$error.required && settingForm.name.$dirty" 
+               class="help-block">Please enter name!
+            </p>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Key</label>
+            <input type="text" 
+                   data-ng-model="local.setting.key"
+                   data-ng-minlength="3"
+                   required="required" name="key"
+                   />
+            <p data-ng-show="settingForm.key.$invalid && !settingForm.key.$pristine" 
+               class="help-block">Enter a valid key.
+            </p>            
+        </md-input-container>
+
+        <div flex="100" layout="row">
+            <div flex></div>
+            <md-button type="submit" class="md-primary md-raised "
+                       data-ng-disabled="!settingForm.$valid">
+                Save
+            </md-button>
+
+            <md-button type="button" class="md-button md-raised "
+                       ng-click="cancelDialog();"
+                       >
+                Cancel
+            </md-button>
+        </div>
+
+
+
+
+
+
+        <!--                            data-ng-bootbox-confirm="Are you sure you want to delete setting <strong>{{setting.settingname}}</strong>?"
+                                    data-ng-bootbox-confirm-action="deleteSetting()"-->
+
+
+
+
+
+    </form>
+</md-content>

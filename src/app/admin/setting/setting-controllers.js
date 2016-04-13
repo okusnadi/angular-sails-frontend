@@ -6,127 +6,34 @@
 (function () {
     'use strict';
 
-    var SettingAddController = function (
-      $scope,
-      MessageService,
-      SettingModel, RoleModel, $mdDialog,
-      dataProvider
-      ) {
+    var SettingAddController = function( $scope ) {
 
+        $scope.local = {};
         // Initialize setting model
-        $scope.setting = {
-            settingname: '',
-            firstName: '',
-            lastName: '',
-            roles: [],
-            passports: []
-        };
-        $scope.password = {
-            first: '',
-            second: ''
+        $scope.local.setting = {
+            name: '',
+            key: '',
+            type: 'string',
+            mappedTo: []
         };
 
-        // Load roles
-        RoleModel.load()
-          .then(function (response) {
-              $scope.roles = response;
-          });
-
-        $scope.saveSetting = function () {
-            $scope.setting.passports.push(
-              {
-                  protocol: 'local',
-                  password: $scope.password.first
-              }
-            );
-            SettingModel
-              .create(angular.copy($scope.setting))
-              .then(
-                function onSuccess(result) {
-                    MessageService.success('New setting added successfully');
-                    $mdDialog.hide();
-                    dataProvider.triggerFetchData();
-                }
-              )
-              ;
+        $scope.local.saveSetting = function () {
+            $scope.settings.fields.settings.push($scope.local.setting);
+            $scope.updateSettings('New setting added successfully');
         };
-
-        $scope.cancelDialog = function () {
-            $mdDialog.cancel();
-        };
-
     };
 
 
 //controller for editing setting
-    var SettingEditController = function (
-      $scope,
-      $mdDialog,
-      SettingService, MessageService,
-      SettingModel, RoleModel,
-      settingId, dataProvider
-      ) {
+    var SettingEditController = function( $scope, item ) {
 
-
-        // Set current scope reference to model
-        SettingModel.setScope($scope, 'setting');
-
-        // Initialize scope data
-        $scope.currentSetting = SettingService.setting();
-
-
-        // Store roles
-        RoleModel.load()
-          .then(function (response) {
-              $scope.roles = response;
-          });
-        SettingModel.fetch(settingId, {populate: 'roles'})
-          .then(function (response) {
-              $scope.setting = response;
-              $scope.selectRole = $scope.setting.role ? $scope.setting.role.id : null;
-          });
-
-        // Setting delete dialog buttons configuration
-        $scope.confirmButtonsDelete = {
-            ok: {
-                label: 'Delete',
-                className: 'btn-danger',
-                callback: function callback() {
-                    $scope.deleteSetting();
-                }
-            },
-            cancel: {
-                label: 'Cancel',
-                className: 'btn-default pull-left'
-            }
+        $scope.local = {
+            setting: item
         };
 
-        $scope.cancelDialog = function () {
-            $mdDialog.cancel();
-        };
-        /**
-         * Scope function to save the modified setting. This will send a
-         * socket request to the backend server with the modified object.
-         */
-        $scope.saveSetting = function () {
-            $scope.$emit('dataTableRefresh', [1, 2, 3]);
-            var data = angular.copy($scope.setting);
-
-            // Set role id to update data
-            data.role = $scope.selectRole;
-
-            // Make actual data update
-            SettingModel
-              .update(data.id, data)
-              .then(
-                function onSuccess() {
-                    MessageService.success('Setting "' + $scope.setting.title + '" updated successfully');
-                    $mdDialog.hide();
-                    dataProvider.triggerFetchData();
-                }
-              )
-              ;
-        };
+        $scope.local.saveSetting = function () {
+            $scope.updateSettings('Setting "' + $scope.local.setting.name + '" updated successfully');
+        };        
     };
 
     // Controller which contains all necessary logic for setting list GUI on boilerplate application.
@@ -158,7 +65,17 @@
                   }
               };
 
-              $scope.settings = _settings;
+              $scope.settings = {
+                  fields: _.find(_settings, function (obj) {
+                      return obj.type === 'FIELDS';
+
+                  }),
+                  config: _.find(_settings, function (obj) {
+                      return obj.type === 'CONFIG';
+
+                  })
+              };
+
               $scope.showFilter = false;
 
               $scope.query = {
@@ -170,7 +87,7 @@
                   columns: ListConfig.getTitleItems('settingFields')
               };
 
-              
+
 
 //              $scope.dataProvider = new DataProvider(SettingModel, $scope.query);
 
@@ -182,7 +99,7 @@
                           $timeout.cancel(searchWordTimer);
                       }
 
-                      searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
+                      searchWordTimer = $timeout($scope.triggerFetchData, 400);
                   }
               }, true);
 
@@ -195,6 +112,18 @@
                   }
               };
 
+              $scope.updateSettings = function ( message ) {
+                  SettingModel
+                    .update($scope.settings.fields.id, $scope.settings.fields)
+                    .then(
+                      function onSuccess(result) {
+                          MessageService.success( message );
+                          $mdDialog.hide();
+                          $scope.triggerFetchData();
+                      }
+                    );
+              };
+              
               //delete setting 
               $scope.deleteSetting = function deleteSetting(setting) {
                   SettingModel
@@ -203,17 +132,18 @@
                       function onSuccess() {
                           if (--$scope.functionCounter === 0) {
                               MessageService.success('Setting(s) deleted successfully');
-//                    $scope.showAlert('Success', 'Setting(s) deleted');
                               $scope.dataProvider.triggerFetchData();
                           }
                       },
                       function onError(error) {
-//                 console.log('shit' + error);
                       }
                     )
                     ;
               };
 
+              $scope.cancelDialog = function () {
+                  $mdDialog.cancel();
+              };
               $scope.deleteSettingDialog = function (items) {
 //            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
                   $scope.functionCounter = items.length;
@@ -231,116 +161,90 @@
                   });
               };
 
-
-
-              //alert dialogs
-              $scope.showAlert = function (title, content) {
-                  // Appending dialog to document.body to cover sidenav in docs app
-                  // Modal dialogs should fully cover application
-                  // to prevent interaction outside of dialog
-                  $mdDialog.show(
-                    $mdDialog.alert()
-//                .parent(angular.element(document.querySelector('#container')))
-                    .clickOutsideToClose(true)
-                    .title(title)
-                    .textContent(content)
-                    .ariaLabel('Alert Dialog')
-                    .ok('Got it!')
-//                .targetEvent(ev)
-                    );
-              };
-
-
               $scope.addSettingDialog = function (ev) {
                   $mdDialog.show({
                       controller: SettingAddController,
-                      locals: {
-                          dataProvider: $scope.dataProvider
-                      },
+                      scope: $scope,
+                      preserveScope: true,
                       templateUrl: '/frontend/admin/setting/setting.html',
-//              parent: angular.element(document.body),
                       targetEvent: ev,
                       clickOutsideToClose: false
                   });
               };
 
               $scope.editSettingDialog = function (event, item, column) {
-//            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
                   $mdDialog.show({
                       controller: SettingEditController,
                       locals: {
-                          settingId: item.id,
-                          dataProvider: $scope.dataProvider
+                          item: item
                       },
+                      scope: $scope,
+                      preserveScope: true,
                       templateUrl: '/frontend/admin/setting/setting.html',
-//              parent: angular.element(document.querySelector('#setting-list-container')),
                       targetEvent: event,
                       clickOutsideToClose: false
-//              fullscreen: useFullScreen
                   });
-//            $scope.$watch(function() {
-//              return $mdMedia('xs') || $mdMedia('sm');
-//            }, function(wantsFullScreen) {
-//              $scope.customFullscreen = (wantsFullScreen === true);
-//            });
+              };
+
+              $scope.onReorder = function (order) {
+                  $scope.query.order = order;
+                  $scope.triggerFetchData();
+              };
+
+              $scope.onPaginate = function (currentPage, itemsPerPage) {
+                  $scope.query.currentPage = currentPage;
+                  $scope.query.itemsPerPage = itemsPerPage;
+                  $scope.fetchData();
+              };
+
+              $scope.triggerFetchData = function () {
+                  $scope.query.currentPage = 1;
+                  $scope.fetchData();
               };
 
 
               $scope.fetchData = function () {
-//                  $scope.loading = true;
 
-                  // Common parameters for count and data query
-//                  var commonParameters = {
-//                      where: _.merge({},
-//                        angular.isDefined($scope.query.where) ? $scope.query.where : {},
-//                        SocketHelperService.getWhere($scope.query))
-//                  };
+                  // order
+                  var order = $scope.query.order;
+                  var direction = order.charAt(0) !== '-';
+                  if (!direction) {
+                      order = order.substring(1);
+                  }
 
-//                  var order = $scope.query.order;
-//                  var direction = order.charAt(0) !== '-';
-//                  if (!direction) {
-//                      order = order.substring(1);
-//                  }
-//
-//                  // Data query specified parameters
-//                  var parameters = {
-//                      limit: $scope.query.itemsPerPage,
-//                      skip: ($scope.query.currentPage - 1) * $scope.query.itemsPerPage,
-//                      sort: order + ' ' + (direction ? 'ASC' : 'DESC'),
-//                      populate: angular.isDefined($scope.query.populate) ? $scope.query.populate : {}
-//                  };
-//
-//                  // Fetch data count
-//                  var count = $scope.dataModel
-//                    .count(commonParameters)
-//                    .then(
-//                      function onSuccess(response) {
-//                          $scope.query.itemCount = response.count;
-//                      }
-//                    )
-//                    ;
+                  //sorting
+                  var data = _.sortBy($scope.settings.fields.settings, order);
+                  if (direction !== true) {
+                      data.reverse();
+                  }
 
-                    
-                  // Fetch actual data
-                   $scope.query.items = $scope.settings[0].settings;
-                   $scope.query.itemCount = $scope.query.items.length;
 
-                  // Load all needed data
-//                  $q
-//                    .all([count, load])
-//                    .finally(
-//                      function onFinally() {
-//                          $scope.loaded = true;
-//                          $scope.loading = false;
-//                      }
-//                    )
-//                    ;
+                  // filetring
+                  if ($scope.query.searchWord.length > 0) {
+                      var words = _.filter($scope.query.searchWord.split(' '));
+                      var columns = _.filter($scope.query.columns, function (column) {
+                          return column.inSearch;
+                      });
+
+                      data = _.filter(data, function (f) {
+                          var result = false;
+                          _.forEach(columns, function (column) {
+                              _.forEach(words, function iteratorWords(word) {
+                                  if (f[column.column].toLowerCase().indexOf(word.toLowerCase()) > -1)
+                                      result = true;
+                              });
+                          });
+                          return result;
+                      });
+                  }
+                  // paginating
+                  var startFrom = ($scope.query.currentPage - 1) * $scope.query.itemsPerPage;
+
+                  $scope.query.itemCount = data.length;
+                  $scope.query.items = data.slice(startFrom, startFrom + $scope.query.itemsPerPage);
               };
 
               $scope.fetchData();
-
-              console.log($scope.query);
-
           }
       ])
       ;
