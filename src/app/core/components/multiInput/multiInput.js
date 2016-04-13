@@ -12,6 +12,10 @@
             ctrl.miItems = [{value: ''}];
         }
 
+        if ( angular.isUndefined(ctrl.miLabelPrefix) ) {
+            ctrl.miLabelPrefix = "Level";
+        }
+
         ctrl.addField = function (index) {
             if ( angular.isUndefined(ctrl.miMax) || ctrl.miItems.length < ctrl.miMax) {
                 ctrl.miItems.splice(index + 1, 0, {value: ''});
@@ -56,7 +60,8 @@
               miItems: '=',
               miSuggestions: '<?',
               miMax: '<?',
-              miStatic: '<?'
+              miStatic: '<?',
+              miLabelPrefix: '<?'
           }
       });
 

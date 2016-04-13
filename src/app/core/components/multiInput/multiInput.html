@@ -2,7 +2,7 @@
     <div layout="row" ng-repeat="item in $ctrl.miItems">
         <md-autocomplete
             required="true"
-            md-floating-label="{{item.label?item.label:'Level '+($index+1)}}"
+            md-floating-label="{{item.label?item.label:$ctrl.miLabelPrefix+' '+($index+1)}}"
             md-selected-item="item.selectedItem" 
             md-search-text="item.value" 
             md-items="sugg in $ctrl.querySearch(item.value, item)" 
