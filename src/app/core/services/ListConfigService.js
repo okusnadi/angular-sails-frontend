@@ -103,7 +103,8 @@
               class: 'col-xs-2',
               inSearch: true,
               sortable: true,
-              sref: 'list({listId: item.id})'
+              clickable: true,
+//              sref: 'list({listId: item.id})'
             },
             {
               title: 'Created',

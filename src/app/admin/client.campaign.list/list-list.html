@@ -35,6 +35,8 @@
             dt-order="query.order"
             dt-on-reorder="dataProvider.onReorder"
             dt-on-paginate="dataProvider.onPaginate"
+            dt-on-click="editListDialog(event, item, column)"
+            dt-selected="query.selected"            
             >
         </md-data-table>
         

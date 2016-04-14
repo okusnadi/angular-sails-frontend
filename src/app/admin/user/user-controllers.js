@@ -84,21 +84,6 @@ var UserEditController =  function (
                     $scope.selectRole = $scope.user.role ? $scope.user.role.id : null;
                 });
 
-        // User delete dialog buttons configuration
-        $scope.confirmButtonsDelete = {
-          ok: {
-            label: 'Delete',
-            className: 'btn-danger',
-            callback: function callback() {
-              $scope.deleteUser();
-            }
-          },
-          cancel: {
-            label: 'Cancel',
-            className: 'btn-default pull-left'
-          }
-        };
-
         $scope.cancelDialog = function(){$mdDialog.cancel();};
         /**
          * Scope function to save the modified user. This will send a
@@ -168,7 +153,6 @@ var UserEditController =  function (
             populate: ['roles'],
             selected : []
         };
-        
 
         $scope.dataProvider = new DataProvider(UserModel, $scope.query);
 
@@ -179,7 +163,6 @@ var UserEditController =  function (
             if (searchWordTimer) {
               $timeout.cancel(searchWordTimer);
             }
-
             searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
