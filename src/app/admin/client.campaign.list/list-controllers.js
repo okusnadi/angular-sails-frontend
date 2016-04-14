@@ -6,24 +6,16 @@
 (function() {
   'use strict';
 
-  // Controller for new list creation.
-  angular.module('frontend.admin.client.campaign.list')
-    .controller('ListAddController', [
-      '$scope', '$state',
-      'MessageService',
-      'ListModel',
-      '_scripts',
-      '_campaign', 
-      function controller(
-        $scope, $state,
+
+var ListAddController = function (
+        $scope, $mdDialog,
         MessageService,
         ListModel,
-        _scripts,
-        _campaign
+        _scripts,_campaign,
+        dataProvider
+          
       ) {
   
-        // expose state
-        $scope.$state = $state;
         // Store parent campaign
         $scope.scripts = _scripts;
         $scope.campaign = _campaign;
@@ -35,10 +27,8 @@
             defaultScript: null
         };
                 
-        /**
-         * Scope function to store new list to database. After successfully save list will be redirected
-         * to view that new created list.
-         */
+        $scope.cancelDialog = function(){$mdDialog.cancel();};
+        
         $scope.saveList = function() {
             $scope.list.campaign = $scope.campaign;
             ListModel
@@ -46,30 +36,16 @@
             .then(
               function onSuccess(result) {
                 MessageService.success('New list added successfully');
-
-                $state.go('list', {listId: result.data.id});
+                $mdDialog.hide();
+                dataProvider.triggerFetchData();
               }
             )
           ;
         };
         
-      }
-    ])
-  ;
+      };
 
-  // Controller to show single list on GUI.
-  angular.module('frontend.admin.client.campaign.list')
-    .controller('ListController', 
-    [
-      '$scope', '$state',
-      '$mdDialog',
-      'UserService', 'MessageService',
-      'DataProvider',
-      'ListModel', 'ProspectModel',
-       '_scripts',
-      '_campaign',
-      '_list',
-      function controller(
+var ListEditController = function (
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
@@ -103,21 +79,6 @@
         
         $scope.dataProvider = new DataProvider(ProspectModel, $scope.query);
 
-        // List delete dialog buttons configuration
-        $scope.confirmButtonsDelete = {
-          ok: {
-            label: 'Delete',
-            className: 'btn-danger',
-            callback: function callback() {
-              $scope.deleteList();
-            }
-          },
-          cancel: {
-            label: 'Cancel',
-            className: 'btn-default pull-left'
-          }
-        };
-
         /**
          * Scope function to save the modified list. This will send a
          * socket request to the backend server with the modified object.
@@ -130,7 +91,7 @@
             .update(data.id, data)
             .then(
               function onSuccess() {
-                MessageService.success('Email template "' + $scope.list.name + '" updated successfully');
+                MessageService.success('List "' + $scope.list.name + '" updated successfully');
               }
             )
           ;
@@ -145,7 +106,7 @@
             .delete($scope.list.id)
             .then(
               function onSuccess() {
-                MessageService.success('Email template "' + $scope.list.title + '" deleted successfully');
+                MessageService.success('List "' + $scope.list.title + '" deleted successfully');
 
                 $state.go('lists');
               }
@@ -157,7 +118,7 @@
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
                   .title('Delete list')
-                  .textContent('Are you sure you want to delete email template '+$scope.list.name+' ?')
+                  .textContent('Are you sure you want to delete list '+$scope.list.name+' ?')
                   .ariaLabel('Lucky day')
                   .targetEvent(ev)
                   .ok('Yes!')
@@ -168,24 +129,26 @@
                 
             });
           };        
-      }
-    ])
-  ;
+      };
+  
+  
 
   // Controller which contains all necessary logic for list list GUI on boilerplate application.
   angular.module('frontend.admin.client.campaign.list')
     .controller('ListListController', [
       '$scope', '$q', '$timeout',
+      '$mdDialog',
       '_',
       'ListModel',
       'DataProvider',
-      '_campaign',
+      '_campaign', '_scripts',
       function controller(
         $scope, $q, $timeout,
+        $mdDialog,
         _,
         ListModel, 
         DataProvider,
-        _campaign
+        _campaign, _scripts
       ) {
       
         // Set current scope reference to models
@@ -215,7 +178,49 @@
           }
         }, true);
         
+        $scope.addListDialog = function(ev) {
+            $mdDialog.show({
+              controller: ListAddController,
+              locals: {
+                  dataProvider: $scope.dataProvider,
+                  _campaign: _campaign,
+                  _scripts: _scripts
+              },
+              templateUrl: '/frontend/admin/client.campaign.list/list.html',
+              targetEvent: ev,
+              clickOutsideToClose:false
+            });
+        };
+        
+        
       }
     ])
   ;
+  
+  // Controller for new list creation.
+  angular.module('frontend.admin.client.campaign.list')
+    .controller('ListAddController', [
+      '$scope', '$state',
+      'MessageService',
+      'ListModel',
+      '_scripts',
+      '_campaign', 
+      ListAddController
+    ]);
+
+  // Controller to show single list on GUI.
+  angular.module('frontend.admin.client.campaign.list')
+    .controller('ListController', 
+    [
+      '$scope', '$state',
+      '$mdDialog',
+      'UserService', 'MessageService',
+      'DataProvider',
+      'ListModel', 'ProspectModel',
+       '_scripts',
+      '_campaign',
+      '_list',
+      ListEditController
+    ]);  
+  
 }());

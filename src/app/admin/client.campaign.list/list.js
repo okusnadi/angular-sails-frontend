@@ -6,12 +6,12 @@
  *
  * All of these are wrapped to 'frontend.admin.client.list.list' angular module.
  */
-(function() {
+(function () {
   'use strict';
 
   // Define frontend.admin.client.list.list angular module
   angular.module('frontend.admin.client.campaign.list', [
-      'textAngular'
+    'textAngular'
   ]);
 
   // Module configuration
@@ -24,6 +24,18 @@
           .state('lists', {
             parent: 'campaign',
             url: '/lists',
+            resolve: {
+              _scripts: [
+                'ScriptModel', '_campaign',
+                function resolve(ScriptModel, _campaign) {
+                  return ScriptModel.load({
+                    where: {
+                      campaign: _campaign.id
+                    }
+                  });
+                }
+              ]
+            },
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/client.campaign.list/list-list.html',
@@ -37,16 +49,16 @@
             parent: 'campaign',
             url: '/list/:listId',
             resolve: {
-                _list: [
-                    '$stateParams',
-                    'ListModel',
-                    function resolve(
-                      $stateParams,
-                      ListModel
-                    ) {
-                      return ListModel.fetch($stateParams.listId);
-                    }
-                  ]
+              _list: [
+                '$stateParams',
+                'ListModel',
+                function resolve(
+                  $stateParams,
+                  ListModel
+                  ) {
+                  return ListModel.fetch($stateParams.listId);
+                }
+              ]
             },
             views: {
               'content@': {
@@ -57,8 +69,8 @@
                     'ScriptModel', '_campaign',
                     function resolve(ScriptModel, _campaign) {
                       return ScriptModel.load({
-                        where: { 
-                            campaign: _campaign.id
+                        where: {
+                          campaign: _campaign.id
                         }
                       });
                     }
@@ -70,7 +82,6 @@
 
           // Add new list
           .state('list.add', {
-//            parent: 'admin.client',
             url: '/add',
             data: {
               access: 2
@@ -84,8 +95,8 @@
                     'ScriptModel', '_campaign',
                     function resolve(ScriptModel, _campaign) {
                       return ScriptModel.load({
-                        where: { 
-                            campaign: _campaign.id
+                        where: {
+                          campaign: _campaign.id
                         }
                       });
                     }
@@ -94,8 +105,8 @@
               }
             }
           })
-        ;
+          ;
       }
     ])
-  ;
+    ;
 }());

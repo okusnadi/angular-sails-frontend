@@ -5,7 +5,7 @@
           ng-submit="saveList()"
           >
         <div layout="row">
-            <div flex="50" layout-margin>
+            <div flex="100" layout-margin>
                 <md-input-container class="md-block">
                     <label>List name</label>
                     <input type="text" name="name" 
@@ -37,9 +37,9 @@
 
             </div>
 
-            <div flex="50" layout-margin>
+<!--            <div flex="50" layout-margin>
 
-                <!--<md-file-upload fu-file-name="'filesToUpload'" fu-payload="{listId : list.id }" fu-upload-url="'http://localhost:5037/list/upload'">-->
+                <md-file-upload fu-file-name="'filesToUpload'" fu-payload="{listId : list.id }" fu-upload-url="'http://localhost:5037/list/upload'">
                 <md-file-upload 
                     fu-file-name="'filesToUpload'" 
                     fu-accepted-files="'.csv'"
@@ -59,7 +59,7 @@
                     </md-data-table>
                 </md-card>
 
-            </div>
+            </div>-->
 
         </div>
         <md-button type="submit" class="md-primary md-raised "
@@ -69,34 +69,18 @@
         </md-button>
 
         <md-button type="button" class="md-button md-raised "
-                   ng-click="$state.go('lists')"
+                   ng-click="cancelDialog();"
                    >
             Cancel
         </md-button>
 
-        <md-button type="button" class="md-warn md-raised"
+<!--        <md-button type="button" class="md-warn md-raised"
                    ng-show="$state.current.name === 'list'"
                    ng-click="confirmDelete($event)"
                    >
             Delete
-        </md-button>
+        </md-button>-->
 
     </form>
-
-    <!-- enctype="multipart/form-data" -->
-    <!--<form id="uploadForm"
-          enctype="multipart/form-data"
-          action="http://localhost:5037/list/upload"
-          method="post">
-            <input type="file" name="avatar" />
-    <input id="fileInput" name="avatar1" type="file" class="ng-hide">
-    <label for="fileInput" id="uploadButton"
-               class="md-button md-raised md-primary"
-               aria-label="attach_file">
-        Upload file
-    </label>
-            <input type="submit" value="submit"/>
-    </form>         -->
-
 
 </md-content>
