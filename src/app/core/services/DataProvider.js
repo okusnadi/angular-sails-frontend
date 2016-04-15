@@ -28,9 +28,11 @@
                   if( angular.isUndefined(self.query.items) ) {
                     self.query.items = [];
                   }
+                  if( angular.isUndefined(self.query.itemCount) ) {
+                    self.query.itemCount = self.query.items.length;
+                  }
                   self.query.currentPage = 1;
                   self.query.itemsPerPage = config.itemsPerPage;
-                  self.query.itemCount = self.query.items.length;
                   if( angular.isUndefined(self.query.columns) ) {
                         self.query.columns = ListConfig.getTitleItems(dataModel.endpoint);
                   }
@@ -111,7 +113,6 @@
                   };
 
                   if( self.query.items.length < 1 ) {
-                    console.log( 'LOADING!!!' );
                     fetchData();
                   }
 

@@ -107,23 +107,21 @@
       '_',
       'ListModel',
       'DataProvider', 'MessageService',
-      '_campaign', '_lists', '_scripts', 
+      '_campaign', '_lists', '_scripts', '_count',
       function controller(
         $scope, $q, $timeout,
         $mdDialog,
         _,
         ListModel,
         DataProvider, MessageService,
-        _campaign, _lists, _scripts
+        _campaign, _lists, _scripts, _count
         ) {
-
-        // Set current scope reference to models
-        ListModel.setScope($scope, false, 'items', 'itemCount');
 
         // Set initial data        
         $scope.campaign = _campaign;
         $scope.query = {
           items: _lists,
+          itemCount: _count.count,
           order: 'name',
           searchWord: '',
           selected: [],
@@ -132,6 +130,8 @@
           },
           populate: ['defaultScript']
         };
+        // Set current scope reference to models
+        ListModel.setScope($scope, false, 'query.items', 'query.itemCount');
 
         $scope.dataProvider = new DataProvider(ListModel, $scope.query);
 
@@ -187,6 +187,21 @@
           });
         };
 
+        $scope.clickListDialog = function (ev, item, column) {
+          switch(column.column) {
+            case 'name':
+              $scope.editListDialog(ev, item, column);
+              break;
+            case 'import':
+              $scope.importListDialog(ev, item, column);
+              break;
+          }
+        };
+        
+        $scope.importListDialog = function (ev, item, column) {
+          console.log('IMPORT!!!');
+        };
+        
         $scope.editListDialog = function (ev, item, column) {
           $mdDialog.show({
             controller: ListEditController,

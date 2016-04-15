@@ -107,15 +107,6 @@
 //              sref: 'list({listId: item.id})'
             },
             {
-              title: 'Defult script',
-              column: ['defaultScript', 'name'],
-              class: 'col-xs-2',
-              inSearch: false,
-              sortable: false,
-//              clickable: true,
-//              sref: 'list({listId: item.id})'
-            },
-            {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
@@ -123,8 +114,36 @@
               sortable: true,
             },
             {
-              title: 'Updated',
-              column: 'updatedAt',
+              title: 'Defult script',
+              column: ['defaultScript', 'name'],
+              class: 'col-xs-2',
+              inSearch: false,
+              sortable: false,
+//              sref: 'list({listId: item.id})'
+            },
+            {
+              title: 'Prospects',
+              column: 'import',
+              class: 'col-xs-2',
+              inSearch: false,
+              sortable: true,
+              clickable: 'item.import !== "ONGOING"',
+              enum: {
+                'NO':       'None',
+                'ONGOING':  'In progress',    
+                'DONE':     'Imported'
+              }
+            },
+            {
+              title: 'Mapped',
+              column: 'mapped',
+              class: 'col-xs-2',
+              inSearch: false,
+              sortable: true,
+            },
+            {
+              title: 'Validated',
+              column: 'validated',
               class: 'col-xs-2',
               inSearch: false,
               sortable: true,

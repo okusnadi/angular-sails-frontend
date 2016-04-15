@@ -8,6 +8,10 @@
         var ctrl = this;
         ctrl.event = 1;
         
+        ctrl.isClickable = function(item, column) {
+          return angular.isDefined(column.clickable) ? eval(column.clickable) : false;
+        };
+        
         ctrl.getValue = function( item, column ) {
             var value; 
             
@@ -34,6 +38,10 @@
                     }
                 });
                 value = v;
+            }
+            
+            if( angular.isDefined(column.enum) ) {
+              value = column.enum[value];
             }
             
             return angular.isArray(value)? value.length + ' - View': value;
