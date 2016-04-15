@@ -107,6 +107,15 @@
 //              sref: 'list({listId: item.id})'
             },
             {
+              title: 'Defult script',
+              column: ['defaultScript', 'name'],
+              class: 'col-xs-2',
+              inSearch: false,
+              sortable: false,
+//              clickable: true,
+//              sref: 'list({listId: item.id})'
+            },
+            {
               title: 'Created',
               column: 'createdAt',
               class: 'col-xs-2',
