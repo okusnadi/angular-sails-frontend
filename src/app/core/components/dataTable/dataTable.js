@@ -14,6 +14,9 @@
             if( angular.isArray(column.column) ) {
                 value = item;
                 angular.forEach( column.column, function(selector) {
+                    if( angular.isUndefined(value) ) {
+                      return '';
+                    }
                     value = value[selector];
                 });
             }
