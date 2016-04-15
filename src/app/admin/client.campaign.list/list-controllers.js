@@ -107,14 +107,14 @@
       '_',
       'ListModel',
       'DataProvider', 'MessageService',
-      '_campaign', '_scripts',
+      '_campaign', '_lists', '_scripts', 
       function controller(
         $scope, $q, $timeout,
         $mdDialog,
         _,
         ListModel,
         DataProvider, MessageService,
-        _campaign, _scripts
+        _campaign, _lists, _scripts
         ) {
 
         // Set current scope reference to models
@@ -123,6 +123,7 @@
         // Set initial data        
         $scope.campaign = _campaign;
         $scope.query = {
+          items: _lists,
           order: 'name',
           searchWord: '',
           selected: [],

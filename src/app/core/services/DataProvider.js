@@ -25,10 +25,12 @@
                   
                   var config = ListConfig.getConfig();
 
-                  self.query.items = [];
+                  if( angular.isUndefined(self.query.items) ) {
+                    self.query.items = [];
+                  }
                   self.query.currentPage = 1;
                   self.query.itemsPerPage = config.itemsPerPage;
-                  self.query.itemCount = config.itemsPerPage;
+                  self.query.itemCount = self.query.items.length;
                   if( angular.isUndefined(self.query.columns) ) {
                         self.query.columns = ListConfig.getTitleItems(dataModel.endpoint);
                   }
@@ -108,7 +110,10 @@
                         ;
                   };
 
-                  fetchData();
+                  if( self.query.items.length < 1 ) {
+                    console.log( 'LOADING!!!' );
+                    fetchData();
+                  }
 
                   return {
                       query: self.query,
