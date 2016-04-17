@@ -103,7 +103,7 @@
               class: 'col-xs-2',
               inSearch: true,
               sortable: true,
-              clickable: true,
+              clickable: 'item.import !== "ONGOING"',
 //              sref: 'list({listId: item.id})'
             },
             {
@@ -127,9 +127,10 @@
               class: 'col-xs-2',
               inSearch: false,
               sortable: true,
-              clickable: 'item.import !== "ONGOING"',
+              clickable: 'item.import === "NO"',
+              spinner: 'item.import === "ONGOING"',
               enum: {
-                'NO':       'None',
+                'NO':       'None - click to import',
                 'ONGOING':  'In progress',    
                 'DONE':     'Imported'
               }

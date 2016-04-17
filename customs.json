@@ -1,201 +1,204 @@
 {
-    "elements": {
-        "md-fab-toolbar": {
-            "attributes": {
-                "count": {},
-                "md-open": {},
-                "md-direction": {},
-                "class": {}
-            }
-        },
-        "ng-form": {
-            "attributes": {
-                "name": {}
-            }
-        },
-        "md-multi-input": {
-            "attributes": {
-                "mi-suggestions": {},
-                "mi-label-prefix": {},
-                "mi-items": {},
-                "mi-static": {},
-                "items": {},
-                "mi-max": {}
-            }
-        },
-        "ng-message": {},
-        "list-search": {
-            "attributes": {
-                "data-options": {},
-                "data-items": {},
-                "data-filters": {}
-            }
-        },
-        "md-toolbar": {
-            "attributes": {
-                "ng-show": {},
-                "class": {},
-                "ng-hide": {}
-            }
-        },
-        "md-tooltip": {
-            "attributes": {
-                "ng-if": {}
-            }
-        },
-        "ng-messages": {
-            "attributes": {
-                "multiple": {}
-            }
-        },
-        "md-content": {
-            "attributes": {
-                "layout-padding": {},
-                "class": {}
-            }
-        },
-        "ng-messages=\"roleForm.name.$error\"": {},
-        "div": {
-            "attributes": {
-                "ng-message-exp": {},
-                "ng-message": {},
-                "multiple": {},
-                "ng-repeat": {},
-                "md-auto-hide": {},
-                "layout-margin": {},
-                "ng-if": {},
-                "class": {},
-                "ng-messages": {},
-                "layout-align": {}
-            }
-        },
-        "md-card": {},
-        "md-item-template": {},
-        "md-fab-actions": {
-            "attributes": {
-                "class": {}
-            }
-        },
-        "md-file-upload": {
-            "attributes": {
-                "fu-file-name": {},
-                "fu-accepted-files": {},
-                "fu-upload-url": {},
-                "fu-payload": {}
-            }
-        },
-        "md-icon": {
-            "attributes": {
-                "ng-style": {},
-                "md-svg-src": {},
-                "class": {}
-            }
-        },
-        "md-fab-trigger": {
-            "attributes": {
-                "class": {}
-            }
-        },
-        "md-button": {
-            "attributes": {
-                "ng-click": {},
-                "onclick": {},
-                "for": {},
-                "data-ng-bootbox-title": {},
-                "data-ng-class": {},
-                "tabIndex": {},
-                "type": {},
-                "ng-if": {},
-                "data-ng-bootbox-buttons": {},
-                "ng-disabled": {},
-                "ng-show": {},
-                "data-ng-repeat": {},
-                "data-ng-bootbox-custom-dialog": {},
-                "data-ui-sref-active": {},
-                "data-ng-disabled": {},
-                "data-ng-show": {},
-                "data-ng-bootbox-confirm": {},
-                "data-ui-sref": {},
-                "data-ng-bootbox-confirm-action": {},
-                "id": {},
-                "class": {},
-                "aria-label": {}
-            }
-        },
-        "md-autocomplete": {
-            "attributes": {
-                "md-item-text": {},
-                "md-selected-item-change": {},
-                "md-selected-item": {},
-                "ng-click": {},
-                "md-min-length": {},
-                "md-floating-label": {},
-                "md-items": {},
-                "md-search-text": {},
-                "required": {}
-            }
-        },
-        "md-table-container": {},
-        "md-input-container": {
-            "attributes": {
-                "md-no-float": {},
-                "ng-repeat": {},
-                "ng-if": {},
-                "class": {}
-            }
-        },
-        "md-data-table": {
-            "attributes": {
-                "dt-on-paginate": {},
-                "dt-columns": {},
-                "dt-order": {},
-                "dt-selected": {},
-                "dt-items": {},
-                "dt-item-count": {},
-                "dt-page": {},
-                "dt-on-click": {},
-                "dt-click": {},
-                "dt-limit": {},
-                "dt-on-reorder": {}
-            }
-        },
-        "md-table-pagination": {
-            "attributes": {
-                "md-page-select": {},
-                "md-limit": {},
-                "md-on-paginate": {},
-                "md-total": {},
-                "md-page": {}
-            }
-        }
+  "elements": {
+    "md-fab-toolbar": {
+      "attributes": {
+        "count": {},
+        "md-open": {},
+        "md-direction": {},
+        "class": {}
+      }
     },
-    "attributes": {
-        "layout": {
-            "context": "div"
-        },
-        "md-head": {
-            "context": "thead"
-        },
-        "md-table": {
-            "context": "table"
-        },
-        "md-row": {
-            "context": "tr"
-        },
-        "flex": {
-            "context": "div"
-        },
-        "md-highlight-text": {
-            "context": "span"
-        },
-        "md-body": {
-            "context": "tbody"
-        },
-        "md-cell": {
-            "context": "td"
-        },
-        "ui-sref": {
-            "context": "a"
-        }
+    "ng-form": {
+      "attributes": {
+        "name": {}
+      }
+    },
+    "md-multi-input": {
+      "attributes": {
+        "mi-suggestions": {},
+        "mi-label-prefix": {},
+        "mi-items": {},
+        "mi-static": {},
+        "items": {},
+        "mi-max": {}
+      }
+    },
+    "ng-message": {},
+    "list-search": {
+      "attributes": {
+        "data-options": {},
+        "data-items": {},
+        "data-filters": {}
+      }
+    },
+    "md-toolbar": {
+      "attributes": {
+        "ng-show": {},
+        "class": {},
+        "ng-hide": {}
+      }
+    },
+    "md-tooltip": {
+      "attributes": {
+        "ng-if": {}
+      }
+    },
+    "ng-messages": {
+      "attributes": {
+        "multiple": {}
+      }
+    },
+    "md-content": {
+      "attributes": {
+        "layout-padding": {},
+        "class": {}
+      }
+    },
+    "ng-messages=\"roleForm.name.$error\"": {},
+    "div": {
+      "attributes": {
+        "ng-message-exp": {},
+        "ng-message": {},
+        "multiple": {},
+        "ng-repeat": {},
+        "md-auto-hide": {},
+        "layout-margin": {},
+        "ng-if": {},
+        "class": {},
+        "ng-messages": {},
+        "layout-align": {}
+      }
+    },
+    "md-card": {},
+    "md-item-template": {},
+    "md-fab-actions": {
+      "attributes": {
+        "class": {}
+      }
+    },
+    "md-file-upload": {
+      "attributes": {
+        "fu-file-name": {},
+        "fu-accepted-files": {},
+        "fu-on-success": {},
+        "fu-upload-url": {},
+        "fu-payload": {},
+        "fu-on-error": {}
+      }
+    },
+    "md-icon": {
+      "attributes": {
+        "ng-style": {},
+        "md-svg-src": {},
+        "class": {}
+      }
+    },
+    "md-fab-trigger": {
+      "attributes": {
+        "class": {}
+      }
+    },
+    "md-button": {
+      "attributes": {
+        "ng-click": {},
+        "onclick": {},
+        "for": {},
+        "data-ng-bootbox-title": {},
+        "data-ng-class": {},
+        "tabIndex": {},
+        "type": {},
+        "ng-if": {},
+        "data-ng-bootbox-buttons": {},
+        "ng-disabled": {},
+        "ng-show": {},
+        "data-ng-repeat": {},
+        "data-ng-bootbox-custom-dialog": {},
+        "data-ui-sref-active": {},
+        "data-ng-disabled": {},
+        "data-ng-show": {},
+        "data-ng-bootbox-confirm": {},
+        "data-ui-sref": {},
+        "data-ng-bootbox-confirm-action": {},
+        "id": {},
+        "class": {},
+        "aria-label": {}
+      }
+    },
+    "md-autocomplete": {
+      "attributes": {
+        "md-item-text": {},
+        "md-selected-item-change": {},
+        "md-selected-item": {},
+        "ng-click": {},
+        "md-min-length": {},
+        "md-floating-label": {},
+        "md-items": {},
+        "md-search-text": {},
+        "required": {}
+      }
+    },
+    "md-table-container": {},
+    "md-input-container": {
+      "attributes": {
+        "md-no-float": {},
+        "ng-repeat": {},
+        "ng-if": {},
+        "class": {}
+      }
+    },
+    "md-data-table": {
+      "attributes": {
+        "dt-on-paginate": {},
+        "dt-columns": {},
+        "dt-order": {},
+        "dt-selected": {},
+        "dt-spinner": {},
+        "dt-items": {},
+        "dt-item-count": {},
+        "dt-page": {},
+        "dt-on-click": {},
+        "dt-click": {},
+        "dt-limit": {},
+        "dt-on-reorder": {}
+      }
+    },
+    "md-table-pagination": {
+      "attributes": {
+        "md-page-select": {},
+        "md-limit": {},
+        "md-on-paginate": {},
+        "md-total": {},
+        "md-page": {}
+      }
     }
+  },
+  "attributes": {
+    "layout": {
+      "context": "div"
+    },
+    "md-head": {
+      "context": "thead"
+    },
+    "md-table": {
+      "context": "table"
+    },
+    "md-row": {
+      "context": "tr"
+    },
+    "flex": {
+      "context": "div"
+    },
+    "md-highlight-text": {
+      "context": "span"
+    },
+    "md-body": {
+      "context": "tbody"
+    },
+    "md-cell": {
+      "context": "td"
+    },
+    "ui-sref": {
+      "context": "a"
+    }
+  }
 }
