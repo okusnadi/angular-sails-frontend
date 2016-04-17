@@ -6,7 +6,7 @@
 
         var ctrl = this;
 
-        console.log(ctrl.fuAcceptedFiles);
+//        console.log(ctrl.fuAcceptedFiles);
         
         if( angular.isUndefined(ctrl.fuFileName) ) {
             ctrl.fuFileName = 'filesToUpload';
@@ -27,7 +27,17 @@
         };
 
         ctrl.uploadClicked = function () {
-            fileUploadService.toUrl($element.find('#fileInput')[0].files, ctrl.fuPayload, ctrl.fuFileName, ctrl.fuUploadUrl);
+            fileUploadService.toUrl($element.find('#fileInput')[0].files, ctrl.fuPayload, ctrl.fuFileName, ctrl.fuUploadUrl)
+              .then ( function success(response) {
+                  if( angular.isDefined(ctrl.fuOnSuccess) ) {
+                    ctrl.fuOnSuccess(response);
+                  }
+//                    return response;
+                }, function error(error) {
+                  if( angular.isDefined(ctrl.fuOnError) ) {
+                    ctrl.fuOnError(error);
+                  }
+                });
         };
     }
 
@@ -39,7 +49,9 @@
               fuFileName: '<?',
               fuPayload: '<?',
               fuAcceptedFiles: '<?',
-              fuUploadUrl: '<'
+              fuUploadUrl: '<',
+              fuOnSuccess: '&?',
+              fuOnError: '&?'
           }
 
       });

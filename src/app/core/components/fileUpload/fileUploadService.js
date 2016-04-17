@@ -14,15 +14,16 @@
                     fd.append( name, value );
                 });
                 
-                $http.post( url, fd, {
+                return $http.post( url, fd, {
                     transformRequest: angular.identity,
                   headers: {'Content-Type': undefined}
-                }).then ( function success(response) {
-                    return response;
-                }, function error(response) {
-                    return response;
-                }
-                  );
+                });
+//                  .then ( function success(response) {
+//                    return response;
+//                }, function error(error) {
+//                    return error;
+//                }
+//                  );
             };
         }
       ] 
