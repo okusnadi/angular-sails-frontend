@@ -12,6 +12,10 @@
           return angular.isDefined(column.clickable) ? eval(column.clickable) : false;
         };
         
+        ctrl.isSpinner = function(item, column) {
+          return angular.isDefined(column.spinner) && angular.isDefined(ctrl.dtSpinner) ? eval(column.spinner) : false;
+        };
+        
         ctrl.getValue = function( item, column ) {
             var value; 
             
@@ -62,7 +66,8 @@
               dtOnReorder: '&',
               dtOnPaginate: '&',
               dtOnClick: '&?',
-              dtSelected: '=?'
+              dtSelected: '=?',
+              dtSpinner: '=?'
           }
           
       });

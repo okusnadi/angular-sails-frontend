@@ -22,6 +22,7 @@
                         <a ng-if="column.sref" data-ui-sref="{{column.sref}}">{{$ctrl.getValue(item, column)}}</a>
                         <a ng-if="$ctrl.isClickable(item,column) && $ctrl.dtOnClick" ng-click="$ctrl.dtOnClick({event:$event, item:item, column:column});$event.stopPropagation();">{{$ctrl.getValue(item, column)}}</a>
                         <span ng-if="!(column.sref || ($ctrl.isClickable(item,column) && $ctrl.dtOnClick))">{{$ctrl.getValue(item, column)}}</span>
+                        <img style="height:48px;width:auto" ng-if="$ctrl.isSpinner(item, column);" src="{{$ctrl.dtSpinner}}"/>
                     </td>
                 </tr>
                 <tr md-row ng-if="$ctrl.dtItems.length === 0">
