@@ -38,8 +38,8 @@
         .then(
           function onSuccess(result) {
             MessageService.success('New list added successfully');
-            $mdDialog.hide();
             dataProvider.triggerFetchData();
+            $mdDialog.hide();
           }
         )
         ;
@@ -48,9 +48,9 @@
   };
 
   var ListEditController = function (
-    $scope, $state,
+    $scope,
     $mdDialog,
-    MessageService, DataProvider,
+    MessageService,
     ListModel, ProspectModel,
     _scripts, _list, dataProvider
     ) {
@@ -97,6 +97,47 @@
 
   };
 
+
+  var ListImportController = function (
+    $scope, $sailsSocket,
+    $mdDialog,
+    MessageService,
+    ListModel, ProspectModel,
+    _scripts, _list, dataProvider
+    ) {
+
+    $scope.list = _list;
+
+    $scope.cancelDialog = function () {
+      $mdDialog.cancel();
+    };
+    
+    $scope.onSuccess = function () {
+      
+      dataProvider.triggerFetchData();
+      
+      io.socket.on('list.import', function (result) {
+          io.socket.off('list.import');
+          // Handle socket event
+          if( result.status && result.status === 'OK' ) {
+            dataProvider.triggerFetchData();
+            MessageService.success('Imported '+result.count+ ' records.');
+          }
+          else {
+            MessageService.error(result);
+          }
+          console.log('SOCKET MESSAGE: ', result);
+        })
+        ;
+      $mdDialog.hide();
+    };
+    
+    $scope.onError = function () {
+      console.log('ERROR !!!!');
+      $mdDialog.hide();
+    };
+
+  };
 
 
   // Controller which contains all necessary logic for list list GUI on boilerplate application.
@@ -162,14 +203,14 @@
             .delete(list.id)
             .then(
               function onSuccess() {
-                if(--$scope.functionCounter === 0) {
-                    MessageService.success('List(s) deleted successfully');
-                    $scope.query.selected = [];
-                    $scope.dataProvider.triggerFetchData();
+                if (--$scope.functionCounter === 0) {
+                  MessageService.success('List(s) deleted successfully');
+                  $scope.query.selected = [];
+                  $scope.dataProvider.triggerFetchData();
                 }
               }
             )
-          ;
+            ;
         };
 
 
@@ -188,7 +229,7 @@
         };
 
         $scope.clickListDialog = function (ev, item, column) {
-          switch(column.column) {
+          switch (column.column) {
             case 'name':
               $scope.editListDialog(ev, item, column);
               break;
@@ -197,11 +238,26 @@
               break;
           }
         };
-        
+
         $scope.importListDialog = function (ev, item, column) {
-          console.log('IMPORT!!!');
+          $mdDialog.show({
+            controller: ListImportController,
+            locals: {
+              dataProvider: $scope.dataProvider,
+              _campaign: _campaign,
+              _scripts: _scripts
+            },
+            resolve: {
+              _list: function () {
+                return ListModel.fetch(item.id);
+              }
+            },
+            templateUrl: '/frontend/admin/client.campaign.list/list-import.html',
+            targetEvent: ev,
+            clickOutsideToClose: false
+          });
         };
-        
+
         $scope.editListDialog = function (ev, item, column) {
           $mdDialog.show({
             controller: ListEditController,
@@ -221,20 +277,20 @@
           });
         };
 
-        $scope.deleteListDialog = function(items) {
-             $scope.functionCounter = items.length;
-             var confirm = $mdDialog.confirm()
-                .title('Careful!')
-                .textContent('Are you sure you want to delete list(s)?')
-                .ariaLabel('delete list dialog')
-                .ok('Yes')
-                .cancel("Cancel");
-            $mdDialog.show(confirm).then(function() {
-               angular.forEach(items, function(item){
-                   $scope.deleteList(item);                    
-               });
+        $scope.deleteListDialog = function (items) {
+          $scope.functionCounter = items.length;
+          var confirm = $mdDialog.confirm()
+            .title('Careful!')
+            .textContent('Are you sure you want to delete list(s)?')
+            .ariaLabel('delete list dialog')
+            .ok('Yes')
+            .cancel("Cancel");
+          $mdDialog.show(confirm).then(function () {
+            angular.forEach(items, function (item) {
+              $scope.deleteList(item);
             });
-        };        
+          });
+        };
 
       }
     ])
