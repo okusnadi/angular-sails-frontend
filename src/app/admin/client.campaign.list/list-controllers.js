@@ -51,13 +51,12 @@
     $scope,
     $mdDialog,
     MessageService,
-    ListModel, ProspectModel,
+    ListModel, 
     _scripts, _list, dataProvider
     ) {
 
     // Set current scope reference to model
     ListModel.setScope($scope, 'list');
-//    ProspectModel.setScope($scope, 'prospect');
 
     // Initialize scope data
     $scope.scripts = _scripts;
@@ -68,7 +67,6 @@
     };
 
     $scope.saveList = function () {
-//      console.log('SAVE!!!!');
       var data = angular.copy($scope.list);
 
       // Make actual data update
@@ -77,7 +75,6 @@
         .then(
           function onSuccess() {
             MessageService.success('List "' + $scope.list.name + '" updated successfully');
-//            console.log(dataProvider);
             dataProvider.triggerFetchData();
             $mdDialog.hide();
           }
@@ -126,7 +123,7 @@
 
   var ListProspectsController = function (
     $scope, $mdDialog,$timeout,
-    ListModel, ProspectModel,
+    ProspectModel,
     DataProvider, MessageService,
     _list, listProvider
     ) {
@@ -137,6 +134,15 @@
 
     $scope.list = _list;
 
+    var columns = [];
+    angular.forEach( _list.fields, function( field, key) {
+      columns.push({
+        title: field.column,
+        column: [ 'fields', field.column, 'value'],
+        sortable: false,
+        inSearch: false
+      });
+    });
     // Initialize query parameters
     $scope.query = {
 //            order: "fields->'Name'->>'value'",
@@ -145,7 +151,8 @@
       selected: [],
       where: {
         list: _list.id
-      }
+      },
+      columns: columns
     };
 
     $scope.prospectProvider = new DataProvider(ProspectModel, $scope.query);

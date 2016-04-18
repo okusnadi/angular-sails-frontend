@@ -94,7 +94,6 @@
                         .then(
                           function onSuccess(response) {
                               query.items = response;
-//                              console.log(response);
                           }
                         )
                         ;
