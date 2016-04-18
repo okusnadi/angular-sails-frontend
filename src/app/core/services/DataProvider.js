@@ -17,56 +17,54 @@
             _
             ) {
 
-              var self = this;
-
               return function (dataModel, query) {
-                  self.dataModel = dataModel;
-                  self.query = query;
+                  var dataModel = dataModel;
+                  var query = query;
                   
                   var config = ListConfig.getConfig();
 
-                  if( angular.isUndefined(self.query.items) ) {
-                    self.query.items = [];
+                  if( angular.isUndefined(query.items) ) {
+                    query.items = [];
                   }
-                  if( angular.isUndefined(self.query.itemCount) ) {
-                    self.query.itemCount = self.query.items.length;
+                  if( angular.isUndefined(query.itemCount) ) {
+                    query.itemCount = query.items.length;
                   }
-                  self.query.currentPage = 1;
-                  self.query.itemsPerPage = config.itemsPerPage;
-                  if( angular.isUndefined(self.query.columns) ) {
-                        self.query.columns = ListConfig.getTitleItems(dataModel.endpoint);
+                  query.currentPage = 1;
+                  query.itemsPerPage = config.itemsPerPage;
+                  if( angular.isUndefined(query.columns) ) {
+                        query.columns = ListConfig.getTitleItems(dataModel.endpoint);
                   }
 
                   var onReorder = function (order) {
-                      self.query.order = order;
+                      query.order = order;
                       triggerFetchData();
                   };
 
                   var onPaginate = function (currentPage, itemsPerPage) {
-                      self.query.currentPage = currentPage;
-                      self.query.itemsPerPage = itemsPerPage;
+                      query.currentPage = currentPage;
+                      query.itemsPerPage = itemsPerPage;
                       fetchData();
                   };
 
                   var triggerFetchData = function () {
-                      if (self.query.currentPage === 1) {
+                      if (query.currentPage === 1) {
                           fetchData();
                       } else {
-                          self.query.currentPage = 1;
+                          query.currentPage = 1;
                       }
                   };
 
                   var fetchData = function () {
-                      self.loading = true;
+//                      loading = true;
 
                       // Common parameters for count and data query
                       var commonParameters = {
                           where: _.merge({}, 
-                          angular.isDefined(self.query.where) ? self.query.where : {}, 
-                          SocketHelperService.getWhere(self.query))
+                          angular.isDefined(query.where) ? query.where : {}, 
+                          SocketHelperService.getWhere(query))
                       };
 
-                      var order = self.query.order;
+                      var order = query.order;
                       var direction = order.charAt(0) !== '-';
                       if (!direction) {
                           order = order.substring(1);
@@ -74,28 +72,29 @@
 
                       // Data query specified parameters
                       var parameters = {
-                          limit: self.query.itemsPerPage,
-                          skip: (self.query.currentPage - 1) * self.query.itemsPerPage,
+                          limit: query.itemsPerPage,
+                          skip: (query.currentPage - 1) * query.itemsPerPage,
                           sort: order + ' ' + (direction ? 'ASC' : 'DESC'),
-                          populate: angular.isDefined(self.query.populate) ? self.query.populate : {}
+                          populate: angular.isDefined(query.populate) ? query.populate : {}
                       };
 
                       // Fetch data count
-                      var count = self.dataModel
+                      var count = dataModel
                         .count(commonParameters)
                         .then(
                           function onSuccess(response) {
-                              self.query.itemCount = response.count;
+                              query.itemCount = response.count;
                           }
                         )
                         ;
 
                       // Fetch actual data
-                      var load = self.dataModel
+                      var load = dataModel
                         .load(_.merge({}, commonParameters, parameters))
                         .then(
                           function onSuccess(response) {
-                              self.query.items = response;
+                              query.items = response;
+//                              console.log(response);
                           }
                         )
                         ;
@@ -105,19 +104,19 @@
                         .all([count, load])
                         .finally(
                           function onFinally() {
-                              self.loaded = true;
-                              self.loading = false;
+//                              loaded = true;
+//                              loading = false;
                           }
                         )
                         ;
                   };
 
-                  if( self.query.items.length < 1 ) {
+                  if( query.items.length < 1 ) {
                     fetchData();
                   }
 
                   return {
-                      query: self.query,
+                      query: query,
                       onReorder: onReorder,
                       onPaginate: onPaginate,
                       fetchData: fetchData,

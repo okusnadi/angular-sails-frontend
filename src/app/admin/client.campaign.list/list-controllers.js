@@ -36,7 +36,7 @@
       ListModel
         .create(angular.copy($scope.list))
         .then(
-          function onSuccess(result) {
+          function onSuccess() {
             MessageService.success('New list added successfully');
             dataProvider.triggerFetchData();
             $mdDialog.hide();
@@ -57,29 +57,18 @@
 
     // Set current scope reference to model
     ListModel.setScope($scope, 'list');
-    ProspectModel.setScope($scope, 'prospect');
+//    ProspectModel.setScope($scope, 'prospect');
 
     // Initialize scope data
     $scope.scripts = _scripts;
     $scope.list = _list;
-
-    // Initialize query parameters
-    $scope.query = {
-//            order: "fields->'Name'->>'value'",
-      order: "id",
-      searchWord: '',
-      where: {
-        list: _list.id
-      }
-    };
-
-//        $scope.dataProvider = new DataProvider(ProspectModel, $scope.query);
 
     $scope.cancelDialog = function () {
       $mdDialog.cancel();
     };
 
     $scope.saveList = function () {
+//      console.log('SAVE!!!!');
       var data = angular.copy($scope.list);
 
       // Make actual data update
@@ -88,6 +77,7 @@
         .then(
           function onSuccess() {
             MessageService.success('List "' + $scope.list.name + '" updated successfully');
+//            console.log(dataProvider);
             dataProvider.triggerFetchData();
             $mdDialog.hide();
           }
@@ -99,11 +89,9 @@
 
 
   var ListImportController = function (
-    $scope, $sailsSocket,
-    $mdDialog,
+    $scope, $mdDialog,
     MessageService,
-    ListModel, ProspectModel,
-    _scripts, _list, dataProvider
+    _list, dataProvider
     ) {
 
     $scope.list = _list;
@@ -111,29 +99,83 @@
     $scope.cancelDialog = function () {
       $mdDialog.cancel();
     };
-    
+
     $scope.onSuccess = function () {
-      
+
       dataProvider.triggerFetchData();
-      
+
       io.socket.on('list.import', function (result) {
-          io.socket.off('list.import');
-          // Handle socket event
-          if( result.status && result.status === 'OK' ) {
-            dataProvider.triggerFetchData();
-            MessageService.success('Imported '+result.count+ ' records.');
-          }
-          else {
-            MessageService.error(result);
-          }
-          console.log('SOCKET MESSAGE: ', result);
-        })
+        io.socket.off('list.import');
+        // Handle socket event
+        if (result.status && result.status === 'OK') {
+          dataProvider.triggerFetchData();
+          MessageService.success('Imported ' + result.counter + ' records.');
+        } else {
+          MessageService.error(result);
+        }
+      })
         ;
       $mdDialog.hide();
     };
-    
+
     $scope.onError = function () {
-      console.log('ERROR !!!!');
+      $mdDialog.hide();
+    };
+
+  };
+
+  var ListProspectsController = function (
+    $scope, $mdDialog,$timeout,
+    ListModel, ProspectModel,
+    DataProvider, MessageService,
+    _list, listProvider
+    ) {
+
+    // Set current scope reference to model
+//    ListModel.setScope($scope, 'list');
+    ProspectModel.setScope($scope, 'prospect');
+
+    $scope.list = _list;
+
+    // Initialize query parameters
+    $scope.query = {
+//            order: "fields->'Name'->>'value'",
+      order: 'id',
+      searchWord: '',
+      selected: [],
+      where: {
+        list: _list.id
+      }
+    };
+
+    $scope.prospectProvider = new DataProvider(ProspectModel, $scope.query);
+
+    var searchWordTimer;
+
+    $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
+      if (valueNew !== valueOld) {
+        if (searchWordTimer) {
+          $timeout.cancel(searchWordTimer);
+        }
+
+        searchWordTimer = $timeout($scope.prospectProvider.triggerFetchData, 400);
+      }
+    }, true);
+
+    $scope.removeFilter = function () {
+      $scope.showFilter = false;
+      $scope.query.searchWord = '';
+
+      if ($scope.filterForm.$dirty) {
+        $scope.filterForm.$setPristine();
+      }
+    };
+
+    $scope.cancelDialog = function () {
+      $mdDialog.cancel();
+    };
+
+    $scope.onError = function () {
       $mdDialog.hide();
     };
 
@@ -234,18 +276,40 @@
               $scope.editListDialog(ev, item, column);
               break;
             case 'import':
-              $scope.importListDialog(ev, item, column);
+              switch (item.import) {
+                case 'NO':
+                  $scope.importListDialog(ev, item, column);
+                  break;
+                case 'DONE':
+                  $scope.prospectsListDialog(ev, item, column);
+                  break;
+              }
               break;
           }
+        };
+
+        $scope.prospectsListDialog = function (ev, item, column) {
+          $mdDialog.show({
+            controller: ListProspectsController,
+            locals: {
+              listProvider: $scope.dataProvider
+            },
+            resolve: {
+              _list: function () {
+                return ListModel.fetch(item.id);
+              }
+            },
+            templateUrl: '/frontend/admin/client.campaign.list/list-prospects.html',
+            targetEvent: ev,
+            clickOutsideToClose: false
+          });
         };
 
         $scope.importListDialog = function (ev, item, column) {
           $mdDialog.show({
             controller: ListImportController,
             locals: {
-              dataProvider: $scope.dataProvider,
-              _campaign: _campaign,
-              _scripts: _scripts
+              dataProvider: $scope.dataProvider
             },
             resolve: {
               _list: function () {
@@ -284,7 +348,7 @@
             .textContent('Are you sure you want to delete list(s)?')
             .ariaLabel('delete list dialog')
             .ok('Yes')
-            .cancel("Cancel");
+            .cancel('Cancel');
           $mdDialog.show(confirm).then(function () {
             angular.forEach(items, function (item) {
               $scope.deleteList(item);

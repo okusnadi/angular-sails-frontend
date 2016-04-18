@@ -127,12 +127,12 @@
               class: 'col-xs-2',
               inSearch: false,
               sortable: true,
-              clickable: 'item.import === "NO"',
+              clickable: 'item.import !== "ONGOING"',
               spinner: 'item.import === "ONGOING"',
               enum: {
                 'NO':       'None - click to import',
                 'ONGOING':  'In progress',    
-                'DONE':     'Imported'
+                'DONE':     'Imported - click to see'
               }
             },
             {

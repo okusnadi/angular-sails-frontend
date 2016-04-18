@@ -1,0 +1,43 @@
+<md-content layout-padding>
+
+  <!--  <form class="form-vertical" role="form" name="listForm"
+          autocomplete="off" 
+          ng-submit="saveList()"
+          >-->
+  <div layout="row">
+    <div flex="100" layout-margin>
+      <md-card>
+        <md-data-table 
+          dt-items="query.items"
+          dt-item-count="query.itemCount"
+          dt-columns="query.columns"
+          dt-page="query.currentPage"
+          dt-limit="query.itemsPerPage"
+          dt-order="query.order"
+          dt-on-reorder="prospectProvider.onReorder"
+          dt-on-paginate="prospectProvider.onPaginate"
+          >
+        </md-data-table>
+      </md-card>
+    </div>
+  </div>
+
+
+
+  <div flex="100" layout="row">
+    <div flex></div>
+    <md-button type="submit" class="md-primary md-raised "
+               ng-disabled="!listForm.$valid">
+      Save
+    </md-button>
+
+    <md-button type="button" class="md-button md-raised "
+               ng-click="cancelDialog();"
+               >
+      Cancel
+    </md-button>
+  </div>
+
+  <!--</form>-->
+
+</md-content>
