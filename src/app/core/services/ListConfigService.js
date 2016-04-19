@@ -23,29 +23,6 @@
          *        }}
          */
         var titleItems = {
-          prospect: [
-            {
-              title: 'Name',
-              column: ['fields','Name', 'value'],
-              class: 'col-xs-2',
-              sortable: false,
-              inSearch: false,
-            },
-            {
-              title: 'Year',
-              column: ['fields','Year', 'value'],
-              class: 'col-xs-2',
-              sortable: false,
-              inSearch: false,
-            },
-            {
-              title: 'House',
-              column: ['fields','House', 'value'],
-              class: 'col-xs-2',
-              sortable: false,
-              inSearch: false,
-            }
-          ],
           settingFields: [
             {
               title: 'Name',
@@ -127,7 +104,8 @@
               class: 'col-xs-2',
               inSearch: false,
               sortable: true,
-              clickable: 'item.import !== "ONGOING"',
+//              clickable: 'item.import !== "ONGOING"',
+              clickable: true,
               spinner: 'item.import === "ONGOING"',
               enum: {
                 'NO':       'None - click to import',

@@ -51,7 +51,7 @@
     $scope,
     $mdDialog,
     MessageService,
-    ListModel, 
+    ListModel,
     _scripts, _list, dataProvider
     ) {
 
@@ -122,10 +122,11 @@
   };
 
   var ListProspectsController = function (
-    $scope, $mdDialog,$timeout,
+    $scope, $mdDialog, $timeout,
     ProspectModel,
     DataProvider, MessageService,
-    _list, listProvider
+    _list, _prospects, _count,
+    listProvider
     ) {
 
     // Set current scope reference to model
@@ -135,10 +136,10 @@
     $scope.list = _list;
 
     var columns = [];
-    angular.forEach( _list.fields, function( field, key) {
+    angular.forEach(_list.fields, function (field, key) {
       columns.push({
         title: field.column,
-        column: [ 'fields', field.column, 'value'],
+        column: ['fields', field.column, 'value'],
         sortable: false,
         inSearch: false
       });
@@ -147,6 +148,8 @@
     $scope.query = {
 //            order: "fields->'Name'->>'value'",
       order: 'id',
+      items: _prospects,
+      itemCount: _count.count,
       searchWord: '',
       selected: [],
       where: {
@@ -195,14 +198,14 @@
       '$scope', '$q', '$timeout',
       '$mdDialog',
       '_',
-      'ListModel',
+      'ListModel', 'ProspectModel',
       'DataProvider', 'MessageService',
       '_campaign', '_lists', '_scripts', '_count',
       function controller(
         $scope, $q, $timeout,
         $mdDialog,
         _,
-        ListModel,
+        ListModel, ProspectModel,
         DataProvider, MessageService,
         _campaign, _lists, _scripts, _count
         ) {
@@ -222,6 +225,7 @@
         };
         // Set current scope reference to models
         ListModel.setScope($scope, false, 'query.items', 'query.itemCount');
+        ProspectModel.setScope($scope, false);
 
         $scope.dataProvider = new DataProvider(ListModel, $scope.query);
 
@@ -288,6 +292,7 @@
                   $scope.importListDialog(ev, item, column);
                   break;
                 case 'DONE':
+                case 'ONGOING':
                   $scope.prospectsListDialog(ev, item, column);
                   break;
               }
@@ -304,6 +309,21 @@
             resolve: {
               _list: function () {
                 return ListModel.fetch(item.id);
+              },
+              _prospects: function () {
+                return ProspectModel.load({
+                  where: {
+                    list: item.id
+                  },
+                  limit: 10
+                });
+              },
+              _count: function () {
+                return ProspectModel.count({
+                  where: {
+                    list: item.id
+                  }
+                });
               }
             },
             templateUrl: '/frontend/admin/client.campaign.list/list-prospects.html',
