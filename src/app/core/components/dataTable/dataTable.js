@@ -8,14 +8,22 @@
         var ctrl = this;
         ctrl.event = 1;
         
+        // method to determine if field is clickable
         ctrl.isClickable = function(item, column) {
           return angular.isDefined(column.clickable) ? eval(column.clickable) : false;
         };
         
+        // method to check if spinner needs to be displayed
         ctrl.isSpinner = function(item, column) {
           return angular.isDefined(column.spinner) && angular.isDefined(ctrl.dtSpinner) ? eval(column.spinner) : false;
         };
-        
+
+        // callback to modify column titles
+        ctrl.getColumnTitle = function( column ) {
+          return angular.isDefined(ctrl.dtColumnTitle) ? ctrl.dtColumnTitle({column:column}) : column.title;
+        };
+
+        // method to display current field value
         ctrl.getValue = function( item, column ) {
             var value; 
             
@@ -63,11 +71,13 @@
               dtPage: '=',
               dtOrder: '=',
               dtLimit: '=',
+              dtSelected: '=?',
+              dtSpinner: '=?',
+            // callbacks
               dtOnReorder: '&',
               dtOnPaginate: '&',
               dtOnClick: '&?',
-              dtSelected: '=?',
-              dtSpinner: '=?'
+              dtColumnTitle: '&?'
           }
           
       });
