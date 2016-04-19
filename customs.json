@@ -86,6 +86,11 @@
         "fu-on-error": {}
       }
     },
+    "md-column-title": {
+      "attributes": {
+        "dt-column": {}
+      }
+    },
     "md-icon": {
       "attributes": {
         "ng-style": {},
@@ -148,18 +153,19 @@
     },
     "md-data-table": {
       "attributes": {
-        "dt-on-paginate": {},
         "dt-columns": {},
+        "dt-item-count": {},
+        "dt-page": {},
+        "dt-limit": {},
+        "dt-on-reorder": {},
+        "dt-on-paginate": {},
         "dt-order": {},
         "dt-selected": {},
         "dt-spinner": {},
         "dt-items": {},
-        "dt-item-count": {},
-        "dt-page": {},
         "dt-on-click": {},
         "dt-click": {},
-        "dt-limit": {},
-        "dt-on-reorder": {}
+        "dt-column-title": {}
       }
     },
     "md-table-pagination": {

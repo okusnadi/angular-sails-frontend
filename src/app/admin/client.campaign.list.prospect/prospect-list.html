@@ -1,12 +1,15 @@
-<md-content layout-padding>
-
-  <!--  <form class="form-vertical" role="form" name="listForm"
-          autocomplete="off" 
-          ng-submit="saveList()"
-          >-->
+<section layout="column">
+    <!--Table header-->
+    <md-card>
         <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="showFilter || query.selected.length">
             <div class="md-toolbar-tools">
-                <h2>Prospects ({{query.itemCount}})</h2>
+                <h2>
+                    <a data-ui-sref="lists">
+                        <md-tooltip>Go back to lists</md-tooltip>
+                        <md-icon class="material-icons">arrow_back</md-icon>
+                        <strong>{{list.name}}</strong>
+                    </a> Prospects ({{query.itemCount}})
+                </h2>
                 <div flex></div>
 
                 <md-button ng-click="showFilter = true" 
@@ -67,8 +70,10 @@
           dt-page="query.currentPage"
           dt-limit="query.itemsPerPage"
           dt-order="query.order"
+          dt-selected="query.selected"
           dt-on-reorder="prospectProvider.onReorder"
           dt-on-paginate="prospectProvider.onPaginate"
+          dt-column-title="columnTitle(column)"
           >
         </md-data-table>
       </md-card>
@@ -91,6 +96,5 @@
     </md-button>
   </div>
 
-  <!--</form>-->
-
-</md-content>
+    </md-card>
+</section>

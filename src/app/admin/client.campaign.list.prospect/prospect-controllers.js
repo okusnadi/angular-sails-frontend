@@ -89,7 +89,7 @@
     $scope, $mdDialog, $timeout,
     ProspectModel,
     DataProvider, MessageService,
-    _list, _prospects, _count
+    _list, _prospects, _count, _globalFields
     ) {
 
     // Set current scope reference to model
@@ -97,6 +97,9 @@
     ProspectModel.setScope($scope, 'prospect');
 
     $scope.list = _list;
+    $scope.globalFields = _globalFields[0];
+    
+//    console.log($scope.globalFields);
 
     var columns = [];
     angular.forEach(_list.fields, function (field, key) {
@@ -143,6 +146,10 @@
       if ($scope.filterForm.$dirty) {
         $scope.filterForm.$setPristine();
       }
+    };
+
+    $scope.columnTitle = function ( column ) {
+      return column.title + '<br>' + column.title;
     };
 
     $scope.cancelDialog = function () {

@@ -25,6 +25,7 @@
     'sails.io',
     'highcharts-ng',
     'ngMaterial',
-    'md.data.table'
+    'md.data.table',
+    'frontend.core.filters'
   ]);
 }());

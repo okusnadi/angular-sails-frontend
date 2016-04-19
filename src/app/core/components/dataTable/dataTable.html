@@ -9,7 +9,11 @@
                         ng-attr-md-order-by="{{column.sortable===false?undefined:column.column}}" 
                         >
                         <md-tooltip ng-if="column.sortable !== false">Sort by {{ column.title}}</md-tooltip>
-                        <span ng-bind-html="$ctrl.getColumnTitle(column) | $trustedHtml"></span>
+                        <!--<span ng-bind-html="$ctrl.getColumnTitle(column) | $trustedHtml"></span>-->
+                        <md-column-title 
+                          dt-column="column"
+                          >
+                        </md-column-title>
                     </th>
                 </tr>
             </thead>

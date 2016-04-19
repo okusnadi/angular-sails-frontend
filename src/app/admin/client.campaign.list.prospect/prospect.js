@@ -23,14 +23,21 @@
             parent: 'list',
             url: '/prospects',
             resolve: {
+              _globalFields: function resolve(SettingModel) {
+                return SettingModel.load({
+                  where: {
+                    type: 'FIELDS'
+                  }
+                });
+              },
               _prospects: function resolve(ProspectModel, _list) {
-                  return ProspectModel.load({
-                    where: {
-                      list: _list.id
-                    },
-                    limit: 5
-                  });
-                },
+                return ProspectModel.load({
+                  where: {
+                    list: _list.id
+                  },
+                  limit: 5
+                });
+              },
               _count: [
                 'ProspectModel', '_list',
                 function resolve(ProspectModel, _list) {
