@@ -102,7 +102,7 @@
     angular.forEach(_list.fields, function (field, key) {
       columns.push({
         title: field.column,
-        column: ['fields', field.column, 'value'],
+        column: ['fields', key, 'value'],
         sortable: false,
         inSearch: false
       });
