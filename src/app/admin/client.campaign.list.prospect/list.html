@@ -1,0 +1,85 @@
+<md-content layout-padding>
+
+  <form class="form-vertical" role="form" name="listForm"
+        autocomplete="off" 
+        ng-submit="saveList()"
+        >
+    <div layout="row">
+      <div flex="50" layout-margin>
+        <md-input-container class="md-block">
+          <label>List name</label>
+          <input type="text" name="name" 
+                 ng-model="list.name"
+                 minlength="3"
+                 required 
+                 />
+          <div ng-messages="listForm.name.$error" multiple md-auto-hide="false">
+            <div ng-message="minlength">The name has to be at least 3 characters.</div>
+            <div ng-message="required">Name is required.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div flex="50" layout-margin>
+        <md-input-container>
+          <label>Default script</label>
+          <md-select ng-model="list.defaultScript">
+            <md-option ng-value="script.id" ng-repeat="script in scripts">{{ script.name}}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+
+    <div layout="row">
+      <div flex="100" layout-margin>
+        <md-input-container class="md-block">
+          <text-angular 
+            required
+            ng-model="list.info"
+            >                        
+          </text-angular>
+        </md-input-container>
+      </div>
+    </div>
+
+    <!--            <div flex="50" layout-margin>
+    
+                    <md-file-upload fu-file-name="'filesToUpload'" fu-payload="{listId : list.id }" fu-upload-url="'http://localhost:5037/list/upload'">
+                    <md-file-upload 
+                        fu-file-name="'filesToUpload'" 
+                        fu-accepted-files="'.csv'"
+                        fu-upload-url="'http://localhost:5037/list/upload/'+list.id">
+                    </md-file-upload>
+                    <md-card>
+                        <md-data-table 
+                            dt-items="query.items"
+                            dt-item-count="query.itemCount"
+                            dt-columns="query.columns"
+                            dt-page="query.currentPage"
+                            dt-limit="query.itemsPerPage"
+                            dt-order="query.order"
+                            dt-on-reorder="dataProvider.onReorder"
+                            dt-on-paginate="dataProvider.onPaginate"
+                            >
+                        </md-data-table>
+                    </md-card>
+    
+                </div>-->
+
+    <div flex="100" layout="row">
+      <div flex></div>
+      <md-button type="submit" class="md-primary md-raised "
+                 ng-disabled="!listForm.$valid">
+        Save
+      </md-button>
+
+      <md-button type="button" class="md-button md-raised "
+                 ng-click="cancelDialog();"
+                 >
+        Cancel
+      </md-button>
+    </div>
+
+  </form>
+
+</md-content>

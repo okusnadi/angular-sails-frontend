@@ -196,14 +196,14 @@
   angular.module('frontend.admin.client.campaign.list')
     .controller('ListListController', [
       '$scope', '$q', '$timeout',
-      '$mdDialog',
+      '$state', '$mdDialog',
       '_',
       'ListModel', 'ProspectModel',
       'DataProvider', 'MessageService',
       '_campaign', '_lists', '_scripts', '_count',
       function controller(
         $scope, $q, $timeout,
-        $mdDialog,
+        $state, $mdDialog,
         _,
         ListModel, ProspectModel,
         DataProvider, MessageService,
@@ -293,7 +293,8 @@
                   break;
                 case 'DONE':
                 case 'ONGOING':
-                  $scope.prospectsListDialog(ev, item, column);
+                  $state.go( 'prospects', {listId: item.id });
+//                  $scope.prospectsListDialog(ev, item, column);
                   break;
               }
               break;

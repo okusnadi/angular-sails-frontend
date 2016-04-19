@@ -23,14 +23,17 @@
                   
                   var config = ListConfig.getConfig();
 
+                  query.currentPage = 1;
+                  
                   if( angular.isUndefined(query.items) ) {
                     query.items = [];
                   }
                   if( angular.isUndefined(query.itemCount) ) {
                     query.itemCount = query.items.length;
                   }
-                  query.currentPage = 1;
-                  query.itemsPerPage = config.itemsPerPage;
+                  if( angular.isUndefined(query.itemsPerPage) ) {
+                    query.itemsPerPage = config.itemsPerPage;
+                  }
                   if( angular.isUndefined(query.columns) ) {
                         query.columns = ListConfig.getTitleItems(dataModel.endpoint);
                   }

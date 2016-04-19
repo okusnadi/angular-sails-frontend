@@ -10,6 +10,7 @@
   'use strict';
   // Define frontend.admin.client.list.list angular module
   angular.module('frontend.admin.client.campaign.list', [
+    'frontend.admin.client.campaign.list.prospect',
     'textAngular'
   ]);
   // Module configuration
@@ -66,40 +67,40 @@
           })
 
           // Single list
-//          .state('list', {
-//            parent: 'campaign',
-//            url: '/list/:listId',
-//            resolve: {
-//              _list: [
-//                '$stateParams',
-//                'ListModel',
-//                function resolve(
-//                  $stateParams,
-//                  ListModel
-//                  ) {
-//                  return ListModel.fetch($stateParams.listId);
-//                }
-//              ]
-//            },
-//            views: {
-//              'content@': {
-//                templateUrl: '/frontend/admin/client.campaign.list/list.html',
-//                controller: 'ListController',
-//                resolve: {
-//                  _scripts: [
-//                    'ScriptModel', '_campaign',
-//                    function resolve(ScriptModel, _campaign) {
-//                      return ScriptModel.load({
-//                        where: {
-//                          campaign: _campaign.id
-//                        }
-//                      });
-//                    }
-//                  ]
-//                }
-//              }
-//            }
-//          })
+          .state('list', {
+            parent: 'campaign',
+            url: '/list/:listId',
+            resolve: {
+              _list: [
+                '$stateParams',
+                'ListModel',
+                function resolve(
+                  $stateParams,
+                  ListModel
+                  ) {
+                  return ListModel.fetch($stateParams.listId);
+                }
+              ]
+            },
+            views: {
+              'content@': {
+                templateUrl: '/frontend/admin/client.campaign.list/list.html',
+                controller: 'ListController',
+                resolve: {
+                  _scripts: [
+                    'ScriptModel', '_campaign',
+                    function resolve(ScriptModel, _campaign) {
+                      return ScriptModel.load({
+                        where: {
+                          campaign: _campaign.id
+                        }
+                      });
+                    }
+                  ]
+                }
+              }
+            }
+          })
 
           // Add new list
 //          .state('list.add', {
