@@ -9,16 +9,31 @@
                         ng-attr-md-order-by="{{column.sortable===false?undefined:column.column}}" 
                         >
                         <md-tooltip ng-if="column.sortable !== false">Sort by {{ column.title}}</md-tooltip>
-                        <!--<span ng-bind-html="$ctrl.getColumnTitle(column) | $trustedHtml"></span>-->
-                        <md-column-title 
-                          dt-column="column"
+                        <span ng-bind-html="$ctrl.getColumnTitle(column) | $trustedHtml"></span>
+                    </th>
+                </tr>
+                <tr md-row ng-if="$ctrl.dtMappedTo">
+                    <th md-column 
+                        ng-repeat="column in $ctrl.dtColumns"
+                        >
+                      <!--{{$ctrl.dtMappedTo[column.title].mappedTo.name}}-->
+                      <md-autocomplete required="true"
+                          md-selected-item="$ctrl.dtMappedTo[column.title].mappedTo"
+                          md-search-text="$ctrl.dtMappedTo[column.title].searchText"
+                          md-items="field in $ctrl.dtSuggestions"
+                          md-item-text="field.name"
+                          md-min-length="0"
+                          ng-click=""
+                          flex
                           >
-                        </md-column-title>
+                          <md-item-template>
+                            <span md-highlight-text="field.name">{{field.name}}</span>
+                          </md-item-template>
+                      </md-autocomplete>
                     </th>
                 </tr>
             </thead>
             <tbody md-body>
-                <!--<tr md-row md-auto-select md-select="list" md-select-id="{{list.name}}" ng-repeat="list in items">-->
                 <tr md-row md-auto-select md-select="item" md-select-id="" ng-repeat="item in $ctrl.dtItems">
                     <td md-cell
                         ng-repeat="column in $ctrl.dtColumns"

@@ -6,8 +6,9 @@
     function DataTableController() {
         
         var ctrl = this;
-        ctrl.event = 1;
-        
+        console.log(ctrl.dtMappedTo);
+        console.log(ctrl.dtSuggestions);
+      
         // method to determine if field is clickable
         ctrl.isClickable = function(item, column) {
           return angular.isDefined(column.clickable) ? eval(column.clickable) : false;
@@ -77,7 +78,9 @@
               dtOnReorder: '&',
               dtOnPaginate: '&',
               dtOnClick: '&?',
-              dtColumnTitle: '&?'
+//              dtColumnTitle: '&?',
+              dtMappedTo: '<?',
+              dtSuggestions: '<?'
           }
           
       });

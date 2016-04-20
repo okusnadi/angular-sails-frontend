@@ -73,8 +73,10 @@
           dt-selected="query.selected"
           dt-on-reorder="prospectProvider.onReorder"
           dt-on-paginate="prospectProvider.onPaginate"
-          dt-column-title="columnTitle(column)"
+          dt-mapped-to="list.fields"
+          dt-suggestions="globalFields.settings"
           >
+          <!--dt-column-title="columnTitle(column)"-->
         </md-data-table>
       </md-card>
     </div>

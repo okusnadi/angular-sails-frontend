@@ -148,8 +148,31 @@
       }
     };
 
+    $scope.extraParams = {
+      fields: $scope.globalFields.settings,
+      list: $scope.list
+    };
+
     $scope.columnTitle = function ( column ) {
-      return column.title + '<br>' + column.title;
+      var html = column.title;
+//      html += [
+//        '<md-autocomplete required="true"',
+//            'md-selected-item="item.selectedItem"',
+//            'md-search-text="item.value"',
+//            'md-items="field in $ctrl.dtExtraParams.fields"',
+//            'md-item-text="field.label"',
+//            'md-min-length="0"',
+//            'ng-click=""',
+//            'flex',
+//            '>',
+//            '<md-item-template>',
+//                '<span md-highlight-text="item.value">{{field.label}}</span>',
+//            '</md-item-template>',
+//        '</md-autocomplete>',
+//         '<br>',
+//         '{{$ctrl.dtExtraParams.list.name}}',
+//      ].join(' ');
+      return html;
     };
 
     $scope.cancelDialog = function () {
