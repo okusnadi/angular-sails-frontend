@@ -75,6 +75,7 @@
           dt-on-paginate="prospectProvider.onPaginate"
           dt-mapped-to="list.fields"
           dt-suggestions="globalFields.settings"
+          dt-mapped-pristine="pristine"
           >
           <!--dt-column-title="columnTitle(column)"-->
         </md-data-table>
@@ -87,12 +88,12 @@
   <div flex="100" layout="row">
     <div flex></div>
     <md-button type="submit" class="md-primary md-raised "
-               ng-disabled="!listForm.$valid">
+               ng-disabled="pristine">
       Save
     </md-button>
 
     <md-button type="button" class="md-button md-raised "
-               ng-click="cancelDialog();"
+               ng-click="cancelButton();"
                >
       Cancel
     </md-button>

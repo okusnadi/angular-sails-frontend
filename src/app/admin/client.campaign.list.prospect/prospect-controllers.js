@@ -96,9 +96,10 @@
 //    ProspectModel.setScope($scope, 'prospect');
     ProspectModel.setScope($scope, 'prospect');
 
-    $scope.list = _list;
+    $scope.list = angular.copy(_list);
     $scope.globalFields = _globalFields[0];
-    
+    $scope.pristine = true;
+
 //    console.log($scope.globalFields);
 
     var columns = [];
@@ -129,6 +130,12 @@
 
     var searchWordTimer;
 
+//    $scope.$watch('list', function listWatcher(newValue, oldValue) {
+//      if( angular.equals(newValue, oldValue) ){
+//        $scope.pristine = false;
+//      }
+//    }, true);
+    
     $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
       if (valueNew !== valueOld) {
         if (searchWordTimer) {
@@ -153,30 +160,21 @@
       list: $scope.list
     };
 
-    $scope.columnTitle = function ( column ) {
+    $scope.columnTitle = function (column) {
       var html = column.title;
-//      html += [
-//        '<md-autocomplete required="true"',
-//            'md-selected-item="item.selectedItem"',
-//            'md-search-text="item.value"',
-//            'md-items="field in $ctrl.dtExtraParams.fields"',
-//            'md-item-text="field.label"',
-//            'md-min-length="0"',
-//            'ng-click=""',
-//            'flex',
-//            '>',
-//            '<md-item-template>',
-//                '<span md-highlight-text="item.value">{{field.label}}</span>',
-//            '</md-item-template>',
-//        '</md-autocomplete>',
-//         '<br>',
-//         '{{$ctrl.dtExtraParams.list.name}}',
-//      ].join(' ');
       return html;
     };
 
-    $scope.cancelDialog = function () {
-      $mdDialog.cancel();
+    $scope.cancelButton = function () {
+      console.log($scope.list);
+      $scope.list = angular.copy(_list);
+      console.log($scope.list);
+    };
+
+    $scope.saveMappings = function () {
+      console.log($scope.list);
+      $scope.list = angular.copy(_list);
+      console.log($scope.list);
     };
 
     $scope.onError = function () {
@@ -188,9 +186,9 @@
 
   // Controller which contains all necessary logic for prospect prospect GUI on boilerplate application.
   angular.module('frontend.admin.client.campaign.list.prospect')
-    .controller('ProspectListController', 
+    .controller('ProspectListController',
       ProspectListController
-    )
+      )
     ;
 
   // Controller for new prospect creation.
