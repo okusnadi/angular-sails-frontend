@@ -46,51 +46,45 @@
         </div>
     </div>-->
     
-    <md-fab-toolbar id="user-toolbar" md-open="false" count="0" class="fixed-toolbar" md-direction="left">
-    <md-fab-trigger class="align-with-text">
-      <md-button aria-label="menu" class="md-fab ">
-        <!--<md-icon md-svg-src="/assets/img/menu.svg"></md-icon>-->
-        <md-icon class="material-icons md-light ng-scope ng-isolate-scope">person</md-icon>
-      </md-button>
-    </md-fab-trigger>
-    <md-toolbar>
-      <md-fab-actions class="md-toolbar-tools">
-          
- 
-<!--        <md-button aria-label="label" class="md-icon-button float-left">
-          <md-icon md-svg-src="/assets/img/menu.svg"></md-icon>
-        </md-button>
-        <md-button aria-label="photo" class="md-icon-button float-left">
-          <md-icon md-svg-src="/assets/img/menu.svg"></md-icon>
-        </md-button>-->
-    <md-button data-ng-show="!auth.isAuthenticated()" class="md-raised">
-        <md-icon class="material-icons ng-scope ng-isolate-scope">face</md-icon>
-        Log in
-    </md-button>
-          <md-button data-ng-show="auth.isAuthenticated()" class="md-raised" data-ng-click="logout()" aria-label="logout">
-              <md-icon class="material-icons ng-scope ng-isolate-scope">exit_to_app</md-icon>
-              Log out
-          </md-button>
-        <h5 data-ng-show="auth.isAuthenticated()" class="float-left">You are logged in as <a href="#" data-ui-sref="profile.edit">{{user().username}}</a></h5>
-      </md-fab-actions>
-    </md-toolbar>
-  </md-fab-toolbar>
 
-<md-toolbar id="main-toolbar">
-      <div class="md-toolbar-tools">
-        <h2>
-          <span>Contact Centre</span>
-        </h2>
-          <md-button aria-label="navigation to {{ item.title }}"
-                   data-ui-sref="{{ item.state }}"
-                   data-ng-repeat="item in navigationItems"
-                   data-ng-show="auth.authorize(item.access)"
-                   data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
-                   data-ui-sref-active="active"
-        >
-            {{ item.title }}
-        </md-button>
-      </div>
+
+    <md-toolbar id="main-toolbar">
+          <div class="md-toolbar-tools">
+            <h2>
+              <span>Contact Centre</span>
+            </h2>
+              <md-button aria-label="navigation to {{ item.title }}"
+                       data-ui-sref="{{ item.state }}"
+                       data-ng-repeat="item in navigationItems"
+                       data-ng-show="auth.authorize(item.access)"
+                       data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
+                       data-ui-sref-active="active"
+            >
+                {{ item.title }}
+            </md-button>
+          </div>
+            <md-fab-toolbar id="user-toolbar" md-open="false" count="0" class="fixed-toolbar" md-direction="left">
+                <md-fab-trigger class="align-with-text">
+                  <md-button aria-label="menu" class="md-fab ">
+                    <!--<md-icon md-svg-src="/assets/img/menu.svg"></md-icon>-->
+                    <md-icon class="material-icons md-light ng-scope ng-isolate-scope">person</md-icon>
+                  </md-button>
+                </md-fab-trigger>
+                <md-toolbar>
+                    <md-fab-actions class="md-toolbar-tools">
+
+                    <md-button data-ng-show="!auth.isAuthenticated()" data-ui-sref="auth.login" class="md-raised">
+                        <md-icon class="material-icons ng-scope ng-isolate-scope">face</md-icon>
+                        Log in
+                    </md-button>
+                      <md-button data-ng-show="auth.isAuthenticated()" class="md-raised" data-ng-click="logout()" aria-label="logout">
+                          <md-icon class="material-icons ng-scope ng-isolate-scope">exit_to_app</md-icon>
+                          Log out
+                      </md-button>
+                    <h5 data-ng-show="auth.isAuthenticated()" class="float-left">You are logged in as <a href="#" data-ui-sref="profile.edit">{{user().username}}</a></h5>
+                  </md-fab-actions>
+                </md-toolbar>
+            </md-fab-toolbar>
     </md-toolbar>
     
 </header>
