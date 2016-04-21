@@ -142,7 +142,7 @@
 
         //selected array
         $scope.selected = [];
-
+        
         //filter
         $scope.filter = {
           options: {
@@ -265,6 +265,23 @@
 //              $scope.customFullscreen = (wantsFullScreen === true);
 //            });
         };
+        
+        //ra-md-toolbar buttons
+        $scope.toolbarBtns = [
+            {
+            btnTooltip:'Add user',
+            btnIcon:'person_add',
+            btnAction: $scope.addUserDialog
+            }
+        ];
+        
+        $scope.toolbarSelectedBtns = [
+            {
+            btnTooltip:'Delete user',
+            btnIcon:'delete',
+            btnAction: $scope.deleteUserDialog
+            }
+        ];
 
       }
     ])

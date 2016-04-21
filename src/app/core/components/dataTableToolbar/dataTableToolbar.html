@@ -1,0 +1,49 @@
+<section>
+            <md-toolbar class='md-table-toolbar {{ $ctrl.toolbarClass }}' ng-hide="$ctrl.showFilter || $ctrl.query.selected.length" >
+                <div class="md-toolbar-tools">
+                    <h2 ng-if="$ctrl.tableTitle">{{ $ctrl.tableTitle }} ( {{$ctrl.query.itemCount}} )</h2>
+                    <div flex></div>
+                    
+                    <md-button ng-hide="$ctrl.searchBar == false;" ng-click="$ctrl.startFilter($event)">
+                        <md-tooltip>Search filter</md-tooltip>
+                        <md-icon class="material-icons">search</md-icon>
+                    </md-button>
+                    <md-button ng-repeat="btn in $ctrl.toolbarBtns" ng-click='btn.btnAction({$event:$event})'>
+                        <md-tooltip ng-if='btn.btnTooltip'>{{btn.btnTooltip}}</md-tooltip>
+                        <md-icon class='material-icons'>{{btn.btnIcon}}</md-icon>
+                    </md-button>
+                    
+                    
+                </div>
+            </md-toolbar>
+            <md-toolbar class='md-table-toolbar {{ $ctrl.toolbarClass}}' ng-show="$ctrl.showFilter && !$ctrl.query.selected.length">
+                <div class='md-toolbar-tools'>
+                    <md-icon class='material-icons'>search</md-icon>
+                    <form flex="" name="filterForm" class="ng-valid flex ng-pristine">
+                    <input id='table-filter' tabindex="1" type="text" ng-model="$ctrl.query.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
+                    </form>
+                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="$ctrl.removeFilter()">
+                        <md-icon class="material-icons">close</md-icon>
+                        <div class="md-ripple-container"></div>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-toolbar class="md-table-toolbar {{ $ctrl.toolbarClass }}" ng-show="$ctrl.query.selected.length">
+                <div class="md-toolbar-tools">
+                    <h2>
+                        {{$ctrl.query.selected.length}} {{$ctrl.query.selected.length > 1 ? 'items' : 'item'}} Selected
+                    </h2>
+                    <div flex></div>
+                    <md-button class="md-icon-button" ng-click="$ctrl.query.selected.length=0;">
+                        <md-tooltip>Clear selection</md-tooltip>
+                        <md-icon>not_interested</md-icon>
+                    </md-button>
+                    <md-button ng-repeat="sBtn in $ctrl.toolbarSelectedBtns" class="md-icon-button" ng-click="sBtn.btnAction($ctrl.query.selected)">
+                        <md-tooltip>{{ sBtn.btnTooltip }}</md-tooltip>
+                        <md-icon class="material-icons">{{ sBtn.btnIcon }}</md-icon>
+                    </md-button>
+                    
+                   
+                </div>
+            </md-toolbar>
+</section>
