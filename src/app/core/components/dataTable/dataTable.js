@@ -7,9 +7,6 @@
 
     var ctrl = this;
 
-    if (angular.isDefined(ctrl.dtMappedPristine)) {
-      ctrl.dtMappedPristine = true;
-    }
     // method to determine if field is clickable
     ctrl.isClickable = function (item, column) {
       return angular.isDefined(column.clickable) ? eval(column.clickable) : false;
@@ -23,13 +20,6 @@
     // callback to modify column titles
     ctrl.getColumnTitle = function (column) {
       return angular.isDefined(ctrl.dtColumnTitle) ? ctrl.dtColumnTitle({column: column}) : column.title;
-    };
-
-    ctrl.mappedChanged = function () {
-      console.log('CHANGED!!!');
-      if (angular.isDefined(ctrl.dtMappedPristine)) {
-        ctrl.dtMappedPristine = false;
-      }
     };
 
     // method to display current field value
@@ -85,10 +75,10 @@
         dtOnReorder: '&',
         dtOnPaginate: '&',
         dtOnClick: '&?',
-//              dtColumnTitle: '&?',
+
+        dtSuggestions: '<?',
         dtMappedTo: '=?',
-        dtMappedPristine: '=?',
-        dtSuggestions: '<?'
+        dtMappedValidator: '&?'
       }
 
     });

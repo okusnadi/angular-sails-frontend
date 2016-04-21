@@ -1,103 +1,111 @@
 <section layout="column">
-    <!--Table header-->
-    <md-card>
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="showFilter || query.selected.length">
-            <div class="md-toolbar-tools">
-                <h2>
-                    <a data-ui-sref="lists">
-                        <md-tooltip>Go back to lists</md-tooltip>
-                        <md-icon class="material-icons">arrow_back</md-icon>
-                        <strong>{{list.name}}</strong>
-                    </a> Prospects ({{query.itemCount}})
-                </h2>
-                <div flex></div>
+  <!--Table header-->
+  <md-card>
+    <md-toolbar class="md-table-toolbar md-default md-dark" ng-hide="showFilter || query.selected.length">
+      <div class="md-toolbar-tools">
+        <h2>
+          <a data-ui-sref="lists">
+            <md-tooltip>Go back to lists</md-tooltip>
+            <md-icon class="material-icons">arrow_back</md-icon>
+            <strong>{{list.name}}</strong>
+          </a> Prospects ({{query.itemCount}})
+        </h2>
+        <div flex></div>
 
-                <md-button ng-click="showFilter = true" 
-                           onclick="event.stopPropagation(); setTimeout(function () {
-                                       $('#table-filter-prospects').focus()
-                                   }, 200);
-                                   "
-                           >
-                    <md-tooltip>Search filter</md-tooltip>
-                    <md-icon class="material-icons">search</md-icon>
-                </md-button>
-<!--                <md-button ng-click="addListDialog($event)">
-                    <md-tooltip>Add list</md-tooltip>
-                    <md-icon class="material-icons" >note_add</md-icon>
-                </md-button>-->
-            </div>
-        </md-toolbar>
+        <md-button ng-click="showFilter = true" 
+                   onclick="event.stopPropagation();
+                       setTimeout(function () {
+                         $('#table-filter-prospects').focus()
+                       }, 200);
+                   "
+                   >
+          <md-tooltip>Search filter</md-tooltip>
+          <md-icon class="material-icons">search</md-icon>
+        </md-button>
+        <!--                <md-button ng-click="addListDialog($event)">
+                            <md-tooltip>Add list</md-tooltip>
+                            <md-icon class="material-icons" >note_add</md-icon>
+                        </md-button>-->
+      </div>
+    </md-toolbar>
 
-        <!--prev-->
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !query.selected.length">
-            <div class="md-toolbar-tools">
-                <md-icon class="material-icons">search</md-icon>
-                <form flex="" name="filterForm" class="ng-valid flex ng-pristine">
-                    <input id='table-filter-prospects' tabindex="1" type="text" ng-model="query.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
-                </form>
-                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeFilter()">
-                    <md-icon class="material-icons">close</md-icon>
-                    <div class="md-ripple-container"></div>
-                </button>
-            </div>
-        </md-toolbar>
-        <!--end prev-->
+    <!--prev-->
+    <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !query.selected.length">
+      <div class="md-toolbar-tools">
+        <md-icon class="material-icons">search</md-icon>
+        <form flex="" name="filterForm" class="ng-valid flex ng-pristine">
+          <input id='table-filter-prospects' tabindex="1" type="text" ng-model="query.searchWord" placeholder="search" class="ng-valid ng-touched ng-pristine" aria-invalid="false">
+        </form>
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeFilter()">
+          <md-icon class="material-icons">close</md-icon>
+          <div class="md-ripple-container"></div>
+        </button>
+      </div>
+    </md-toolbar>
+    <!--end prev-->
 
-        <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="query.selected.length">
-            
-            <div class="md-toolbar-tools" layout-align="space-between">
-                <h2>{{query.selected.length}} {{query.selected.length > 1 ? 'lists' : 'list'}} selected</h2>
-                <div flex></div>
-                
-                <md-button class="md-icon-button" ng-click="query.selected.length=0;">
-                    <md-tooltip>Clear selection</md-tooltip>
-                    <md-icon>not_interested</md-icon>
-                </md-button>
-                
-                <md-button class="md-icon-button" ng-click="deleteListDialog(query.selected)">
-                    <md-tooltip>Delete selected list(s)</md-tooltip>
-                    <md-icon ng-style="{color: '#aa0000'}">delete</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-  <div layout="row">
-    <div flex="100" layout-margin>
-      <md-card>
-        <md-data-table 
-          dt-items="query.items"
-          dt-item-count="query.itemCount"
-          dt-columns="query.columns"
-          dt-page="query.currentPage"
-          dt-limit="query.itemsPerPage"
-          dt-order="query.order"
-          dt-selected="query.selected"
-          dt-on-reorder="prospectProvider.onReorder"
-          dt-on-paginate="prospectProvider.onPaginate"
-          dt-mapped-to="list.fields"
-          dt-suggestions="globalFields.settings"
-          dt-mapped-pristine="pristine"
+    <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="query.selected.length">
+
+      <div class="md-toolbar-tools" layout-align="space-between">
+        <h2>{{query.selected.length}} {{query.selected.length > 1 ? 'lists' : 'list'}} selected</h2>
+        <div flex></div>
+
+        <md-button class="md-icon-button" ng-click="query.selected.length = 0;">
+          <md-tooltip>Clear selection</md-tooltip>
+          <md-icon>not_interested</md-icon>
+        </md-button>
+
+        <md-button class="md-icon-button" ng-click="deleteListDialog(query.selected)">
+          <md-tooltip>Delete selected list(s)</md-tooltip>
+          <md-icon ng-style="{color: '#aa0000'}">delete</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <form class="" role="form" name="mappingForm"
+          autocomplete="off" 
+          data-ng-submit="saveUser()"
           >
-          <!--dt-column-title="columnTitle(column)"-->
-        </md-data-table>
-      </md-card>
-    </div>
-  </div>
+
+      <div layout="row">
+        <div flex="100" layout-margin>
+          <md-card>
+            <md-data-table 
+              dt-items="query.items"
+              dt-item-count="query.itemCount"
+              dt-columns="query.columns"
+              dt-page="query.currentPage"
+              dt-limit="query.itemsPerPage"
+              dt-order="query.order"
+              dt-selected="query.selected"
+              dt-on-reorder="prospectProvider.onReorder"
+              dt-on-paginate="prospectProvider.onPaginate"
+              dt-suggestions="globalFields.settings"
+              dt-mapped-to="list.fields"
+              dt-mapped-validator="mappedValidator(column)"
+              >
+              <!--dt-column-title="columnTitle(column)"-->
+            </md-data-table>
+          </md-card>
+        </div>
+      </div>
 
 
 
-  <div flex="100" layout="row">
-    <div flex></div>
-    <md-button type="submit" class="md-primary md-raised "
-               ng-disabled="pristine">
-      Save
-    </md-button>
+      <div flex="100" layout="row">
+        <div flex></div>
+        <md-button type="submit" class="md-primary md-raised "
+                   ng-disabled="mappingForm.$pristine">
+          Save
+        </md-button>
 
-    <md-button type="button" class="md-button md-raised "
-               ng-click="cancelButton();"
-               >
-      Cancel
-    </md-button>
-  </div>
+        <md-button type="button" class="md-button md-raised "
+                   ng-click="cancelButton();"
+                   >
+          Cancel
+        </md-button>
+      </div>
+    </form>
 
-    </md-card>
+  </md-card>
 </section>

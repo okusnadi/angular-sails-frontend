@@ -136,6 +136,8 @@
         "md-selected-item": {},
         "ng-click": {},
         "md-min-length": {},
+        "name": {},
+        "ui-validate": {},
         "md-floating-label": {},
         "ng-if": {},
         "md-items": {},
@@ -169,6 +171,7 @@
         "dt-on-click": {},
         "dt-click": {},
         "dt-mapped-pristine": {},
+        "dt-mapped-validator": {},
         "dt-column-title": {}
       }
     },

@@ -98,7 +98,6 @@
 
     $scope.list = angular.copy(_list);
     $scope.globalFields = _globalFields[0];
-    $scope.pristine = true;
 
 //    console.log($scope.globalFields);
 
@@ -168,6 +167,7 @@
     $scope.cancelButton = function () {
       console.log($scope.list);
       $scope.list = angular.copy(_list);
+      $scope.mappingForm.$setPristine();
       console.log($scope.list);
     };
 
@@ -179,6 +179,12 @@
 
     $scope.onError = function () {
       $mdDialog.hide();
+    };
+    
+    $scope.mappedValidator = function( column ) {
+      return {
+        required: true
+      };
     };
 
   };
