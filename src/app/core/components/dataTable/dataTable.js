@@ -3,7 +3,7 @@
 
   'use strict';
 
-  function DataTableController() {
+  function DataTableController( _ ) {
 
     var ctrl = this;
 
@@ -20,6 +20,25 @@
     // callback to modify column titles
     ctrl.getColumnTitle = function (column) {
       return angular.isDefined(ctrl.dtColumnTitle) ? ctrl.dtColumnTitle({column: column}) : column.title;
+    };
+
+    // filter suggestions based on entered text
+    ctrl.querySearch = function( query ) {
+      if( angular.isUndefined(query) || query.length < 1 ) {
+        return ctrl.dtSuggestions;
+      }
+      return _.filter(ctrl.dtSuggestions, function(element) {
+        return angular.lowercase(element.name).indexOf(angular.lowercase(query)) > -1;
+      });
+    };
+    
+    ctrl.mappingValidator = function( column ) {
+//      console.log(ctrl.dtMappedTo[column.title]);
+      return {
+        mapped: ctrl.dtMappedTo[column.title].mappedTo,
+        empty: !ctrl.dtMappedTo[column.title].searchText,
+        new: ctrl.dtMappedTo[column.title].searchText && ctrl.dtMappedTo[column.title].searchText.length > 1 && !ctrl.dtMappedTo[column.title].mappedTo
+      };
     };
 
     // method to display current field value

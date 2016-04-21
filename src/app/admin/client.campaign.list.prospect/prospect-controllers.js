@@ -165,16 +165,14 @@
     };
 
     $scope.cancelButton = function () {
-      console.log($scope.list);
       $scope.list = angular.copy(_list);
       $scope.mappingForm.$setPristine();
-      console.log($scope.list);
     };
 
     $scope.saveMappings = function () {
       console.log($scope.list);
-      $scope.list = angular.copy(_list);
-      console.log($scope.list);
+//      $scope.list = angular.copy(_list);
+//      console.log($scope.list);
     };
 
     $scope.onError = function () {

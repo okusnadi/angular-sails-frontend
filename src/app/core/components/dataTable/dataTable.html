@@ -9,25 +9,26 @@
               ng-repeat="column in $ctrl.dtColumns"
               >
       <md-autocomplete 
-        required="true"
         name="field{{$index}}"
         md-selected-item="$ctrl.dtMappedTo[column.title].mappedTo"
         md-search-text="$ctrl.dtMappedTo[column.title].searchText"
-        md-items="field in $ctrl.dtSuggestions"
+        md-items="field in $ctrl.querySearch($ctrl.dtMappedTo[column.title].searchText)"
         md-item-text="field.name"
         md-floating-label="map column to:"
         md-min-length="0"
+        md-match-case-insensitive
+        md-select-on-focus
         >
         <md-item-template>
           <span md-highlight-text="$ctrl.dtMappedTo[column.title].searchText">{{field.name}}</span>
         </md-item-template>
 
-        <div ng-messages="$ctrl.dtMappedValidator({column:column})" 
+        <div ng-messages="$ctrl.mappingValidator(column)" 
              >
              <!--ng-if="$ctrl.dtMappedValidator({column:column})"-->
-          <div ng-message="required">You <b>must</b> have a favorite state.</div>
-          <div ng-message="minlength">Your entry is not long enough.</div>
-          <div ng-message="maxlength">Your entry is too long.</div>
+          <div ng-message="mapped" ng-style="{color:'green'}">Mapped field</div>
+          <div ng-message="empty" ng-style="{color:'grey'}">Not mapped</div>
+          <div ng-message="new" ng-style="{color:'blue'}">Create new mapping</div>
         </div>
       </md-autocomplete>
       </th>

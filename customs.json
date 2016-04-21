@@ -59,6 +59,7 @@
       "attributes": {
         "ng-message-exp": {},
         "ng-message": {},
+        "ng-style": {},
         "multiple": {},
         "ng-repeat": {},
         "md-auto-hide": {},
@@ -131,18 +132,19 @@
     },
     "md-autocomplete": {
       "attributes": {
+        "ng-click": {},
+        "md-match-case-insensitive": {},
+        "ng-if": {},
+        "md-search-text": {},
+        "required": {},
         "md-item-text": {},
+        "md-select-on-focus": {},
         "md-selected-item-change": {},
         "md-selected-item": {},
-        "ng-click": {},
         "md-min-length": {},
         "name": {},
-        "ui-validate": {},
         "md-floating-label": {},
-        "ng-if": {},
-        "md-items": {},
-        "md-search-text": {},
-        "required": {}
+        "md-items": {}
       }
     },
     "md-table-container": {},
@@ -171,7 +173,6 @@
         "dt-on-click": {},
         "dt-click": {},
         "dt-mapped-pristine": {},
-        "dt-mapped-validator": {},
         "dt-column-title": {}
       }
     },
