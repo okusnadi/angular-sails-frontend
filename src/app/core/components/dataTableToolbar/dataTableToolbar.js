@@ -42,8 +42,6 @@
           controller: dataTableToolbar,
           templateUrl: '/frontend/core/components/dataTableToolbar/dataTableToolbar.html',
           bindings: {
-              option1: '<?',
-              option2: '<?',
               tableTitle: '<?',
               toolbarClass: '<?',
               toolbarBtns: '<?', //format [ {btnTitle: value, btnIcon:value,btnTooltip:val, btnAction:value } ]
