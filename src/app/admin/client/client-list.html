@@ -8,33 +8,6 @@
             query="query"
             toolbar-btns ="toolbarBtns"
         ></ra-data-table-toolbar>
-        
-        <md-toolbar class="md-table-toolbar">
-            <div class="md-toolbar-tools">
-                <h2>Clients ({{query.itemCount}})</h2>
-                <div flex></div>
-                <!--<md-button ng-click="filter.show = true">-->
-              <form flex="" name="filterForm" class="flex md-whiteframe-z1">
-                <input type="text" ng-model="query.searchWord" placeholder="search" aria-invalid="false">
-              </form>
-                <md-button>
-                    <md-icon class="material-icons md-light">search</md-icon>
-                </md-button>
-                <md-button class="md-fab" data-ui-sref="admin.client.add">
-                    <md-tooltip>Add client</md-tooltip>
-                    <md-icon class="material-icons md-light" >person_add</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-            <div class="md-toolbar-tools" layout-align="space-between">
-              <div>{{selected.length}} {{selected.length > 1 ? 'users' : 'user'}} selected</div>
-              <md-button class="md-icon-button" ng-click="delete($event)">
-                <md-icon>delete</md-icon>
-              </md-button>
-            </div>
-        </md-toolbar>
 
         <!--table-->
         <md-data-table 

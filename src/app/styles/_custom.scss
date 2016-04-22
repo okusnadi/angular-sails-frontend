@@ -69,9 +69,13 @@ div[data-ui-view='header'] {position:relative;z-index:999}
     h1,h2,h3,h4,h5 {color:white}
     a {color:#777}
     /*&.md-is-open {width:100%;right:auto;}*/
-    
-    
 }
+
+//input edits
+md-autocomplete[md-floating-label] md-input-container {
+    padding-bottom:0;
+}
+
 
 /*MATERIAL ICONS*/
 /*==========================================*/

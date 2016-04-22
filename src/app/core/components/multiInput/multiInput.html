@@ -15,12 +15,12 @@
                 <span md-highlight-text="item.value">{{sugg.display}}</span>
             </md-item-template>
         </md-autocomplete>
-        <md-button ng-if="!$ctrl.miStatic" class="md-fab md-mini md-primary" ng-click="$ctrl.addField($index)" tabIndex="-1">
-            <md-tooltip>Add field after</md-tooltip>
+        <md-button ng-if="!$ctrl.miStatic" class="md-fab md-mini md-primary md-hue-2" ng-click="$ctrl.addField($index)" tabIndex="-1">
+            <md-tooltip>Add new level</md-tooltip>
             <md-icon class="material-icons md-light" >add</md-icon>
         </md-button>
-        <md-button ng-if="!$ctrl.miStatic" class="md-fab md-mini" ng-click="$ctrl.deleteField($index)" tabIndex="-1">
-            <md-tooltip>Remove current line</md-tooltip>
+        <md-button ng-if="!$ctrl.miStatic && $ctrl.miItems.length > 1" class="md-fab md-mini md-warn" ng-click="$ctrl.deleteField($index)" tabIndex="-1">
+            <md-tooltip>Remove this level</md-tooltip>
             <md-icon class="material-icons md-light" >clear</md-icon>
         </md-button>
     </div>

@@ -8,6 +8,74 @@
 
     var organisationalUnits = 'Country, County, Region, Branch, Department';
 
+
+    var clientAddController = function controller(
+        $scope, $state,
+        MessageService,
+        ClientModel, $mdDialog, dataProvider
+      ) {
+  
+        // expose state
+        $scope.$state = $state;
+        // Store campaigns
+//        $scope.campaigns = _campaigns;
+
+        // Initialize client model
+        $scope.client = {
+            name: '',
+            address1: '',
+            address2: '',
+            address3: '',
+            town: '',
+            county: '',
+            country: '',
+            contactName: '',
+            phone1: '',
+            phone2: '',
+            email1: '',
+            email2: '',
+            notes: ''
+        };
+        
+        
+        $scope.items = [
+            { value: '' }
+        ];
+            
+        $scope.suggestions = organisationalUnits;
+        
+        /**
+         * Scope function to store new client to database. After successfully save client will be redirected
+         * to view that new created client.
+         */
+        $scope.saveClient = function() {
+            var ounits = $scope.items.map( function( ou, index ) {
+                return {
+                    order: index,
+                    value: ou.value
+                };
+            });
+            $scope.client.orgUnits = angular.toJson(ounits);
+            ClientModel
+            .create(angular.copy($scope.client))
+            .then(
+              function onSuccess(result) {
+                MessageService.success('New client added successfully');
+                $mdDialog.hide();
+                dataProvider.triggerFetchData();
+              }
+            )
+          ;
+        };
+        
+        //dialogs
+        
+        $scope.cancelDialog = function () {
+            $mdDialog.cancel();
+        };
+        
+        
+      }
   // Controller for new client creation.
   angular.module('frontend.admin.client')
     .controller('ClientAddController', [
@@ -34,7 +102,6 @@
             town: '',
             county: '',
             country: '',
-            
             contactName: '',
             phone1: '',
             phone2: '',
@@ -172,13 +239,9 @@
 
   // Controller which contains all necessary logic for client list GUI on boilerplate application.
   angular.module('frontend.admin.client')
-    .controller('ClientListController', [
-      '$scope', '$q', '$timeout',
-      '_',
-      'ListConfig', 'ClientModel', 
-      'DataProvider',      
+    .controller('ClientListController',      
       function controller(
-        $scope, $q, $timeout,
+        $scope, $q, $timeout, $mdDialog,
         _,
         ListConfig, ClientModel, 
         DataProvider
@@ -206,7 +269,38 @@
           }
         }, true);
         
+        $scope.addClientDialog = function(ev) {
+            $mdDialog.show({
+            controller: clientAddController,
+            locals: {
+              dataProvider: $scope.dataProvider
+            },
+            resolve: {
+                  _role: 
+                    function resolve(
+                      $stateParams,
+                      ClientModel
+                    ) {
+                      return ClientModel.fetch($stateParams.id);
+                    }
+            },
+            templateUrl: '/frontend/admin/client/client.html',
+//              parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false
+          });
+        };
+        
+        //raToolbarButtons
+        $scope.toolbarBtns = [
+            {
+                btnTooltip: 'Add Client',
+                btnIcon: 'add_circle_user',
+                btnAction: $scope.addClientDialog
+            }
+        ]
+        
       }
-    ])
+    )
   ;
 }());

@@ -1,4 +1,4 @@
-<md-content layout-padding>
+<md-content layout-padding class="wide-min-width">
 
     <form class="form-vertical" role="form" name="clientForm"
           autocomplete="off" 
@@ -114,6 +114,8 @@
                            ng-model="client.phone2"
                            />
                 </md-input-container>
+                
+                <h5>Company Structure</h5>
 
                 <md-multi-input mi-items="items" mi-max="6" mi-suggestions="suggestions">
                 </md-multi-input>
@@ -127,7 +129,7 @@
             </md-button>
 
             <md-button type="button" class="md-button md-raised "
-                       ng-click="$state.go('admin.clients')"
+                       ng-click="cancelDialog();"
                        >
                 Cancel
             </md-button>
