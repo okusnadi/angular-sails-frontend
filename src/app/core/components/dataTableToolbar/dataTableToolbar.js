@@ -47,7 +47,7 @@
               tableTitle: '<?',
               toolbarClass: '<?',
               toolbarBtns: '<?', //format [ {btnTitle: value, btnIcon:value,btnTooltip:val, btnAction:value } ]
-              toolbarSelectedBtns: '<?', // buttons to show when rows are selected. same format as buttons ]
+              toolbarSelectedBtns: '<?', //show when rows are selected. same format as toolBarBtns ]
               searchBar: '<?', //defaults to TRUE
               query:'<'
           }

@@ -14,7 +14,8 @@ body {
     background: #fefefe;
 }
 #container.main-container {
-    margin-top:80px;
+    margin-top:0px;
+    padding-top:90px;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
@@ -60,7 +61,6 @@ div[data-ui-view='header'] {position:relative;z-index:999}
     transition-delay: 500ms;
     &.md-is-open {
         z-index: 9999;
-        
         -webkit-transition-delay: 00ms;
         -moz-transition-delay: 00ms;
         -o-transition-delay: 00ms;
