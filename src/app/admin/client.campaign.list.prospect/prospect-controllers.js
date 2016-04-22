@@ -154,10 +154,10 @@
       }
     };
 
-    $scope.extraParams = {
-      fields: $scope.globalFields.settings,
-      list: $scope.list
-    };
+//    $scope.extraParams = {
+//      fields: $scope.globalFields.settings,
+//      list: $scope.list
+//    };
 
     $scope.columnTitle = function (column) {
       var html = column.title;
@@ -165,7 +165,15 @@
     };
 
     $scope.cancelButton = function () {
-      $scope.list = angular.copy(_list);
+      angular.forEach( _list.fields, function( field, key ){
+        if( angular.isDefined(field.mappedTo) ) {
+          $scope.list.fields[key].mappedTo = angular.copy(field.mappedTo);
+          $scope.list.fields[key].searchText = field.mappedTo.name;
+        }
+        else {
+          $scope.list.fields[key] = angular.copy(field);
+        }
+      });
       $scope.mappingForm.$setPristine();
     };
 
@@ -173,6 +181,8 @@
       console.log($scope.list);
       var list = angular.copy($scope.list);
 
+      $scope.updateGlobalMappings(list);
+      return;
       angular.forEach(list.fields, function(field) {
         delete field.searchText;
         if( angular.isDefined(field.mappedTo)) {
@@ -188,9 +198,7 @@
             MessageService.success('Mappings updated successfully');
           }
         )
-        ;
-      
-      console.log(list);
+        ;      
     };
 
     $scope.onError = function () {
@@ -201,6 +209,14 @@
       return {
         required: true
       };
+    };
+
+    $scope.updateGlobalMappings = function(list) {
+      angular.forEach(list.fields, function(field) {
+        if( field.mappedTo) {
+          console.log(field.mappedTo);
+        }
+      });      
     };
 
   };
