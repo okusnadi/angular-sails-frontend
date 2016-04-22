@@ -2,8 +2,6 @@
 
     'use strict';
     
-    
-    
     function dataTableToolbar($scope) {
         
         var ctrl =this;
@@ -32,9 +30,6 @@
            ctrl.query.searchWord = '';
            
         }
-        
-        
-        
     }
 
     angular.module('frontend.core.components')
