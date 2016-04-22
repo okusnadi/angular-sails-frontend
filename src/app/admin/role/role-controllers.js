@@ -7,15 +7,12 @@
   'use strict';
 
   // Controller for new role creation.
-  angular.module('frontend.admin.role')
-    .controller('RoleAddController', [
-      '$scope', '$state',
-      'MessageService', 'RoleModel',
-      function controller(
+  var RoleAddController  = function (
         $scope, $state,
-        MessageService, RoleModel
+        MessageService, RoleModel, $mdDialog, dataProvider
       ) {
-        // Initialize role model
+
+      // Initialize role model
         $scope.role = {
           name: '',
           description: '',
@@ -36,14 +33,21 @@
               function onSuccess(result) {
                 MessageService.success('New role added successfully');
 
-                $state.go('admin.role', {id: result.data.id});
+                $mdDialog.hide();
+                dataProvider.triggerFetchData();
               }
-            )
-          ;
+            );
         };
-      }
-    ])
-  ;
+        
+        $scope.cancelDialog = function () {
+            $mdDialog.cancel();
+        };
+        
+      };
+      
+  // Controller for new role creation.
+  angular.module('frontend.admin.role')
+    .controller('RoleAddController', RoleAddController);
 
   // Controller to show single role on GUI.
   angular.module('frontend.admin.role')
@@ -137,12 +141,12 @@
   // Controller which contains all necessary logic for role list GUI on boilerplate application.
   angular.module('frontend.admin.role')
     .controller('RoleListController', [
-      '$scope', '$q', '$timeout',
+      '$scope', '$q', '$timeout', '$mdDialog',
       '_',
       'ListConfig', 'RoleModel',
       'DataProvider',
       function controller(
-        $scope, $q, $timeout,
+        $scope, $q, $timeout, $mdDialog,
         _,
         ListConfig, RoleModel,
         DataProvider
@@ -168,6 +172,39 @@
             searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
+        
+        //dialogs
+         $scope.addRoleDialog = function (ev) {
+          $mdDialog.show({
+            controller: RoleAddController,
+            locals: {
+              dataProvider: $scope.dataProvider
+            },
+            resolve: {
+                  _role: 
+                    function resolve(
+                      $stateParams,
+                      RoleModel
+                    ) {
+                      return RoleModel.fetch($stateParams.id);
+                    }
+            },
+            templateUrl: '/frontend/admin/role/role.html',
+//              parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false
+          });
+        };
+        
+        //raToolbarButtons
+        
+        $scope.toolbarBtns = [
+            {
+                btnTooltip:'Add Role',
+                btnIcon: 'add_circle_user',
+                btnAction: $scope.addRoleDialog
+            }
+        ];
         
       }
     ])

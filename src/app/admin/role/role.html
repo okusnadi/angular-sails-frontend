@@ -69,7 +69,7 @@
         </div>-->
         </md-input-container>
 
-        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="role.active">
+        <md-switch class="md-primary" md-no-ink aria-label="role activated" ng-model="role.active">
             Active
         </md-switch>
 
@@ -81,7 +81,7 @@
 
 
         <md-button type="button" class="md-button md-raised "
-                   ng-click="$state.go('admin.roles')"
+                   ng-click="cancelDialog();"
                    >
             Cancel
         </md-button>

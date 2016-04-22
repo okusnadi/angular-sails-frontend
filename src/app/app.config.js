@@ -59,8 +59,19 @@
         
         //theme colour
         $mdThemingProvider.theme('default')
-                .primaryPalette('grey')
-                .accentPalette('orange');
+                .primaryPalette('light-blue'
+                , {
+                    'default': '100',
+                    'hue-1': '200',
+                    'hue-2': '500',
+                    'hue-3': '900',
+                }
+                )
+                .accentPalette('orange'
+//                , {
+//                    'default' : '500'
+//                } 
+                );
       }
     ])
   ;

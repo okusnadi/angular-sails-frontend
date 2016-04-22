@@ -2,34 +2,14 @@
 <section layout="column">
     <!--Table header-->
     <md-card>
-        <!--<md-toolbar class="md-table-toolbar" ng-hide="filter.show || selected.length">-->
-        <md-toolbar class="md-table-toolbar">
-            <div class="md-toolbar-tools">
-                <h2>Roles ({{query.itemCount}})</h2>
-                <div flex></div>
-                <!--<md-button ng-click="filter.show = true">-->
-              <form flex="" name="filterForm" class="flex">
-                <input type="text" ng-model="query.searchWord" placeholder="search" aria-invalid="false">
-              </form>
-                <md-button>
-                    <md-icon class="material-icons md-light">search</md-icon>
-                </md-button>
-                <md-button class="md-fab" data-ui-sref="admin.role.add">
-                    <md-tooltip>Add role</md-tooltip>
-                    <md-icon class="material-icons md-light" >playlist_add</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-            <div class="md-toolbar-tools" layout-align="space-between">
-              <div>{{selected.length}} {{selected.length > 1 ? 'users' : 'user'}} selected</div>
-              <md-button class="md-icon-button" ng-click="delete($event)">
-                <md-icon>delete</md-icon>
-              </md-button>
-            </div>
-        </md-toolbar>
-
+        
+        <ra-data-table-toolbar
+            table-title="'Roles'"
+            query='query'
+            toolbar-btns='toolbarBtns'
+            toolbar-selected-btns='toolbarSelectedBtns'
+        ></ra-data-table-toolbar>
+        
         <!--table-->
         <md-data-table 
             dt-items="query.items"

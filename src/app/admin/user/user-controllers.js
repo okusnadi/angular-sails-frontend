@@ -94,7 +94,7 @@
      * socket request to the backend server with the modified object.
      */
     $scope.saveUser = function () {
-      $scope.$emit('dataTableRefresh', [1, 2, 3]);
+      
       var data = angular.copy($scope.user);
 
       // Set role id to update data
@@ -233,7 +233,6 @@
 
 
         $scope.addUserDialog = function (ev) {
-            console.log(ev);
           $mdDialog.show({
             controller: UserAddController,
             locals: {
@@ -290,14 +289,7 @@
 
   // Controller for new user creation.
   angular.module('frontend.admin.user')
-    .controller('UserAddController', [
-      '$scope', '$state',
-      'MessageService',
-      'UserModel', 'RoleModel',
-      UserAddController
-
-    ])
-    ;
+    .controller('UserAddController', UserAddController);
 
   // Controller to show single user on GUI.
   angular.module('frontend.admin.user')

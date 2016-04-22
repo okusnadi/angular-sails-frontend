@@ -2,6 +2,13 @@
 <section layout="column">
     <!--Table header-->
     <md-card>
+        
+        <ra-data-table-toolbar
+            table-title=' "Clients" '
+            query="query"
+            toolbar-btns ="toolbarBtns"
+        ></ra-data-table-toolbar>
+        
         <md-toolbar class="md-table-toolbar">
             <div class="md-toolbar-tools">
                 <h2>Clients ({{query.itemCount}})</h2>
