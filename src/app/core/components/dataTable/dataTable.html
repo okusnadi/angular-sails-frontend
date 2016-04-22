@@ -1,62 +1,72 @@
-    <!--table-->
-    <md-table-container>
-        <!--FAB-->
-        <table md-table ng-attr-md-row-select="$ctrl.dtSelected === undefined?undefined:true" ng-attr-ng-model="$ctrl.dtSelected"  multiple>
-            <thead md-head md-order="$ctrl.dtOrder" md-on-reorder="$ctrl.dtOnReorder({order:order})">
-                <tr md-row>
-                    <th md-column 
-                        ng-repeat="column in $ctrl.dtColumns"
-                        ng-attr-md-order-by="{{column.sortable===false?undefined:column.column}}" 
-                        >
-                        <md-tooltip ng-if="column.sortable !== false">Sort by {{ column.title}}</md-tooltip>
-                        <span ng-bind-html="$ctrl.getColumnTitle(column) | $trustedHtml"></span>
-                      <md-autocomplete 
-                          ng-if="$ctrl.dtMappedTo"
-                          required="true"
-                          md-selected-item="$ctrl.dtMappedTo[column.title].mappedTo"
-                          md-search-text="$ctrl.dtMappedTo[column.title].searchText"
-                          md-items="field in $ctrl.dtSuggestions"
-                          md-item-text="field.name"
-                          md-selected-item-change="$ctrl.mappedChanged()"
-                          md-min-length="0"
-                          >
-                          <md-item-template>
-                            <span md-highlight-text="$ctrl.dtMappedTo[column.title].searchText">{{field.name}}</span>
-                          </md-item-template>
-                      </md-autocomplete>
-                    </th>
-                </tr>
-<!--                <tr md-row ng-if="$ctrl.dtMappedTo">
-                    <th md-column 
-                        ng-repeat="column in $ctrl.dtColumns"
-                        >
-                      {{$ctrl.dtMappedTo[column.title].mappedTo.name}}
-                    </th>
-                </tr>-->
-            </thead>
-            <tbody md-body>
-                <tr md-row md-auto-select md-select="item" md-select-id="" ng-repeat="item in $ctrl.dtItems">
-                    <td md-cell
-                        ng-repeat="column in $ctrl.dtColumns"
-                        >
-                        <a ng-if="column.sref" data-ui-sref="{{column.sref}}">{{$ctrl.getValue(item, column)}}</a>
-                        <a ng-if="$ctrl.isClickable(item,column) && $ctrl.dtOnClick" ng-click="$ctrl.dtOnClick({event:$event, item:item, column:column});$event.stopPropagation();">{{$ctrl.getValue(item, column)}}</a>
-                        <span ng-if="!(column.sref || ($ctrl.isClickable(item,column) && $ctrl.dtOnClick))">{{$ctrl.getValue(item, column)}}</span>
-                        <img style="height:48px;width:auto" ng-if="$ctrl.isSpinner(item, column);" src="{{$ctrl.dtSpinner}}"/>
-                    </td>
-                </tr>
-                <tr md-row ng-if="$ctrl.dtItems.length === 0">
-                    <td colspan="{{ $ctrl.dtColumns.length }}" md-cell>
-                        <em>No items found.</em>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </md-table-container>
-    <md-table-pagination 
-        md-limit="$ctrl.dtLimit" 
-        md-page="$ctrl.dtPage" 
-        md-total="{{$ctrl.dtItemCount}}" 
-        md-on-paginate="$ctrl.dtOnPaginate({page:page, limit:limit})" 
-        md-page-select>            
-    </md-table-pagination>
+<!--table-->
+<md-table-container>
+  <!--FAB-->
+  <ng-form name="dtForm">
+    <table md-table ng-attr-md-row-select="$ctrl.dtSelected === undefined?undefined:true" ng-attr-ng-model="$ctrl.dtSelected"  multiple>
+      <thead md-head md-order="$ctrl.dtOrder" md-on-reorder="$ctrl.dtOnReorder({order:order})">
+        <tr md-row ng-if="$ctrl.dtMappedTo">
+          <th md-column 
+              ng-repeat="column in $ctrl.dtColumns"
+              >
+      <md-autocomplete 
+        name="field{{$index}}"
+        md-selected-item="$ctrl.dtMappedTo[column.title].mappedTo"
+        md-search-text="$ctrl.dtMappedTo[column.title].searchText"
+        md-items="field in $ctrl.querySearch($ctrl.dtMappedTo[column.title].searchText)"
+        md-item-text="field.name"
+        md-floating-label="map column to:"
+        md-min-length="0"
+        md-match-case-insensitive
+        md-select-on-focus
+        >
+        <md-item-template>
+          <span md-highlight-text="$ctrl.dtMappedTo[column.title].searchText">{{field.name}}</span>
+        </md-item-template>
+
+        <div ng-messages="$ctrl.mappingValidator(column)" 
+             >
+             <!--ng-if="$ctrl.dtMappedValidator({column:column})"-->
+          <div ng-message="mapped" ng-style="{color:'green'}">Mapped field</div>
+          <div ng-message="empty" ng-style="{color:'grey'}">Not mapped</div>
+          <div ng-message="new" ng-style="{color:'blue'}">Create new mapping</div>
+        </div>
+      </md-autocomplete>
+      </th>
+      </tr>
+      <tr md-row>
+        <th md-column 
+            ng-repeat="column in $ctrl.dtColumns"
+            ng-attr-md-order-by="{{column.sortable===false?undefined:column.column}}" 
+            >
+      <md-tooltip ng-if="column.sortable !== false">Sort by {{ column.title}}</md-tooltip>
+      <span ng-bind-html="$ctrl.getColumnTitle(column) | $trustedHtml"></span>
+      </th>
+      </tr>
+      </thead>
+      <tbody md-body>
+        <tr md-row md-auto-select md-select="item" md-select-id="" ng-repeat="item in $ctrl.dtItems">
+          <td md-cell
+              ng-repeat="column in $ctrl.dtColumns"
+              >
+            <a ng-if="column.sref" data-ui-sref="{{column.sref}}">{{$ctrl.getValue(item, column)}}</a>
+            <a ng-if="$ctrl.isClickable(item, column) && $ctrl.dtOnClick" ng-click="$ctrl.dtOnClick({event: $event, item: item, column: column});$event.stopPropagation();">{{$ctrl.getValue(item, column)}}</a>
+            <span ng-if="!(column.sref || ($ctrl.isClickable(item, column) && $ctrl.dtOnClick))">{{$ctrl.getValue(item, column)}}</span>
+            <img style="height:48px;width:auto" ng-if="$ctrl.isSpinner(item, column);" src="{{$ctrl.dtSpinner}}"/>
+          </td>
+        </tr>
+        <tr md-row ng-if="$ctrl.dtItems.length === 0">
+          <td colspan="{{ $ctrl.dtColumns.length}}" md-cell>
+            <em>No items found.</em>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-form>
+</md-table-container>
+<md-table-pagination 
+  md-limit="$ctrl.dtLimit" 
+  md-page="$ctrl.dtPage" 
+  md-total="{{$ctrl.dtItemCount}}" 
+  md-on-paginate="$ctrl.dtOnPaginate({page:page, limit:limit})" 
+  md-page-select>            
+</md-table-pagination>

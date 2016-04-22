@@ -87,7 +87,7 @@
 
   var ProspectListController = function (
     $scope, $mdDialog, $timeout,
-    ProspectModel,
+    ProspectModel, ListModel,
     DataProvider, MessageService,
     _list, _prospects, _count, _globalFields
     ) {
@@ -98,7 +98,6 @@
 
     $scope.list = angular.copy(_list);
     $scope.globalFields = _globalFields[0];
-    $scope.pristine = true;
 
 //    console.log($scope.globalFields);
 
@@ -166,19 +165,42 @@
     };
 
     $scope.cancelButton = function () {
-      console.log($scope.list);
       $scope.list = angular.copy(_list);
-      console.log($scope.list);
+      $scope.mappingForm.$setPristine();
     };
 
     $scope.saveMappings = function () {
       console.log($scope.list);
-      $scope.list = angular.copy(_list);
-      console.log($scope.list);
+      var list = angular.copy($scope.list);
+
+      angular.forEach(list.fields, function(field) {
+        delete field.searchText;
+        if( angular.isDefined(field.mappedTo)) {
+          delete field.mappedTo.mappedTo;          
+        }
+      });
+      
+      ListModel
+        .update(list.id, list)
+        .then(
+          function onSuccess() {
+            _list = angular.copy($scope.list);
+            MessageService.success('Mappings updated successfully');
+          }
+        )
+        ;
+      
+      console.log(list);
     };
 
     $scope.onError = function () {
       $mdDialog.hide();
+    };
+    
+    $scope.mappedValidator = function( column ) {
+      return {
+        required: true
+      };
     };
 
   };
