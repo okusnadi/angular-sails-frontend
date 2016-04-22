@@ -1,19 +1,14 @@
 <section layout="column" id="user-list-container">
     <!--Table header-->
 
-    <ra-data-table-toolbar
-        table-title=" 'Users' "
-        query = "query"
-        toolbar-btns ="toolbarBtns"
-        toolbar-selected-btns="toolbarSelectedBtns"
-        ></ra-data-table-toolbar>
+
 
     <md-card>
-        <md-toolbar class="md-table-toolbar md-default" ng-hide="showFilter || query.selected.length">
+<!--        <md-toolbar class="md-table-toolbar md-default" ng-hide="showFilter || query.selected.length">
             <div class="md-toolbar-tools">
                 <h2>Users ({{query.itemCount}})</h2>
                 <div flex></div>
-                <!--<md-button ng-click="filter.show = true">-->
+                <md-button ng-click="filter.show = true">
 
                 <md-button ng-click="showFilter = true" 
                            onclick="event.stopPropagation(); setTimeout(function () {
@@ -29,7 +24,13 @@
                     <md-icon class="material-icons" >person_add</md-icon>
                 </md-button>
             </div>
-        </md-toolbar>
+        </md-toolbar>-->
+        <ra-data-table-toolbar
+        table-title=" 'Users' "
+        query = "query"
+        toolbar-btns ="toolbarBtns"
+        toolbar-selected-btns="toolbarSelectedBtns"
+        ></ra-data-table-toolbar>
 
         <!--prev-->
         <md-toolbar class="md-table-toolbar md-default md-dark" ng-show="showFilter && !query.selected.length">

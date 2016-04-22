@@ -233,6 +233,7 @@
 
 
         $scope.addUserDialog = function (ev) {
+            console.log(ev);
           $mdDialog.show({
             controller: UserAddController,
             locals: {
