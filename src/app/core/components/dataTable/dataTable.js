@@ -37,14 +37,11 @@
       return {
         mapped: ctrl.dtMappedTo[column.title].mappedTo,
         empty: !ctrl.dtMappedTo[column.title].searchText,
+        short: ctrl.dtMappedTo[column.title].searchText  && ctrl.dtMappedTo[column.title].searchText.length < 2,
         new: ctrl.dtMappedTo[column.title].searchText && ctrl.dtMappedTo[column.title].searchText.length > 1 && !ctrl.dtMappedTo[column.title].mappedTo
       };
     };
     
-    ctrl.textChange = function( object ) {
-      
-    };
-
     // method to display current field value
     ctrl.getValue = function (item, column) {
       var value;

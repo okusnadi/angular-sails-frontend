@@ -14,11 +14,12 @@
         md-search-text="$ctrl.dtMappedTo[column.title].searchText"
         md-items="field in $ctrl.querySearch($ctrl.dtMappedTo[column.title].searchText)"
         md-item-text="field.name"
-        md-floating-label="map column to:"
+        md-floating-label="link column to:"
         md-min-length="0"
         md-match-case-insensitive
-        md-select-on-match
         >
+<!--        md-search-text-change="$ctrl.textChange($ctrl.dtMappedTo[column.title])"
+        ng-blur="$ctrl.textChange($ctrl.dtMappedTo[column.title])"-->
         <md-item-template>
           <span md-highlight-text="$ctrl.dtMappedTo[column.title].searchText">{{field.name}}</span>
         </md-item-template>
@@ -26,9 +27,10 @@
         <div ng-messages="$ctrl.mappingValidator(column)" 
              >
              <!--ng-if="$ctrl.dtMappedValidator({column:column})"-->
-          <div ng-message="mapped" ng-style="{color:'green'}">Mapped field</div>
-          <div ng-message="empty" ng-style="{color:'grey'}">Not mapped</div>
-          <div ng-message="new" ng-style="{color:'blue'}">Create new mapping</div>
+          <div ng-message="mapped" ng-style="{color:'green'}">Linked field</div>
+          <div ng-message="short" ng-style="{color:'red'}">Min 2 characters</div>
+          <div ng-message="empty" ng-style="{color:'grey'}">Unlinked</div>
+          <div ng-message="new" ng-style="{color:'blue'}">New global link</div>
         </div>
       </md-autocomplete>
       </th>

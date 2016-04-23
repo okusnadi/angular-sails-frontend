@@ -86,7 +86,7 @@
 
 
   var ProspectListController = function (
-    $scope, $mdDialog, $timeout,
+    _, $scope, $mdDialog, $timeout,
     ProspectModel, ListModel,
     DataProvider, MessageService,
     _list, _prospects, _count, _globalFields
@@ -129,12 +129,6 @@
 
     var searchWordTimer;
 
-//    $scope.$watch('list', function listWatcher(newValue, oldValue) {
-//      if( angular.equals(newValue, oldValue) ){
-//        $scope.pristine = false;
-//      }
-//    }, true);
-    
     $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
       if (valueNew !== valueOld) {
         if (searchWordTimer) {
@@ -153,11 +147,6 @@
         $scope.filterForm.$setPristine();
       }
     };
-
-//    $scope.extraParams = {
-//      fields: $scope.globalFields.settings,
-//      list: $scope.list
-//    };
 
     $scope.columnTitle = function (column) {
       var html = column.title;
@@ -212,11 +201,30 @@
     };
 
     $scope.updateGlobalMappings = function(list) {
+      
+      console.log($scope.globalFields);
+      
       angular.forEach(list.fields, function(field) {
-        if( field.mappedTo) {
-          console.log(field.mappedTo);
+        if( field.mappedTo ) {
+          var mapped = _.filter($scope.globalFields.settings, function (obj) {
+            return _.some(obj.mappedTo, {value: field.mappedTo.name});
+          });
+
+          if( _.findWhere(mapped[0].mappedTo, { value: field.column }) === undefined) {
+            console.log('ADDING ', field.column );
+            mapped[0].mappedTo.push({value:field.column});
+          };
+          
+          console.log(field.column, 'Linked ',field.mappedTo);
+          console.log(mapped);
+        }
+        if( !field.mappedTo && field.searchText && field.searchText.length > 1 ) {
+          console.log('New ',field.searchText);
         }
       });      
+
+      console.log($scope.globalFields);
+      
     };
 
   };

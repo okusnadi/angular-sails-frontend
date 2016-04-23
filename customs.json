@@ -132,18 +132,22 @@
     },
     "md-autocomplete": {
       "attributes": {
-        "md-item-text": {},
-        "md-selected-item-change": {},
-        "md-selected-item": {},
+        "ng-blur": {},
         "ng-click": {},
+        "ng-keyup": {},
+        "md-match-case-insensitive": {},
+        "ng-if": {},
+        "md-search-text": {},
+        "required": {},
+        "md-item-text": {},
+        "md-select-on-focus": {},
+        "md-selected-item-change": {},
+        "md-search-text-change": {},
+        "md-selected-item": {},
         "md-min-length": {},
         "name": {},
-        "ui-validate": {},
         "md-floating-label": {},
-        "ng-if": {},
-        "md-items": {},
-        "md-search-text": {},
-        "required": {}
+        "md-items": {}
       }
     },
     "md-table-container": {},
@@ -172,7 +176,6 @@
         "dt-on-click": {},
         "dt-click": {},
         "dt-mapped-pristine": {},
-        "dt-mapped-validator": {},
         "dt-column-title": {}
       }
     },
