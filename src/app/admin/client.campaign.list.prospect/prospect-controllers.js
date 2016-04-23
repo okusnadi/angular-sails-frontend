@@ -87,7 +87,7 @@
 
   var ProspectListController = function (
     _, $scope, $mdDialog, $timeout,
-    ProspectModel, ListModel,
+    ProspectModel, ListModel, SettingModel,
     DataProvider, MessageService,
     _list, _prospects, _count, _globalFields
     ) {
@@ -95,6 +95,7 @@
     // Set current scope reference to model
 //    ProspectModel.setScope($scope, 'prospect');
     ProspectModel.setScope($scope, 'prospect');
+    SettingModel.setScope($scope, 'setting');
 
     $scope.list = angular.copy(_list);
     $scope.globalFields = _globalFields[0];
@@ -211,19 +212,26 @@
           });
 
           if( _.findWhere(mapped[0].mappedTo, { value: field.column }) === undefined) {
-            console.log('ADDING ', field.column );
             mapped[0].mappedTo.push({value:field.column});
-          };
-          
-          console.log(field.column, 'Linked ',field.mappedTo);
-          console.log(mapped);
+          };          
         }
         if( !field.mappedTo && field.searchText && field.searchText.length > 1 ) {
+          $scope.globalFields.settings.push({
+            
+          });
           console.log('New ',field.searchText);
         }
       });      
 
       console.log($scope.globalFields);
+//      SettingModel
+//        .update($scope.globalFields.id, $scope.globalFields)
+//        .then(
+//          function onSuccess() {
+//            MessageService.success('Global settings updated successfully');
+//          }
+//        )
+//        ;      
       
     };
 

@@ -7,11 +7,7 @@
     'use strict';
 
     angular.module('frontend.core.services')
-      .factory('DataProvider', [
-          'SocketHelperService', 'ListConfig',
-          '$log', '$q',
-          '_',
-          function (
+      .factory('DataProvider', function (
             SocketHelperService, ListConfig,
             $log, $q,
             _
@@ -128,5 +124,5 @@
 
               };
 
-          }]);
+          });
 }());
