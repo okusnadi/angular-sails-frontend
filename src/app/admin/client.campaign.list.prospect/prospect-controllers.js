@@ -155,12 +155,11 @@
     };
 
     $scope.cancelButton = function () {
-      angular.forEach( _list.fields, function( field, key ){
-        if( angular.isDefined(field.mappedTo) ) {
+      angular.forEach(_list.fields, function (field, key) {
+        if (angular.isDefined(field.mappedTo)) {
           $scope.list.fields[key].mappedTo = angular.copy(field.mappedTo);
           $scope.list.fields[key].searchText = field.mappedTo.name;
-        }
-        else {
+        } else {
           $scope.list.fields[key] = angular.copy(field);
         }
       });
@@ -168,18 +167,18 @@
     };
 
     $scope.saveMappings = function () {
-      console.log($scope.list);
+//      console.log($scope.list);
       var list = angular.copy($scope.list);
-
+//return;
       $scope.updateGlobalMappings(list);
-      return;
-      angular.forEach(list.fields, function(field) {
+      angular.forEach(list.fields, function (field) {
         delete field.searchText;
-        if( angular.isDefined(field.mappedTo)) {
-          delete field.mappedTo.mappedTo;          
+//        console.log(field);
+        if (field.mappedTo && angular.isDefined(field.mappedTo.mappedTo)) {
+          delete field.mappedTo.mappedTo;
         }
       });
-      
+      console.log('LIST: ',list);
       ListModel
         .update(list.id, list)
         .then(
@@ -188,52 +187,77 @@
             MessageService.success('Mappings updated successfully');
           }
         )
-        ;      
+        ;
     };
 
     $scope.onError = function () {
       $mdDialog.hide();
     };
-    
-    $scope.mappedValidator = function( column ) {
+
+    $scope.mappedValidator = function (column) {
       return {
         required: true
       };
     };
 
-    $scope.updateGlobalMappings = function(list) {
-      
+    $scope.updateGlobalMappings = function (list) {
+
       console.log($scope.globalFields);
-      
-      angular.forEach(list.fields, function(field) {
-        if( field.mappedTo ) {
+
+      angular.forEach(list.fields, function (field) {
+        // check if field is mapped 
+        if (field.mappedTo) {
+          
+          console.log(field);
+          // search for corresponding global field         
           var mapped = _.filter($scope.globalFields.settings, function (obj) {
-            return _.some(obj.mappedTo, {value: field.mappedTo.name});
+            return _.some(obj.mappedTo, {value: field.column});
           });
-
-          if( _.findWhere(mapped[0].mappedTo, { value: field.column }) === undefined) {
-            mapped[0].mappedTo.push({value:field.column});
+          console.log(mapped);
+          // if global field doesnt contain current key add it
+          if (_.findWhere(mapped[0].mappedTo, {value: field.column}) === undefined) {
+            mapped[0].mappedTo.push({value: field.column});
+          }
+          ;
+        }
+        // add new global field if needed and local field mapping
+        if (!field.mappedTo && field.searchText && field.searchText.length > 1) {
+          
+          var newMapping = {
+            key: camelize(field.searchText),
+            name: field.searchText,
+            type: 'string'
           };          
-        }
-        if( !field.mappedTo && field.searchText && field.searchText.length > 1 ) {
-          $scope.globalFields.settings.push({
-            
-          });
-          console.log('New ',field.searchText);
-        }
-      });      
+          // add local mapping
+          field.mappedTo = angular.copy(newMapping);
 
-      console.log($scope.globalFields);
-//      SettingModel
-//        .update($scope.globalFields.id, $scope.globalFields)
-//        .then(
-//          function onSuccess() {
-//            MessageService.success('Global settings updated successfully');
-//          }
-//        )
-//        ;      
-      
+          newMapping['mappedTo'] = [
+              {value: field.column}
+            ];
+          // add global mapping
+          $scope.globalFields.settings.push(newMapping);
+        }
+      });
+
+      console.log('GLOBAL: ', $scope.globalFields);
+      SettingModel
+        .update($scope.globalFields.id, $scope.globalFields)
+        .then(
+          function onSuccess() {
+            MessageService.success('Global settings updated successfully');
+          }
+        )
+        ;      
+
     };
+
+    function camelize(str) {
+      return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+        if (+match === 0)
+          return ""; // or if (/\s+/.test(match)) for white spaces
+        return index == 0 ? match.toLowerCase() : match.toUpperCase();
+      });
+    }
 
   };
 
