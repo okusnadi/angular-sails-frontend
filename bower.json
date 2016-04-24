@@ -34,7 +34,6 @@
     "angular-sanitize": "~1.5",
     "angular-xeditable": "~0.1.8",
     "angular-toastr": "~1.7.0",
-    "textAngular": "~1.5.0",
     "bootbox": "4.4.0",
     "ngBootbox": "~0.1.0",
     "sails.io.js": "~0.13.0",
@@ -44,7 +43,8 @@
     "highcharts-ng": "~0.0.8",
     "angular-material": "^1.0.5",
     "angular-material-data-table": "^0.9.11",
-    "angular-messages": "^1.5.0"
+    "angular-messages": "^1.5.0",
+    "angular-ui-tinymce": "^0.0.15"
   },
   "devDependencies": {
     "angular-mocks": "~1.5"
@@ -65,6 +65,6 @@
     }
   },
   "resolutions": {
-    "angular": "1.5.3"
+    "angular": "1.5.5"
   }
 }

@@ -10,7 +10,7 @@
   'use strict';
   // Define frontend.admin.client.prospect.prospect angular module
   angular.module('frontend.admin.client.campaign.list.prospect', [
-    'textAngular'
+//    'textAngular'
   ]);
   // Module configuration
   angular.module('frontend.admin.client.campaign.list.prospect')

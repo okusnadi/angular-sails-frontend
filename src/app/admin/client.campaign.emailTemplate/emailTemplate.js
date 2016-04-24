@@ -11,7 +11,8 @@
 
   // Define frontend.admin.client.emailTemplate.emailTemplate angular module
   angular.module('frontend.admin.client.campaign.emailTemplate', [
-      'textAngular'
+//      'textAngular', 
+      'ui.tinymce'
   ]);
 
   // Module configuration

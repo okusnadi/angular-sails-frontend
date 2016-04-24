@@ -11,7 +11,7 @@
   // Define frontend.admin.client.list.list angular module
   angular.module('frontend.admin.client.campaign.list', [
     'frontend.admin.client.campaign.list.prospect',
-    'textAngular'
+//    'textAngular'
   ]);
   // Module configuration
   angular.module('frontend.admin.client.campaign.list')

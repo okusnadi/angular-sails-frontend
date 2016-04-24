@@ -12,7 +12,7 @@
           '$scope', '$state',
           'MessageService',
           'EmailTemplateModel',
-          '_client',
+          '_client', 
           '_campaign',
           function controller(
             $scope, $state,
@@ -33,6 +33,11 @@
                   name: '',
                   body: ''
               };
+              
+  $scope.tinymceOptions = {
+    plugins: 'link image code',
+    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+  };              
               
               $scope.dropHandler = function(file, insertAction) {
                   

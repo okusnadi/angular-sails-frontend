@@ -19,13 +19,23 @@
                     </div>
                 </md-input-container>
 
+                <!--<md-input-container class="md-block">-->
+                <!--</md-input-container>-->
                 <md-input-container class="md-block">
-                    <text-angular 
+
+                  <textarea 
+                    required
+                    ui-tinymce="tinymceOptions" 
+                    ng-model="emailTemplate.body"
+                    >
+                  </textarea>
+                  
+<!--                    <text-angular 
                         required
                         ng-model="emailTemplate.body"
                         ta-file-drop="dropHandler"
                         >                        
-                    </text-angular>
+                    </text-angular>-->
                 </md-input-container>
                
 
