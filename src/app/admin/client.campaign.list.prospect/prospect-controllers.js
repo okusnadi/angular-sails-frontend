@@ -100,8 +100,6 @@
     $scope.list = angular.copy(_list);
     $scope.globalFields = _globalFields[0];
 
-//    console.log($scope.globalFields);
-
     var columns = [];
     angular.forEach(_list.fields, function (field, key) {
       columns.push({
@@ -167,18 +165,14 @@
     };
 
     $scope.saveMappings = function () {
-//      console.log($scope.list);
       var list = angular.copy($scope.list);
-//return;
       $scope.updateGlobalMappings(list);
       angular.forEach(list.fields, function (field) {
         delete field.searchText;
-//        console.log(field);
         if (field.mappedTo && angular.isDefined(field.mappedTo.mappedTo)) {
           delete field.mappedTo.mappedTo;
         }
       });
-      console.log('LIST: ',list);
       ListModel
         .update(list.id, list)
         .then(
@@ -202,18 +196,14 @@
 
     $scope.updateGlobalMappings = function (list) {
 
-      console.log($scope.globalFields);
-
       angular.forEach(list.fields, function (field) {
         // check if field is mapped 
         if (field.mappedTo) {
           
-          console.log(field);
           // search for corresponding global field         
           var mapped = _.filter($scope.globalFields.settings, function (obj) {
             return _.some(obj.mappedTo, {value: field.column});
           });
-          console.log(mapped);
           // if global field doesnt contain current key add it
           if (_.findWhere(mapped[0].mappedTo, {value: field.column}) === undefined) {
             mapped[0].mappedTo.push({value: field.column});
@@ -239,7 +229,6 @@
         }
       });
 
-      console.log('GLOBAL: ', $scope.globalFields);
       SettingModel
         .update($scope.globalFields.id, $scope.globalFields)
         .then(
