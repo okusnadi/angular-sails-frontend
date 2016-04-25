@@ -36,13 +36,14 @@
 
         $scope.options = {
           height: '600px',
+//          clickToUse: true,
           nodes: {
             shape: 'dot',
             shadow: true
           },
           interaction: {
             navigationButtons: true,
-            keyboard: true
+//            keyboard: true
           }
         };
 
@@ -81,10 +82,16 @@
           console.log(params);
           params.event.preventDefault();
         };
+        
+        $scope.beforeDrawing = function ( params ) {
+          // make sure canvas is not selectable
+          angular.element(params.canvas).attr('tabindex','-1');
+        };
 
 
         $scope.events = {
-          click: $scope.onClick,
+          click:          $scope.onClick,
+          beforeDrawing:  $scope.beforeDrawing,
           oncontext: $scope.onRightClick,
         };
 
