@@ -5,7 +5,7 @@
           ng-submit="saveScript()"
           >
         <div layout="row">
-            <div flex="50" layout-margin>
+            <div flex="30" layout-margin>
                 <md-input-container class="md-block">
                     <label>Script name</label>
                     <input type="text" name="name" 
@@ -19,19 +19,21 @@
                     </div>
                 </md-input-container>
 
-                <md-input-container class="md-block">
+              
+<!--                <md-input-container class="md-block">
                     <text-angular 
                         required
                         ng-model="script.info"
                         >                        
                     </text-angular>
-                </md-input-container>
+                </md-input-container>-->
                 
 
             </div>
 
-            <div flex="50" layout-margin>
+            <div flex="70" layout-margin>
                 
+                <vis-network data="data" options="options" events="events" ></vis-network>
                 
             </div>
 

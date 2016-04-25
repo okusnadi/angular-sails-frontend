@@ -1,16 +1,85 @@
 {
   "elements": {
+    "ng-form": {
+      "attributes": {
+        "name": {}
+      }
+    },
+    "md-content": {
+      "attributes": {
+        "layout-padding": {},
+        "class": {}
+      }
+    },
+    "ng-messages=\"roleForm.name.$error\"": {},
+    "div": {
+      "attributes": {
+        "ng-message-exp": {},
+        "ng-message": {},
+        "ng-style": {},
+        "multiple": {},
+        "ng-repeat": {},
+        "md-auto-hide": {},
+        "layout-margin": {},
+        "ng-if": {},
+        "class": {},
+        "ng-messages": {},
+        "layout-align": {}
+      }
+    },
+    "md-card": {},
+    "md-fab-actions": {
+      "attributes": {
+        "class": {}
+      }
+    },
+    "md-fab-trigger": {
+      "attributes": {
+        "class": {}
+      }
+    },
+    "md-button": {
+      "attributes": {
+        "ng-click": {},
+        "onclick": {},
+        "for": {},
+        "data-ng-bootbox-title": {},
+        "data-ng-class": {},
+        "tabIndex": {},
+        "type": {},
+        "ng-if": {},
+        "data-ng-bootbox-buttons": {},
+        "ng-disabled": {},
+        "ng-show": {},
+        "data-ng-repeat": {},
+        "data-ng-bootbox-custom-dialog": {},
+        "data-ui-sref-active": {},
+        "data-ng-disabled": {},
+        "data-ng-show": {},
+        "data-ng-bootbox-confirm": {},
+        "data-ui-sref": {},
+        "data-ng-bootbox-confirm-action": {},
+        "id": {},
+        "class": {},
+        "aria-label": {}
+      }
+    },
+    "md-table-container": {},
+    "md-table-pagination": {
+      "attributes": {
+        "md-page-select": {},
+        "md-limit": {},
+        "md-on-paginate": {},
+        "md-total": {},
+        "md-page": {}
+      }
+    },
     "md-fab-toolbar": {
       "attributes": {
         "count": {},
         "md-open": {},
         "md-direction": {},
         "class": {}
-      }
-    },
-    "ng-form": {
-      "attributes": {
-        "name": {}
       }
     },
     "md-multi-input": {
@@ -48,35 +117,7 @@
         "multiple": {}
       }
     },
-    "md-content": {
-      "attributes": {
-        "layout-padding": {},
-        "class": {}
-      }
-    },
-    "ng-messages=\"roleForm.name.$error\"": {},
-    "div": {
-      "attributes": {
-        "ng-message-exp": {},
-        "ng-message": {},
-        "ng-style": {},
-        "multiple": {},
-        "ng-repeat": {},
-        "md-auto-hide": {},
-        "layout-margin": {},
-        "ng-if": {},
-        "class": {},
-        "ng-messages": {},
-        "layout-align": {}
-      }
-    },
-    "md-card": {},
     "md-item-template": {},
-    "md-fab-actions": {
-      "attributes": {
-        "class": {}
-      }
-    },
     "md-file-upload": {
       "attributes": {
         "fu-file-name": {},
@@ -99,37 +140,6 @@
         "class": {}
       }
     },
-    "md-fab-trigger": {
-      "attributes": {
-        "class": {}
-      }
-    },
-    "md-button": {
-      "attributes": {
-        "ng-click": {},
-        "onclick": {},
-        "for": {},
-        "data-ng-bootbox-title": {},
-        "data-ng-class": {},
-        "tabIndex": {},
-        "type": {},
-        "ng-if": {},
-        "data-ng-bootbox-buttons": {},
-        "ng-disabled": {},
-        "ng-show": {},
-        "data-ng-repeat": {},
-        "data-ng-bootbox-custom-dialog": {},
-        "data-ui-sref-active": {},
-        "data-ng-disabled": {},
-        "data-ng-show": {},
-        "data-ng-bootbox-confirm": {},
-        "data-ui-sref": {},
-        "data-ng-bootbox-confirm-action": {},
-        "id": {},
-        "class": {},
-        "aria-label": {}
-      }
-    },
     "md-autocomplete": {
       "attributes": {
         "ng-blur": {},
@@ -150,7 +160,13 @@
         "md-items": {}
       }
     },
-    "md-table-container": {},
+    "vis-network": {
+      "attributes": {
+        "data": {},
+        "options": {},
+        "events": {}
+      }
+    },
     "md-input-container": {
       "attributes": {
         "md-no-float": {},
@@ -177,15 +193,6 @@
         "dt-click": {},
         "dt-mapped-pristine": {},
         "dt-column-title": {}
-      }
-    },
-    "md-table-pagination": {
-      "attributes": {
-        "md-page-select": {},
-        "md-limit": {},
-        "md-on-paginate": {},
-        "md-total": {},
-        "md-page": {}
       }
     }
   },

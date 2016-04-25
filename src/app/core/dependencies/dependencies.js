@@ -26,6 +26,7 @@
     'highcharts-ng',
     'ngMaterial',
     'md.data.table',
-    'frontend.core.filters'
+    'frontend.core.filters',
+    'ngVis'
   ]);
 }());

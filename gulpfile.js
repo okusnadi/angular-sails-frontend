@@ -125,6 +125,8 @@ gulp.task('build-all', ['styles', 'templates'], index);
 
 function index() {
   var opt = {read: false};
+  
+  console.log(mainBowerFiles(opt));
 
   return gulp.src('./src/app/index.html')
     .pipe(g.inject(gulp.src(mainBowerFiles(opt)), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
