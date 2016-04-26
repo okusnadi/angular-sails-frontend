@@ -1,5 +1,5 @@
 <ng-form name="miForm">
-    <div layout="row" ng-repeat="item in $ctrl.miItems">
+    <div layout="row" class="multi-input-item" ng-repeat="item in $ctrl.miItems">
         <md-autocomplete
             required="true"
             md-floating-label="{{item.label?item.label:$ctrl.miLabelPrefix+' '+($index+1)}}"
@@ -15,14 +15,15 @@
                 <span md-highlight-text="item.value">{{sugg.display}}</span>
             </md-item-template>
         </md-autocomplete>
-        <md-button ng-if="!$ctrl.miStatic" class="md-fab md-mini md-primary md-hue-2" ng-click="$ctrl.addField($index)" tabIndex="-1">
+        <md-button ng-if="!$ctrl.miStatic" class="md-fab md-mini md-primary md-hue-2 roll-left" ng-click="$ctrl.addField($index)" tabIndex="-1"
+                   ng-class="{ 'roll-left-active' : $ctrl.miItems.length < 2 }">
             <md-tooltip>Add new level</md-tooltip>
             <md-icon class="material-icons md-light" >add</md-icon>
         </md-button>
-        <md-button ng-if="!$ctrl.miStatic && $ctrl.miItems.length > 1" class="md-fab md-mini md-warn" ng-click="$ctrl.deleteField($index)" tabIndex="-1">
+        <md-button ng-if="!$ctrl.miStatic && $ctrl.miItems.length > 1" class="md-fab md-mini md-warn roll-in" ng-click="$ctrl.deleteField($index)" tabIndex="-1">
             <md-tooltip>Remove this level</md-tooltip>
             <md-icon class="material-icons md-light" >clear</md-icon>
         </md-button>
     </div>
-
+    
 </ng-form>

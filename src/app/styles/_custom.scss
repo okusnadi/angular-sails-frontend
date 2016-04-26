@@ -11,15 +11,15 @@ and open the template in the editor.
 //main styles
 
 body {
-    background: #fefefe;
+  background: #fefefe;
 }
 #container.main-container {
-    margin-top:0px;
-    padding-top:90px;
+  margin-top:0px;
+  padding-top:90px;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
-    background:white;
+  background:white;
 }
 
 //FAB
@@ -32,49 +32,138 @@ div[data-ui-view='header'] {position:relative;z-index:999}
 }
 
 #main-toolbar {
-    position:fixed;
-    top:0;
-    padding-bottom:4px;
-    /*background-color: lightslategray;*/
-    h2 {margin:0;}
-    & > .md-toolbar-tools {
-        width:90%;
-        position: relative;
-        z-index:9995;
-    }
+  position:fixed;
+  top:0;
+  padding-bottom:4px;
+  /*background-color: lightslategray;*/
+  h2 {margin:0;}
+  & > .md-toolbar-tools {
+    width:90%;
+    position: relative;
+    z-index:9995;
+  }
 }
 
 #user-toolbar {
-    color:white;
-    position: fixed;
-    height: 68px;
-    width: 100%;
-    top: 0;
-    z-index: 9990;
-    -webkit-transition: z-index 0.3s ease;
-    -moz-transition: z-index 0.3s ease;
-    -o-transition: z-index 0.3s ease;
-    transition: z-index 0.3s ease;
-    -webkit-transition-delay: 500ms;
-    -moz-transition-delay: 500ms;
-    -o-transition-delay: 500ms;
-    transition-delay: 500ms;
-    &.md-is-open {
-        z-index: 9999;
-        -webkit-transition-delay: 00ms;
-        -moz-transition-delay: 00ms;
-        -o-transition-delay: 00ms;
-        transition-delay: 00ms;
-    }
-    h1,h2,h3,h4,h5 {color:white}
-    a {color:#777}
-    /*&.md-is-open {width:100%;right:auto;}*/
+  color:white;
+  position: fixed;
+  height: 68px;
+  width: 100%;
+  top: 0;
+  z-index: 9990;
+  -webkit-transition: z-index 0.3s ease;
+  -moz-transition: z-index 0.3s ease;
+  -o-transition: z-index 0.3s ease;
+  transition: z-index 0.3s ease;
+  -webkit-transition-delay: 500ms;
+  -moz-transition-delay: 500ms;
+  -o-transition-delay: 500ms;
+  transition-delay: 500ms;
+  &.md-is-open {
+    z-index: 9999;
+    -webkit-transition-delay: 00ms;
+    -moz-transition-delay: 00ms;
+    -o-transition-delay: 00ms;
+    transition-delay: 00ms;
+  }
+  h1,h2,h3,h4,h5 {color:white}
+  a {color:#777}
+  /*&.md-is-open {width:100%;right:auto;}*/
 }
 
 //input edits
 md-autocomplete[md-floating-label] md-input-container {
-    padding-bottom:0;
+  padding-bottom:0;
 }
+
+//animations
+//========================================
+.md-button.md-fab.ng-leave.roll-in {transition: all .3s ease;}
+.roll-in {
+	
+  &.ng-enter, &.ng-leave {
+    @extend .transition;
+	}
+	//animate from
+	&.ng-enter, &.ng-leave.ng-leave-active {
+    opacity:0;
+		-webkit-transform: rotate(180deg);
+		-moz-transform: rotate(180deg);
+		-o-transform: rotate(180deg);
+		-ms-transform: rotate(180deg);
+		transform: rotate(180deg);
+		margin-right:-50px;
+	}
+	//end state animation
+  &.ng-leave,  &.ng-enter.ng-enter-active {
+		opacity:1 ;
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		transform: rotate(0deg);
+		margin-right:0;
+	}
+}
+	
+.multi-input-item {
+	height:60px;
+  &.ng-enter, &.ng-leave {
+    @extend .transition;
+		position:relative;
+		/*display:block;*/
+	}
+	//animate from
+	&.ng-enter {
+    opacity: 0;
+    top: -40px;
+    height: 0px;
+		-webkit-transform: scale(.65);
+-moz-transform: scale(.65);
+-o-transform: scale(.65);
+-ms-transform: scale(.65);
+transform: scale(.65);
+
+	}
+	//end state animation
+  &.ng-leave,  &.ng-enter.ng-enter-active {
+    opacity: 1;
+    top: 0;
+    height: 60px;
+		-webkit-transform: scale(1);
+-moz-transform: scale(1);
+-o-transform: scale(1);
+-ms-transform: scale(1);
+transform: scale(1);
+
+	}
+	&.ng-leave.ng-leave-active {
+		opacity:0;
+		height:0;
+	}
+}
+	
+
+
+.roll-left {
+	@extend .transition;
+	-webkit-transform: rotate(-180deg);
+	-moz-transform: rotate(-180deg);
+	-o-transform: rotate(-180deg);
+	-ms-transform: rotate(-180deg);
+	transform: rotate(-180deg);
+	
+  &.roll-left-active {
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		transform: rotate(0deg);
+  }
+
+}
+
+
 
 
 /*MATERIAL ICONS*/
@@ -100,15 +189,15 @@ md-autocomplete[md-floating-label] md-input-container {
 .wide-min-width {min-width:600px;}
 
 .transition {
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .transition.slow {
-    -webkit-transition-duration: .6s;
-    -moz-transition-duration: .6s;
-    -o-transition-duration: .6s;
-    transition-duration: .6s;
+  -webkit-transition-duration: .6s;
+  -moz-transition-duration: .6s;
+  -o-transition-duration: .6s;
+  transition-duration: .6s;
 }
