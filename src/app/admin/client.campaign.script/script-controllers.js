@@ -47,7 +47,8 @@
 //            keyboard: true
           },
           manipulation: {
-            enabled: true
+            enabled:          true,
+            initiallyActive:  true
           }
         };
 
