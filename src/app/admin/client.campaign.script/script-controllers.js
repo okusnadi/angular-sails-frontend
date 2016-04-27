@@ -102,6 +102,8 @@
           nodes: nodes,
           edges: edges
         };
+        
+        $scope.network = null;
 
         $scope.onClick = function ( params ) {
           console.log(params);
