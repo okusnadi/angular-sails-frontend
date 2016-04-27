@@ -27,6 +27,6 @@
     'ngMaterial',
     'md.data.table',
     'frontend.core.filters',
-    'ngVis'
+//    'ngVis'
   ]);
 }());

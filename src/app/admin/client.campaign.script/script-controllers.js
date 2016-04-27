@@ -49,17 +49,40 @@
           manipulation: {
             enabled:          true,
             initiallyActive:  true
+          },
+          groups: {
+            'Start': { 
+              shape: 'dot',
+              physics: false,
+            },
+            'End':  {
+              shape: 'triangleDown',
+              physics: false
+            }
           }
         };
-
+        
         var nodes = new vis.DataSet([
-          {id: 1, label: 'Start', group: 0},
-          {id: 999, label: 'End', group: 999},
+          {id: 1, label: 'Start', group: 'Start'},
+          {id: 999, label: 'End', group: 'End'},
           {id: 2, label: 'Node 2', group: 1},
           {id: 3, label: 'Node 3', group: 1},
           {id: 4, label: 'Node 4', group: 2},
           {id: 5, label: 'Node 5', group: 2},
-          {id: 6, label: 'Just before end', group: 3}
+          {id: 6, label: 'Just before end', group: 3},
+          {id: 7, label: '0', group: 0},
+          {id: 8, label: '1', group: 1},
+          {id: 9, label: '2', group: 2},
+          {id: 10, label: '3', group: 3},
+          {id: 11, label: '4', group: 4},
+          {id: 12, label: '5', group: 5},
+          {id: 13, label: '6', group: 6},
+          {id: 14, label: '7', group: 7},
+          {id: 15, label: '8', group: 8},
+          {id: 16, label: '9', group: 9},
+          {id: 17, label: '10', group: 10},
+          {id: 18, label: '11', group: 11},
+          {id: 19, label: '12', group: 12},
         ]);
 
         // create an array with edges
