@@ -18,8 +18,13 @@
         <div data-ui-view="header"></div>
         
         <div id="container" class="container main-container">
-            <div data-ui-view="pageNavigation"></div>
-            <div data-ui-view="content"></div>
+            <md-card>
+                <!--<md-content>-->
+                    <div data-ui-view="pageNavigation"></div>
+                    <div data-ui-view="content">
+                <!--</md-content>-->
+            </md-card>
+            </div>
         </div>
 
         <div data-ui-view="footer"></div>

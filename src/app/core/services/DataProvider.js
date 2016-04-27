@@ -92,7 +92,14 @@
                         .load(_.merge({}, commonParameters, parameters))
                         .then(
                           function onSuccess(response) {
-                              query.items = response;
+//                              query.items = response;
+															
+                              query.items = [];
+															
+															angular.forEach(response,function(value,key){
+																query.items.push(angular.copy(value));
+															});
+															
                           }
                         )
                         ;

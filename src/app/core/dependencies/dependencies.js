@@ -28,5 +28,6 @@
     'md.data.table',
     'frontend.core.filters',
 //    'ngVis'
+    'ngAnimate-animate.css'
   ]);
 }());
