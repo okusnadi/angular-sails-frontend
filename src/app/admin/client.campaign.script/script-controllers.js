@@ -54,10 +54,12 @@
             'Start': { 
               shape: 'dot',
               physics: false,
+              color: 'green'
             },
             'End':  {
               shape: 'triangleDown',
-              physics: false
+              physics: false,
+              color: 'red'
             }
           }
         };
@@ -96,6 +98,14 @@
           {from: 3, to: 6},
           {from: 6, to: 999, arrows: 'to'}
         ]);
+        
+        $scope.contextMenu = [
+          '<ul class="menu">',
+              '<li>Read Message</li>',
+              '<li>Reply to </li>',
+              '<li>Delete Message</li>',
+          '</ul>'        
+        ].join(' ');
 
         // create a network
         $scope.data = {
@@ -108,14 +118,18 @@
         $scope.onClick = function ( params ) {
           console.log(params);
         };
+        
+        console.log(vis);
+        
         $scope.onRightClick = function ( params ) {
-          console.log(params);
           params.event.preventDefault();
-          
+          var node = $scope.network.getNodeAt(params.pointer.DOM);
+          var edge = $scope.network.getEdgeAt(params.pointer.DOM);
           var selection = {
-            nodes: params.nodes,
-            edges: params.edges,
+            nodes: angular.isDefined(node)?[node]:[],
+            edges: angular.isUndefined(node)&&angular.isDefined(edge)?[edge]:[]
           };
+          $scope.network.setSelection(selection);
         };
         
         $scope.beforeDrawing = function ( params ) {
