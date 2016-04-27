@@ -43,7 +43,12 @@
           },
           interaction: {
             navigationButtons: true,
+            selectConnectedEdges: false,
 //            keyboard: true
+          },
+          manipulation: {
+            enabled:          true,
+            initiallyActive:  true
           }
         };
 
@@ -59,7 +64,7 @@
 
         // create an array with edges
         var edges = new vis.DataSet([
-          {from: 1, to: 2, arrows: 'to'},
+          {from: 1, to: 2, arrows: 'to', label: 'first'},
           {from: 2, to: 3},
           {from: 2, to: 4},
           {from: 2, to: 5},
@@ -81,6 +86,11 @@
         $scope.onRightClick = function ( params ) {
           console.log(params);
           params.event.preventDefault();
+          
+          var selection = {
+            nodes: params.nodes,
+            edges: params.edges,
+          };
         };
         
         $scope.beforeDrawing = function ( params ) {
