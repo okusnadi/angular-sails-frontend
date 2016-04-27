@@ -1,13 +1,8 @@
+<md-card class="">
 
-<section layout="column">
-    <!--Table header-->
-      <label>Click me: <input type="checkbox" ng-model="checked" ng-init="checked=true" /></label><br/>
-Show when checked:
-<span ng-if="checked" class="roll-in">
-  This is removed when the checkbox is unchecked.
-</span>
-    <md-card>
-        
+<section layout="column" class="layout-padding">
+   
+         <!--Table header-->
         <ra-data-table-toolbar
             table-title=' "Clients" '
             query="query"
@@ -26,7 +21,6 @@ Show when checked:
             dt-on-paginate="dataProvider.onPaginate"
             >
         </md-data-table>
-        
-    </md-card>
 </section>
+</md-card>
 

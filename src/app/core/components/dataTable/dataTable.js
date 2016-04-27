@@ -6,7 +6,7 @@
   function DataTableController( _ ) {
 
     var ctrl = this;
-
+		
     // method to determine if field is clickable
     ctrl.isClickable = function (item, column) {
       return angular.isDefined(column.clickable) ? eval(column.clickable) : false;

@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<!--<ul class="nav nav-tabs">
     <li
         data-ng-repeat="item in navigationItems"
         data-ui-sref-active="active"
@@ -25,3 +25,23 @@
         </a>
     </li>
 </ul>
+
+<hr>-->
+<md-content layout-padding>
+<!--<h3>material tabs</h3>-->
+
+<md-tabs>
+    <md-tab ng-repeat="item in navigationItems" ng-attr-ui-sref="{{item.state}}">
+        <a ng-if="item.state" >
+            {{item.title}}
+        </a>
+        <a ng-if="!item.state" style="text-decoration:line-through; opacity:.75;">
+            {{item.title}}
+        </a>
+    </md-tab>
+</md-tabs>
+</md-content>
+
+
+
+

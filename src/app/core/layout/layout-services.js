@@ -82,7 +82,7 @@
               access: AccessLevels.admin
             },
             {
-              state: '',
+//              state: '',
               title: 'Request log',
               access: AccessLevels.admin
             },

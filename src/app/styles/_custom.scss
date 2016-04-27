@@ -11,7 +11,7 @@ and open the template in the editor.
 //main styles
 
 body {
-  background: #fefefe;
+  background: #f5f4f4;
 }
 #container.main-container {
   margin-top:0px;
@@ -75,6 +75,11 @@ div[data-ui-view='header'] {position:relative;z-index:999}
 md-autocomplete[md-floating-label] md-input-container {
   padding-bottom:0;
 }
+
+.add-client-modal {
+	overflow-x: hidden;
+}
+
 
 //animations
 //========================================
@@ -154,8 +159,105 @@ top:40px;
 transform: translateX(300px);*/
 	}
 }
-	
 
+//cssanimate
+.animate-repeat.ng-enter-stagger {
+  //200ms will be applied between each sucessive enter operation 
+  -webkit-transition-delay:0.3s;
+  transition-delay:0.3s;
+
+  //this is here to avoid accidental CSS inheritance
+  -webkit-transition-duration:0 !important;
+  transition-duration:0 !important;
+	/* yes we still need to do this too */
+   -webkit-animation-duration:0 !important;
+   animation-duration:0 !important;
+}
+.animate-repeat.ng-enter-stagger,
+.animate-repeat.ng-leave-stagger,
+.animate-repeat.ng-move-stagger {
+   //200ms will be applied between each sucessive enter operation  
+  -webkit-transition-delay:0.3s;
+  transition-delay:0.3s;
+	  /* notice how we're using animation instead of transition here */ 
+   -webkit-animation-delay:0.3s;
+   animation-delay:0.3s;
+}
+
+.ngr-fade-in {
+	&.ng-enter, &.ng-leave {
+		opacity:0;
+		@extend .transition;
+	}
+	&.ng-enter-stagger {
+		transition-delay: 30ms;
+		transition-duration: 0s;
+	}
+	&.ng-enter.ng-enter-active, &.ng-leave {
+		opacity:1;
+	}
+}
+
+
+.ngr-hinge-in {
+	&.ng-enter, &.ng-leave {
+		opacity:0;
+		@extend .transition;
+		-webkit-perspective-origin: 50%, 0%;
+		-moz-perspective-origin: 50%, 0%;
+		-o-perspective-origin: 50%, 0%;
+		-ms-perspective-origin: 50%, 0%;
+		perspective-origin: 50%, 0%;
+		-webkit-transform-origin: 50% 50%;
+		-moz-transform-origin: 50% 50%;
+		-o-transform-origin: 50% 50%;
+		-ms-transform-origin: 50% 50%;
+		transform-origin: 50% 50%;
+	}
+	&.ng-enter-stagger {
+		transition-delay: 30ms;
+		transition-duration: 0s;
+	}
+	&.ng-enter.ng-enter-active, &.ng-leave {
+		opacity:1;
+		transition-duration: .2s;
+	}
+	&.ng-enter, &.ng-leave-active {
+		-webkit-transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
+		-moz-transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
+		-o-transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
+		-ms-transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
+		transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
+	}
+}
+
+
+.ngr-slide-down{
+	&.ng-enter, &.ng-leave {
+		opacity:0;
+		@extend .transition;
+	}
+	&.ng-enter-stagger {
+		transition-delay: 0.2s;
+		transition-duration: 0s;
+	}
+	&.ng-enter.ng-enter-active, &.ng-leave {
+		opacity:1;
+		height:48px;
+	}
+	&.ng-enter, &.ng-leave.ng-leave-active {
+		height:0 !important;
+		opacity:0;
+	}
+}
+
+.ngr-default-perspective {
+	-webkit-perspective: 500px;
+-moz-perspective: 500px;
+-o-perspective: 500px;
+-ms-perspective: 500px;
+perspective: 500px;
+}
 
 .roll-left {
 	@extend .transition;
@@ -174,8 +276,6 @@ transform: translateX(300px);*/
   }
 
 }
-
-
 
 
 /*MATERIAL ICONS*/
