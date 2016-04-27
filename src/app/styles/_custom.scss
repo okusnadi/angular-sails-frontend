@@ -79,6 +79,7 @@ md-autocomplete[md-floating-label] md-input-container {
 //animations
 //========================================
 .md-button.md-fab.ng-leave.roll-in {transition: all .3s ease;}
+
 .roll-in {
 	
   &.ng-enter, &.ng-leave {
@@ -127,7 +128,7 @@ transform: scale(.65);
 	}
 	//end state animation
   &.ng-leave,  &.ng-enter.ng-enter-active {
-    opacity: 1;
+    opacity: .8;
     top: 0;
     height: 60px;
 		-webkit-transform: scale(1);
@@ -140,6 +141,17 @@ transform: scale(1);
 	&.ng-leave.ng-leave-active {
 		opacity:0;
 		height:0;
+		-webkit-transform: scale(.8);
+-moz-transform: scale(.8);
+-o-transform: scale(.8);
+-ms-transform: scale(.8);
+transform: scale(.8);
+top:40px;
+/*		-webkit-transform: translateX(300px);
+-moz-transform: translateX(300px);
+-o-transform: translateX(300px);
+-ms-transform: translateX(300px);
+transform: translateX(300px);*/
 	}
 }
 	
