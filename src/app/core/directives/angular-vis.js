@@ -82,7 +82,7 @@ angular.module('frontend.core.directives')
 /**
  * Directive for network chart.
  */
-    .directive('visNetwork', function () {
+    .directive('visNetwork', [ 'NetworkProvider', function (NetworkProvider) {
         return {
             restrict: 'EA',
             transclude: false,
@@ -90,7 +90,6 @@ angular.module('frontend.core.directives')
                 data: '=',
                 options: '=',
                 events: '=',
-                network: '='
             },
             link: function (scope, element, attr) {
                 var networkEvents = [
@@ -131,36 +130,36 @@ angular.module('frontend.core.directives')
 
                     // If we've actually changed the data set, then recreate the graph
                     // We can always update the data by adding more data to the existing data set
-                    if (scope.network != null) {
-                        scope.network.destroy();
+                    if (NetworkProvider.network !== null) {
+                        NetworkProvider.network.destroy();
                     }
 
                     // Create the graph2d object
-                    scope.network = new vis.Network(element[0], scope.data, scope.options);
+                    NetworkProvider.network = new vis.Network(element[0], scope.data, scope.options);
 
                     // Attach an event handler if defined
                     angular.forEach(scope.events, function (callback, event) {
                         if (networkEvents.indexOf(String(event)) >= 0) {
-                            scope.network.on(event, callback);
+                            NetworkProvider.network.on(event, callback);
                         }
                     });
 
                     // onLoad callback
                     if (scope.events != null && scope.events.onload != null &&
                         angular.isFunction(scope.events.onload)) {
-                        scope.events.onload(scope.network);
+                        scope.events.onload(NetworkProvider.network);
                     }
                 });
 
                 scope.$watchCollection('options', function (options) {
-                    if (scope.network == null) {
+                    if (NetworkProvider.network === null) {
                         return;
                     }
-                    scope.network.setOptions(options);
+                    NetworkProvider.network.setOptions(options);
                 });
             }
         };
-    })
+    }])
 
 /**
  * Directive for graph2d.

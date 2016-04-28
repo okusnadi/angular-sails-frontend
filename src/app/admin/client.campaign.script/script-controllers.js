@@ -35,8 +35,6 @@
         };
 
         // create a network
-        NetworkProvider.network = null;
-        $scope.network = NetworkProvider.network;
         $scope.options = NetworkProvider.getOptions();
         $scope.events = NetworkProvider.getEvents();
 
@@ -52,7 +50,7 @@
         $scope.saveScript = function () {
           $scope.script.campaign = $scope.campaign;
 
-          $scope.network.storePositions();
+          NetworkProvider.network.storePositions();
           $scope.script.network = {
             nodes: $scope.data.nodes.get(),
             edges: $scope.data.edges.get()
@@ -102,11 +100,9 @@
           $scope.selectList = _script.list ? _script.list.id : null;
 
           // create a network
-          NetworkProvider.network = null;
-          $scope.network = NetworkProvider.network;
           $scope.options = NetworkProvider.getOptions();
           $scope.events = NetworkProvider.getEvents();
-
+          
           var nodes = $scope.script.network ? $scope.script.network.nodes : NetworkProvider.getStartNodes();
           var edges = $scope.script.network ? $scope.script.network.edges : [];
           $scope.data = {
@@ -135,7 +131,7 @@
            */
           $scope.saveScript = function () {
 
-            $scope.network.storePositions();
+            NetworkProvider.network.storePositions();
             $scope.script.network = {
               nodes: $scope.data.nodes.get(),
               edges: $scope.data.edges.get()
