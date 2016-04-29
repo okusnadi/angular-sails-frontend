@@ -1,52 +1,74 @@
 
 <md-content layout-padding>
 
-    <form class="form-vertical" role="form" name="scriptForm"
-          autocomplete="off" 
-          ng-submit="saveScript()"
-          >
-        <div layout="row">
-            <div flex="30" layout-margin>
-                <md-input-container class="md-block">
-                    <label>Script name</label>
-                    <input type="text" name="name" 
-                           ng-model="script.name"
-                           minlength="3"
-                           required 
-                           />
-                    <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
-                        <div ng-message="minlength">The name has to be at least 3 characters.</div>
-                        <div ng-message="required">Name is required.</div>
-                    </div>
-                </md-input-container>              
-            </div>
+  <form class="form-vertical" role="form" name="scriptForm"
+        autocomplete="off" 
+        ng-submit="saveScript()"
+        >
+    <div layout="row">
+      <div flex="30" layout-margin>
+        <md-input-container class="md-block">
+          <label>Script name</label>
+          <input type="text" name="name" 
+                 ng-model="script.name"
+                 minlength="3"
+                 required 
+                 />
+          <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
+            <div ng-message="minlength">The name has to be at least 3 characters.</div>
+            <div ng-message="required">Name is required.</div>
+          </div>
+        </md-input-container>              
 
-            <div flex="70" layout-margin>
-              <md-card>
-                
-                <vis-network data="data" options="options" events="events" network="network" ></vis-network>
-              </md-card>
-            </div>
+        <!--  <md-toolbar class="md-menu-toolbar">
+            <md-menu-bar>-->
 
-        </div>
-            <md-button type="submit" class="md-primary md-raised "
-                       ng-disabled="!scriptForm.$valid"
-                       >
-                Save
-            </md-button>
+        <md-menu>
+          <button ng-click="$mdOpenMenu($event)">CLICK ME NOW</button>
+          <md-menu-content>
+            <md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>
+            <md-menu-item>
+              <md-menu>
+                <md-button data-ng-click="$mdOpenMenu($event)">New</md-button>
+                <md-menu-content>
+                  <md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </md-menu-item>
+            <md-menu-item><md-button ng-click="doSomething()"><md-icon>delete</md-icon>Delete node</md-button></md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <!--    </md-menu-bar>
+          </md-toolbar class="md-menu-toolbar">-->
 
-            <md-button type="button" class="md-button md-raised "
-                       ng-click="$state.go('scripts')"
-                       >
-                Cancel
-            </md-button>
+      </div>
 
-            <md-button type="button" class="md-warn md-raised"
-                       ng-show="$state.current.name === 'script'"
-                       ng-click="confirmDelete($event)"
-                       >
-                Delete
-            </md-button>
+      <div flex="70" layout-margin>
+        <md-card>
 
-    </form>
+          <vis-network data="data" options="options" events="events" network="network" ></vis-network>
+        </md-card>
+      </div>
+
+    </div>
+    <md-button type="submit" class="md-primary md-raised "
+               ng-disabled="!scriptForm.$valid"
+               >
+      Save
+    </md-button>
+
+    <md-button type="button" class="md-button md-raised "
+               ng-click="$state.go('scripts')"
+               >
+      Cancel
+    </md-button>
+
+    <md-button type="button" class="md-warn md-raised"
+               ng-show="$state.current.name === 'script'"
+               ng-click="confirmDelete($event)"
+               >
+      Delete
+    </md-button>
+
+  </form>
 </md-content>

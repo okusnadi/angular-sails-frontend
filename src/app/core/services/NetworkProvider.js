@@ -49,8 +49,10 @@
           shadow: true
         },
         interaction: {
-          navigationButtons: true,
+          navigationButtons:    true,
           selectConnectedEdges: false,
+          hover:                true,
+          hoverConnectedEdges:  false
         },
         manipulation: {
           enabled: true,
@@ -104,8 +106,16 @@
         '<md-menu>',
         '<span ng-click="$mdOpenMenu($event)"></span>',
         '<md-menu-content>',
-        '<md-menu-item><md-button ng-click="doSomething()">Do Something 1</md-button></md-menu-item>',
-        '<md-menu-item><md-button ng-click="doSomething()">Do Something 2</md-button></md-menu-item>',
+        '<md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>',
+        '<md-menu-item>',
+        '<md-menu>',
+        '<md-button ng-click="$mdOpenMenu($event)">New</md-button>',
+        '<md-menu-content>',
+        '<md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>',
+        '</md-menu-content>',
+        '</md-menu>',
+        '</md-menu-item>',
+        '<md-menu-item><md-button ng-click="doSomething()"><md-icon>delete</md-icon>Delete node</md-button></md-menu-item>',
         '</md-menu-content>',
         '</md-menu>',
       ].join(' ');
@@ -155,11 +165,32 @@
 
       };
 
-      var onClick = function (params) {
-        console.log(params);
+      var editedElement;
+      
+      var onClickEditMode = function onCLickEditMode(event) {
+        console.log(event);
+        var pos = { x:event.offsetX, y:event.offsetY };
+        var edge = self.network.getEdgeAt(pos);
+        if( editedElement !== edge ) {
+          self.network.disableEditMode();
+//          $document.off('click', onClickEditMode);
+        }
       };
 
+      
+      var onClick = function (params) {
+        console.log(params);
+        var selection = self.network.getSelection();
+        if( selection.edges.length === 1 ) {
+          editedElement = selection.edges[0];
+          self.network.editEdgeMode();
+          $document.off('click', onClickEditMode);
+          $document.on('click', onClickEditMode);
+        }
+      };
+      
       var onRightClick = function (params) {
+        console.log(params);
         params.event.preventDefault();
         var node = self.network.getNodeAt(params.pointer.DOM);
         var edge = self.network.getEdgeAt(params.pointer.DOM);
