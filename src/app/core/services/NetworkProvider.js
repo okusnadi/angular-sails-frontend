@@ -94,17 +94,9 @@
         {id: 999, label: 'End', group: 'End', x: 200, y: 100}
       ];
 
-      var contextMenu = [
-        '<ul class="menu">',
-        '<li>Read Message</li>',
-        '<li>Reply to </li>',
-        '<li>Delete Message</li>',
-        '</ul>'
-      ].join(' ');
-
       var nodeMenu = [
         '<md-menu>',
-        '<span ng-click="$mdOpenMenu($event)"></span>',
+        '<md-button ng-click="$mdOpenMenu($event)"></md-button>',
         '<md-menu-content>',
         '<md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>',
         '<md-menu-item>',
@@ -115,9 +107,19 @@
         '</md-menu-content>',
         '</md-menu>',
         '</md-menu-item>',
-        '<md-menu-item><md-button ng-click="doSomething()"><md-icon>delete</md-icon>Delete node</md-button></md-menu-item>',
+        '<md-menu-item><md-button ng-click="deleteSelected()"><md-icon>delete</md-icon>Delete node</md-button></md-menu-item>',
         '</md-menu-content>',
-        '</md-menu>',
+        '</md-menu>'
+      ].join(' ');
+
+      var canvasMenu = [
+        '<md-menu>',
+        '<md-button ng-click="$mdOpenMenu($event)"></md-button>',
+        '<md-menu-content>',
+        '<md-menu-item><md-button ng-click="addNode()"><md-icon>create</md-icon>Add node</md-button></md-menu-item>',
+        '<md-menu-item><md-button ng-click="dupa()"><md-icon>delete</md-icon>Add connection</md-button></md-menu-item>',
+        '</md-menu-content>',
+        '</md-menu>'
       ].join(' ');
 
 
@@ -131,6 +133,21 @@
 
       self.getStartNodes = function getStartNodes() {
         return startNodes;
+      };
+      
+      self.deleteSelected = function() {
+        self.network.deleteSelected();
+      };
+
+      self.addNode = function() {
+        var defaultData = {
+          id: new Date().getTime(),
+          x: self.canvasPosition.x,
+          y: self.canvasPosition.y,
+          label: 'dupa'
+        };
+        console.log(self.network);
+        self.network.body.data.nodes.getDataSet().add(defaultData);
       };
 
       var beforeDrawing = function (params) {
@@ -146,10 +163,12 @@
         self.scope.$destroy();
       };
 
-      var renderMenu = function renderMenu(event) {
-        self.menuPosition = {x: event.clientX, y: event.clientY};
-        self.scope = $rootScope.$new();
-        var menu = angular.element($compile(nodeMenu)(self.scope));
+      var renderMenu = function renderMenu(params, menuTemplate) {
+        console.log(params);
+        self.menuPosition = {x: params.event.clientX, y: params.event.clientY};
+        self.canvasPosition = {x: params.pointer.canvas.x, y: params.pointer.canvas.y};
+        self.scope = angular.extend($rootScope.$new(), self);
+        var menu = angular.element($compile(menuTemplate)(self.scope));
         $document.find('body').append(menu);
         menu.css({
           position: 'fixed',
@@ -159,27 +178,29 @@
             x: self.menuPosition.x, y: self.menuPosition.y
           })
         });
-        menu.find('span').click();
-        self.menu = menu;
+        self.menu = menu[0];
+        angular.element(self.menu).controller('mdMenu').open();
         $document.on('click', closeMenu);
 
       };
 
       var editedElement;
-      
+    /*
+       *  onClick handler when network is in edit mode and blocks internal click events
+       */
       var onClickEditMode = function onCLickEditMode(event) {
         console.log(event);
         var pos = { x:event.offsetX, y:event.offsetY };
         var edge = self.network.getEdgeAt(pos);
         if( editedElement !== edge ) {
           self.network.disableEditMode();
-//          $document.off('click', onClickEditMode);
+          $document.off('click', onClickEditMode);
         }
       };
 
       
       var onClick = function (params) {
-        console.log(params);
+//        console.log(params);
         var selection = self.network.getSelection();
         if( selection.edges.length === 1 ) {
           editedElement = selection.edges[0];
@@ -190,7 +211,7 @@
       };
       
       var onRightClick = function (params) {
-        console.log(params);
+        console.log(self.network);
         params.event.preventDefault();
         var node = self.network.getNodeAt(params.pointer.DOM);
         var edge = self.network.getEdgeAt(params.pointer.DOM);
@@ -204,7 +225,9 @@
           closeMenu();
         }
         if( node || edge ) {
-          renderMenu(event);
+          renderMenu(params, nodeMenu);
+        } else {
+          renderMenu(params, canvasMenu);
         }
       };
 

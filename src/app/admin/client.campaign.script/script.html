@@ -27,9 +27,9 @@
           <button ng-click="$mdOpenMenu($event)">CLICK ME NOW</button>
           <md-menu-content>
             <md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>
-            <md-menu-item>
+            <md-menu-item ng-click>
               <md-menu>
-                <md-button data-ng-click="$mdOpenMenu($event)">New</md-button>
+                <md-button ng-click="$mdOpenMenu($event)">New</md-button>
                 <md-menu-content>
                   <md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>
                 </md-menu-content>

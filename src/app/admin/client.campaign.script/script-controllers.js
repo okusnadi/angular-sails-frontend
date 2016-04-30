@@ -151,6 +151,13 @@
               ;
           };
 
+          var originatorEv;
+
+          $scope.openMenu = function($mdOpenMenu, ev) {
+            console.log($mdOpenMenu);
+            originatorEv = ev;
+          $mdOpenMenu(ev);
+        };
           /**
            * Scope function to delete current script. This will send DELETE query to backend via web socket
            * query and after successfully delete redirect script back to script list.
