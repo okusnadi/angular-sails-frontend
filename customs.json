@@ -12,6 +12,11 @@
         "class": {}
       }
     },
+    "vis-network-info": {
+      "attributes": {
+        "ni-element": {}
+      }
+    },
     "ng-messages=\"roleForm.name.$error\"": {},
     "div": {
       "attributes": {

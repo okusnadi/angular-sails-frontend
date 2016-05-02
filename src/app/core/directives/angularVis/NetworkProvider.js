@@ -12,11 +12,20 @@ var globalNet;
         var self = this;
         self.menu = null;
         self.network = null;
+        
+        self.selected = {};
+//        self.selectedType = 'nothing';
 
         globalNet = self;
 
         var currentElement;
 
+        var events = {
+          click: onClick,
+          oncontext: onRightClick,
+          beforeDrawing: beforeDrawing
+        };
+        
         var groupColours = [
           {border: '#2B7CE9', background: '#97C2FC', highlight: {border: '#2B7CE9', background: '#D2E5FF'}, hover: {border: '#2B7CE9', background: '#D2E5FF'}}, // 0: blue
           {border: '#FFA500', background: '#FFFF00', highlight: {border: '#FFA500', background: '#FFFFA3'}, hover: {border: '#FFA500', background: '#FFFFA3'}}, // 1: yellow
@@ -146,7 +155,7 @@ var globalNet;
           return startNodes;
         };
 
-        self.deleteSelected = function () {
+        self.deleteSelected = function deleteSelected() {
           var selection = self.network.getSelection();
           if (selection.nodes.length === 1) {
             var nodeToDelete = self.network.body.data.nodes.get(selection.nodes[0]);
@@ -163,6 +172,26 @@ var globalNet;
           }
         };
 
+        function updateSelectedElement() {
+          var selection = self.network.getSelection();
+          self.selected = {};
+          self.selectedType = 'nothing';
+          if (selection.edges.length === 1) {
+            self.selected = self.network.body.data.edges.get(selection.edges[0]);
+            self.selected.type = 'edge';
+          }
+          if (selection.nodes.length === 1) {
+            self.selected = self.network.body.data.nodes.get(selection.nodes[0]);
+            self.selected.type = 'node';
+          }
+          // force angular digest
+          $rootScope.$digest();
+        }
+        
+        self.getSelected = function getSelected() {
+          return self.selected;
+        };
+        
         /*
          * function to check if new node of given type can be added (as defined in groups max limit)
          * @param {type} nodeType
@@ -186,7 +215,7 @@ var globalNet;
          * @param {type} nodeType
          * @returns {Boolean}
          */
-        var checkDeleteNodeType = function (nodeType) {
+        function checkDeleteNodeType(nodeType) {
           var count = self.network.body.data.nodes.get({
             filter: function (item) {
               return item.group === nodeType;
@@ -197,14 +226,14 @@ var globalNet;
             return false;
           }
           return true;
-        };
+        }
 
         /*
          *  function to get node info from id + from and to edges + amount of existing nodes of that type
          * @param {type} id - id of node we want to get with info
          * @returns {unresolved} - node info
          */
-        var getNodeInfo = function (id) {
+        function getNodeInfo(id) {
           var node = self.network.body.data.nodes.get(id);
           if (node) {
             node.from = self.network.body.data.edges.get({
@@ -224,13 +253,14 @@ var globalNet;
             }).length;
           }
           return node;
-        };
+        }
+        
         /*
          * function to check if new edge can be added from start node
          * @param {type} id
          * @returns {Boolean}
          */
-        var checkAddFromEdge = function (id) {
+        function checkAddFromEdge(id) {
           var node = getNodeInfo(id);
           if (!node) {
             return false;
@@ -240,14 +270,14 @@ var globalNet;
             return false;
           }
           return true;
-        };
+        }
 
         /*
          * function to check if new edge can be added to end node
          * @param {type} id
          * @returns {Boolean}
          */
-        var checkAddToEdge = function (id) {
+        function checkAddToEdge(id) {
           var node = getNodeInfo(id);
           if (!node) {
             return false;
@@ -257,7 +287,7 @@ var globalNet;
             return false;
           }
           return true;
-        };
+        }
 
         /*
          * function to check if new edge can be added between nodes with id1 and id2
@@ -265,7 +295,7 @@ var globalNet;
          * @param {type} id2
          * @returns {Boolean}
          */
-        var checkAddEdge = function (id1, id2) {
+        function checkAddEdge(id1, id2) {
           if ((id1 === id2) || angular.isUndefined(id1) || angular.isUndefined(id2)) {
             return false;
           }
@@ -280,7 +310,7 @@ var globalNet;
             return false;
           }
           return true;
-        };
+        }
 
         /*
          * function to add new not connected node to the network placed under the mouse pointer
@@ -301,14 +331,14 @@ var globalNet;
             group: nodeType
           };
           self.network.body.data.nodes.add(newNode);
-          if( addConnection === true ) {
+          if (addConnection === true) {
             var selection = self.network.getSelection();
             var startNode = selection.nodes[0];
             if (checkAddEdge(startNode, newNode.id) === true) {
               var newEdge = {
-                id:   newNode.id + 1,
+                id: newNode.id + 1,
                 from: startNode,
-                to:   newNode.id
+                to: newNode.id
               };
               self.network.body.data.edges.add(newEdge);
             }
@@ -321,7 +351,7 @@ var globalNet;
          * @param {type} event
          * @returns {undefined}
          */
-        var onClickAddEdge = function onClickAddEdge(event) {
+        function onClickAddEdge(event) {
           var newEdge = {
             id: new Date().getTime()
           };
@@ -338,7 +368,8 @@ var globalNet;
             self.network.body.data.edges.add(newEdge);
             self.network.setSelection({edges: [newEdge.id]});
           }
-        };
+        }
+        ;
 
         /*
          * function to start add new edge process - registers event handler  waiting for click on second node to connect
@@ -352,25 +383,25 @@ var globalNet;
           $document.on('click', onClickAddEdge);
         };
 
-        var beforeDrawing = function (params) {
+        function beforeDrawing(params) {
           self.canvas = angular.element(params.canvas);
           // make sure canvas is not selectable
           self.canvas.attr('tabindex', '-1');
-        };
+        }
 
-        var closeMenu = function closeMenu() {
+        function closeMenu() {
           $document.off('click', closeMenu);
           self.menu.remove();
           self.menu = null;
           self.scope.$destroy();
-        };
+        }
 
         /*
          * function to render context menu depends on the target of right click
          * @param {type} params
          * @returns {undefined}
          */
-        var renderMenu = function renderMenu(params) {
+        function renderMenu(params) {
           self.menuPosition = {x: params.event.clientX, y: params.event.clientY};
           self.canvasPosition = {x: params.pointer.canvas.x, y: params.pointer.canvas.y};
           self.scope = angular.extend($rootScope.$new(), self);
@@ -389,40 +420,40 @@ var globalNet;
             angular.element(self.menu).controller('mdMenu').open();
             $document.on('click', closeMenu);
           });
-        };
+        }
 
         /*
          *  onClick handler when network is in edit mode and blocks internal click events
          */
-        var onClickEditMode = function onCLickEditMode(event) {
+        function onClickEditMode(event) {
           var pos = {x: event.offsetX, y: event.offsetY};
           var edge = self.network.getEdgeAt(pos);
           if (currentElement !== edge) {
             self.network.disableEditMode();
             $document.off('click', onClickEditMode);
           }
-        };
+        }
 
         /*
          * 
          * @param {type} event
          * @returns {undefined}
          */
-        var onKeyPress = function (event) {
+        function onKeyPress(event) {
           $document.off('keypress', onKeyPress);
           switch (event.keyCode) {
             case 127:  // Delete
               self.deleteSelected();
               break;
           }
-        };
+        }
 
         /*
          * 
          * @param {type} params
          * @returns {undefined}
          */
-        var onClick = function (params) {
+        function onClick(params) {
           $document.off('keypress', onKeyPress);
           var selection = self.network.getSelection();
           if (selection.edges.length === 1) {
@@ -434,12 +465,13 @@ var globalNet;
           if (selection.edges.length || selection.nodes.length) {
             $document.on('keypress', onKeyPress);
           }
-        };
+          updateSelectedElement();
+        }
 
         /*
          * right click event handler
          */
-        var onRightClick = function (params) {
+        function onRightClick(params) {
           params.event.preventDefault();
           var node = self.network.getNodeAt(params.pointer.DOM);
           var edge = self.network.getEdgeAt(params.pointer.DOM);
@@ -458,13 +490,7 @@ var globalNet;
             params.templateUrl = '/core/directives/angularVis/menuCanvas.html';
           }
           renderMenu(params);
-        };
-
-        var events = {
-          click: onClick,
-          oncontext: onRightClick,
-          beforeDrawing: beforeDrawing,
-        };
+        }
 
       }]);
 }());

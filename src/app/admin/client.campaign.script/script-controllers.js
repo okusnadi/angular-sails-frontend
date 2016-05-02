@@ -37,6 +37,7 @@
         // create a network
         $scope.options = NetworkProvider.getOptions();
         $scope.events = NetworkProvider.getEvents();
+        $scope.np = NetworkProvider;
 
         $scope.data = {
           nodes: new vis.DataSet(NetworkProvider.getStartNodes()),
@@ -102,6 +103,16 @@
           // create a network
           $scope.options = NetworkProvider.getOptions();
           $scope.events = NetworkProvider.getEvents();
+          $scope.np = NetworkProvider;
+          
+          // 1 level deep watch for changes in current element form
+          $scope.$watchCollection("np.selected", function(nv, ov){
+            if( angular.isDefined(nv.id) && nv.id === ov.id) {
+              var set = nv.type==='node'?$scope.np.network.body.data.nodes:$scope.np.network.body.data.edges;
+              set.update(nv);
+            }
+          });
+          
           
           var nodes = $scope.script.network ? $scope.script.network.nodes : NetworkProvider.getStartNodes();
           var edges = $scope.script.network ? $scope.script.network.edges : [];
