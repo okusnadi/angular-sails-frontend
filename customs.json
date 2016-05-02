@@ -5,6 +5,7 @@
         "name": {}
       }
     },
+    "md-menu": {},
     "md-content": {
       "attributes": {
         "layout-padding": {},
@@ -31,6 +32,12 @@
     "md-fab-actions": {
       "attributes": {
         "class": {}
+      }
+    },
+    "md-menu-content": {},
+    "md-menu-item": {
+      "attributes": {
+        "ng-repeat": {}
       }
     },
     "md-fab-trigger": {

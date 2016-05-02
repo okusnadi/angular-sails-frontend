@@ -80,7 +80,7 @@
     },
     "vis": {
       "main": [
-        "dist/vis-network.min.js",
+        "dist/vis.js",
         "dist/vis.css"
       ]
     }

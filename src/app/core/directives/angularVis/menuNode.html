@@ -1,0 +1,24 @@
+<md-menu>
+  <md-button ng-click="$mdOpenMenu($event)">.</md-button>
+  <md-menu-content>
+    <!--<md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>-->
+    <md-menu-item><md-button ng-click="addEdgeStart($event)"><md-icon>create</md-icon>Connect to node</md-button></md-menu-item>
+    
+    <md-menu-item>
+      <md-menu>
+        <md-menu-item>
+          <md-button ng-click="$mdOpenMenu($event)"><md-icon>add_circle_outline</md-icon>Add node and connection</md-button>
+        </md-menu-item>
+        <md-menu-content>
+          <md-menu-item ng-repeat="(type, group) in getOptions().groups">
+            <md-button ng-disabled="!checkAddNodeType(type)" ng-click="addNode(type, true)">
+              <md-icon>{{group.icon}}</md-icon>Add {{type}} node
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-menu-item>
+    
+    <md-menu-item><md-button ng-click="deleteSelected()"><md-icon>delete</md-icon>Delete node</md-button></md-menu-item>
+  </md-menu-content>
+</md-menu>

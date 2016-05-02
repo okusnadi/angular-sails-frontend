@@ -1,15 +1,19 @@
 
+var globalNet;
+
 (function () {
   'use strict';
 
-  angular.module('frontend.core.services')
+  angular.module('frontend.core.directives')
     .service('NetworkProvider', [
-      '$document', '$compile', '$rootScope', '$interpolate',
-      function ($document, $compile, $rootScope, $interpolate) {
+      'MessageService', '$document', '$compile', '$rootScope', '$interpolate', '$http',
+      function (MessageService, $document, $compile, $rootScope, $interpolate, $http) {
 
         var self = this;
         self.menu = null;
         self.network = null;
+
+        globalNet = self;
 
         var currentElement;
 
@@ -61,50 +65,55 @@
             }
           },
           groups: {
-            'Start': {
+            Start: {
               shape: 'dot',
               physics: false,
               color: groupColours[3],
-              extra: { 
+              icon: 'play_circle_outline',
+              extra: {
                 count: {min: 1, max: 1},
                 to: {max: 0},
                 from: {min: 1, max: 1}
               }
             },
-            'End': {
+            End: {
               shape: 'triangle',
               physics: false,
               color: groupColours[2],
+              icon: 'done_all',
               extra: {
-                count: {min: 1},
-                to: {},
+                count: {min: 1, max: 3},
+                to: {min: 1},
                 from: {max: 0}
               }
             },
-            'Script': {
+            Script: {
               shape: 'square',
               physics: true,
               color: groupColours[4],
+              icon: 'assignment',
               extra: {
                 count: {},
-                to: {},
+                to: {min: 1},
                 from: {min: 1, max: 1}
               }
             },
-            'Decision': {
+            Decision: {
               shape: 'dot',
               physics: true,
               color: groupColours[0],
+              icon: 'call_split',
               extra: {
                 count: {},
                 to: {max: 1},
                 from: {min: 1}
               }
             },
-            'Option': {
+            Option: {
               shape: 'box',
               physics: true,
               color: groupColours[0],
+              icon: 'done',
               extra: {
                 count: {},
                 to: {min: 1, max: 1},
@@ -120,36 +129,6 @@
           {id: 3, label: 'Decison point 1', group: 'Decision'},
           {id: 999, label: 'End', group: 'End', x: 200, y: 100}
         ];
-
-        var nodeMenu = [
-          '<md-menu>',
-          '<md-button ng-click="$mdOpenMenu($event)"></md-button>',
-          '<md-menu-content>',
-          '<md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>',
-          '<md-menu-item><md-button ng-click="addEdgeStart($event)"><md-icon>create</md-icon>Connect to node</md-button></md-menu-item>',
-          '<md-menu-item>',
-          '<md-menu>',
-          '<md-button ng-click="$mdOpenMenu($event)">New</md-button>',
-          '<md-menu-content>',
-          '<md-menu-item><md-button ng-click="doSomething()"><md-icon>create</md-icon>Edit node</md-button></md-menu-item>',
-          '</md-menu-content>',
-          '</md-menu>',
-          '</md-menu-item>',
-          '<md-menu-item><md-button ng-click="deleteSelected()"><md-icon>delete</md-icon>Delete node</md-button></md-menu-item>',
-          '</md-menu-content>',
-          '</md-menu>'
-        ].join(' ');
-
-        var canvasMenu = [
-          '<md-menu>',
-          '<md-button ng-click="$mdOpenMenu($event)"></md-button>',
-          '<md-menu-content>',
-          '<md-menu-item><md-button ng-click="addNode()"><md-icon>create</md-icon>Add node</md-button></md-menu-item>',
-          '<md-menu-item><md-button ng-click="dupa()"><md-icon>delete</md-icon>Add connection</md-button></md-menu-item>',
-          '</md-menu-content>',
-          '</md-menu>'
-        ].join(' ');
-
 
         self.getOptions = function getOptions() {
           return options;
@@ -168,28 +147,63 @@
         };
 
         self.deleteSelected = function () {
-          self.network.deleteSelected();
+          var selection = self.network.getSelection();
+          if (selection.nodes.length === 1) {
+            var nodeToDelete = self.network.body.data.nodes.get(selection.nodes[0]);
+            if (checkDeleteNodeType(nodeToDelete.group) !== true) {
+              MessageService.warning('Reached minimum limit of this type of nodes');
+              return;
+            }
+            self.network.body.data.edges.remove(self.network.getConnectedEdges(nodeToDelete.id));
+            self.network.body.data.nodes.remove(nodeToDelete.id);
+          }
+          if (selection.edges.length === 1) {
+            var edgeToDelete = self.network.body.data.edges.get(selection.edges[0]);
+            self.network.body.data.edges.remove(edgeToDelete.id);
+          }
         };
 
-/*
- * function to add new not connected node to the network placed under the mouse pointer
- * @returns {undefined}
- */
-        self.addNode = function () {
-          var newNode = {
-            id: new Date().getTime(),
-            x: self.canvasPosition.x,
-            y: self.canvasPosition.y,
-            label: '* new *'
-          };
-          self.network.body.data.nodes.add(newNode);
-          self.network.setSelection({nodes: [newNode.id]});
+        /*
+         * function to check if new node of given type can be added (as defined in groups max limit)
+         * @param {type} nodeType
+         * @returns {Boolean}
+         */
+        self.checkAddNodeType = function (nodeType) {
+          var count = self.network.body.data.nodes.get({
+            filter: function (item) {
+              return item.group === nodeType;
+            }
+          }).length;
+          var max = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].extra.count.max;
+          if (max && (count >= max)) {
+            return false;
+          }
+          return true;
         };
-/*
- *  function to get node info from id + from and to edges + amount of existing nodes of that type
- * @param {type} id - id of node we want to get with info
- * @returns {unresolved} - node info
- */
+
+        /*
+         * function to check if node of given type can be deleted (as defined in groups min limit)
+         * @param {type} nodeType
+         * @returns {Boolean}
+         */
+        var checkDeleteNodeType = function (nodeType) {
+          var count = self.network.body.data.nodes.get({
+            filter: function (item) {
+              return item.group === nodeType;
+            }
+          }).length;
+          var min = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].extra.count.min;
+          if (min && (count <= min)) {
+            return false;
+          }
+          return true;
+        };
+
+        /*
+         *  function to get node info from id + from and to edges + amount of existing nodes of that type
+         * @param {type} id - id of node we want to get with info
+         * @returns {unresolved} - node info
+         */
         var getNodeInfo = function (id) {
           var node = self.network.body.data.nodes.get(id);
           if (node) {
@@ -211,37 +225,113 @@
           }
           return node;
         };
-
-/*
- * function to check if new edge can be added between nodes with id1 and id2
- * @param {type} id1
- * @param {type} id2
- * @returns {Boolean}
- */
-        var checkAddEdge = function (id1, id2) {
-
-          if ((id1 === id2) || angular.isUndefined(id1) || angular.isUndefined(id2)) {
-            return false;
-          }          
-          var node1 = getNodeInfo(id1);
-          var node2 = getNodeInfo(id2);
-          if (!node1 || !node2) {
+        /*
+         * function to check if new edge can be added from start node
+         * @param {type} id
+         * @returns {Boolean}
+         */
+        var checkAddFromEdge = function (id) {
+          var node = getNodeInfo(id);
+          if (!node) {
             return false;
           }
-
+          var max = angular.isDefined(options.groups[node.group]) && options.groups[node.group].extra.from.max;
+          if (angular.isDefined(max) && max !== false && node.from.length >= max) {
+            return false;
+          }
           return true;
         };
 
+        /*
+         * function to check if new edge can be added to end node
+         * @param {type} id
+         * @returns {Boolean}
+         */
+        var checkAddToEdge = function (id) {
+          var node = getNodeInfo(id);
+          if (!node) {
+            return false;
+          }
+          var max = angular.isDefined(options.groups[node.group]) && options.groups[node.group].extra.to.max;
+          if (angular.isDefined(max) && max !== false && node.to.length >= max) {
+            return false;
+          }
+          return true;
+        };
 
+        /*
+         * function to check if new edge can be added between nodes with id1 and id2
+         * @param {type} id1
+         * @param {type} id2
+         * @returns {Boolean}
+         */
+        var checkAddEdge = function (id1, id2) {
+          if ((id1 === id2) || angular.isUndefined(id1) || angular.isUndefined(id2)) {
+            return false;
+          }
+          if (checkAddFromEdge(id1) !== true) {
+            var node = getNodeInfo(id1);
+            MessageService.warning('Reached max limit of outcoming connections from ' + node.label);
+            return false;
+          }
+          if (checkAddToEdge(id2) !== true) {
+            var node = getNodeInfo(id2);
+            MessageService.warning('Reached max limit of incomming connections to ' + node.label);
+            return false;
+          }
+          return true;
+        };
+
+        /*
+         * function to add new not connected node to the network placed under the mouse pointer
+         * @param {type} nodeType
+         * @param {boolean} addConnection - tries to also add connection between current and new node
+         * @returns {undefined}
+         */
+        self.addNode = function (nodeType, addConnection) {
+          if (self.checkAddNodeType(nodeType) !== true) {
+            MessageService.warning('Reached max limit of this type of nodes');
+            return;
+          }
+          var newNode = {
+            id: new Date().getTime(),
+            x: self.canvasPosition.x,
+            y: self.canvasPosition.y,
+            label: '* new *',
+            group: nodeType
+          };
+          self.network.body.data.nodes.add(newNode);
+          if( addConnection === true ) {
+            var selection = self.network.getSelection();
+            var startNode = selection.nodes[0];
+            if (checkAddEdge(startNode, newNode.id) === true) {
+              var newEdge = {
+                id:   newNode.id + 1,
+                from: startNode,
+                to:   newNode.id
+              };
+              self.network.body.data.edges.add(newEdge);
+            }
+          }
+          self.network.setSelection({nodes: [newNode.id]});
+        };
+
+        /*
+         * 'click' event handler when adding new edge 
+         * @param {type} event
+         * @returns {undefined}
+         */
         var onClickAddEdge = function onClickAddEdge(event) {
           var newEdge = {
             id: new Date().getTime()
           };
+
           event.preventDefault();
           event.stopPropagation();
           $document.off('click', onClickAddEdge);
-          var pos = {x: event.offsetX, y: event.offsetY};
-          var endNode = self.network.getNodeAt(pos);
+
+          var selection = self.network.getSelection();
+          var endNode = selection.nodes.length === 1 && selection.nodes[0];
           if (checkAddEdge(currentElement, endNode) === true) {
             newEdge.from = currentElement;
             newEdge.to = endNode;
@@ -250,11 +340,11 @@
           }
         };
 
-/*
- * function to start add new edge process - registers event handler  waiting for click on second node to connect
- * @param {type} $event
- * @returns {undefined}
- */
+        /*
+         * function to start add new edge process - registers event handler  waiting for click on second node to connect
+         * @param {type} $event
+         * @returns {undefined}
+         */
         self.addEdgeStart = function ($event) {
           $event.stopPropagation();
           var selection = self.network.getSelection();
@@ -275,25 +365,30 @@
           self.scope.$destroy();
         };
 
-        var renderMenu = function renderMenu(params, menuTemplate) {
-          console.log(params);
+        /*
+         * function to render context menu depends on the target of right click
+         * @param {type} params
+         * @returns {undefined}
+         */
+        var renderMenu = function renderMenu(params) {
           self.menuPosition = {x: params.event.clientX, y: params.event.clientY};
           self.canvasPosition = {x: params.pointer.canvas.x, y: params.pointer.canvas.y};
           self.scope = angular.extend($rootScope.$new(), self);
-          var menu = angular.element($compile(menuTemplate)(self.scope));
-          $document.find('body').append(menu);
-          menu.css({
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            transform: $interpolate('translate({{x}}px, {{y}}px)')({
-              x: self.menuPosition.x, y: self.menuPosition.y
-            })
+          $http.get(params.templateUrl, {cache: true}).then(function then(response) {
+            var menu = angular.element($compile(response.data)(self.scope));
+            $document.find('body').append(menu);
+            menu.css({
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              transform: $interpolate('translate({{x}}px, {{y}}px)')({
+                x: self.menuPosition.x, y: self.menuPosition.y
+              })
+            });
+            self.menu = menu[0];
+            angular.element(self.menu).controller('mdMenu').open();
+            $document.on('click', closeMenu);
           });
-          self.menu = menu[0];
-          angular.element(self.menu).controller('mdMenu').open();
-          $document.on('click', closeMenu);
-
         };
 
         /*
@@ -308,9 +403,27 @@
           }
         };
 
+        /*
+         * 
+         * @param {type} event
+         * @returns {undefined}
+         */
+        var onKeyPress = function (event) {
+          $document.off('keypress', onKeyPress);
+          switch (event.keyCode) {
+            case 127:  // Delete
+              self.deleteSelected();
+              break;
+          }
+        };
 
+        /*
+         * 
+         * @param {type} params
+         * @returns {undefined}
+         */
         var onClick = function (params) {
-//        console.log(params);
+          $document.off('keypress', onKeyPress);
           var selection = self.network.getSelection();
           if (selection.edges.length === 1) {
             currentElement = selection.edges[0];
@@ -318,8 +431,14 @@
             $document.off('click', onClickEditMode);
             $document.on('click', onClickEditMode);
           }
+          if (selection.edges.length || selection.nodes.length) {
+            $document.on('keypress', onKeyPress);
+          }
         };
 
+        /*
+         * right click event handler
+         */
         var onRightClick = function (params) {
           params.event.preventDefault();
           var node = self.network.getNodeAt(params.pointer.DOM);
@@ -334,11 +453,18 @@
             closeMenu();
           }
           if (node || edge) {
-            renderMenu(params, nodeMenu);
+            params.templateUrl = '/core/directives/angularVis/menuNode.html';
           } else {
-            renderMenu(params, canvasMenu);
+            params.templateUrl = '/core/directives/angularVis/menuCanvas.html';
           }
+          renderMenu(params);
         };
 
         var events = {
-          cl
+          click: onClick,
+          oncontext: onRightClick,
+          beforeDrawing: beforeDrawing,
+        };
+
+      }]);
+}());
