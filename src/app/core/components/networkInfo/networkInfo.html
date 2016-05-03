@@ -3,7 +3,7 @@
 <div layout="column">
 
   <div layout="row" flex>
-    <div ng-if="$ctrl.niElement.type == 'edge'">
+    <div ng-if="$ctrl.niElement.type === 'edge'">
         <md-input-container class="md-block">
           <label>Connection label</label>
           <input type="text" name="label" 
@@ -16,7 +16,7 @@
           </div>
         </md-input-container>              
     </div>
-    <div ng-if="$ctrl.niElement.type == 'node'">      
+    <div ng-if="$ctrl.niElement.type === 'node'">
         <md-input-container class="md-block">
           <label>Node type</label>
           <input type="text" name="label" disabled
@@ -34,7 +34,15 @@
             <div ng-message="minlength">The name has to be at least 3 characters.</div>
             <div ng-message="required">Name is required.</div>
           </div>
-        </md-input-container>              
+        </md-input-container>
+      
+    <md-button type="button" class="md-primary md-raised"
+               ng-if="$ctrl.niElement.group === 'Script'"
+               ng-click="$ctrl.niEditScript({ev:$event, node:$ctrl.niElement})"
+               >
+      Edit script page
+    </md-button>
+        
     </div>
   </div>
 </div>
