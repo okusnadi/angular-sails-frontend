@@ -10,13 +10,13 @@
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptAddController', [
       '$scope', '$state',
-      'MessageService',
+      'MessageService', 'NetworkProvider',
       'ScriptModel',
       '_client',
       '_campaign',
       function controller(
         $scope, $state,
-        MessageService,
+        MessageService, NetworkProvider,
         ScriptModel,
         _client,
         _campaign
@@ -34,98 +34,22 @@
           info: ''
         };
 
-        $scope.options = {
-          height: '600px',
-//          clickToUse: true,
-          nodes: {
-            shape: 'dot',
-            shadow: true
-          },
-          interaction: {
-            navigationButtons: true,
-            selectConnectedEdges: false,
-//            keyboard: true
-          },
-          manipulation: {
-            enabled:          true,
-            initiallyActive:  true
-          },
-          groups: {
-            'Start': { 
-              shape: 'dot',
-              physics: false,
-            },
-            'End':  {
-              shape: 'triangleDown',
-              physics: false
-            }
-          }
-        };
-        
-        var nodes = new vis.DataSet([
-          {id: 1, label: 'Start', group: 'Start'},
-          {id: 999, label: 'End', group: 'End'},
-          {id: 2, label: 'Node 2', group: 1},
-          {id: 3, label: 'Node 3', group: 1},
-          {id: 4, label: 'Node 4', group: 2},
-          {id: 5, label: 'Node 5', group: 2},
-          {id: 6, label: 'Just before end', group: 3},
-          {id: 7, label: '0', group: 0},
-          {id: 8, label: '1', group: 1},
-          {id: 9, label: '2', group: 2},
-          {id: 10, label: '3', group: 3},
-          {id: 11, label: '4', group: 4},
-          {id: 12, label: '5', group: 5},
-          {id: 13, label: '6', group: 6},
-          {id: 14, label: '7', group: 7},
-          {id: 15, label: '8', group: 8},
-          {id: 16, label: '9', group: 9},
-          {id: 17, label: '10', group: 10},
-          {id: 18, label: '11', group: 11},
-          {id: 19, label: '12', group: 12},
-        ]);
-
-        // create an array with edges
-        var edges = new vis.DataSet([
-          {from: 1, to: 2, arrows: 'to', label: 'first'},
-          {from: 2, to: 3},
-          {from: 2, to: 4},
-          {from: 2, to: 5},
-          {from: 4, to: 6},
-          {from: 5, to: 6},
-          {from: 3, to: 6},
-          {from: 6, to: 999, arrows: 'to'}
-        ]);
-
         // create a network
-        $scope.data = {
-          nodes: nodes,
-          edges: edges
-        };
+        $scope.options = NetworkProvider.getOptions();
+        $scope.events = NetworkProvider.getEvents();
+        $scope.np = NetworkProvider;
 
-        $scope.onClick = function ( params ) {
-          console.log(params);
-        };
-        $scope.onRightClick = function ( params ) {
-          console.log(params);
-          params.event.preventDefault();
+          // 1 level deep watch for changes in current element form
+          $scope.$watchCollection("np.selected", function(nv, ov){
+            if( angular.isDefined(nv.id) && nv.id === ov.id) {
+              var set = nv.type==='node'?$scope.np.network.body.data.nodes:$scope.np.network.body.data.edges;
+              set.update(nv);
+            }
+          });
           
-          var selection = {
-            nodes: params.nodes,
-            edges: params.edges,
-          };
-        };
-        
-        $scope.beforeDrawing = function ( params ) {
-          // make sure canvas is not selectable
-          angular.element(params.canvas).attr('tabindex','-1');
-        };
-
-
-        $scope.events = {
-          click:          $scope.onClick,
-          beforeDrawing:  $scope.beforeDrawing,
-          oncontext: $scope.onRightClick,
+        $scope.data = {
+          nodes: new vis.DataSet(NetworkProvider.getStartNodes()),
+          edges: new vis.DataSet([])
         };
 
         /**
@@ -134,13 +58,19 @@
          */
         $scope.saveScript = function () {
           $scope.script.campaign = $scope.campaign;
+
+          NetworkProvider.network.storePositions();
+          $scope.script.network = {
+            nodes: $scope.data.nodes.get(),
+            edges: $scope.data.edges.get()
+          };
+
           ScriptModel
             .create(angular.copy($scope.script))
             .then(
               function onSuccess(result) {
                 MessageService.success('New script added successfully');
-
-                $state.go('script', {scriptId: result.data.id});
+                $state.go('scripts');
               }
             )
             ;
@@ -156,14 +86,14 @@
       [
         '$scope', '$state',
         '$mdDialog',
-        'UserService', 'MessageService',
+        'UserService', 'MessageService', 'NetworkProvider',
         'ScriptModel',
         '_campaign',
         '_script',
         function controller(
           $scope, $state,
           $mdDialog,
-          UserService, MessageService,
+          UserService, MessageService, NetworkProvider,
           ScriptModel,
           _campaign,
           _script
@@ -177,6 +107,26 @@
           $scope.currentUser = UserService.user();
           $scope.script = _script;
           $scope.selectList = _script.list ? _script.list.id : null;
+
+          // create a network
+          $scope.options = NetworkProvider.getOptions();
+          $scope.events = NetworkProvider.getEvents();
+          $scope.np = NetworkProvider;
+          
+          // 1 level deep watch for changes in current element form
+          $scope.$watchCollection("np.selected", function(nv, ov){
+            if( angular.isDefined(nv.id) && nv.id === ov.id) {
+              var set = nv.type==='node'?$scope.np.network.body.data.nodes:$scope.np.network.body.data.edges;
+              set.update(nv);
+            }
+          });
+          
+          var nodes = $scope.script.network ? $scope.script.network.nodes : NetworkProvider.getStartNodes();
+          var edges = $scope.script.network ? $scope.script.network.edges : [];
+          $scope.data = {
+            nodes: new vis.DataSet(nodes),
+            edges: new vis.DataSet(edges)
+          };
 
           // Script delete dialog buttons configuration
           $scope.confirmButtonsDelete = {
@@ -198,6 +148,13 @@
            * socket request to the backend server with the modified object.
            */
           $scope.saveScript = function () {
+
+            NetworkProvider.network.storePositions();
+            $scope.script.network = {
+              nodes: $scope.data.nodes.get(),
+              edges: $scope.data.edges.get()
+            };
+
             var data = angular.copy($scope.script);
 
             // Make actual data update
@@ -206,11 +163,19 @@
               .then(
                 function onSuccess() {
                   MessageService.success('Email template "' + $scope.script.name + '" updated successfully');
+                  $state.go('scripts');
                 }
               )
               ;
           };
 
+          var originatorEv;
+
+          $scope.openMenu = function($mdOpenMenu, ev) {
+            console.log($mdOpenMenu);
+            originatorEv = ev;
+          $mdOpenMenu(ev);
+        };
           /**
            * Scope function to delete current script. This will send DELETE query to backend via web socket
            * query and after successfully delete redirect script back to script list.
@@ -221,7 +186,6 @@
               .then(
                 function onSuccess() {
                   MessageService.success('Email template "' + $scope.script.title + '" deleted successfully');
-
                   $state.go('scripts');
                 }
               )
@@ -246,6 +210,10 @@
         }
       ])
     ;
+
+var ScriptPageController = function() {
+  
+};
 
   // Controller which contains all necessary logic for script list GUI on boilerplate application.
   angular.module('frontend.admin.client.campaign.script')

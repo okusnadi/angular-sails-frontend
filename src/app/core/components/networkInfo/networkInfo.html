@@ -1,0 +1,41 @@
+
+<ng-form name="ni-form">
+<div layout="column">
+
+  <div layout="row" flex>
+    <div ng-if="$ctrl.niElement.type == 'edge'">
+        <md-input-container class="md-block">
+          <label>Connection label</label>
+          <input type="text" name="label" 
+                 ng-model="$ctrl.np.selected.label"
+                 minlength="1"
+                 />
+          <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
+            <div ng-message="minlength">The name has to be at least 3 characters.</div>
+            <div ng-message="required">Name is required.</div>
+          </div>
+        </md-input-container>              
+    </div>
+    <div ng-if="$ctrl.niElement.type == 'node'">      
+        <md-input-container class="md-block">
+          <label>Node type</label>
+          <input type="text" name="label" disabled
+                 ng-model="$ctrl.np.selected.group"
+                 />
+        </md-input-container>              
+        <md-input-container class="md-block">
+          <label>Node label</label>
+          <input type="text" name="label" 
+                 ng-model="$ctrl.niElement.label"
+                 minlength="1"
+                 required 
+                 />
+          <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
+            <div ng-message="minlength">The name has to be at least 3 characters.</div>
+            <div ng-message="required">Name is required.</div>
+          </div>
+        </md-input-container>              
+    </div>
+  </div>
+</div>
+</ng-form>

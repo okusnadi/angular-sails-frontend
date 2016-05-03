@@ -5,10 +5,16 @@
         "name": {}
       }
     },
+    "md-menu": {},
     "md-content": {
       "attributes": {
         "layout-padding": {},
         "class": {}
+      }
+    },
+    "vis-network-info": {
+      "attributes": {
+        "ni-element": {}
       }
     },
     "ng-messages=\"roleForm.name.$error\"": {},
@@ -31,6 +37,12 @@
     "md-fab-actions": {
       "attributes": {
         "class": {}
+      }
+    },
+    "md-menu-content": {},
+    "md-menu-item": {
+      "attributes": {
+        "ng-repeat": {}
       }
     },
     "md-fab-trigger": {
@@ -164,7 +176,8 @@
       "attributes": {
         "data": {},
         "options": {},
-        "events": {}
+        "events": {},
+        "network": {}
       }
     },
     "md-input-container": {

@@ -81,11 +81,6 @@
               title: 'Settings',
               access: AccessLevels.admin
             },
-//            {
-////              state: '',
-//              title: 'Request log',
-//              access: AccessLevels.admin
-//            },
             {
               state: 'admin.login-history',
               title: 'Login history',

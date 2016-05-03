@@ -1,51 +1,56 @@
+
 <md-content layout-padding>
 
-    <form class="form-vertical" role="form" name="scriptForm"
-          autocomplete="off" 
-          ng-submit="saveScript()"
-          >
-        <div layout="row">
-            <div flex="30" layout-margin>
-                <md-input-container class="md-block">
-                    <label>Script name</label>
-                    <input type="text" name="name" 
-                           ng-model="script.name"
-                           minlength="3"
-                           required 
-                           />
-                    <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
-                        <div ng-message="minlength">The name has to be at least 3 characters.</div>
-                        <div ng-message="required">Name is required.</div>
-                    </div>
-                </md-input-container>              
-            </div>
+  <form class="form-vertical" role="form" name="scriptForm"
+        autocomplete="off" 
+        ng-submit="$event.preventDefault();"
+        >
+    <div layout="row">
+      <div flex="20" layout-margin>
+        <md-input-container class="md-block">
+          <label>Script name</label>
+          <input type="text" name="name" 
+                 ng-model="script.name"
+                 minlength="3"
+                 required 
+                 />
+          <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
+            <div ng-message="minlength">The name has to be at least 3 characters.</div>
+            <div ng-message="required">Name is required.</div>
+          </div>
+        </md-input-container>              
 
-            <div flex="70" layout-margin>
-              <md-card>
-                
-                <vis-network data="data" options="options" events="events" ></vis-network>
-              </md-card>
-            </div>
+        <vis-network-info ni-element="np.selected"></vis-network-info>
 
-        </div>
-            <md-button type="submit" class="md-primary md-raised "
-                       ng-disabled="!scriptForm.$valid"
-                       >
-                Save
-            </md-button>
+      </div>
 
-            <md-button type="button" class="md-button md-raised "
-                       ng-click="$state.go('scripts')"
-                       >
-                Cancel
-            </md-button>
+      <div flex="80" layout-fill>
+        <md-card flex>
 
-            <md-button type="button" class="md-warn md-raised"
-                       ng-show="$state.current.name === 'script'"
-                       ng-click="confirmDelete($event)"
-                       >
-                Delete
-            </md-button>
+          <vis-network data="data" options="options" events="events" network="network" ></vis-network>
+        </md-card>
+      </div>
 
-    </form>
+    </div>
+    <md-button type="button" class="md-primary md-raised "
+               ng-disabled="!scriptForm.$valid"
+               ng-click="saveScript()"
+               >
+      Save
+    </md-button>
+
+    <md-button type="button" class="md-button md-raised "
+               ng-click="$state.go('scripts')"
+               >
+      Cancel
+    </md-button>
+
+    <md-button type="button" class="md-warn md-raised"
+               ng-show="$state.current.name === 'script'"
+               ng-click="confirmDelete($event)"
+               >
+      Delete
+    </md-button>
+
+  </form>
 </md-content>

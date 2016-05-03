@@ -1,0 +1,24 @@
+<md-menu>
+  <md-button ng-show="false" ng-click="$mdOpenMenu($event)">.</md-button>
+  <md-menu-content>
+    <md-menu-item>
+      <md-menu>
+        <md-menu-item>
+          <md-button ng-click="$mdOpenMenu($event)"><md-icon>add_circle_outline</md-icon>Add node</md-button>
+        </md-menu-item>
+        <md-menu-content>
+          <md-menu-item ng-repeat="(type, group) in getOptions().groups">
+            <md-button ng-disabled="!checkAddNodeType(type)" ng-click="addNode(type)">
+              <md-icon>{{group.icon}}</md-icon>Add {{type}} node
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-menu-item>
+    <md-menu-item>
+      <md-button ng-click="dupa()">
+        <md-icon>timeline</md-icon>Add connection
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>
