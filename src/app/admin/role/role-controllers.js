@@ -48,21 +48,16 @@
   // Controller for new role creation.
   angular.module('frontend.admin.role')
     .controller('RoleAddController', RoleAddController);
-
-  // Controller to show single role on GUI.
-  angular.module('frontend.admin.role')
-    .controller('RoleController', [
-      '$scope', '$state', 
-      '$mdDialog',
-      'UserService', 'MessageService',
-      'RoleModel', 
-      '_role', 
-      function controller(
+	
+	//role edit controller
+	 // Controller to show single role on GUI.
+	  var RoleEditController = function controller(
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
         RoleModel, 
-        _role
+        _role,
+				dataProvider
       ) {
         // Set current scope reference to models
         RoleModel.setScope($scope, 'role');
@@ -71,8 +66,6 @@
         $scope.$state = $state;
         $scope.currentUser = UserService.user();
         $scope.role = _role;
-        $scope.users = $scope.role.users;
-        $scope.usersCount = $scope.users.length;
 
         // Role delete dialog buttons configuration
         $scope.confirmButtonsDelete = {
@@ -88,6 +81,10 @@
             className: 'btn-default pull-left'
           }
         };
+				
+				$scope.cancelDialog = function () {
+            $mdDialog.cancel();
+        };
 
         // Scope function to save modified role.
         $scope.saveRole = function saveRole() {
@@ -99,6 +96,8 @@
             .then(
               function onSuccess() {
                 MessageService.success('Role "' + $scope.role.name + '" updated successfully');
+                $mdDialog.hide();
+                dataProvider.triggerFetchData();
               }
             )
           ;
@@ -111,7 +110,7 @@
             .then(
               function onSuccess() {
                 MessageService.success('Role "' + $scope.role.name + '" deleted successfully');
-
+								
                 $state.go('admin.roles');
               }
             )
@@ -132,9 +131,23 @@
             }, function() {
                 
             });
-          };        
+          };
+					
+					
         
-      }
+      };
+
+
+  // Controller to show single role on GUI.
+  angular.module('frontend.admin.role')
+    .controller('RoleController', [
+      '$scope', '$state', 
+      '$mdDialog',
+      'UserService', 'MessageService',
+      'RoleModel', 
+      '_role', 
+			'DataProvider',
+      RoleEditController
     ])
   ;
 
@@ -144,19 +157,20 @@
       '$scope', '$q', '$timeout', '$mdDialog',
       '_',
       'ListConfig', 'RoleModel',
-      'DataProvider',
+      'DataProvider', 'MessageService',
       function controller(
         $scope, $q, $timeout, $mdDialog,
         _,
         ListConfig, RoleModel,
-        DataProvider
+        DataProvider, MessageService
       ) {
         // Set current scope reference to model
         RoleModel.setScope($scope, false, 'items', 'itemCount');
 
         $scope.query =  {
             order: 'name',
-            searchWord: ''
+            searchWord: '',
+						selected:[]
         };
 
         $scope.dataProvider = new DataProvider(RoleModel, $scope.query);
@@ -195,7 +209,61 @@
             clickOutsideToClose: false
           });
         };
-        
+				
+				$scope.editRoleDialog = function(event,item,column) {
+					//var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+					$mdDialog.show({
+						controller: RoleEditController,
+						locals: {
+							dataProvider: $scope.dataProvider
+						},
+						resolve: {
+						_role: 
+							function resolve(
+								RoleModel
+							) {
+								return RoleModel.fetch(item.id);
+							}
+            },
+            templateUrl: '/frontend/admin/role/role.html',
+//              parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: false
+						
+					});
+				};
+         
+				//delete Role
+				$scope.deleteRole = function deleteRole(role) {
+					RoleModel
+									.delete(role.id)
+									.then(
+										function onSuccess(){
+											if (--$scope.functionCounter === 0) {
+												MessageService.success('Role(s) deleted successfully');
+												$scope.query.selected = [];
+												$scope.dataProvider.triggerFetchData();
+											}
+										}
+										);
+				};
+				
+				$scope.deleteRoleDialog = function(items) {
+					$scope.functionCounter = items.length;
+					var confirm = $mdDialog.confirm()
+									.title('Careful!')
+									.textContent('Are you sure you want to delete role(s)?')
+									.ariaLabel('delete role dialog')
+									.ok('Yes, delete')
+									.cancel('Cancel');
+					$mdDialog.show(confirm).then(function() {
+						angular.forEach(items, function(item){
+							$scope.deleteRole(item);
+						});
+					});
+				};
+				
+				 
         //raToolbarButtons
         
         $scope.toolbarBtns = [
@@ -205,6 +273,14 @@
                 btnAction: $scope.addRoleDialog
             }
         ];
+				
+				$scope.toolbarSelectedBtns = [
+					{
+						btnTooltip: 'Delete Role',
+						btnIcon: 'delete',
+						btnAction: $scope.deleteRoleDialog
+					}
+				];
         
       }
     ])

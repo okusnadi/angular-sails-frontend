@@ -9,7 +9,7 @@
     var organisationalUnits = 'Country, County, Region, Branch, Department';
 
 
-    var clientAddController = function controller(
+    var ClientAddController = function controller(
         $scope, $state,
         MessageService,
         ClientModel, $mdDialog, dataProvider
@@ -82,86 +82,20 @@
       '$scope', '$state',
       'MessageService',
       'ClientModel',
-      function controller(
-        $scope, $state,
-        MessageService,
-        ClientModel
-      ) {
-  
-        // expose state
-        $scope.$state = $state;
-        // Store campaigns
-//        $scope.campaigns = _campaigns;
-
-        // Initialize client model
-        $scope.client = {
-            name: '',
-            address1: '',
-            address2: '',
-            address3: '',
-            town: '',
-            county: '',
-            country: '',
-            contactName: '',
-            phone1: '',
-            phone2: '',
-            email1: '',
-            email2: '',
-            notes: ''
-        };
-        
-        
-        $scope.items = [
-            { value: '' }
-        ];
-            
-        $scope.suggestions = organisationalUnits;
-        
-        /**
-         * Scope function to store new client to database. After successfully save client will be redirected
-         * to view that new created client.
-         */
-        $scope.saveClient = function() {
-            var ounits = $scope.items.map( function( ou, index ) {
-                return {
-                    order: index,
-                    value: ou.value
-                };
-            });
-            $scope.client.orgUnits = angular.toJson(ounits);
-            ClientModel
-            .create(angular.copy($scope.client))
-            .then(
-              function onSuccess(result) {
-                MessageService.success('New client added successfully');
-
-                $state.go('admin.client', {clientId: result.data.id});
-              }
-            )
-          ;
-        };
-        
-      }
+      ClientAddController
     ])
   ;
-
-  // Controller to show single client on GUI.
-  angular.module('frontend.admin.client')
-    .controller('ClientController', 
-    [
-      '$scope', '$state',
-      '$mdDialog',
-      'UserService', 'MessageService',
-      'ClientModel', 'CampaignModel',
-      '_client', 
-      function controller(
+	
+	//edit client controller
+	
+	var ClientEditController = function controller(
         $scope, $state,
         $mdDialog,
         UserService, MessageService,
         ClientModel, CampaignModel,
-        _client
+        _client, dataProvider
       ) {
-  
+				
         // expose state
         $scope.$state = $state;
         // Set current scope reference to model
@@ -195,6 +129,8 @@
             .then(
               function onSuccess() {
                 MessageService.success('Client "' + $scope.client.name + '" updated successfully');
+								$mdDialog.hide();
+                dataProvider.triggerFetchData();
               }
             )
           ;
@@ -209,7 +145,7 @@
             .delete($scope.client.id)
             .then(
               function onSuccess() {
-                MessageService.success('Client "' + $scope.client.title + '" deleted successfully');
+                MessageService.success('Client "' + $scope.client.name + '" deleted successfully');
 
                 $state.go('admin.clients');
               }
@@ -221,19 +157,36 @@
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
                   .title('Delete client')
-                  .textContent('Are you sure you want to delete client '+$scope.client.clientname+' ?')
+                  .textContent('Are you sure you want to delete client '+$scope.client.name+' ?')
                   .ariaLabel('Lucky day')
                   .targetEvent(ev)
                   .ok('Yes!')
                   .cancel('Cancel');
             $mdDialog.show(confirm).then(function() {
               $scope.deleteClient();
+							dataProvider.triggerFetchData();
             }, function() {
                 
             });
           };        
+					
+				$scope.cancelDialog = function () {
+            $mdDialog.cancel();
+        };
 
-      }
+	};
+	
+
+  // Controller to show single client on GUI.
+  angular.module('frontend.admin.client')
+    .controller('ClientController', 
+    [
+      '$scope', '$state',
+      '$mdDialog',
+      'UserService', 'MessageService',
+      'ClientModel', 'CampaignModel',
+      '_client', 
+			ClientEditController
     ])
   ;
 
@@ -269,9 +222,10 @@
           }
         }, true);
         
+				//dialogs
         $scope.addClientDialog = function(ev) {
             $mdDialog.show({
-            controller: clientAddController,
+            controller: ClientAddController,
             locals: {
               dataProvider: $scope.dataProvider
             },
@@ -290,6 +244,24 @@
             clickOutsideToClose: false
           });
         };
+				
+				$scope.editClientDialog = function(ev, item, column) {
+					$mdDialog.show ({
+						controller: ClientEditController,
+						locals: {
+							dataProvider: $scope.dataProvider
+						},
+						resolve: {
+							_client:
+									function resolve (ClientModel) {
+										return ClientModel.fetch(item.id);
+									}
+						},
+						templateUrl: '/frontend/admin/client/client.html',
+						targetEvent: ev,
+						clickOutsideToClose: false
+					});
+				};
         
         //raToolbarButtons
         $scope.toolbarBtns = [

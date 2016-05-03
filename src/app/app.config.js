@@ -57,15 +57,19 @@
           .hashPrefix('!')
          ;
         
-        //theme colour
+        //theme colours  ==========
+				
+				//extend theme to change contrast colour
+				var blueThemeEditMap = $mdThemingProvider.extendPalette('light-blue', {
+					'contrastDefaultColor' : 'light'
+				});
+				
+				//register theme
+				$mdThemingProvider.definePalette('ra-light-blue', blueThemeEditMap);
+				
+				//set themes
         $mdThemingProvider.theme('default')
-                .primaryPalette('light-blue'
-                , {
-                    'default': '100',
-                    'hue-1': '200',
-                    'hue-2': '500',
-                    'hue-3': '900',
-                }
+                .primaryPalette('ra-light-blue'
                 )
                 .accentPalette('orange'
 //                , {

@@ -31,7 +31,7 @@
 <!--<h3>material tabs</h3>-->
 
 <md-tabs>
-    <md-tab ng-repeat="item in navigationItems" ng-attr-ui-sref="{{item.state}}">
+    <md-tab ng-repeat="item in navigationItems" ng-attr-ui-sref="{{ item.state.length > 1 ? item.state : ''}}">
         <a ng-if="item.state" >
             {{item.title}}
         </a>
@@ -41,7 +41,5 @@
     </md-tab>
 </md-tabs>
 </md-content>
-
-
 
 

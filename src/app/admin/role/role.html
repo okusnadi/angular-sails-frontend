@@ -1,9 +1,18 @@
 
-<md-content layout-padding>
-    <form class="form-vertical" role="form" name="roleForm"
+<md-content class="wide-min-width">
+    <md-toolbar>
+        <div class="md-toolbar-tools md-primary">
+            <h2>Role Details</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancelDialog()">
+                <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form class="form-vertical layout-padding md-dialog-content" role="form" name="roleForm"
           data-ng-submit="saveRole()" 
           >
-        
+
         <!--    <div class="row">
                 <div class="col-md-12">-->
         <!--            <div class="form-group" style="margin-top: 10px;"
@@ -60,7 +69,7 @@
                    />
             <div ng-messages="roleForm.accessLevel.$error">
                 <div ng-message-exp="['required', 'min', 'max']">
-                    Access level needs to be a number between 0 and 100.
+                    Requires number between 0 and 100.
                 </div>
             </div>
             <!--                <p ng-show="roleForm.accessLevel.$invalid && !roleForm.accessLevel.$pristine" 
@@ -68,34 +77,43 @@
             </p>
         </div>-->
         </md-input-container>
+        <div layout="row"><div flex></div>
+        <!--<md-input-container>-->
+            <md-switch class="md-primary" md-no-ink aria-label="role activated" ng-model="role.active">
+                Active
+            </md-switch>
+        <!--</md-input-container>-->
+        </div>
+        <div layout="row">
 
-        <md-switch class="md-primary" md-no-ink aria-label="role activated" ng-model="role.active">
-            Active
-        </md-switch>
+            <div flex></div>
 
-        <md-button type="submit" class="md-primary md-raised "
-                   data-ng-disabled="!roleForm.$valid"
-                   >
-            Save
-        </md-button>
+            <md-button type="button" class="md-button md-raised "
+                       ng-click="cancelDialog();"
+                       >
+                 <md-tooltip md-direction="top">cancel</md-tooltip>
+                 <md-icon class="material-icons">not_interested</md-icon>
+                <!--Cancel-->
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised "
+                       data-ng-disabled="!roleForm.$valid"
+                       >
+                <md-tooltip md-direction="top">save</md-tooltip>
+                <md-icon class="material-icons">save</md-icon>
+<!--                Save-->
+            </md-button>
 
+            <md-button type="button" class="md-warn md-raised"
+                       ng-show="$state.current.name === 'admin.role'"
+                       ng-click="confirmDelete($event)"
+                       >
+                Delete
+            </md-button>
+        </div>
 
-        <md-button type="button" class="md-button md-raised "
-                   ng-click="cancelDialog();"
-                   >
-            Cancel
-        </md-button>
-
-        <md-button type="button" class="md-warn md-raised"
-                   ng-show="$state.current.name === 'admin.role'"
-                   ng-click="confirmDelete($event)"
-                   >
-            Delete
-        </md-button>
-
-<!--                   data-ng-bootbox-title="Danger - Danger - Danger"
-                   data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
-                   data-ng-bootbox-buttons="confirmButtonsDelete"-->
+        <!--                   data-ng-bootbox-title="Danger - Danger - Danger"
+                           data-ng-bootbox-custom-dialog="Are you sure about the <strong>{{role.name}}</strong> role delete?"
+                           data-ng-bootbox-buttons="confirmButtonsDelete"-->
         <!--        </div>
             </div>-->
     </form>

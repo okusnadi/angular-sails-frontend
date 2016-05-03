@@ -207,7 +207,8 @@
               class: 'col-xs-2',
               sortable: true,
               inSearch: true,
-              sref: 'admin.client({clientId: item.id})'
+//              sref: 'admin.client({clientId: item.id})'
+							clickable: true
             },
             {
               title: 'Contact name',
@@ -280,7 +281,7 @@
               class: 'col-xs-3',
               sortable: true,
               inSearch: true,
-              sref: 'admin.role({id: item.id})'
+							clickable:'true'
             },
             {
               title: 'Description',
