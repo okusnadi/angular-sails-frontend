@@ -16,7 +16,8 @@
           controller: ['NetworkProvider', NetworkInfoController],
           templateUrl: '/frontend/core/components/networkInfo/networkInfo.html',
           bindings: {
-              niElement: '='
+              niElement: '=',
+              niEditScript: '&'
           }
       });
 

@@ -6,6 +6,12 @@
 (function () {
   'use strict';
 
+
+  var scriptPageController = function ( $builder ) {
+
+  };
+
+
   // Controller for new script creation.
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptAddController', [
@@ -39,14 +45,14 @@
         $scope.events = NetworkProvider.getEvents();
         $scope.np = NetworkProvider;
 
-          // 1 level deep watch for changes in current element form
-          $scope.$watchCollection("np.selected", function(nv, ov){
-            if( angular.isDefined(nv.id) && nv.id === ov.id) {
-              var set = nv.type==='node'?$scope.np.network.body.data.nodes:$scope.np.network.body.data.edges;
-              set.update(nv);
-            }
-          });
-          
+        // 1 level deep watch for changes in current element form
+        $scope.$watchCollection("np.selected", function (nv, ov) {
+          if (angular.isDefined(nv.id) && nv.id === ov.id) {
+            var set = nv.type === 'node' ? $scope.np.network.body.data.nodes : $scope.np.network.body.data.edges;
+            set.update(nv);
+          }
+        });
+
         $scope.data = {
           nodes: new vis.DataSet(NetworkProvider.getStartNodes()),
           edges: new vis.DataSet([])
@@ -112,21 +118,35 @@
           $scope.options = NetworkProvider.getOptions();
           $scope.events = NetworkProvider.getEvents();
           $scope.np = NetworkProvider;
-          
+
           // 1 level deep watch for changes in current element form
-          $scope.$watchCollection("np.selected", function(nv, ov){
-            if( angular.isDefined(nv.id) && nv.id === ov.id) {
-              var set = nv.type==='node'?$scope.np.network.body.data.nodes:$scope.np.network.body.data.edges;
+          $scope.$watchCollection("np.selected", function (nv, ov) {
+            if (angular.isDefined(nv.id) && nv.id === ov.id) {
+              var set = nv.type === 'node' ? $scope.np.network.body.data.nodes : $scope.np.network.body.data.edges;
               set.update(nv);
             }
           });
-          
+
           var nodes = $scope.script.network ? $scope.script.network.nodes : NetworkProvider.getStartNodes();
           var edges = $scope.script.network ? $scope.script.network.edges : [];
           $scope.data = {
             nodes: new vis.DataSet(nodes),
             edges: new vis.DataSet(edges)
           };
+
+          $scope.editScriptPage = function (ev, node) {
+            $mdDialog.show({
+              controller: [ '$builder', scriptPageController ],
+              locals: {
+                node: node
+              },
+              templateUrl: '/frontend/admin/client.campaign.script/script-page.html',
+//              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose: false
+            });
+          };
+
 
           // Script delete dialog buttons configuration
           $scope.confirmButtonsDelete = {
@@ -171,11 +191,11 @@
 
           var originatorEv;
 
-          $scope.openMenu = function($mdOpenMenu, ev) {
+          $scope.openMenu = function ($mdOpenMenu, ev) {
             console.log($mdOpenMenu);
             originatorEv = ev;
-          $mdOpenMenu(ev);
-        };
+            $mdOpenMenu(ev);
+          };
           /**
            * Scope function to delete current script. This will send DELETE query to backend via web socket
            * query and after successfully delete redirect script back to script list.
@@ -210,10 +230,6 @@
         }
       ])
     ;
-
-var ScriptPageController = function() {
-  
-};
 
   // Controller which contains all necessary logic for script list GUI on boilerplate application.
   angular.module('frontend.admin.client.campaign.script')
