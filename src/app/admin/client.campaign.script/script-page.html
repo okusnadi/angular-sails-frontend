@@ -1,5 +1,24 @@
 
 
-<md-content layout-padding>
-    SCRIPT PAGE
-</md-content>
+<div layout="row">
+  <div flex="50" layout-margin>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Builder</h3>
+      </div>
+      <div fb-builder="default"></div>
+      <div class="panel-footer">
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="isShowScope" />
+            Show scope
+          </label>
+        </div>
+        <pre ng-if="isShowScope">{{form}}</pre>
+      </div>
+    </div>
+  </div>
+  <div flex="50" layout-margin>
+    <div fb-components></div>
+  </div>
+
+</div>

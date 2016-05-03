@@ -7,10 +7,49 @@
   'use strict';
 
 
-  var scriptPageController = function ( $builder ) {
+  var scriptPageController = function ($scope, _script, $builder, $validator) {
+
+    console.log(_script);
+    var checkbox, textbox;
+    textbox = $builder.addFormObject('default', {
+      component: 'textInput',
+      label: 'Name',
+      description: 'Your name',
+      placeholder: 'Your name',
+      required: true,
+      editable: false
+    });
+    checkbox = $builder.addFormObject('default', {
+      component: 'checkbox',
+      label: 'Pets',
+      description: 'Do you have any pets?',
+      options: ['Dog', 'Cat']
+    });
+//    $builder.addFormObject('default', {
+//      component: 'sampleInput'
+//    });
+    $scope.form = $builder.forms['default'];
+    $scope.input = [];
+    $scope.defaultValue = {};
+    $scope.defaultValue[textbox.id] = 'default value';
+    $scope.defaultValue[checkbox.id] = [true, true];
+
+    return $scope.submit = function () {
+      return $validator.validate($scope, 'default').success(function () {
+        return console.log('success');
+      }).error(function () {
+        return console.log('error');
+      });
+    };
+
 
   };
 
+  angular.module('frontend.admin.client.campaign.script')
+    .controller('ScriptPageController', [
+      '$scope', '_script', '$builder', '$validator',
+      scriptPageController
+    ]);
 
   // Controller for new script creation.
   angular.module('frontend.admin.client.campaign.script')
@@ -136,7 +175,7 @@
 
           $scope.editScriptPage = function (ev, node) {
             $mdDialog.show({
-              controller: [ '$builder', scriptPageController ],
+              controller: ['$builder', scriptPageController],
               locals: {
                 node: node
               },

@@ -38,8 +38,9 @@
       
     <md-button type="button" class="md-primary md-raised"
                ng-if="$ctrl.niElement.group === 'Script'"
-               ng-click="$ctrl.niEditScript({ev:$event, node:$ctrl.niElement})"
+               ui-sref="node({nodeId: $ctrl.niElement.id})"
                >
+               <!--ng-click="$ctrl.niEditScript({ev:$event, node:$ctrl.niElement})"-->
       Edit script page
     </md-button>
         

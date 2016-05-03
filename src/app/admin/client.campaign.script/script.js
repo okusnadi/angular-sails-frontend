@@ -11,7 +11,8 @@
 
   // Define frontend.admin.client.script.script angular module
   angular.module('frontend.admin.client.campaign.script', [
-//      'textAngular'
+    'builder', 'builder.components'
+//      'textAngular''
   ]);
 
   // Module configuration
@@ -53,12 +54,32 @@
                 templateUrl: '/frontend/admin/client.campaign.script/script.html',
                 controller: 'ScriptController',
                 resolve: {
-//                  _lists: [
-//                    'ListModel',
-//                    function resolve(ListModel) {
-//                      return ListModel.load();
+                }
+              }
+            }
+          })
+
+          // Single script
+          .state('node', {
+            parent: 'script',
+            url: '/node/:nodeId',
+            resolve: {
+//                _script: [
+//                    '$stateParams',
+//                    'ScriptModel',
+//                    function resolve(
+//                      $stateParams,
+//                      ScriptModel
+//                    ) {
+//                      return ScriptModel.fetch($stateParams.scriptId);
 //                    }
-//                  ]                  
+//                  ]
+            },
+            views: {
+              'content@': {
+                templateUrl: '/frontend/admin/client.campaign.script/script-page.html',
+                controller: 'ScriptPageController',
+                resolve: {
                 }
               }
             }
