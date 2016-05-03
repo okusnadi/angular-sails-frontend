@@ -6,8 +6,8 @@ var globalNet;
 
   angular.module('frontend.core.directives')
     .service('NetworkProvider', [
-      'MessageService', '$document', '$compile', '$rootScope', '$interpolate', '$http',
-      function (MessageService, $document, $compile, $rootScope, $interpolate, $http) {
+      'MessageService', '$document', '$compile', '$rootScope', '$interpolate', '$http', '$timeout',
+      function (MessageService, $document, $compile, $rootScope, $interpolate, $http, $timeout) {
 
         var self = this;
         self.menu = null;
@@ -170,6 +170,7 @@ var globalNet;
             var edgeToDelete = self.network.body.data.edges.get(selection.edges[0]);
             self.network.body.data.edges.remove(edgeToDelete.id);
           }
+          updateSelectedElement();
         };
 
         function updateSelectedElement() {
@@ -185,7 +186,9 @@ var globalNet;
             self.selected.type = 'node';
           }
           // force angular digest
-          $rootScope.$digest();
+          $timeout( function() {
+            $rootScope.$digest();
+          });
         }
         
         self.getSelected = function getSelected() {
@@ -344,6 +347,7 @@ var globalNet;
             }
           }
           self.network.setSelection({nodes: [newNode.id]});
+          updateSelectedElement();
         };
 
         /*
@@ -367,6 +371,7 @@ var globalNet;
             newEdge.to = endNode;
             self.network.body.data.edges.add(newEdge);
             self.network.setSelection({edges: [newEdge.id]});
+            updateSelectedElement();
           }
         }
         ;

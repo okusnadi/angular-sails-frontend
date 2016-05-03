@@ -3,7 +3,7 @@
 
   <form class="form-vertical" role="form" name="scriptForm"
         autocomplete="off" 
-        ng-submit="saveScript()"
+        ng-submit="$event.preventDefault();"
         >
     <div layout="row">
       <div flex="20" layout-margin>
@@ -32,8 +32,9 @@
       </div>
 
     </div>
-    <md-button type="submit" class="md-primary md-raised "
+    <md-button type="button" class="md-primary md-raised "
                ng-disabled="!scriptForm.$valid"
+               ng-click="saveScript()"
                >
       Save
     </md-button>

@@ -8,7 +8,7 @@
           <label>Connection label</label>
           <input type="text" name="label" 
                  ng-model="$ctrl.np.selected.label"
-                 minlength="3"
+                 minlength="1"
                  />
           <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
             <div ng-message="minlength">The name has to be at least 3 characters.</div>
@@ -27,7 +27,7 @@
           <label>Node label</label>
           <input type="text" name="label" 
                  ng-model="$ctrl.niElement.label"
-                 minlength="3"
+                 minlength="1"
                  required 
                  />
           <div ng-messages="scriptForm.name.$error" multiple md-auto-hide="false">
