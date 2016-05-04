@@ -3,8 +3,8 @@
 <div layout="row">
   <div flex="50" layout-margin>
 
-    <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Builder">
+<!--    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Builder">-->
         <md-content class="md-padding">
 
 
@@ -23,9 +23,9 @@
             </div>
           </div>
         </md-content>
-      </md-tab>
+      <!--</md-tab>-->
 
-      <md-tab label="Test Form">
+<!--      <md-tab label="Test Form">
         <md-content class="md-padding">
           <h2>Test Form</h2>
           <hr/>
@@ -44,9 +44,9 @@
           </div>
           <pre ng-if="isShowScope">{{input}}</pre>
         </md-content>
-      </md-tab>
+      </md-tab>-->
 
-    </md-tabs>
+    <!--</md-tabs>-->
 
   </div>
 
@@ -56,5 +56,24 @@
   </div>
 
 </div>
+
+    <md-button type="button" class="md-primary md-raised "
+               ng-disabled="!scriptForm.$valid"
+               ng-click="saveScript()"
+               >
+      Save
+    </md-button>
+
+    <md-button type="button" class="md-button md-raised "
+               ng-click="$state.go('scripts')"
+               >
+      Cancel
+    </md-button>
+
+    <md-button type="button" class="md-primary md-raised"
+               ng-click="testForm($event)"
+               >
+      Test
+    </md-button>
 
 

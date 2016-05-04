@@ -6,59 +6,12 @@
 (function () {
   'use strict';
 
-
-  var scriptPageController = function ($scope, _script, $formBuilder, $validator) {
-
-    $formBuilder.registerComponent('sampleInput', {
-        group: 'from html',
-        label: 'Sample',
-        description: 'From html template',
-        placeholder: 'placeholder',
-        required: false,
-        validationOptions: [
-          {
-            label: 'none',
-            rule: '/.*/'
-          }, {
-            label: 'number',
-            rule: '[number]'
-          }, {
-            label: 'email',
-            rule: '[email]'
-          }, {
-            label: 'url',
-            rule: '[url]'
-          }
-        ],
-        templateUrl: '/frontend/core/formBuilder/templates/template.html',
-        popoverTemplateUrl: '/frontend/core/formBuilder/templates/popoverTemplate.html'
-      });
-      
-    var checkbox, textbox;
-    textbox = $formBuilder.addFormObject('default', {
-      component: 'textInput',
-      label: 'Name',
-      description: 'Your name',
-      placeholder: 'Your name',
-      required: true,
-      editable: false
-    });
-    checkbox = $formBuilder.addFormObject('default', {
-      component: 'checkbox',
-      label: 'Pets',
-      description: 'Do you have any pets?',
-      options: ['Dog', 'Cat']
-    });
-    $formBuilder.addFormObject('default', {
-      component: 'sampleInput'
-    });
-    $scope.form = $formBuilder.forms['default'];
+  var testFormController = function ( $scope, $validator, $mdDialog ) {
+    
     $scope.input = [];
     $scope.defaultValue = {};
-//    $scope.defaultValue[textbox.id] = 'default value';
-//    $scope.defaultValue[checkbox.id] = [true, true];
-
-    return $scope.submit = function () {
+    
+    $scope.submit = function () {
       return $validator.validate($scope, 'default').success(function () {
         return console.log('success');
       }).error(function () {
@@ -66,11 +19,91 @@
       });
     };
 
+    $scope.cancelDialog = function () {
+      $mdDialog.cancel();
+    };
+
+  };
+
+  var scriptPageController = function (
+    NetworkProvider, $mdDialog,
+    $scope, _script, $formBuilder, $validator)
+  {
+
+    $formBuilder.registerComponent('sampleInput', {
+      group: 'Special elements',
+      label: 'Sample',
+      description: 'From html template',
+      placeholder: 'placeholder',
+      required: false,
+      validationOptions: [
+        {
+          label: 'none',
+          rule: '/.*/'
+        }, {
+          label: 'number',
+          rule: '[number]'
+        }, {
+          label: 'email',
+          rule: '[email]'
+        }, {
+          label: 'url',
+          rule: '[url]'
+        }
+      ],
+      templateUrl: '/frontend/core/formBuilder/templates/template.html',
+      popoverTemplateUrl: '/frontend/core/formBuilder/templates/popoverTemplate.html'
+    });
+
+//    var checkbox, textbox;
+//    textbox = $formBuilder.addFormObject('default', {
+//      component: 'textInput',
+//      label: 'Name',
+//      description: 'Your name',
+//      placeholder: 'Your name',
+//      required: true,
+//      editable: false
+//    });
+//    checkbox = $formBuilder.addFormObject('default', {
+//      component: 'checkbox',
+//      label: 'Pets',
+//      description: 'Do you have any pets?',
+//      options: ['Dog', 'Cat']
+//    });
+//    $formBuilder.addFormObject('default', {
+//      component: 'sampleInput'
+//    });
+
+    $formBuilder.forms = {
+      default: [{"id": 3, "component": "select", "editable": true, "index": 0, "label": "Select", "description": "description", "placeholder": "placeholder", "options": ["value one", "value two"], "required": false, "validation": "/.*/"}, {"id": 0, "component": "textInput", "editable": false, "index": 1, "label": "Name", "description": "Your name", "placeholder": "Your name", "options": [], "required": true, "validation": "/.*/"}, {"id": 1, "component": "checkbox", "editable": true, "index": 2, "label": "Pets", "description": "Do you have any pets?", "placeholder": "placeholder", "options": ["Dog", "Cat"], "required": false, "validation": "/.*/"}, {"id": 2, "component": "sampleInput", "editable": true, "index": 3, "label": "Sample", "description": "From html template", "placeholder": "placeholder", "options": [], "required": false, "validation": "/.*/"}]
+    };
+
+    $scope.form = $formBuilder.forms['default'];
+//    $scope.input = [];
+
+//    $scope.defaultValue[textbox.id] = 'default value';
+//    $scope.defaultValue[checkbox.id] = [true, true];
+
+    $scope.testForm = function (ev) {
+      $mdDialog.show({
+        controller: [
+          '$scope', '$validator', '$mdDialog',
+          testFormController
+        ],
+        locals: {
+          
+        },
+        templateUrl: '/frontend/admin/client.campaign.script/script-test.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    };
 
   };
 
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptPageController', [
+      'NetworkProvider', '$mdDialog',
       '$scope', '_script', '$formBuilder', '$validator',
       scriptPageController
     ]);
@@ -199,7 +232,9 @@
 
           $scope.editScriptPage = function (ev, node) {
             $mdDialog.show({
-              controller: ['$formBuilder', scriptPageController],
+              controller: ['$scope', '_script', '$formBuilder', '$validator',
+                scriptPageController
+              ],
               locals: {
                 node: node
               },
