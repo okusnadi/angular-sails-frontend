@@ -11,7 +11,7 @@
 
   // Define frontend.admin.client.script.script angular module
   angular.module('frontend.admin.client.campaign.script', [
-    'builder'
+    'formBuilder', 
 //      'textAngular''
   ]);
 
