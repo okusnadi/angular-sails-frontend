@@ -12,10 +12,11 @@ and open the template in the editor.
 
 body {
   background: #f5f4f4;
+	margin-top: 68px;
 }
 #container.main-container {
   margin-top:0px;
-  padding-top:90px;
+  padding-top:20px;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
@@ -23,10 +24,25 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
 }
 
 //cards
-
 .cards-container {
 	padding:20px;
 	background-color: #eee;
+}
+
+//toasts 
+
+md-toast .md-toast-content{
+	position:relative;
+	md-icon {color:white;}
+	.icon-box {position:absolute; display:flex; top:0;left:0;bottom:0;padding:12px;}
+};
+
+md-toast {
+	&.type .md-toast-content {padding-left:64px;}
+	&.success .md-toast-content { .icon-box {background-color:#8FBC8F;} }
+	&.warn .md-toast-content {  .icon-box {background-color:#FF6347;} }
+	&.info .md-toast-content {  .icon-box {background-color: #FF8C00}  }
+	&.delete .md-toast-content {  .icon-box {background-color: #000000}  }
 }
 
 //FAB
@@ -35,7 +51,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
 div[data-ui-view='header'] {position:relative;z-index:999}
 
 .md-fab{
-
 }
 
 #main-toolbar {
@@ -86,7 +101,6 @@ md-autocomplete[md-floating-label] md-input-container {
 .add-client-modal {
 	overflow-x: hidden;
 }
-
 
 //animations
 //========================================
@@ -205,7 +219,6 @@ transform: translateX(300px);*/
 	}
 }
 
-
 .ngr-hinge-in {
 	&.ng-enter, &.ng-leave {
 		opacity:0;
@@ -237,7 +250,6 @@ transform: translateX(300px);*/
 		transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
 	}
 }
-
 
 .ngr-slide-down{
 	&.ng-enter, &.ng-leave {
@@ -284,7 +296,6 @@ perspective: 500px;
 
 }
 
-
 /*MATERIAL ICONS*/
 /*==========================================*/
 /* Rules for sizing the icon. */
@@ -302,8 +313,6 @@ perspective: 500px;
 .material-icons.md-light { color: rgba(255, 255, 255, 1) !important; }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3) !important; }
 
-
-
 //helper
 .wide-min-width {min-width:600px;}
 
@@ -320,3 +329,4 @@ perspective: 500px;
   -o-transition-duration: .6s;
   transition-duration: .6s;
 }
+

@@ -76,6 +76,9 @@
 //                    'default' : '500'
 //                } 
                 );
+				
+				$mdThemingProvider.theme('toast-yes');
+				$mdThemingProvider.theme('toast-no');
       }
     ])
   ;

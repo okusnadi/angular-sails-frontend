@@ -32,7 +32,6 @@
             .then(
               function onSuccess(result) {
                 MessageService.success('New role added successfully');
-
                 $mdDialog.hide();
                 dataProvider.triggerFetchData();
               }
@@ -240,7 +239,7 @@
 									.then(
 										function onSuccess(){
 											if (--$scope.functionCounter === 0) {
-												MessageService.success('Role(s) deleted successfully');
+												MessageService.success('Role(s) deleted successfully', 'title');
 												$scope.query.selected = [];
 												$scope.dataProvider.triggerFetchData();
 											}

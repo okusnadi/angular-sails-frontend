@@ -1,5 +1,17 @@
 <div class="cards-container">
 <md-card>
+    <md-button class="md-primary md-raised" ng-click="toastTest.toastYes('FOO bar')">
+        message me
+    </md-button>
+    <md-button class="md-primary md-warn md-raised" ng-click="toastTest.toastYes('FOO bar', {type:'warn'})">
+        warn me
+    </md-button>
+    <md-button class="md-primary md-secondary md-raised" ng-click="toastTest.toastYes('FOO bar', {type:'info'})">
+        inform me
+    </md-button>
+    <md-button class="md-primary md-accent md-raised" ng-click="toastTest.toastYes('FOO bar', {type:'delete'})">
+        delete me
+    </md-button>
     <section layout="column" id="user-list-container">
         <!--Table header-->
 

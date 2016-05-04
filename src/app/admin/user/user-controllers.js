@@ -129,6 +129,8 @@
         DataProvider, MessageService,
         _roles
         ) {
+	
+				$scope.toastTest = MessageService;
 
         //datatable refresh event
         $scope.$on('dataTableRefresh', function (event, data) {
@@ -181,6 +183,8 @@
             $scope.filterForm.$setPristine();
           }
         };
+				
+				
 
         //delete user 
         $scope.deleteUser = function deleteUser(user) {

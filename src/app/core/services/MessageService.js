@@ -16,8 +16,8 @@
 
   angular.module('frontend.core.services')
     .factory('MessageService', [
-      'toastr', '_',
-      function factory(toastr, _) {
+      'toastr', '_', '$mdToast',
+      function factory(toastr, _, $mdToast ) {
         var service = {};
 
         /**
@@ -96,9 +96,95 @@
 
           _makeMessage(message, title, options, defaultOptions, 'error');
         };
+				
+			//my version
+		  //============================================================
+				
+				function _makeToast(message, options) {
+					  //default position
+						console.log('ll');
+						var toastXy = {
+							bottom: false,
+							top: true,
+							left: false,
+							right: true
+						};
+						
+						options = options || {};
+						
+						//Default options
+						var position = options.position || toastXy,
+								delay = options.delay || 3000,
+								theme = options.theme || '',
+								className = options.className || '';
+								
+						//toast types and icons
+						if ( options.type ) {
+							var icon;
+							className = 'type ' + options.type;
+							switch(options.type) {
+								case 'success' : icon = 'done'; ; 
+									break;  
+								case 'warn' : icon = 'warning';
+									break;
+								case 'info': icon = 'info_outline';
+									break;
+								case 'delete' : icon ='delete_forever';
+							}
+						} 
+						
+						
+						
+						var toastPosition = Object.keys(position)
+										.filter(function(pos) {return position[pos];})
+										.join(' ');
+						
+						console.log( 'message:' + message,  'xy:' + position,  'delay:' + delay, 'theme: ' + theme);
+						
+//						$mdToast.show(
+//										$mdToast.position(
+//											{top:true}
+//										).showSimple(message)
+										
+//										);
+
+						var template = [
+							'<md-toast class="' + className + '">',
+							'<div layout="row">',
+							'<div class="icon-box"><md-icon class="toast-icon material-icons">'+ icon + '</md-icon></div>',
+							'<span flex>' + message + '</span>',
+							'</div>',
+							'</md-toast>'
+							
+						].join(' ');
+						
+						$mdToast.show(
+//									$mdToast.simple()
+//									.textContent(message)
+//									.parent('body')
+//									.position(toastPosition)
+//									.hideDelay(999999)
+//									.theme(theme)
+										{
+											template: template,
+											hideDelay: delay,
+											position: toastPosition,
+											theme:theme
+										}
+						);
+		
+						
+				}
+				
+				service.toastYes = function toastYes(message,position,delay) {
+					_makeToast(message,position,delay,'toast-yes');
+				};
 
         return service;
       }
+			
+
+			
     ])
   ;
 }());
