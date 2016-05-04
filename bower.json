@@ -75,12 +75,10 @@
       ]
     },
     "angular-visjs": {
-      "main": [
-      ]
+      "main": []
     },
     "ng-contextmenu": {
-      "main": [
-      ]
+      "main": []
     },
     "vis": {
       "main": [
@@ -99,6 +97,7 @@
   "resolutions": {
     "angular": "~1.5",
     "vis": "^4.16.1",
-    "angular-mocks": "~1.5"
+    "angular-mocks": "~1.5",
+    "angular-material": "master"
   }
 }
