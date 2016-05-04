@@ -5,7 +5,11 @@
         "name": {}
       }
     },
-    "md-checkbox": {},
+    "md-checkbox": {
+      "attributes": {
+        "ng-model": {}
+      }
+    },
     "md-menu": {},
     "md-content": {
       "attributes": {
@@ -22,6 +26,7 @@
     "div": {
       "attributes": {
         "ng-message-exp": {},
+        "flex-xs": {},
         "ng-message": {},
         "ng-style": {},
         "multiple": {},
@@ -29,9 +34,13 @@
         "md-auto-hide": {},
         "layout-margin": {},
         "ng-if": {},
-        "class": {},
         "ng-messages": {},
-        "layout-align": {}
+        "layout-align": {},
+        "fb-default": {},
+        "ng-model": {},
+        "fb-form": {},
+        "fb-components": {},
+        "class": {}
       }
     },
     "md-card": {},

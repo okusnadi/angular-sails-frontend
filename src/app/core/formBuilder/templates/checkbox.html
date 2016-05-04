@@ -12,11 +12,11 @@
   </div>
 </div>-->
 
-<fieldset class="standard">
-  <legend>{{label}}</legend> 
+<!--<fieldset class="standard">-->
+<label for="{{formName + index}}" ng-class="{'fb-required':required}">{{label}}</label> 
 <div flex-xs flex="50" ng-repeat="item in options track by $index">
-<md-checkbox  ng-model="$parent.inputArray[$index]">
-               {{ item }}
-              </md-checkbox>
+  <md-checkbox  ng-model="$parent.inputArray[$index]">
+    {{ item}}
+  </md-checkbox>
 </div>
-</fieldset>
+<!--</fieldset>-->

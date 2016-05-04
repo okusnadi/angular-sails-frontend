@@ -1,9 +1,8 @@
-<md-input-container class="md-block">
   <label for="{{formName+index}}" ng-class="{'fb-required':required}">
     {{label}}
   </label>    
   
-  <md-radio-group ng-model="$parent.inputText">
+  <md-radio-group ng-model="inputText">
         <md-radio-button ng-repeat="item in options track by $index"
           name='{{formName+index}}'
           value="{{item}}" 
@@ -12,14 +11,13 @@
         </md-radio-button>
 </md-radio-group>          
 
-  <div class="col-md-8">        
+<!--  <div class="col-md-8">        
     <div class='radio' ng-repeat="item in options track by $index">            
       <label>
         <input name='{{formName+index}}' ng-model="$parent.inputText" validator-group="{{formName}}" value='{{item}}' type='radio'/>                
         {{item}}            
       </label>        
     </div>        
-    <!--<p class='help-block'>{{description}}</p>-->    
+    <p class='help-block'>{{description}}</p>    
   </div>
-</div>
-</md-input-container>
+</div>-->
