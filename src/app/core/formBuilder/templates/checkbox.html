@@ -1,0 +1,22 @@
+<!--<div class="form-group">    
+  <label for="{{formName+index}}" ng-class="{'fb-required':required}">{{label}}</label>    
+  <div class="col-md-8">        
+    <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
+    <div class='checkbox' ng-repeat="item in options track by $index">
+      <label>
+        <input type='checkbox' ng-model="$parent.inputArray[$index]" value='item'/>
+        {{item}}            
+      </label>        
+    </div>
+    <p class='help-block'>{{description}}</p>    
+  </div>
+</div>-->
+
+<fieldset class="standard">
+  <legend>{{label}}</legend> 
+<div flex-xs flex="50" ng-repeat="item in options track by $index">
+<md-checkbox  ng-model="$parent.inputArray[$index]">
+               {{ item }}
+              </md-checkbox>
+</div>
+</fieldset>

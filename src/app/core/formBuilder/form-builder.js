@@ -15,7 +15,7 @@
     }
   };
 
-  angular.module('builder.controller', ['builder.provider']).controller('fbFormObjectEditableController', [
+  angular.module('frontend.core.formBuilder.controller', ['frontend.core.formBuilder.provider']).controller('fbFormObjectEditableController', [
     '$scope', '$injector', function($scope, $injector) {
       var $formBuilder;
       $formBuilder = $injector.get('$formBuilder');
@@ -169,7 +169,7 @@
 }).call(this);
 
 (function() {
-  angular.module('builder.directive', ['builder.provider', 'builder.controller', 'builder.drag', 'validator']).directive('fbBuilder', [
+  angular.module('frontend.core.formBuilder.directive', ['frontend.core.formBuilder.provider', 'frontend.core.formBuilder.controller', 'frontend.core.formBuilder.drag', 'validator']).directive('fbBuilder', [
     '$injector', function($injector) {
       var $formBuilder, $drag;
       $formBuilder = $injector.get('$formBuilder');
@@ -545,7 +545,7 @@
 }).call(this);
 
 (function() {
-  angular.module('builder.drag', []).provider('$drag', function() {
+  angular.module('frontend.core.formBuilder.drag', []).provider('$drag', function() {
     var $injector, $rootScope, delay;
     $injector = null;
     $rootScope = null;
@@ -954,7 +954,7 @@
 }).call(this);
 
 (function() {
-  angular.module('builder', ['builder.directive']);
+  angular.module('frontend.core.formBuilder', ['frontend.core.formBuilder.directive', 'frontend.core.formBuilder.components']);
 
 }).call(this);
 
@@ -975,7 +975,7 @@
 (function() {
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  angular.module('builder.provider', []).provider('$formBuilder', function() {
+  angular.module('frontend.core.formBuilder.provider', []).provider('$formBuilder', function() {
     var $http, $injector, $templateCache;
     $injector = null;
     $http = null;
@@ -1103,7 +1103,7 @@
         }
 
         /*
-        Register the component for form-builder.
+        Register the component for formBuilder.
         @param name: The component name.
         @param component: The component object.
             group: {string} The component group.

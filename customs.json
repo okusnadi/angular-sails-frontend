@@ -5,6 +5,7 @@
         "name": {}
       }
     },
+    "md-checkbox": {},
     "md-menu": {},
     "md-content": {
       "attributes": {
@@ -205,6 +206,7 @@
         "dt-on-click": {},
         "dt-click": {},
         "dt-mapped-pristine": {},
+        "dt-mapped-validator": {},
         "dt-column-title": {}
       }
     }

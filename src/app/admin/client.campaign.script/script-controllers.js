@@ -7,9 +7,9 @@
   'use strict';
 
 
-  var scriptPageController = function ($scope, _script, $builder, $validator) {
+  var scriptPageController = function ($scope, _script, $formBuilder, $validator) {
 
-    $builder.registerComponent('sampleInput', {
+    $formBuilder.registerComponent('sampleInput', {
         group: 'from html',
         label: 'Sample',
         description: 'From html template',
@@ -30,29 +30,29 @@
             rule: '[url]'
           }
         ],
-        templateUrl: '/frontend/admin/client.campaign.script/templates/template.html',
-        popoverTemplateUrl: '/frontend/admin/client.campaign.script/templates/popoverTemplate.html'
+        templateUrl: '/frontend/core/formBuilder/templates/template.html',
+        popoverTemplateUrl: '/frontend/core/formBuilder/templates/popoverTemplate.html'
       });
       
     var checkbox, textbox;
-//    textbox = $builder.addFormObject('default', {
-//      component: 'textInput',
-//      label: 'Name',
-//      description: 'Your name',
-//      placeholder: 'Your name',
-//      required: true,
-//      editable: false
-//    });
-//    checkbox = $builder.addFormObject('default', {
-//      component: 'checkbox',
-//      label: 'Pets',
-//      description: 'Do you have any pets?',
-//      options: ['Dog', 'Cat']
-//    });
-    $builder.addFormObject('default', {
+    textbox = $formBuilder.addFormObject('default', {
+      component: 'textInput',
+      label: 'Name',
+      description: 'Your name',
+      placeholder: 'Your name',
+      required: true,
+      editable: false
+    });
+    checkbox = $formBuilder.addFormObject('default', {
+      component: 'checkbox',
+      label: 'Pets',
+      description: 'Do you have any pets?',
+      options: ['Dog', 'Cat']
+    });
+    $formBuilder.addFormObject('default', {
       component: 'sampleInput'
     });
-    $scope.form = $builder.forms['default'];
+    $scope.form = $formBuilder.forms['default'];
     $scope.input = [];
     $scope.defaultValue = {};
 //    $scope.defaultValue[textbox.id] = 'default value';
@@ -71,7 +71,7 @@
 
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptPageController', [
-      '$scope', '_script', '$builder', '$validator',
+      '$scope', '_script', '$formBuilder', '$validator',
       scriptPageController
     ]);
 
@@ -199,7 +199,7 @@
 
           $scope.editScriptPage = function (ev, node) {
             $mdDialog.show({
-              controller: ['$builder', scriptPageController],
+              controller: ['$formBuilder', scriptPageController],
               locals: {
                 node: node
               },
