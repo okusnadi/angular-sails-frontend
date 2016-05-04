@@ -90,9 +90,6 @@
     },
     "angular-form-builder": {
       "main": [
-        "./dist/angular-form-builder.js",
-        "./dist/angular-form-builder-components.js",
-        "./dist/angular-form-builder.css"
       ]
     }
   },
