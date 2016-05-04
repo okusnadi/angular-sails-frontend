@@ -1,46 +1,55 @@
-<div class="cards-container">
-<md-card>
-    <md-button class="md-primary md-raised" ng-click="toastTest.toastYes('FOO bar')">
-        message me
-    </md-button>
-    <md-button class="md-primary md-warn md-raised" ng-click="toastTest.toastYes('FOO bar', {type:'warn'})">
-        warn me
-    </md-button>
-    <md-button class="md-primary md-raised" ng-click="toastTest.toastYes('FOO bar', {type:'success'})" style="background:green">
-        succeed me
-    </md-button>
-    <md-button class="md-primary md-accent md-raised" ng-click="toastTest.toastYes('FOO bar', {type:'info'})">
-        inform me
-    </md-button>
-    <md-button class="md-raised" ng-click="toastTest.toastYes('FOO bar', {type:'delete'})" style="background:#ccc">
-        delete me
-    </md-button>
-    <section layout="column" id="user-list-container">
-        <!--Table header-->
+<div class="cards-container" layout-padding>
+            <md-card>
+                <h2>Toast messages</h2>
+                <div layout="row">
+                    <md-button class="md-primary md-raised" ng-click="toastTest.toastYes('FOO bar')" style="background:#444">
+                        text me
+                    </md-button>
+                    <md-button class="md-primary md-raised" ng-click="toastTest.toastYes('FOO bar', {type: 'message'})">
+                        message me
+                    </md-button>
+                    <md-button class="md-primary md-warn md-raised" ng-click="toastTest.toastYes('FOO bar', {type: 'warn'})">
+                        warn me
+                    </md-button>
+                    <md-button class="md-primary md-raised" ng-click="toastTest.toastYes('FOO bar', {type: 'success'})" style="background:green">
+                        succeed me
+                    </md-button>
+                    <md-button class="md-primary md-accent md-raised" ng-click="toastTest.toastYes('FOO bar', {type: 'info'})">
+                        inform me
+                    </md-button>
+                    <md-button class="md-raised" ng-click="toastTest.toastYes('FOO bar', {type: 'delete'})" style="background:#ccc">
+                        delete me
+                    </md-button>
+                </div>
+            </md-card>
+    <md-card>
+       
+        <section layout="column" id="user-list-container">
+            <!--Table header-->
 
-        <!--<md-card>-->
+            <!--<md-card>-->
             <ra-data-table-toolbar
-            table-title=" 'Users' "
-            query = "query"
-            toolbar-btns ="toolbarBtns"
-            toolbar-selected-btns="toolbarSelectedBtns"
-            ></ra-data-table-toolbar>
+              table-title=" 'Users' "
+              query = "query"
+              toolbar-btns ="toolbarBtns"
+              toolbar-selected-btns="toolbarSelectedBtns"
+              ></ra-data-table-toolbar>
 
             <!--table-->
             <md-data-table 
-                dt-items="query.items"
-                dt-item-count="query.itemCount"
-                dt-columns="query.columns"
-                dt-page="query.currentPage"
-                dt-limit="query.itemsPerPage"
-                dt-order="query.order"
-                dt-on-reorder="dataProvider.onReorder"
-                dt-on-paginate="dataProvider.onPaginate"
-                dt-on-click="editUserDialog(event, item, column)"
-                dt-selected="query.selected"
-                >
+              dt-items="query.items"
+              dt-item-count="query.itemCount"
+              dt-columns="query.columns"
+              dt-page="query.currentPage"
+              dt-limit="query.itemsPerPage"
+              dt-order="query.order"
+              dt-on-reorder="dataProvider.onReorder"
+              dt-on-paginate="dataProvider.onPaginate"
+              dt-on-click="editUserDialog(event, item, column)"
+              dt-selected="query.selected"
+              >
             </md-data-table>
-        <!--</md-card>-->
-    </section>
-</md-card>
+            <!--</md-card>-->
+        </section>
+    </md-card>
 </div>

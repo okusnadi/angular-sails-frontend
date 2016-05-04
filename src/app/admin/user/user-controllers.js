@@ -193,7 +193,7 @@
             .then(
               function onSuccess() {
                 if (--$scope.functionCounter === 0) {
-                  MessageService.success('User(s) deleted successfully');
+                  MessageService.delete('User(s) deleted successfully');
                   $scope.query.selected = [];
                   $scope.dataProvider.triggerFetchData();
                 }
@@ -208,8 +208,8 @@
             .title('Careful!')
             .textContent('Are you sure you want to delete user(s)?')
             .ariaLabel('delete user dialog')
-            .ok('Delete the fucker(s)!')
-            .cancel("Let'em stew a bit.");
+            .ok('Delete')
+            .cancel("Cancel");
           $mdDialog.show(confirm).then(function () {
             angular.forEach(items, function (item) {
               $scope.deleteUser(item);

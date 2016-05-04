@@ -108,7 +108,7 @@
             .delete($scope.role.id)
             .then(
               function onSuccess() {
-                MessageService.success('Role "' + $scope.role.name + '" deleted successfully');
+                MessageService.delete('Role "' + $scope.role.name + '" deleted successfully');
 								
                 $state.go('admin.roles');
               }
@@ -239,7 +239,7 @@
 									.then(
 										function onSuccess(){
 											if (--$scope.functionCounter === 0) {
-												MessageService.success('Role(s) deleted successfully', 'title');
+												MessageService.delete('Role(s) deleted successfully', 'title');
 												$scope.query.selected = [];
 												$scope.dataProvider.triggerFetchData();
 											}

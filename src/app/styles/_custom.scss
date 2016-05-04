@@ -49,7 +49,8 @@ md-toast .md-toast-content{
 
 md-toast {
 	&.type .md-toast-content {padding-left:64px;}
-	&.success .md-toast-content { .icon-box {background-color:#8FBC8F;} }
+	&.message .md-toast-content { .icon-box {background-color:rgb(3,169,244);} }
+	&.success .md-toast-content { .icon-box {background-color:#49E20E;} }
 	&.warn .md-toast-content {  .icon-box {background-color:#FF6347;} }
 	&.info .md-toast-content {  .icon-box {background-color: #FF8C00}  }
 	&.delete .md-toast-content {  .icon-box {background-color: #000000}  }

@@ -137,6 +137,9 @@
 								case 'info': icon = 'info_outline';
 									break;
 								case 'delete' : icon ='delete_forever';
+									break;
+								case 'message' : icon = 'message';
+									break;
 							}
 						} 
 						
