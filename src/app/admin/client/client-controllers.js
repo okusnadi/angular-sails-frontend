@@ -145,7 +145,7 @@
             .delete($scope.client.id)
             .then(
               function onSuccess() {
-                MessageService.success('Client "' + $scope.client.name + '" deleted successfully');
+                MessageService.delete('Client "' + $scope.client.name + '" deleted successfully');
 
                 $state.go('admin.clients');
               }

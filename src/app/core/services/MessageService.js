@@ -49,7 +49,8 @@
             timeOut: 2000
           };
 
-          _makeMessage(message, title, options, defaultOptions, 'success');
+//          _makeMessage(message, title, options, defaultOptions, 'success');
+					_makeToast(message, {type:'success'});
         };
 
         /**
@@ -64,7 +65,8 @@
             timeout: 3000
           };
 
-          _makeMessage(message, title, options, defaultOptions, 'info');
+//          _makeMessage(message, title, options, defaultOptions, 'info');
+						_makeToast(message, {type:'info'});
         };
 
         /**
@@ -79,7 +81,8 @@
             timeout: 3000
           };
 
-          _makeMessage(message, title, options, defaultOptions, 'warning');
+          //_makeMessage(message, title, options, defaultOptions, 'warning');
+					_makeToast(message, {type:'warn'});
         };
 
         /**
@@ -93,8 +96,12 @@
           var defaultOptions = {
             timeout: 4000
           };
-
-          _makeMessage(message, title, options, defaultOptions, 'error');
+//          _makeMessage(message, title, options, defaultOptions, 'error');
+						_makeToast(message, {type:'warn', delay: 6000});
+        };
+				
+        service.delete = function error(message, title, options) {
+						_makeToast(message, {type:'delete', delay: 3000});
         };
 				
 			//my version
