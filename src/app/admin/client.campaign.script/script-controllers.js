@@ -65,10 +65,11 @@
       editable: false
     });
     checkbox = $formBuilder.addFormObject('default', {
+      name: 'someName',
       component: 'checkbox',
-      label: 'Pets',
-      description: 'Do you have any pets?',
-      options: ['Dog', 'Cat']
+      label: 'What is the colour of your car?',
+      description: 'What is the colour of your car?',
+      options: ['Black', 'Red', 'White']
     });
     $formBuilder.addFormObject('default', {
       component: 'sampleInput'
