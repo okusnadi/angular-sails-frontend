@@ -55,28 +55,28 @@
       popoverTemplateUrl: '/frontend/core/formBuilder/templates/popoverTemplate.html'
     });
 
-//    var checkbox, textbox;
-//    textbox = $formBuilder.addFormObject('default', {
-//      component: 'textInput',
-//      label: 'Name',
-//      description: 'Your name',
-//      placeholder: 'Your name',
-//      required: true,
-//      editable: false
-//    });
-//    checkbox = $formBuilder.addFormObject('default', {
-//      component: 'checkbox',
-//      label: 'Pets',
-//      description: 'Do you have any pets?',
-//      options: ['Dog', 'Cat']
-//    });
-//    $formBuilder.addFormObject('default', {
-//      component: 'sampleInput'
-//    });
+    var checkbox, textbox;
+    textbox = $formBuilder.addFormObject('default', {
+      component: 'textInput',
+      label: 'Name',
+      description: 'Your name',
+      placeholder: 'Your name',
+      required: true,
+      editable: false
+    });
+    checkbox = $formBuilder.addFormObject('default', {
+      component: 'checkbox',
+      label: 'Pets',
+      description: 'Do you have any pets?',
+      options: ['Dog', 'Cat']
+    });
+    $formBuilder.addFormObject('default', {
+      component: 'sampleInput'
+    });
 
-    $formBuilder.forms = {
-      default: [{"id": 3, "component": "select", "editable": true, "index": 0, "label": "Select", "description": "description", "placeholder": "placeholder", "options": ["value one", "value two"], "required": false, "validation": "/.*/"}, {"id": 0, "component": "textInput", "editable": false, "index": 1, "label": "Name", "description": "Your name", "placeholder": "Your name", "options": [], "required": true, "validation": "/.*/"}, {"id": 1, "component": "checkbox", "editable": true, "index": 2, "label": "Pets", "description": "Do you have any pets?", "placeholder": "placeholder", "options": ["Dog", "Cat"], "required": false, "validation": "/.*/"}, {"id": 2, "component": "sampleInput", "editable": true, "index": 3, "label": "Sample", "description": "From html template", "placeholder": "placeholder", "options": [], "required": false, "validation": "/.*/"}]
-    };
+//    $formBuilder.forms = {
+//      default: [{"id": 3, "component": "select", "editable": true, "index": 0, "label": "Select", "description": "description", "placeholder": "placeholder", "options": ["value one", "value two"], "required": false, "validation": "/.*/"}, {"id": 0, "component": "textInput", "editable": false, "index": 1, "label": "Name", "description": "Your name", "placeholder": "Your name", "options": [], "required": true, "validation": "/.*/"}, {"id": 1, "component": "checkbox", "editable": true, "index": 2, "label": "Pets", "description": "Do you have any pets?", "placeholder": "placeholder", "options": ["Dog", "Cat"], "required": false, "validation": "/.*/"}, {"id": 2, "component": "sampleInput", "editable": true, "index": 3, "label": "Sample", "description": "From html template", "placeholder": "placeholder", "options": [], "required": false, "validation": "/.*/"}]
+//    };
 
     $scope.form = $formBuilder.forms['default'];
 //    $scope.input = [];
