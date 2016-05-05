@@ -113,11 +113,12 @@
         }
         return _results;
       };
-      
+
       $scope.filterGroup = function (group) {
-        return _.filter($formBuilder.components, function(element){
+        return _.filter($formBuilder.components, function (element) {
           return element.group === group;
-        });;
+        });
+        ;
       };
       $scope.groups = $formBuilder.groups;
       $scope.activeGroup = $scope.groups[0];
@@ -176,312 +177,285 @@
 }).call(this);
 
 (function () {
-  
+
   angular.module('frontend.core.formBuilder.directive', [
-    'frontend.core.formBuilder.provider', 'frontend.core.formBuilder.controller', 
+    'frontend.core.formBuilder.provider', 'frontend.core.formBuilder.controller',
     'frontend.core.formBuilder.drag', 'validator'])
     .directive('fbBuilder', [
-    '$injector', function ($injector) {
-      var $formBuilder, $drag;
-      $formBuilder = $injector.get('$formBuilder');
-      $drag = $injector.get('$drag');
-      return {
-        restrict: 'A',
-        scope: {
-          fbBuilder: '='
-        },
-        template: "<div class='form-horizontal'>\n    <div class='fb-form-object-editable' ng-repeat=\"object in formObjects\"\n        fb-form-object-editable=\"object\"></div>\n</div>",
-        link: function (scope, element, attrs) {
-          var beginMove, _base, _name;
-          scope.formName = attrs.fbBuilder;
-          if ((_base = $formBuilder.forms)[_name = scope.formName] == null) {
-            _base[_name] = [];
-          }
-          scope.formObjects = $formBuilder.forms[scope.formName];
-          beginMove = true;
-          $(element).addClass('fb-builder');
-          return $drag.droppable($(element), {
-            move: function (e) {
-              var $empty, $formObject, $formObjects, height, index, offset, positions, _i, _j, _ref, _ref1;
-              if (beginMove) {
-                $("div.fb-form-object-editable").popover('hide');
-                beginMove = false;
-              }
-              $formObjects = $(element).find('.fb-form-object-editable:not(.empty,.dragging)');
-              if ($formObjects.length === 0) {
-                if ($(element).find('.fb-form-object-editable.empty').length === 0) {
-                  $(element).find('>div:first').append($("<div class='fb-form-object-editable empty'></div>"));
+      '$injector', function ($injector) {
+        var $formBuilder, $drag;
+        $formBuilder = $injector.get('$formBuilder');
+        $drag = $injector.get('$drag');
+        return {
+          restrict: 'A',
+          scope: {
+            fbBuilder: '='
+          },
+          template: "<div class='form-horizontal'>\n    <div class='fb-form-object-editable' ng-repeat=\"object in formObjects\"\n        fb-form-object-editable=\"object\"></div>\n</div>",
+          link: function (scope, element, attrs) {
+            var beginMove, _base, _name;
+            scope.formName = attrs.fbBuilder;
+            if ((_base = $formBuilder.forms)[_name = scope.formName] == null) {
+              _base[_name] = [];
+            }
+            scope.formObjects = $formBuilder.forms[scope.formName];
+            beginMove = true;
+            $(element).addClass('fb-builder');
+            return $drag.droppable($(element), {
+              move: function (e) {
+                var $empty, $formObject, $formObjects, height, index, offset, positions, _i, _j, _ref, _ref1;
+                if (beginMove) {
+                  $("div.fb-form-object-editable").popover('hide');
+                  beginMove = false;
                 }
-                return;
-              }
-              positions = [];
-              positions.push(-1000);
-              for (index = _i = 0, _ref = $formObjects.length; _i < _ref; index = _i += 1) {
-                $formObject = $($formObjects[index]);
-                offset = $formObject.offset();
-                height = $formObject.height();
-                positions.push(offset.top + height / 2);
-              }
-              positions.push(positions[positions.length - 1] + 1000);
-              for (index = _j = 1, _ref1 = positions.length; _j < _ref1; index = _j += 1) {
-                if (e.pageY > positions[index - 1] && e.pageY <= positions[index]) {
-                  $(element).find('.empty').remove();
-                  $empty = $("<div class='fb-form-object-editable empty'></div>");
-                  if (index - 1 < $formObjects.length) {
-                    $empty.insertBefore($($formObjects[index - 1]));
-                  } else {
-                    $empty.insertAfter($($formObjects[index - 2]));
+                $formObjects = $(element).find('.fb-form-object-editable:not(.empty,.dragging)');
+                if ($formObjects.length === 0) {
+                  if ($(element).find('.fb-form-object-editable.empty').length === 0) {
+                    $(element).find('>div:first').append($("<div class='fb-form-object-editable empty'></div>"));
                   }
-                  break;
+                  return;
                 }
+                positions = [];
+                positions.push(-1000);
+                for (index = _i = 0, _ref = $formObjects.length; _i < _ref; index = _i += 1) {
+                  $formObject = $($formObjects[index]);
+                  offset = $formObject.offset();
+                  height = $formObject.height();
+                  positions.push(offset.top + height / 2);
+                }
+                positions.push(positions[positions.length - 1] + 1000);
+                for (index = _j = 1, _ref1 = positions.length; _j < _ref1; index = _j += 1) {
+                  if (e.pageY > positions[index - 1] && e.pageY <= positions[index]) {
+                    $(element).find('.empty').remove();
+                    $empty = $("<div class='fb-form-object-editable empty'></div>");
+                    if (index - 1 < $formObjects.length) {
+                      $empty.insertBefore($($formObjects[index - 1]));
+                    } else {
+                      $empty.insertAfter($($formObjects[index - 2]));
+                    }
+                    break;
+                  }
+                }
+              },
+              out: function () {
+                if (beginMove) {
+                  $("div.fb-form-object-editable").popover('hide');
+                  beginMove = false;
+                }
+                return $(element).find('.empty').remove();
+              },
+              up: function (e, isHover, draggable) {
+                var formObject, newIndex, oldIndex;
+                beginMove = true;
+                if (!$drag.isMouseMoved()) {
+                  $(element).find('.empty').remove();
+                  return;
+                }
+                if (!isHover && draggable.mode === 'drag') {
+                  formObject = draggable.object.formObject;
+                  if (formObject.editable) {
+                    $formBuilder.removeFormObject(attrs.fbBuilder, formObject.index);
+                  }
+                } else if (isHover) {
+                  if (draggable.mode === 'mirror') {
+                    $formBuilder.insertFormObject(scope.formName, $(element).find('.empty').index('.fb-form-object-editable'), {
+                      component: draggable.object.componentName
+                    });
+                  }
+                  if (draggable.mode === 'drag') {
+                    oldIndex = draggable.object.formObject.index;
+                    newIndex = $(element).find('.empty').index('.fb-form-object-editable');
+                    if (oldIndex < newIndex) {
+                      newIndex--;
+                    }
+                    $formBuilder.updateFormObjectIndex(scope.formName, oldIndex, newIndex);
+                  }
+                }
+                return $(element).find('.empty').remove();
               }
-            },
-            out: function () {
-              if (beginMove) {
-                $("div.fb-form-object-editable").popover('hide');
-                beginMove = false;
-              }
-              return $(element).find('.empty').remove();
-            },
-            up: function (e, isHover, draggable) {
-              var formObject, newIndex, oldIndex;
-              beginMove = true;
-              if (!$drag.isMouseMoved()) {
-                $(element).find('.empty').remove();
+            });
+          }
+        };
+      }
+    ])
+    .directive('fbFormObjectEditable', [
+      '$injector', function ($injector) {
+        var $formBuilder, $compile, $drag, $validator;
+        $formBuilder = $injector.get('$formBuilder');
+        $drag = $injector.get('$drag');
+        $compile = $injector.get('$compile');
+        $validator = $injector.get('$validator');
+        $mdDialog = $injector.get('$mdDialog');
+        return {
+          restrict: 'A',
+          controller: 'fbFormObjectEditableController',
+          scope: {
+            formObject: '=fbFormObjectEditable'
+          },
+          link: function (scope, element) {
+            var popover;
+            scope.disabled = true;
+            scope.inputArray = [];
+            scope.$component = $formBuilder.components[scope.formObject.component];
+            scope.setupScope(scope.formObject);
+            scope.$watch('$component.template', function (template) {
+              var view;
+              if (!template) {
                 return;
               }
-              if (!isHover && draggable.mode === 'drag') {
-                formObject = draggable.object.formObject;
-                if (formObject.editable) {
-                  $formBuilder.removeFormObject(attrs.fbBuilder, formObject.index);
+              view = $compile(template)(scope);
+              return $(element).html(view);
+            });
+            $drag.draggable($(element), {
+              object: {
+                formObject: scope.formObject
+              }
+            });
+            if (!scope.formObject.editable) {
+              return;
+            }
+            element.bind('click', function ($event) {
+              var $scope = scope;
+              if ($drag.isMouseMoved()) {
+                return false;
+              }
+              $event.preventDefault();
+              $event.stopPropagation();
+              $mdDialog.show({
+                targetEvent: $event,
+                controller: function (scope) {},
+                scope: $scope,
+                preserveScope: true,
+                template: scope.$component.popoverTemplate,
+                clickOutsideToClose: true
+              });
+              return false;
+            });
+            popover = {};
+            scope.$watch('$component.popoverTemplate', function (template) {
+            });
+
+            scope.popover = {
+              save: function ($event) {
+
+                $event.preventDefault();
+                $validator.validate(scope).success(function () {
+                  popover.isClickedSave = true;
+                  $mdDialog.cancel();
+                });
+              },
+              remove: function ($event) {
+
+                $event.preventDefault();
+                $formBuilder.removeFormObject(scope.$parent.formName, scope.$parent.$index);
+                $mdDialog.cancel();
+              },
+              shown: function () {
+
+                scope.data.backup();
+                return popover.isClickedSave = false;
+              },
+              cancel: function ($event) {
+                console.log($event);
+                scope.data.rollback();
+                if ($event) {
+                  $event.preventDefault();
+                  $mdDialog.cancel();
                 }
-              } else if (isHover) {
-                if (draggable.mode === 'mirror') {
-                  $formBuilder.insertFormObject(scope.formName, $(element).find('.empty').index('.fb-form-object-editable'), {
-                    component: draggable.object.componentName
+              }
+            };
+
+            $(element).on('shown.bs.popover', function () {
+              $(".popover ." + popover.id + " input:first").select();
+              scope.$apply(function () {
+                return scope.popover.shown();
+              });
+            });
+            return $(element).on('hide.bs.popover', function () {
+              var $popover;
+              $popover = $("form." + popover.id).closest('.popover');
+              if (!popover.isClickedSave) {
+                if (scope.$$phase || scope.$root.$$phase) {
+                  scope.popover.cancel();
+                } else {
+                  scope.$apply(function () {
+                    return scope.popover.cancel();
                   });
                 }
-                if (draggable.mode === 'drag') {
-                  oldIndex = draggable.object.formObject.index;
-                  newIndex = $(element).find('.empty').index('.fb-form-object-editable');
-                  if (oldIndex < newIndex) {
-                    newIndex--;
-                  }
-                  $formBuilder.updateFormObjectIndex(scope.formName, oldIndex, newIndex);
-                }
               }
-              return $(element).find('.empty').remove();
-            }
-          });
-        }
-      };
-    }
-  ])
-    .directive('fbFormObjectEditable', [
-    '$injector', function ($injector) {
-      var $formBuilder, $compile, $drag, $validator;
-      $formBuilder = $injector.get('$formBuilder');
-      $drag = $injector.get('$drag');
-      $compile = $injector.get('$compile');
-      $validator = $injector.get('$validator');
-      $mdDialog = $injector.get('$mdDialog');
-      return {
-        restrict: 'A',
-        controller: 'fbFormObjectEditableController',
-        scope: {
-          formObject: '=fbFormObjectEditable'
-        },
-        link: function (scope, element) {
-          var popover;
-          scope.inputArray = [];
-          scope.$component = $formBuilder.components[scope.formObject.component];
-          scope.setupScope(scope.formObject);
-          scope.$watch('$component.template', function (template) {
-            var view;
-            if (!template) {
-              return;
-            }
-            view = $compile(template)(scope);
-            return $(element).html(view);
-          });
-          $drag.draggable($(element), {
-            object: {
-              formObject: scope.formObject
-            }
-          });
-          if (!scope.formObject.editable) {
-            return;
-          }
-          element.bind('click', function ($event) {
-            var $scope = scope;
-            if ($drag.isMouseMoved()) {
+              $popover.removeClass('in');
+              setTimeout(function () {
+                return $popover.hide();
+              }, 300);
               return false;
-            }
-            $event.preventDefault();
-            $event.stopPropagation();
-            $mdDialog.show({
-              targetEvent: $event,
-              controller: function(scope) {},
-              scope : $scope,
-              preserveScope: true,             
-              template: scope.$component.popoverTemplate,
-              clickOutsideToClose: true
             });
-            return false;
-          });
-          popover = {};
-          scope.$watch('$component.popoverTemplate', function (template) {
-          });
-          
-          scope.popover = {
-            save: function ($event) {
-
-              $event.preventDefault();
-              $validator.validate(scope).success(function () {
-                popover.isClickedSave = true;
-                $mdDialog.cancel();
-//                return $(element).popover('hide');
-              });
-            },
-            remove: function ($event) {
-
-              $event.preventDefault();
-              $formBuilder.removeFormObject(scope.$parent.formName, scope.$parent.$index);
-              $mdDialog.cancel();
-//              $(element).popover('hide');
-            },
-            shown: function () {
-
-              scope.data.backup();
-              return popover.isClickedSave = false;
-            },
-            cancel: function ($event) {
-              console.log($event);
-              scope.data.rollback();
-              if ($event) {
-                $event.preventDefault();
-                $mdDialog.cancel();
-//                $(element).popover('hide');
-              }
-            }
-          };
-//          $(element).on('show.bs.popover', function () {
-//            var $popover, elementOrigin, popoverTop;
-//            if ($drag.isMouseMoved()) {
-//              return false;
-//            }
-//            console.log(this);
-//            $mdDialog.show( );
-            
-//            $("div.fb-form-object-editable:not(." + popover.id + ")").popover('hide');
-//            $popover = $("form." + popover.id).closest('.popover');
-//            if ($popover.length > 0) {
-//              elementOrigin = $(element).offset().top + $(element).height() / 2;
-//              popoverTop = elementOrigin - $popover.height() / 2;
-//              $popover.css({
-//                position: 'absolute',
-//                top: popoverTop
-//              });
-//              $popover.show();
-//              setTimeout(function () {
-//                $popover.addClass('in');
-//                return $(element).triggerHandler('shown.bs.popover');
-//              }, 0);
-//              return false;
-//            }
-//          });
-          $(element).on('shown.bs.popover', function () {
-            $(".popover ." + popover.id + " input:first").select();
-            scope.$apply(function () {
-              return scope.popover.shown();
-            });
-          });
-          return $(element).on('hide.bs.popover', function () {
-            var $popover;
-            $popover = $("form." + popover.id).closest('.popover');
-            if (!popover.isClickedSave) {
-              if (scope.$$phase || scope.$root.$$phase) {
-                scope.popover.cancel();
-              } else {
-                scope.$apply(function () {
-                  return scope.popover.cancel();
-                });
-              }
-            }
-            $popover.removeClass('in');
-            setTimeout(function () {
-              return $popover.hide();
-            }, 300);
-            return false;
-          });
-        }
-      };
-    }
-  ])
-    .directive('fbComponents', function () {
-    return {
-      restrict: 'A',
-//      template: "<ul ng-if=\"groups.length > 1\" class=\"nav nav-tabs nav-justified\">\n    <li ng-repeat=\"group in groups\" ng-class=\"{active:activeGroup==group}\">\n        <a href='#' ng-click=\"selectGroup($event, group)\">{{group}}</a>\n    </li>\n</ul>\n<div class='form-horizontal'>\n    <div class='fb-component' ng-repeat=\"component in components\"\n        fb-component=\"component\"></div>\n</div>",
-      templateUrl: '/frontend/core/formBuilder/fb-components.html',
-      controller: 'fbComponentsController'
-    };
-  })
-    .directive('fbComponent', [
-    '$injector', function ($injector) {
-      var $formBuilder, $compile, $drag;
-      $formBuilder = $injector.get('$formBuilder');
-      $drag = $injector.get('$drag');
-      $compile = $injector.get('$compile');
-      return {
-        restrict: 'A',
-        scope: {
-          component: '=fbComponent'
-        },
-        controller: 'fbComponentController',
-        link: function (scope, element) {
-          scope.copyObjectToScope(scope.component);
-          $drag.draggable($(element), {
-            mode: 'mirror',
-            defer: false,
-            object: {
-              componentName: scope.component.name
-            }
-          });
-          return scope.$watch('component.template', function (template) {
-            var view;
-            if (!template) {
-              return;
-            }
-            view = $compile(template)(scope);
-            return $(element).html(view);
-          });
-        }
-      };
-    }
-  ])
-    .directive('fbForm', [
-    '$injector', function ($injector) {
-      return {
-        restrict: 'A',
-        require: 'ngModel',
-        scope: {
-          formName: '@fbForm',
-          input: '=ngModel',
-          "default": '=fbDefault'
-        },
-        template: "<div class='fb-form-object' ng-repeat=\"object in form\" fb-form-object=\"object\"></div>",
-        controller: 'fbFormController',
-        link: function (scope, element, attrs) {
-          var $formBuilder, _base, _name;
-          $formBuilder = $injector.get('$formBuilder');
-          if ((_base = $formBuilder.forms)[_name = scope.formName] == null) {
-            _base[_name] = [];
           }
-          return scope.form = $formBuilder.forms[scope.formName];
-        }
+        };
+      }
+    ])
+    .directive('fbComponents', function () {
+      return {
+        restrict: 'A',
+        templateUrl: '/frontend/core/formBuilder/fb-components.html',
+        controller: 'fbComponentsController'
       };
-    }
-  ]).directive('fbFormObject', [
+    })
+    .directive('fbComponent', [
+      '$injector', function ($injector) {
+        var $formBuilder, $compile, $drag;
+        $formBuilder = $injector.get('$formBuilder');
+        $drag = $injector.get('$drag');
+        $compile = $injector.get('$compile');
+        return {
+          restrict: 'A',
+          scope: {
+            component: '=fbComponent'
+          },
+          controller: 'fbComponentController',
+          link: function (scope, element) {
+            scope.copyObjectToScope(scope.component);
+            $drag.draggable($(element), {
+              mode: 'mirror',
+              defer: false,
+              object: {
+                componentName: scope.component.name
+              }
+            });
+            return scope.$watch('component.template', function (template) {
+              var view;
+              if (!template) {
+                return;
+              }
+              view = $compile(template)(scope);
+              return $(element).html(view);
+            });
+          }
+        };
+      }
+    ])
+    .directive('fbForm', [
+      '$injector', function ($injector) {
+        return {
+          restrict: 'A',
+          require: 'ngModel',
+          scope: {
+            formName: '@fbForm',
+            input: '=ngModel',
+            "default": '=fbDefault'
+          },
+          template: "<div class='fb-form-object' ng-repeat=\"object in form\" fb-form-object=\"object\"></div>",
+          controller: 'fbFormController',
+          link: function (scope, element, attrs) {
+            var $formBuilder, _base, _name;
+            $formBuilder = $injector.get('$formBuilder');
+            if ((_base = $formBuilder.forms)[_name = scope.formName] == null) {
+              _base[_name] = [];
+            }
+            return scope.form = $formBuilder.forms[scope.formName];
+          }
+        };
+      }
+    ]).directive('fbFormObject', [
     '$injector', function ($injector) {
       var $formBuilder, $compile, $parse;
       $formBuilder = $injector.get('$formBuilder');

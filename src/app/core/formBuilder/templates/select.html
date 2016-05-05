@@ -8,9 +8,9 @@
 </div>-->
 <!--</fieldset>-->
 
-<md-input-container>
+<md-input-container class="md-block">
   <label for="{{formName+index}}">{{label}}</label>
-  <md-select ng-model="inputText">
+  <md-select ng-model="inputText" ng-disabled="disabled">
   <md-option ng-repeat="value in options" 
              ng-init="inputText = options[0]"
              value="{{value}}"

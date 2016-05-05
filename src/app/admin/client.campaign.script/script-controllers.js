@@ -62,7 +62,7 @@
       description: 'Your name',
       placeholder: 'Your name',
       required: true,
-      editable: false
+//      editable: false
     });
     checkbox = $formBuilder.addFormObject('default', {
       name: 'someName',

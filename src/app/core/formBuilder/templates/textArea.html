@@ -1,7 +1,11 @@
 <!--<div class="form-group">-->    
 <md-input-container class="md-block">
   <label for="{{formName + index}}" ng-class="{'fb-required':required}">{{label}}</label>    
-  <textarea ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName + index}}">    
+  <textarea ng-disabled="disabled"
+      ng-model="inputText" 
+      validator-required="{{required}}" 
+      validator-group="{{formName}}" 
+      id="{{formName + index}}">    
   </textarea>
     <!--<p class='help-block'>{{description}}</p>-->    
 </md-input-container>                    

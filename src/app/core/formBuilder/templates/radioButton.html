@@ -2,22 +2,14 @@
     {{label}}
   </label>    
   
-  <md-radio-group ng-model="inputText">
-        <md-radio-button ng-repeat="item in options track by $index"
+  <md-radio-group ng-model="inputText" >
+        <md-radio-button ng-repeat="item in options track by $index"          
+          ng-disabled="disabled"
           name='{{formName+index}}'
           value="{{item}}" 
           class="md-primary">
           {{item}}
         </md-radio-button>
 </md-radio-group>          
+    <!--<p class='help-block'>{{description}}</p>-->    
 
-<!--  <div class="col-md-8">        
-    <div class='radio' ng-repeat="item in options track by $index">            
-      <label>
-        <input name='{{formName+index}}' ng-model="$parent.inputText" validator-group="{{formName}}" value='{{item}}' type='radio'/>                
-        {{item}}            
-      </label>        
-    </div>        
-    <p class='help-block'>{{description}}</p>    
-  </div>
-</div>-->
