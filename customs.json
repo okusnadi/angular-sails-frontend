@@ -20,11 +20,13 @@
     "ng-messages=\"roleForm.name.$error\"": {},
     "div": {
       "attributes": {
+        "fb-component": {},
         "ng-message-exp": {},
         "ng-message": {},
         "ng-style": {},
         "multiple": {},
         "ng-repeat": {},
+        "ng-bind-html": {},
         "md-auto-hide": {},
         "layout-margin": {},
         "ng-if": {},
@@ -37,6 +39,11 @@
       }
     },
     "md-card": {},
+    "md-dialog-content": {
+      "attributes": {
+        "layout-padding": {}
+      }
+    },
     "md-fab-actions": {
       "attributes": {
         "class": {}

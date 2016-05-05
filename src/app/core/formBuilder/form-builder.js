@@ -95,9 +95,10 @@
     '$scope', '$injector', function ($scope, $injector) {
       var $formBuilder;
       $formBuilder = $injector.get('$formBuilder');
+      _ = $injector.get('_');
       $scope.selectGroup = function ($event, group) {
         var component, name, _ref, _results;
-        if ($event != null) {
+        if ($event !== null) {
           $event.preventDefault();
         }
         $scope.activeGroup = group;
@@ -111,6 +112,12 @@
           }
         }
         return _results;
+      };
+      
+      $scope.filterGroup = function (group) {
+        return _.filter($formBuilder.components, function(element){
+          return element.group === group;
+        });;
       };
       $scope.groups = $formBuilder.groups;
       $scope.activeGroup = $scope.groups[0];
@@ -170,11 +177,10 @@
 
 (function () {
   
-var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
-  console.dir( 'SCOPE: '+ $mdDialog);
-};
-
-  angular.module('frontend.core.formBuilder.directive', ['frontend.core.formBuilder.provider', 'frontend.core.formBuilder.controller', 'frontend.core.formBuilder.drag', 'validator']).directive('fbBuilder', [
+  angular.module('frontend.core.formBuilder.directive', [
+    'frontend.core.formBuilder.provider', 'frontend.core.formBuilder.controller', 
+    'frontend.core.formBuilder.drag', 'validator'])
+    .directive('fbBuilder', [
     '$injector', function ($injector) {
       var $formBuilder, $drag;
       $formBuilder = $injector.get('$formBuilder');
@@ -270,7 +276,8 @@ var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
         }
       };
     }
-  ]).directive('fbFormObjectEditable', [
+  ])
+    .directive('fbFormObjectEditable', [
     '$injector', function ($injector) {
       var $formBuilder, $compile, $drag, $validator;
       $formBuilder = $injector.get('$formBuilder');
@@ -297,10 +304,17 @@ var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
             view = $compile(template)(scope);
             return $(element).html(view);
           });
+          $drag.draggable($(element), {
+            object: {
+              formObject: scope.formObject
+            }
+          });
+          if (!scope.formObject.editable) {
+            return;
+          }
           element.bind('click', function ($event) {
             var $scope = scope;
             if ($drag.isMouseMoved()) {
-              console.log('DRAGGED');
               return false;
             }
             $event.preventDefault();
@@ -315,51 +329,13 @@ var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
             });
             return false;
           });
-          $drag.draggable($(element), {
-            object: {
-              formObject: scope.formObject
-            }
-          });
-          if (!scope.formObject.editable) {
-            return;
-          }
           popover = {};
           scope.$watch('$component.popoverTemplate', function (template) {
-//            if (!template) {
-//              return;
-//            }
-//            $(element).removeClass(popover.id);
-//            popover = {
-//              id: "fb-" + (Math.random().toString().substr(2)),
-//              isClickedSave: false,
-//              view: null,
-//              html: template
-//            };
-//
-//            return {
-//              controller: FormPopOverController,
-//              scope: scope,
-//              template: template,
-//              clickOutsideToClose: true
-//            };
-
-//            popover.html = $(popover.html).addClass(popover.id);
-//            popover.view = $compile(popover.html)(scope);
-//            $(element).addClass(popover.id);
-//            return $(element).popover({
-//              html: true,
-//              title: scope.$component.label,
-//              content: popover.view,
-//              container: 'body'
-//            });
           });
           
           scope.popover = {
             save: function ($event) {
 
-              /*
-               The save event of the popover.
-               */
               $event.preventDefault();
               $validator.validate(scope).success(function () {
                 popover.isClickedSave = true;
@@ -369,9 +345,6 @@ var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
             },
             remove: function ($event) {
 
-              /*
-               The delete event of the popover.
-               */
               $event.preventDefault();
               $formBuilder.removeFormObject(scope.$parent.formName, scope.$parent.$index);
               $mdDialog.cancel();
@@ -379,17 +352,11 @@ var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
             },
             shown: function () {
 
-              /*
-               The shown event of the popover.
-               */
               scope.data.backup();
               return popover.isClickedSave = false;
             },
             cancel: function ($event) {
-
-              /*
-               The cancel event of the popover.
-               */
+              console.log($event);
               scope.data.rollback();
               if ($event) {
                 $event.preventDefault();
@@ -450,13 +417,16 @@ var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
         }
       };
     }
-  ]).directive('fbComponents', function () {
+  ])
+    .directive('fbComponents', function () {
     return {
       restrict: 'A',
-      template: "<ul ng-if=\"groups.length > 1\" class=\"nav nav-tabs nav-justified\">\n    <li ng-repeat=\"group in groups\" ng-class=\"{active:activeGroup==group}\">\n        <a href='#' ng-click=\"selectGroup($event, group)\">{{group}}</a>\n    </li>\n</ul>\n<div class='form-horizontal'>\n    <div class='fb-component' ng-repeat=\"component in components\"\n        fb-component=\"component\"></div>\n</div>",
+//      template: "<ul ng-if=\"groups.length > 1\" class=\"nav nav-tabs nav-justified\">\n    <li ng-repeat=\"group in groups\" ng-class=\"{active:activeGroup==group}\">\n        <a href='#' ng-click=\"selectGroup($event, group)\">{{group}}</a>\n    </li>\n</ul>\n<div class='form-horizontal'>\n    <div class='fb-component' ng-repeat=\"component in components\"\n        fb-component=\"component\"></div>\n</div>",
+      templateUrl: '/frontend/core/formBuilder/fb-components.html',
       controller: 'fbComponentsController'
     };
-  }).directive('fbComponent', [
+  })
+    .directive('fbComponent', [
     '$injector', function ($injector) {
       var $formBuilder, $compile, $drag;
       $formBuilder = $injector.get('$formBuilder');
@@ -488,7 +458,8 @@ var FormPopOverController = function FormPopOverController( scope, $mdDialog ) {
         }
       };
     }
-  ]).directive('fbForm', [
+  ])
+    .directive('fbForm', [
     '$injector', function ($injector) {
       return {
         restrict: 'A',
