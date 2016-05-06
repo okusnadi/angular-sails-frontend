@@ -36,6 +36,7 @@
         "fb-default": {},
         "ng-model": {},
         "fb-form": {},
+        "fb-components": {},
         "class": {}
       }
     },
@@ -128,6 +129,11 @@
         "ng-show": {},
         "class": {},
         "ng-hide": {}
+      }
+    },
+    "md-tabs": {
+      "attributes": {
+        "md-border-bottom": {}
       }
     },
     "md-tooltip": {

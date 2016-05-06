@@ -4,53 +4,53 @@
   <div flex="50" layout-margin>
 
 
-          <md-card>
-<md-toolbar class="md-primary md-hue-3">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex">Builder</h2>
-    </div>
-  </md-toolbar>
-        <md-content class="md-padding">
-          
-            <div fb-builder="default"></div>
-            <div class="panel-footer">
-              <div class="checkbox">
-                <label><input type="checkbox" ng-model="isShowScope" />
-                  Show scope
-                </label>
-              </div>
-              <pre ng-if="isShowScope">{{form}}</pre>
-            </div>
-        </md-content>
-  </md-card>
-</div>
-  
+    <md-card>
+      <md-toolbar class="md-primary md-hue-3">
+        <div class="md-toolbar-tools">
+          <h2 class="md-flex">Builder</h2>
+        </div>
+      </md-toolbar>
+      <md-content class="md-padding">
+
+        <div fb-builder="default"></div>
+        <div class="panel-footer">
+          <div class="checkbox">
+            <label><input type="checkbox" ng-model="isShowScope" />
+              Show scope
+            </label>
+          </div>
+          <pre ng-if="isShowScope">{{form}}</pre>
+        </div>
+      </md-content>
+    </md-card>
+  </div>
+
 
   <div flex="50" layout-margin>
-          <md-card>
-    <div fb-components></div>
-          </md-card>
+    <md-card>
+      <div fb-components></div>
+    </md-card>
   </div>
 
 </div>
 
-    <md-button type="button" class="md-primary md-raised "
-               ng-disabled="!scriptForm.$valid"
-               ng-click="saveScript()"
-               >
-      Save
-    </md-button>
+<md-button type="button" class="md-primary md-raised "
+           ng-disabled="!scriptForm.$valid"
+           ng-click="saveScript()"
+           >
+  Save
+</md-button>
 
-    <md-button type="button" class="md-button md-raised "
-               ng-click="$state.go('scripts')"
-               >
-      Cancel
-    </md-button>
+<md-button type="button" class="md-button md-raised "
+           ng-click="$state.go('scripts')"
+           >
+  Cancel
+</md-button>
 
-    <md-button type="button" class="md-primary md-raised"
-               ng-click="testForm($event)"
-               >
-      Test
-    </md-button>
+<md-button type="button" class="md-primary md-raised"
+           ng-click="testForm($event)"
+           >
+  Test
+</md-button>
 
 
