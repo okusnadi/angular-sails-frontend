@@ -64,16 +64,6 @@
             parent: 'script',
             url: '/node/:nodeId',
             resolve: {
-//                _script: [
-//                    '$stateParams',
-//                    'ScriptModel',
-//                    function resolve(
-//                      $stateParams,
-//                      ScriptModel
-//                    ) {
-//                      return ScriptModel.fetch($stateParams.scriptId);
-//                    }
-//                  ]
             },
             views: {
               'content@': {

@@ -35,14 +35,14 @@
 </div>
 
 <md-button type="button" class="md-primary md-raised "
-           ng-disabled="!scriptForm.$valid"
            ng-click="saveScript()"
            >
+           <!--ng-disabled="!scriptForm.$valid"-->
   Save
 </md-button>
 
 <md-button type="button" class="md-button md-raised "
-           ng-click="$state.go('scripts')"
+           ng-click="cancelScript()"
            >
   Cancel
 </md-button>

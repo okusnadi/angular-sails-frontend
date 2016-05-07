@@ -224,6 +224,7 @@
         
 				//dialogs
         $scope.addClientDialog = function(ev) {
+          console.log('ADD');
             $mdDialog.show({
             controller: ClientAddController,
             locals: {

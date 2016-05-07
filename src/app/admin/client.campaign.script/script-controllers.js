@@ -26,13 +26,26 @@
   };
 
   var scriptPageController = function (
-    NetworkProvider, $mdDialog, $stateParams,
-    $scope, $formBuilder, $validator, _,
+    $mdDialog, $stateParams, $state,
+    $scope, $formBuilder, NetworkProvider, _,
     _script)
   {
-    $scope.node = _.findWhere(_script.network.nodes, {id: parseInt($stateParams.nodeId)});
-//    $scope.node = NetworkProvider.network.body.data.nodes.get($stateParams.nodeId);
-    console.log($scope.node);
+    // don't recreate network on comming back to previous page
+    NetworkProvider.preserveState = true;
+    
+    if(angular.isDefined(NetworkProvider.selected.id)) {
+      $scope.node = NetworkProvider.selected;
+    };
+    if( angular.isUndefined($scope.node) ) {
+      $scope.node = _.findWhere(_script.network.nodes, {id: parseInt($stateParams.nodeId)});
+    }
+    if( angular.isUndefined($scope.node) ) {
+      $state.go('^');
+      return;
+    }
+    
+    $scope.oldScript = angular.copy($scope.node.script);
+    
     if (angular.isUndefined($scope.node.script)) {
       $scope.node.script = [
         {"id": 0, "component": "textInput", "editable": true, "index": 0, "label": "Name", "description": "Your name", "placeholder": "Your name", "options": [], "required": true, "validation": "/.*/"},
@@ -40,7 +53,7 @@
         {"id": 2, "component": "select", "editable": true, "index": 2, "label": "Select", "description": "description", "placeholder": "placeholder", "options": ["value one", "value two"], "required": false, "validation": "/.*/"},
       ];
     }
-    console.log($scope.node);
+    
     $formBuilder.registerComponent('sampleInput', {
       group: 'Special elements',
       label: 'Sample',
@@ -66,35 +79,9 @@
       popoverTemplateUrl: '/frontend/core/formBuilder/templates/popoverTemplate.html'
     });
 
-//    var checkbox, textbox;
-//    textbox = $formBuilder.addFormObject('default', {
-//      component: 'textInput',
-//      label: 'Name',
-//      description: 'Your name',
-//      placeholder: 'Your name',
-//      required: true,
-////      editable: false
-//    });
-//    checkbox = $formBuilder.addFormObject('default', {
-//      name: 'someName',
-//      component: 'checkbox',
-//      label: 'What is the colour of your car?',
-//      description: 'What is the colour of your car?',
-//      options: ['Black', 'Red', 'White']
-//    });
-//    $formBuilder.addFormObject('default', {
-//      component: 'sampleInput'
-//    });
-
     $formBuilder.forms['default'] = $scope.node.script;
     $scope.form = $formBuilder.forms['default'];
     
-//    console.log($scope.form);
-//    $scope.input = [];
-
-//    $scope.defaultValue[textbox.id] = 'default value';
-//    $scope.defaultValue[checkbox.id] = [true, true];
-
     $scope.testForm = function (ev) {
       $mdDialog.show({
         controller: [
@@ -109,12 +96,21 @@
       });
     };
 
+    $scope.saveScript = function (ev) {
+      $state.go('^');
+    };
+
+    $scope.cancelScript = function (ev) {
+    $scope.node.script = angular.copy($scope.oldScript);
+      $state.go('^');
+    };
+
   };
 
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptPageController', [
-      'NetworkProvider', '$mdDialog', '$stateParams',
-      '$scope', '$formBuilder', '$validator', '_',
+      '$mdDialog', '$stateParams', '$state',
+      '$scope', '$formBuilder', 'NetworkProvider', '_',
       '_script',
       scriptPageController
     ]);
@@ -234,28 +230,22 @@
             }
           });
 
-          var nodes = $scope.script.network ? $scope.script.network.nodes : NetworkProvider.getStartNodes();
-          var edges = $scope.script.network ? $scope.script.network.edges : [];
+          var nodes, edges;
+          // icheck if we need to recreate network nodes or use ones from previous state
+          if(NetworkProvider.network && NetworkProvider.preserveState === true) {
+            NetworkProvider.preserveState = false;
+            nodes = NetworkProvider.network.body.data.nodes.get();
+            edges = NetworkProvider.network.body.data.edges.get();            
+          }
+          else {
+            nodes = $scope.script.network ? $scope.script.network.nodes : NetworkProvider.getStartNodes();
+            edges = $scope.script.network ? $scope.script.network.edges : [];
+          }
+          
           $scope.data = {
             nodes: new vis.DataSet(nodes),
             edges: new vis.DataSet(edges)
           };
-
-          $scope.editScriptPage = function (ev, node) {
-            $mdDialog.show({
-              controller: ['$scope', '_script', '$formBuilder', '$validator',
-                scriptPageController
-              ],
-              locals: {
-                node: node
-              },
-              templateUrl: '/frontend/admin/client.campaign.script/script-page.html',
-//              parent: angular.element(document.body),
-              targetEvent: ev,
-              clickOutsideToClose: false
-            });
-          };
-
 
           // Script delete dialog buttons configuration
           $scope.confirmButtonsDelete = {
@@ -336,6 +326,25 @@
 
             });
           };
+          
+//          $scope.editScriptPage = function (ev, node) {
+//            $mdDialog.show({
+//              controller: [
+//              '$mdDialog', '$stateParams',
+//              '$scope', '$formBuilder', '$validator', '_',
+//                scriptPageController
+//              ],
+//              locals: {
+//                node: node,
+//                script: $scope.script
+//              },
+//              templateUrl: '/frontend/admin/client.campaign.script/script-page.html',
+//              targetEvent: ev,
+//              clickOutsideToClose: false
+//            });
+//          };
+
+          
         }
       ])
     ;
