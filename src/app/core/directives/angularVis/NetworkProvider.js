@@ -79,6 +79,7 @@ var globalNet;
               physics: false,
               color: groupColours[3],
               icon: 'play_circle_outline',
+              title: 'Start node',
               extra: {
                 count: {min: 1, max: 1},
                 to: {max: 0},
@@ -90,6 +91,7 @@ var globalNet;
               physics: false,
               color: groupColours[2],
               icon: 'done_all',
+              title: 'End node',
               extra: {
                 count: {min: 1, max: 3},
                 to: {min: 1},
@@ -101,6 +103,7 @@ var globalNet;
               physics: true,
               color: groupColours[4],
               icon: 'assignment',
+              title: 'Questionnaire',
               extra: {
                 count: {},
                 to: {min: 1},
@@ -110,8 +113,9 @@ var globalNet;
             Decision: {
               shape: 'dot',
               physics: true,
-              color: groupColours[0],
+              color: groupColours[9],
               icon: 'call_split',
+              title: 'Decision point',
               extra: {
                 count: {},
                 to: {max: 1},
@@ -123,12 +127,25 @@ var globalNet;
               physics: true,
               color: groupColours[0],
               icon: 'done',
+              title: 'Option',
               extra: {
                 count: {},
                 to: {min: 1, max: 1},
                 from: {min: 1, max: 1}
               }
-            }
+            },
+            Action: {
+              shape: 'dot',
+              physics: true,
+              color: groupColours[6],
+              icon: 'trending_up',
+              title: 'Action',
+              extra: {
+                count: {},
+                to: {min: 1, max: 1},
+                from: {min: 1, max: 1}
+              }
+            },
           }
         };
 
@@ -136,6 +153,7 @@ var globalNet;
           {id: 1, label: 'Start', group: 'Start', x: -200, y: 100},
           {id: 2, label: 'Script page 1', group: 'Script'},
           {id: 3, label: 'Decison point 1', group: 'Decision'},
+          {id: 4, label: 'Actions', group: 'Action'},
           {id: 999, label: 'End', group: 'End', x: 200, y: 100}
         ];
 

@@ -284,7 +284,7 @@
               .update(data.id, data)
               .then(
                 function onSuccess() {
-                  MessageService.success('Email template "' + $scope.script.name + '" updated successfully');
+                  MessageService.success('Script "' + $scope.script.name + '" updated successfully');
                   $state.go('scripts');
                 }
               )
@@ -307,7 +307,7 @@
               .delete($scope.script.id)
               .then(
                 function onSuccess() {
-                  MessageService.success('Email template "' + $scope.script.title + '" deleted successfully');
+                  MessageService.success('Script "' + $scope.script.title + '" deleted successfully');
                   $state.go('scripts');
                 }
               )
@@ -318,7 +318,7 @@
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
               .title('Delete script')
-              .textContent('Are you sure you want to delete email template ' + $scope.script.name + ' ?')
+              .textContent('Are you sure you want to delete script ' + $scope.script.name + ' ?')
               .ariaLabel('Lucky day')
               .targetEvent(ev)
               .ok('Yes!')
