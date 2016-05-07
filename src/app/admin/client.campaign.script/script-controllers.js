@@ -26,9 +26,10 @@
   };
 
   var scriptPageController = function (
-    $mdDialog, $stateParams, $state,
-    $scope, $formBuilder, NetworkProvider, _,
-    _script)
+    $mdDialog, $stateParams, $state, $scope, 
+    $formBuilder, NetworkProvider, MessageService, _,
+    _script
+      )
   {
     // don't recreate network on comming back to previous page
     NetworkProvider.preserveState = true;
@@ -97,10 +98,12 @@
     };
 
     $scope.saveScript = function (ev) {
+      MessageService.info('Form stored locally - please rememember to save!');
       $state.go('^');
     };
 
     $scope.cancelScript = function (ev) {
+    MessageService.info('Form changes cancelled');
     $scope.node.script = angular.copy($scope.oldScript);
       $state.go('^');
     };
@@ -109,8 +112,8 @@
 
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptPageController', [
-      '$mdDialog', '$stateParams', '$state',
-      '$scope', '$formBuilder', 'NetworkProvider', '_',
+      '$mdDialog', '$stateParams', '$state', '$scope', 
+      '$formBuilder', 'NetworkProvider', 'MessageService', '_',
       '_script',
       scriptPageController
     ]);
