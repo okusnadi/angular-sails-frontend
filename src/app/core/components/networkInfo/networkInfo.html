@@ -35,15 +35,19 @@
             <div ng-message="required">Name is required.</div>
           </div>
         </md-input-container>
-      
     <md-button type="button" class="md-primary md-raised"
-               ng-if="$ctrl.niElement.group === 'Script'"
-               ui-sref="node({nodeId: $ctrl.niElement.id})"
+               ng-if="$ctrl.groups[$ctrl.niElement.group].edit.sref"
+               ui-sref="{{$ctrl.groups[$ctrl.niElement.group].edit.sref}}"
                >
-               <!--ng-click="$ctrl.niEditScript({ev:$event, node:$ctrl.niElement})"-->
-      Edit script page
+      Edit {{$ctrl.groups[$ctrl.niElement.group].title}}
     </md-button>
-        
+    <md-button type="button" class="md-primary md-raised"
+               ng-if="$ctrl.groups[$ctrl.niElement.group].edit.handler"
+               ng-click="$ctrl.groups[$ctrl.niElement.group].edit.handler($event, $ctrl.niElement)"
+               >
+      Edit {{$ctrl.groups[$ctrl.niElement.group].title}}
+    </md-button>
+                
     </div>
   </div>
 </div>

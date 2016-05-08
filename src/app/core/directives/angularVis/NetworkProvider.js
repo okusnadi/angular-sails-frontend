@@ -6,13 +6,16 @@ var globalNet;
 
   angular.module('frontend.core.directives')
     .service('NetworkProvider', [
-      'MessageService', '$document', '$compile', '$rootScope', '$interpolate', '$http', '$timeout',
-      function (MessageService, $document, $compile, $rootScope, $interpolate, $http, $timeout) {
+      'MessageService', '$document', '$compile', '$rootScope',
+      '$interpolate', '$http', '$timeout', '$mdDialog',
+      function (MessageService, $document, $compile, $rootScope,
+        $interpolate, $http, $timeout, $mdDialog
+        ) {
 
         var self = this;
         self.menu = null;
         self.network = null;
-        
+
         self.selected = {};
 //        self.selectedType = 'nothing';
 
@@ -25,7 +28,7 @@ var globalNet;
           oncontext: onRightClick,
           beforeDrawing: beforeDrawing
         };
-        
+
         var groupColours = [
           {border: '#2B7CE9', background: '#97C2FC', highlight: {border: '#2B7CE9', background: '#D2E5FF'}, hover: {border: '#2B7CE9', background: '#D2E5FF'}}, // 0: blue
           {border: '#FFA500', background: '#FFFF00', highlight: {border: '#FFA500', background: '#FFFFA3'}, hover: {border: '#FFA500', background: '#FFFFA3'}}, // 1: yellow
@@ -80,7 +83,7 @@ var globalNet;
               color: groupColours[3],
               icon: 'play_circle_outline',
               title: 'Start node',
-              extra: {
+              validation: {
                 count: {min: 1, max: 1},
                 to: {max: 0},
                 from: {min: 1, max: 1}
@@ -92,7 +95,7 @@ var globalNet;
               color: groupColours[2],
               icon: 'done_all',
               title: 'End node',
-              extra: {
+              validation: {
                 count: {min: 1, max: 3},
                 to: {min: 1},
                 from: {max: 0}
@@ -104,7 +107,10 @@ var globalNet;
               color: groupColours[4],
               icon: 'assignment',
               title: 'Questionnaire',
-              extra: {
+              edit: {
+                sref: 'node({nodeId: $ctrl.niElement.id})'
+              },
+              validation: {
                 count: {},
                 to: {min: 1},
                 from: {min: 1, max: 1}
@@ -116,7 +122,7 @@ var globalNet;
               color: groupColours[9],
               icon: 'call_split',
               title: 'Decision point',
-              extra: {
+              validation: {
                 count: {},
                 to: {max: 1},
                 from: {min: 1}
@@ -128,7 +134,7 @@ var globalNet;
               color: groupColours[0],
               icon: 'done',
               title: 'Option',
-              extra: {
+              validation: {
                 count: {},
                 to: {min: 1, max: 1},
                 from: {min: 1, max: 1}
@@ -140,7 +146,10 @@ var globalNet;
               color: groupColours[6],
               icon: 'trending_up',
               title: 'Action',
-              extra: {
+              edit: {
+                handler: editActionNode
+              },
+              validation: {
                 count: {},
                 to: {min: 1, max: 1},
                 from: {min: 1, max: 1}
@@ -148,6 +157,8 @@ var globalNet;
             },
           }
         };
+        
+        var actionTypes = 'Send Email, Set Status';
 
         var startNodes = [
           {id: 1, label: 'Start', group: 'Start', x: -200, y: 100},
@@ -191,6 +202,43 @@ var globalNet;
           updateSelectedElement();
         };
 
+
+        function editActionNodeController($mdDialog, $scope, _, node) {
+
+          $scope.actionTypes = actionTypes;
+          $scope.node = node;
+
+          console.log('Controller!', node);
+          $scope.cancelDialog = function () {
+            $mdDialog.cancel();
+          };
+          
+        }
+
+
+        function editActionNode(event, node) {
+          if (angular.isUndefined(node.actions)) {
+            node.actions = [
+              { value: '' }
+            ];
+          };
+    
+          $mdDialog.show({
+            controller: [
+              '$mdDialog', '$scope', '_', 'node',
+                editActionNodeController
+            ],
+            locals: {
+              node: node,
+//                script: $scope.script
+            },
+            templateUrl: '/frontend/admin/client.campaign.script/script-action.html',
+            targetEvent: event,
+            clickOutsideToClose: true
+          });
+
+        }
+
         function updateSelectedElement() {
           var selection = self.network.getSelection();
           self.selected = {};
@@ -204,15 +252,15 @@ var globalNet;
             self.selected.type = 'node';
           }
           // force angular digest
-          $timeout( function() {
+          $timeout(function () {
             $rootScope.$digest();
           });
         }
-        
+
         self.getSelected = function getSelected() {
           return self.selected;
         };
-        
+
         /*
          * function to check if new node of given type can be added (as defined in groups max limit)
          * @param {type} nodeType
@@ -224,7 +272,7 @@ var globalNet;
               return item.group === nodeType;
             }
           }).length;
-          var max = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].extra.count.max;
+          var max = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].validation.count.max;
           if (max && (count >= max)) {
             return false;
           }
@@ -242,7 +290,7 @@ var globalNet;
               return item.group === nodeType;
             }
           }).length;
-          var min = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].extra.count.min;
+          var min = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].validation.count.min;
           if (min && (count <= min)) {
             return false;
           }
@@ -275,7 +323,7 @@ var globalNet;
           }
           return node;
         }
-        
+
         /*
          * function to check if new edge can be added from start node
          * @param {type} id
@@ -286,7 +334,7 @@ var globalNet;
           if (!node) {
             return false;
           }
-          var max = angular.isDefined(options.groups[node.group]) && options.groups[node.group].extra.from.max;
+          var max = angular.isDefined(options.groups[node.group]) && options.groups[node.group].validation.from.max;
           if (angular.isDefined(max) && max !== false && node.from.length >= max) {
             return false;
           }
@@ -303,7 +351,7 @@ var globalNet;
           if (!node) {
             return false;
           }
-          var max = angular.isDefined(options.groups[node.group]) && options.groups[node.group].extra.to.max;
+          var max = angular.isDefined(options.groups[node.group]) && options.groups[node.group].validation.to.max;
           if (angular.isDefined(max) && max !== false && node.to.length >= max) {
             return false;
           }

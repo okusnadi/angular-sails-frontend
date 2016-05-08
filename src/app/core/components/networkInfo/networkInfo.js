@@ -9,6 +9,8 @@
         
         ctrl.np = NetworkProvider;
         
+        ctrl.groups = (ctrl.np.getOptions()).groups;
+        
     }
 
     angular.module('frontend.core.components')

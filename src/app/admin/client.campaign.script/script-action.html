@@ -1,0 +1,38 @@
+<md-content layout-padding class="wide-min-width">
+    <h4>Actions</h4>
+    <form class="" role="form" name="settingForm"
+          autocomplete="off" 
+          data-ng-submit="local.saveSetting()"
+          >
+
+        <div layout="row">
+            <div flex="50" layout-margin>
+                <md-multi-input mi-items="node.actions" mi-max="5" 
+                            mi-suggestions="actionTypes" mi-label-prefix="'Action'"
+                            >
+                </md-multi-input>
+            </div>
+            <div flex="50" layout-margin>
+                <div ng-repeat="action in node.actions">
+                  {{action}}
+                </div>
+            </div>
+        </div>
+
+        <div flex="100" layout="row">
+            <div flex></div>
+            <md-button type="submit" class="md-primary md-raised "
+                       data-ng-disabled="!settingForm.$valid">
+                Save
+            </md-button>
+
+            <md-button type="button" class="md-button md-raised "
+                       ng-click="cancelDialog();"
+                       >
+                Cancel
+            </md-button>
+        </div>
+
+
+    </form>
+</md-content>

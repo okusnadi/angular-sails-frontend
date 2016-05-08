@@ -37,6 +37,7 @@
         "ng-model": {},
         "fb-form": {},
         "fb-components": {},
+        "ng.repeat": {},
         "class": {}
       }
     },

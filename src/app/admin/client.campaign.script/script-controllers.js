@@ -328,25 +328,7 @@
             }, function () {
 
             });
-          };
-          
-//          $scope.editScriptPage = function (ev, node) {
-//            $mdDialog.show({
-//              controller: [
-//              '$mdDialog', '$stateParams',
-//              '$scope', '$formBuilder', '$validator', '_',
-//                scriptPageController
-//              ],
-//              locals: {
-//                node: node,
-//                script: $scope.script
-//              },
-//              templateUrl: '/frontend/admin/client.campaign.script/script-page.html',
-//              targetEvent: ev,
-//              clickOutsideToClose: false
-//            });
-//          };
-
+          };         
           
         }
       ])
