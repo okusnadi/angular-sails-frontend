@@ -5,6 +5,13 @@
         "name": {}
       }
     },
+    "cc-action-form": {
+      "attributes": {
+        "af-action": {},
+        "action": {},
+        "af-email-templates": {}
+      }
+    },
     "md-menu": {},
     "md-content": {
       "attributes": {

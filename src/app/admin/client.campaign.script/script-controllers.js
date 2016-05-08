@@ -26,27 +26,28 @@
   };
 
   var scriptPageController = function (
-    $mdDialog, $stateParams, $state, $scope, 
+    $mdDialog, $stateParams, $state, $scope,
     $formBuilder, NetworkProvider, MessageService, _,
     _script
-      )
+    )
   {
     // don't recreate network on comming back to previous page
     NetworkProvider.preserveState = true;
-    
-    if(angular.isDefined(NetworkProvider.selected.id)) {
+
+    if (angular.isDefined(NetworkProvider.selected.id)) {
       $scope.node = NetworkProvider.selected;
-    };
-    if( angular.isUndefined($scope.node) ) {
+    }
+    ;
+    if (angular.isUndefined($scope.node)) {
       $scope.node = _.findWhere(_script.network.nodes, {id: parseInt($stateParams.nodeId)});
     }
-    if( angular.isUndefined($scope.node) ) {
+    if (angular.isUndefined($scope.node)) {
       $state.go('^');
       return;
     }
-    
+
     $scope.oldScript = angular.copy($scope.node.script);
-    
+
     if (angular.isUndefined($scope.node.script)) {
       $scope.node.script = [
         {"id": 0, "component": "textInput", "editable": true, "index": 0, "label": "Name", "description": "Your name", "placeholder": "Your name", "options": [], "required": true, "validation": "/.*/"},
@@ -54,7 +55,7 @@
         {"id": 2, "component": "select", "editable": true, "index": 2, "label": "Select", "description": "description", "placeholder": "placeholder", "options": ["value one", "value two"], "required": false, "validation": "/.*/"},
       ];
     }
-    
+
     $formBuilder.registerComponent('sampleInput', {
       group: 'Special elements',
       label: 'Sample',
@@ -82,15 +83,13 @@
 
     $formBuilder.forms['default'] = $scope.node.script;
     $scope.form = $formBuilder.forms['default'];
-    
+
     $scope.testForm = function (ev) {
       $mdDialog.show({
         controller: [
-          '$scope', '$validator', '$mdDialog',
+          '$scope', '$validator', '$mdDialog', 'emailTemplates',
           testFormController
         ],
-        locals: {
-        },
         templateUrl: '/frontend/admin/client.campaign.script/script-test.html',
         targetEvent: ev,
         clickOutsideToClose: true
@@ -103,8 +102,8 @@
     };
 
     $scope.cancelScript = function (ev) {
-    MessageService.info('Form changes cancelled');
-    $scope.node.script = angular.copy($scope.oldScript);
+      MessageService.info('Form changes cancelled');
+      $scope.node.script = angular.copy($scope.oldScript);
       $state.go('^');
     };
 
@@ -112,7 +111,7 @@
 
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptPageController', [
-      '$mdDialog', '$stateParams', '$state', '$scope', 
+      '$mdDialog', '$stateParams', '$state', '$scope',
       '$formBuilder', 'NetworkProvider', 'MessageService', '_',
       '_script',
       scriptPageController
@@ -150,6 +149,7 @@
         $scope.options = NetworkProvider.getOptions();
         $scope.events = NetworkProvider.getEvents();
         $scope.np = NetworkProvider;
+        $scope.np.campaignId = _campaign.id;
 
         // 1 level deep watch for changes in current element form
         $scope.$watchCollection("np.selected", function (nv, ov) {
@@ -224,6 +224,7 @@
           $scope.options = NetworkProvider.getOptions();
           $scope.events = NetworkProvider.getEvents();
           $scope.np = NetworkProvider;
+          $scope.np.campaignId = _campaign.id;
 
           // 1 level deep watch for changes in current element form
           $scope.$watchCollection("np.selected", function (nv, ov) {
@@ -235,16 +236,15 @@
 
           var nodes, edges;
           // icheck if we need to recreate network nodes or use ones from previous state
-          if(NetworkProvider.network && NetworkProvider.preserveState === true) {
+          if (NetworkProvider.network && NetworkProvider.preserveState === true) {
             NetworkProvider.preserveState = false;
             nodes = NetworkProvider.network.body.data.nodes.get();
-            edges = NetworkProvider.network.body.data.edges.get();            
-          }
-          else {
+            edges = NetworkProvider.network.body.data.edges.get();
+          } else {
             nodes = $scope.script.network ? $scope.script.network.nodes : NetworkProvider.getStartNodes();
             edges = $scope.script.network ? $scope.script.network.edges : [];
           }
-          
+
           $scope.data = {
             nodes: new vis.DataSet(nodes),
             edges: new vis.DataSet(edges)
@@ -328,8 +328,8 @@
             }, function () {
 
             });
-          };         
-          
+          };
+
         }
       ])
     ;

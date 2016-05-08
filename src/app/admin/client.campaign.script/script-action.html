@@ -6,15 +6,15 @@
           >
 
         <div layout="row">
-            <div flex="50" layout-margin>
-                <md-multi-input mi-items="node.actions" mi-max="5" 
+          <div flex="40" layout-margin>
+                <md-multi-input mi-items="node.actions" mi-max="10" 
                             mi-suggestions="actionTypes" mi-label-prefix="'Action'"
                             >
                 </md-multi-input>
             </div>
-            <div flex="50" layout-margin>
-                <div ng-repeat="action in node.actions">
-                  {{action}}
+            <div flex="60" layout-margin>
+                <div ng-repeat="action in node.actions" class="multi-input-item">
+                  <cc-action-form af-action="action" af-email-templates="emailTemplates"></cc-action-form>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 
   'use strict';
 
-  function MultiInputController($scope, $element, $attrs) {
+  function MultiInputController() {
 
     var ctrl = this;
     ctrl.suggestions = loadAll();

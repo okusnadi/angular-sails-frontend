@@ -1,28 +1,48 @@
-<ng-form name="miForm">
-    <div layout="row" class="multi-input-item" ng-repeat="item in $ctrl.miItems">
-        <md-autocomplete
-            required="true"
-            md-floating-label="{{item.label?item.label:$ctrl.miLabelPrefix+' '+($index+1)}}"
-            md-selected-item="item.selectedItem" 
-            md-search-text="item.value" 
-            md-items="sugg in $ctrl.querySearch(item.value, item)" 
-            md-item-text="sugg.display"
-            md-min-length="0"
-            ng-click=""
-            flex
-            >
-            <md-item-template>
-                <span md-highlight-text="item.value">{{sugg.display}}</span>
-            </md-item-template>
-        </md-autocomplete>
-        <md-button ng-if="!$ctrl.miStatic" class="md-fab md-mini md-primary md-hue-2 roll-left" ng-click="$ctrl.addField($index)" tabIndex="-1"
-                   ng-class="{ 'roll-left-active' : $ctrl.miItems.length < 2 }">
-            <md-tooltip>Add new level</md-tooltip>
-            <md-icon class="material-icons md-light" >add</md-icon>
-        </md-button>
-        <md-button ng-if="!$ctrl.miStatic && $ctrl.miItems.length > 1" class="md-fab md-mini md-warn roll-in" ng-click="$ctrl.deleteField($index)" tabIndex="-1">
-            <md-tooltip>Remove this level</md-tooltip>
-            <md-icon class="material-icons md-light" >clear</md-icon>
-        </md-button>
+
+<ng-form ng-if="$ctrl.afAction.value === 'Send Email'">
+  <div layout="row">
+    <div flex="50%">
+      <md-input-container>
+        <label>Recipients</label>
+        <input type="text" 
+               data-ng-model="$ctrl.afAction.form.recipients"
+               data-ng-minlength="3"
+               required="required" name="recipients"
+               />
+      </md-input-container>
     </div>
+    <div flex="50%">
+      <md-input-container>
+        <label>Template</label>
+        <md-select ng-model="$ctrl.afAction.form.template">
+          <md-option ng-value="template.id" ng-repeat="template in $ctrl.afEmailTemplates">{{ template.name}}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </div>
+</ng-form>
+
+<ng-form ng-if="$ctrl.afAction.value === 'Set Status'">
+  <div layout="row">
+    <div flex="50%">
+      <md-input-container>
+        <label>Status</label>
+        <input type="text" 
+               data-ng-model="$ctrl.afAction.form.status"
+               data-ng-minlength="3"
+               required="required" name="status"
+               />
+      </md-input-container>
+    </div>
+    <div flex="50%">
+      <md-input-container>
+        <label>Value</label>
+        <input type="text" 
+               data-ng-model="$ctrl.afAction.form.value"
+               data-ng-minlength="3"
+               required="required" name="value"
+               />
+      </md-input-container>
+    </div>
+  </div>
 </ng-form>

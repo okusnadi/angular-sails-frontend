@@ -17,7 +17,8 @@ var globalNet;
         self.network = null;
 
         self.selected = {};
-//        self.selectedType = 'nothing';
+
+        self.campaignId = null;
 
         globalNet = self;
 
@@ -157,8 +158,17 @@ var globalNet;
             },
           }
         };
-        
-        var actionTypes = 'Send Email, Set Status';
+
+        var actionTypes = [
+          {
+            value: 'Send Email',
+            display: 'Send Email'
+          },
+          {
+            value: 'Set Status',
+            display: 'Set Status'
+          }
+        ];
 
         var startNodes = [
           {id: 1, label: 'Start', group: 'Start', x: -200, y: 100},
@@ -203,34 +213,48 @@ var globalNet;
         };
 
 
-        function editActionNodeController($mdDialog, $scope, _, node) {
+        function editActionNodeController($mdDialog, $scope, _, node, emailTemplates) {
 
           $scope.actionTypes = actionTypes;
           $scope.node = node;
-
-          console.log('Controller!', node);
+          $scope.emailTemplates = emailTemplates;
+          
+          console.log('Controller!', $scope);
           $scope.cancelDialog = function () {
             $mdDialog.cancel();
           };
-          
+
         }
 
 
         function editActionNode(event, node) {
           if (angular.isUndefined(node.actions)) {
             node.actions = [
-              { value: '' }
+              {value: ''}
             ];
-          };
-    
+          }
+          ;
+
           $mdDialog.show({
             controller: [
-              '$mdDialog', '$scope', '_', 'node',
-                editActionNodeController
+              '$mdDialog', '$scope', '_', 'node', 'emailTemplates',
+              editActionNodeController
             ],
             locals: {
               node: node,
-//                script: $scope.script
+            },
+            resolve: {
+              emailTemplates: ['EmailTemplateModel',
+                function resolve(EmailTemplateModel) {
+                  var parameters = {
+                    sort: 'name ASC',
+                    where: {
+                      campaign: self.campaignId
+                    }
+                  };
+                  return EmailTemplateModel.load(parameters);
+                }
+              ]
             },
             templateUrl: '/frontend/admin/client.campaign.script/script-action.html',
             targetEvent: event,

@@ -19,7 +19,7 @@
           templateUrl: '/frontend/core/components/networkInfo/networkInfo.html',
           bindings: {
               niElement: '=',
-              niEditScript: '&'
+//              niEditScript: '&'
           }
       });
 
