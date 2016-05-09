@@ -20,6 +20,7 @@
     };
 
     $scope.local.saveSetting = function () {
+      $scope.local.setting.key = camelize($scope.local.setting.name);
       $scope.settings.current.settings.push($scope.local.setting);
       $scope.updateSettings('New setting added successfully');
     };
@@ -34,6 +35,7 @@
     };
 
     $scope.local.saveSetting = function () {
+      $scope.local.setting.key = camelize($scope.local.setting.name);
       item.name = $scope.local.setting.name;
       item.key = $scope.local.setting.key;
       item.type = $scope.local.setting.type;
@@ -71,10 +73,6 @@
         };
 
         $scope.settings = {
-//                  fields: _.find(_settings, function (obj) {
-//                      return obj.type === 'FIELDS';
-//
-//                  }),
           current: _.find(_settings, function (obj) {
             return obj.type === $state.current.data.type;
 
@@ -110,9 +108,6 @@
               }
             );
         }
-        console.log($scope.settings.current);
-
-//              $scope.dataProvider = new DataProvider(SettingModel, $scope.query);
 
         var searchWordTimer;
 
@@ -176,7 +171,7 @@
             controller: SettingAddController,
             scope: $scope,
             preserveScope: true,
-            templateUrl: '/frontend/admin/setting/setting-link.html',
+            templateUrl: '/frontend/admin/setting/setting.html',
             targetEvent: ev,
             clickOutsideToClose: false
           });
@@ -190,7 +185,7 @@
             },
             scope: $scope,
             preserveScope: true,
-            templateUrl: '/frontend/admin/setting/setting-link.html',
+            templateUrl: '/frontend/admin/setting/setting.html',
             targetEvent: event,
             clickOutsideToClose: false
           });
@@ -309,7 +304,7 @@
             var data = angular.copy($scope.setting);
 
             // Set role id to update data
-            data.role = $scope.selectRole;
+//            data.role = $scope.selectRole;
 
             // Make actual data update
             SettingModel
@@ -358,6 +353,14 @@
         }
       ])
     ;
+
+    function camelize(str) {
+      return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+        if (+match === 0)
+          return ""; // or if (/\s+/.test(match)) for white spaces
+        return index == 0 ? match.toLowerCase() : match.toUpperCase();
+      });
+    }
 
 
 }());

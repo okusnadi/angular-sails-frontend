@@ -27,7 +27,8 @@
                     <input type="text" 
                            data-ng-model="local.setting.key"
                            data-ng-minlength="3"
-                           required="required" name="key"
+                           name="key"
+                           disabled
                            />
                     <p data-ng-show="settingForm.key.$invalid && !settingForm.key.$pristine" 
                        class="help-block">Enter a valid key.

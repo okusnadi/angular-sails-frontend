@@ -1,0 +1,12 @@
+
+<!--<md-tabs md-dynamic-height md-selected="selectedIndex">-->
+<md-tabs md-dynamic-height md-selected="state.current.data.selectedTab">
+  
+    <md-tab label="Links" ui-sref="links">
+        <!--<div ui-view="links"></div>-->
+    </md-tab>
+    <md-tab label="Status list" ui-sref="statuses">
+    </md-tab>
+</md-tabs>
+
+<div ui-view="tabContent" flex></div>

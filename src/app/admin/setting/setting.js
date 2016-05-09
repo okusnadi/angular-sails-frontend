@@ -31,7 +31,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/setting/setting-list.html',
+                templateUrl: '/frontend/admin/setting/setting-main.html',
                 controller: function($scope){ }
               }
             }
@@ -47,7 +47,7 @@
             views: {
               'tabContent': {
                 controller: 'SettingListController',
-                templateUrl: '/frontend/admin/setting/setting-link-list.html',
+                templateUrl: '/frontend/admin/setting/setting-list.html',
               }
             }
           })
@@ -61,7 +61,7 @@
             views: {
               'tabContent': {
                 controller: 'SettingListController',
-                templateUrl: '/frontend/admin/setting/setting-status-list.html',
+                templateUrl: '/frontend/admin/setting/setting-list.html',
               }
             }
           })
