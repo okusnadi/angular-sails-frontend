@@ -89,7 +89,7 @@
     _, $scope, $mdDialog, $timeout,
     ProspectModel, ListModel, SettingModel,
     DataProvider, MessageService,
-    _list, _prospects, _count, _globalFields
+    _list, _prospects, _count, _globalLinks
     ) {
 
     // Set current scope reference to model
@@ -98,7 +98,7 @@
     SettingModel.setScope($scope, 'setting');
 
     $scope.list = angular.copy(_list);
-    $scope.globalFields = _globalFields[0];
+    $scope.globalLinks = _globalLinks[0];
 
     var columns = [];
     angular.forEach(_list.fields, function (field, key) {
@@ -201,10 +201,10 @@
         if (field.mappedTo) {
           
           // search for corresponding global field         
-          var mapped = _.filter($scope.globalFields.settings, function (obj) {
+          var mapped = _.filter($scope.globalLinks.settings, function (obj) {
             return _.some(obj.mappedTo, {value: field.column});
           });
-          // if global field doesnt contain current key add it
+          // if global link doesnt contain current key add it
           if (_.findWhere(mapped[0].mappedTo, {value: field.column}) === undefined) {
             mapped[0].mappedTo.push({value: field.column});
           }
@@ -225,12 +225,12 @@
               {value: field.column}
             ];
           // add global mapping
-          $scope.globalFields.settings.push(newMapping);
+          $scope.globalLinks.settings.push(newMapping);
         }
       });
 
       SettingModel
-        .update($scope.globalFields.id, $scope.globalFields)
+        .update($scope.globalLinks.id, $scope.globalLinks)
         .then(
           function onSuccess() {
             MessageService.success('Global settings updated successfully');

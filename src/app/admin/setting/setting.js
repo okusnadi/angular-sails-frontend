@@ -21,18 +21,18 @@
           // Setting list
           .state('admin.settings', {
             url: '/admin/settings',
+            resolve: {
+              _settings: [
+                'SettingModel',
+                function resolve(SettingModel) {
+                  return SettingModel.load();
+                }
+              ]
+            },
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/setting/setting-list.html',
-//                controller: 'SettingListController',
-                resolve: {
-                  _settings: [
-                    'SettingModel',
-                    function resolve(SettingModel) {
-                      return SettingModel.load();
-                    }
-                  ]
-                }
+                controller: function($scope){ }
               }
             }
           })
@@ -41,11 +41,13 @@
             parent: 'admin.settings',
             url: '/links',
             data: {
-              'selectedTab': 0
+              'selectedTab' : 0,
+              'type'        : 'FIELDS'
             },
             views: {
-              'links': {
+              'tabContent': {
                 controller: 'SettingListController',
+                templateUrl: '/frontend/admin/setting/setting-link-list.html',
               }
             }
           })
@@ -53,11 +55,13 @@
             parent: 'admin.settings',
             url: '/statuses',
             data: {
-              'selectedTab': 1
+              'selectedTab': 1,
+              'type'        : 'STATUSES'
             },
             views: {
-              'statuses': {
+              'tabContent': {
                 controller: 'SettingListController',
+                templateUrl: '/frontend/admin/setting/setting-status-list.html',
               }
             }
           })

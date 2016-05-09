@@ -40,7 +40,7 @@
               inSearch: true,
             },
             {
-              title: 'Mappings',
+              title: 'Values',
               column: 'mappedTo',
               arrayColumn: 'value',
               columnDelimiter: ', ',

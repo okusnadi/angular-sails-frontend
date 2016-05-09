@@ -23,7 +23,7 @@
             parent: 'list',
             url: '/prospects',
             resolve: {
-              _globalFields: function resolve(SettingModel) {
+              _globalLinks: function resolve(SettingModel) {
                 return SettingModel.load({
                   where: {
                     type: 'FIELDS'
