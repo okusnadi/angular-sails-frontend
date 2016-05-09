@@ -176,7 +176,7 @@
                       controller: SettingAddController,
                       scope: $scope,
                       preserveScope: true,
-                      templateUrl: '/frontend/admin/setting/setting.html',
+                      templateUrl: '/frontend/admin/setting/link.html',
                       targetEvent: ev,
                       clickOutsideToClose: false
                   });
@@ -190,7 +190,7 @@
                       },
                       scope: $scope,
                       preserveScope: true,
-                      templateUrl: '/frontend/admin/setting/setting.html',
+                      templateUrl: '/frontend/admin/setting/link.html',
                       targetEvent: event,
                       clickOutsideToClose: false
                   });

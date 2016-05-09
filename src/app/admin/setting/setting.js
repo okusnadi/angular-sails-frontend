@@ -6,7 +6,7 @@
  *
  * All of these are wrapped to 'frontend.admin.setting' angular module.
  */
-(function() {
+(function () {
   'use strict';
 
   // Define frontend.admin.setting angular module
@@ -24,7 +24,7 @@
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/setting/setting-list.html',
-                controller: 'SettingListController',
+//                controller: 'SettingListController',
                 resolve: {
                   _settings: [
                     'SettingModel',
@@ -37,58 +37,32 @@
             }
           })
 
-          // Single setting
-          .state('admin.setting', {
-            url: '/admin/setting/:id',
-            views: {
-              'content@': {
-                templateUrl: '/frontend/admin/setting/setting.html',
-                controller: 'SettingController',
-                resolve: {
-                  _setting: [
-                    '$stateParams',
-                    'SettingModel',
-                    function resolve(
-                      $stateParams,
-                      SettingModel
-                    ) {
-                      return SettingModel.fetch($stateParams.id, {populate: 'roles'});
-                    }
-                  ],
-                  _roles: [
-                    'RoleModel',
-                    function resolve(RoleModel) {
-                      return RoleModel.load();
-                    }
-                  ]                  
-                }
-              }
-            }
-          })
-
-          // Add new setting
-          .state('admin.setting.add', {
-            url: '/add',
+          .state('links', {
+            parent: 'admin.settings',
+            url: '/links',
             data: {
-              access: 2
+              'selectedTab': 0
             },
             views: {
-              'content@': {
-                templateUrl: '/frontend/admin/setting/setting.html',
-                controller: 'SettingAddController',
-                resolve: {
-                  _roles: [
-                    'RoleModel',
-                    function resolve(RoleModel) {
-                      return RoleModel.load();
-                    }
-                  ]
-                }
+              'links': {
+                controller: 'SettingListController',
               }
             }
           })
-        ;
+          .state('statuses', {
+            parent: 'admin.settings',
+            url: '/statuses',
+            data: {
+              'selectedTab': 1
+            },
+            views: {
+              'statuses': {
+                controller: 'SettingListController',
+              }
+            }
+          })
+          ;
       }
     ])
-  ;
+    ;
 }());
