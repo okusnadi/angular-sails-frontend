@@ -101,10 +101,11 @@
             "settings": []
           };
           SettingModel
-            .create(angular.copy($scope.settings.current))
+            .create($scope.settings.current)
             .then(
               function onSuccess(result) {
                 $scope.settings.current = angular.copy(result.data);
+                _settings.push(result.data);
               }
             );
         }
