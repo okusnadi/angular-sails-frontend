@@ -3,12 +3,12 @@
 
   'use strict';
 
- function MultiInputLink(scope, element, attr) {
+ function MultiSelectLink(scope, element, attr) {
 
-    console.log(element[0]);
-    console.log(element[0].querySelector('.ms-container'));
-//    console.log(element[0].find('.ms-container'));
-    console.log(scope);
+    element.addClass('current-ms');
+    console.log(document.querySelector('.current-ms'));
+    element.removeClass('current-ms');
+    
     if( angular.isDefined(scope.msTemplate) ) {
       
     }
@@ -76,7 +76,7 @@
           msTemplate: '=',
           msParams: '='
         },
-        link: MultiInputLink,
+        link: MultiSelectLink,
         templateUrl: '/frontend/core/directives/multiSelect/multiSelect.html',        
       };
     });

@@ -235,7 +235,7 @@ var globalNet;
             statuses: _statuses[0].settings
           };
           
-          console.log('Controller!', $scope);
+//          console.log('Controller!', $scope);
           $scope.cancelDialog = function () {
             $mdDialog.cancel();
           };
