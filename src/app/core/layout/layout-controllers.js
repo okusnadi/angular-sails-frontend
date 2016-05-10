@@ -120,7 +120,6 @@
             }
           });
         };
-				console.log($state);
 				//select active tab
 				$scope.$on('$stateChangeSuccess', function(){
 					$scope.activeIndex = _.findIndex($scope.navigationItems, function(item) { 

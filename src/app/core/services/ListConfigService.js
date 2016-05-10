@@ -159,7 +159,8 @@
               class: 'col-xs-2',
               sortable: true,
               inSearch: true,
-              sref: 'campaign({campaignId: item.id})'
+							clickable: true,
+//              sref: 'campaign({campaignId: item.id})'
             },
             {
               title: 'Created',
@@ -281,7 +282,7 @@
               class: 'col-xs-3',
               sortable: true,
               inSearch: true,
-							clickable:'true'
+							clickable: true,
             },
             {
               title: 'Description',

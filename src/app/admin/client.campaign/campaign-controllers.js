@@ -56,9 +56,13 @@
             )
           ;
         };
+				
+				$scope.cancelDialog = function() {
+					console.log('lala');
+					$mdDialog.cancel();
+				};
         
       }
-		
 		
 	var CampaignEditController = function CampaignEditController(
         $scope, $state,
@@ -94,6 +98,7 @@
             className: 'btn-default pull-left'
           }
         };
+				
 
         /**
          * Scope function to save the modified campaign. This will send a
@@ -147,7 +152,11 @@
             }, function() {
                 
             });
-          };        
+          };  
+					
+				$scope.cancelDialog = function () {
+					$mdDialog.cancel();
+				};
       }
 			
 
@@ -248,15 +257,24 @@
 				
 				$scope.editCampaignDialog = function(ev,item,column) {
 					$mdDialog.show ({
-						controller: ClientEditController,
+						controller:  [
+							'$scope', '$state',
+							'UserService', 'MessageService',
+							'CampaignModel', 'ListModel',
+							'_client',
+							'_campaign', '_lists',
+							'$mdDialog',
+							'dataProvider',CampaignEditController],
 						locals: {
-							dataProvider: $scope.dataProvider
+							dataProvider: $scope.dataProvider,
+							_client: _client,
+							_lists: _lists
 						},
 						resolve: {
-							_client:
-									function resolve (CampaignModel) {
-										return CampaignModel.fetch(data.id);
-									}
+							_campaign: ['CampaignModel',
+								    function resolve (CampaignModel) {
+										return CampaignModel.fetch(item.id);
+									}]
 						},
 						templateUrl: '/frontend/admin/client.campaign/campaign.html',
 						targetEvent: ev,
