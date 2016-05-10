@@ -101,7 +101,7 @@
             "settings": []
           };
           SettingModel
-            .create($scope.settings.current)
+            .create(angular.copy($scope.settings.current))
             .then(
               function onSuccess(result) {
                 $scope.settings.current = angular.copy(result.data);
