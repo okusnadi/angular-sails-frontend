@@ -48,10 +48,8 @@
   };
 
   var ListEditController = function (
-    $scope,
-    $mdDialog,
-    MessageService,
-    ListModel,
+    $scope, $mdDialog,
+    MessageService, ListModel,
     _scripts, _list, dataProvider
     ) {
 
@@ -87,11 +85,12 @@
 
   var ListImportController = function (
     $scope, $mdDialog,
-    MessageService,
+    BackendConfig, MessageService,
     _list, dataProvider
     ) {
 
     $scope.list = _list;
+    $scope.importUrl = BackendConfig.url + '/list/upload/' + _list.id;
 
     $scope.cancelDialog = function () {
       $mdDialog.cancel();
@@ -293,7 +292,7 @@
                   break;
                 case 'DONE':
                 case 'ONGOING':
-                  $state.go( 'prospects', {listId: item.id });
+                  $state.go('prospects', {listId: item.id});
 //                  $scope.prospectsListDialog(ev, item, column);
                   break;
               }
@@ -335,7 +334,11 @@
 
         $scope.importListDialog = function (ev, item, column) {
           $mdDialog.show({
-            controller: ListImportController,
+            controller: [
+              '$scope', '$mdDialog',
+              'BackendConfig', 'MessageService',
+              '_list', 'dataProvider',
+              ListImportController],
             locals: {
               dataProvider: $scope.dataProvider
             },
@@ -352,7 +355,11 @@
 
         $scope.editListDialog = function (ev, item, column) {
           $mdDialog.show({
-            controller: ListEditController,
+            controller: [
+              '$scope', '$mdDialog',
+              'MessageService', 'ListModel',
+              '_scripts', '_list', 'dataProvider',
+              ListEditController],
             locals: {
               dataProvider: $scope.dataProvider,
               _campaign: _campaign,
