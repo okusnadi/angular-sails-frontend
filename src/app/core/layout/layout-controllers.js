@@ -3,7 +3,7 @@
  *
  * Note that this file should only contain controllers and nothing else.
  */
-(function() {
+(function () {
   'use strict';
 
   /**
@@ -23,7 +23,7 @@
         $scope, $state,
         HeaderNavigationItems,
         UserService, AuthService
-      ) {
+        ) {
         $scope.user = UserService.user;
         $scope.auth = AuthService;
         $scope.navigationItems = HeaderNavigationItems;
@@ -55,7 +55,7 @@
           return !!(
             (item.state === $state.current.name) ||
             (item.state === bits[0] && $state.current.name !== 'examples.about')
-          );
+            );
         };
 
         // Simple helper function which triggers user logout action.
@@ -64,7 +64,7 @@
         };
       }
     ])
-  ;
+    ;
 
   /**
    * Generic footer controller for application layout. This contains all necessary logic which is used on application
@@ -79,7 +79,7 @@
         // TODO: add version info parsing
       }
     ])
-  ;
+    ;
 
   /**
    * Generic navigation controller for application layout. This contains all necessary logic for pages sub-navigation
@@ -95,7 +95,7 @@
       function controller(
         $scope, $state, $modal,
         _items, _
-      ) {
+        ) {
         $scope.navigationItems = _items;
 
         // Helper function to open information modal about current GUI.
@@ -120,22 +120,15 @@
             }
           });
         };
-				console.log($state);
-				//select active tab
-				$scope.$on('$stateChangeSuccess', function(){
-					$scope.activeIndex = _.findIndex($scope.navigationItems, function(item) { 
-//						return $state.current.name.indexOf(item.state) >-1 ;
-						return $state.includes(item.state);
-					});
-				});
-				
-//				$scope.activeIndex = _.findIndex($scope.navigationItems, function(item) { 
-//					return $state.current.name.indexOf(item.state) >-1 ;
-//				});
-				
+        //select active tab
+        $scope.$on('$stateChangeSuccess', function () {
+          $scope.activeIndex = _.findIndex($scope.navigationItems, function (item) {
+            return $state.includes(item.state);
+          });
+        });
       }
     ])
-  ;
+    ;
 
   /**
    * Controller for navigation info modal. This is used to show GUI specified detailed information about how those
@@ -146,11 +139,11 @@
       '$scope', '$uibModalInstance',
       'BackendConfig',
       '_title', '_files', '_template',
-      function(
+      function (
         $scope, $modalInstance,
         BackendConfig,
         _title, _files, _template
-      ) {
+        ) {
         $scope.title = _title;
         $scope.files = _files;
         $scope.template = _template;
@@ -160,8 +153,8 @@
         $scope.dismiss = function dismiss() {
           $modalInstance.dismiss();
         };
-				
+
       }
     ])
-  ;
+    ;
 }());

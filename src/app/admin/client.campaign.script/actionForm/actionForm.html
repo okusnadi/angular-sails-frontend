@@ -27,11 +27,14 @@
     <div flex="50%">
       <md-input-container>
         <label>Status</label>
-        <input type="text" 
+        <md-select ng-model="$ctrl.afAction.form.status">
+          <md-option ng-value="status.id" ng-repeat="status in $ctrl.afStatuses">{{ status.name}}</md-option>
+        </md-select>
+<!--        <input type="text" 
                data-ng-model="$ctrl.afAction.form.status"
                data-ng-minlength="3"
                required="required" name="status"
-               />
+               />-->
       </md-input-container>
     </div>
     <div flex="50%">

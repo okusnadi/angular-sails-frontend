@@ -6,10 +6,9 @@
   function ActionFormController() {
 
     var ctrl = this;
-    console.log('ACTION FORM!!!!');
     
     if( angular.isUndefined(ctrl.afAction.form) ) {
-      ctrl.afAction.form = [];
+      ctrl.afAction.form = {};
     }
 
   }
@@ -20,7 +19,8 @@
       templateUrl: '/frontend/admin/client.campaign.script/actionForm/actionForm.html',
       bindings: {
         afAction: '=',
-        afEmailTemplates: '<'
+        afEmailTemplates: '<',
+        afStatuses: '<'
       }
     });
 

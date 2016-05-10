@@ -57,8 +57,10 @@
         SettingModel, MessageService, ListConfig,
         _settings
         ) {
-        $scope.state = $state;
-
+//        $scope.state = $state;
+        $scope.$parent.selectedTab = $state.current.data.selectedTab;
+        $scope.title = $state.current.data.title;
+        
         // Set current scope reference to models
         SettingModel.setScope($scope, false, 'items', 'itemCount');
 
