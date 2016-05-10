@@ -34,7 +34,7 @@
                 controller: [
                   '$state',
                   function($state) {
-                    $state.go('admin.login-history');
+                    $state.go('admin.users');
                   }
                 ]
               },

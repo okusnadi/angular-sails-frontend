@@ -65,24 +65,31 @@
             </div>
 
         </div>
-            <md-button type="submit" class="md-primary md-raised "
-                       ng-disabled="!campaignForm.$valid"
-                       >
-                Save
-            </md-button>
-
-            <md-button type="button" class="md-button md-raised "
-                       ng-click="$state.go('campaigns')"
-                       >
-                Cancel
-            </md-button>
+        <div layout='row'>
 
             <md-button type="button" class="md-warn md-raised"
                        ng-show="$state.current.name === 'campaign'"
                        ng-click="confirmDelete($event)"
                        >
-                Delete
+                <md-tooltip md-direction="top">delete</md-tooltip>
+            <md-icon class="material-icons">delete</md-icon>
             </md-button>
+            <div flex></div>
+            <md-button type="submit" class="md-primary md-raised "
+                       ng-disabled="!campaignForm.$valid"
+                       >
+                <md-tooltip md-direction="top">save</md-tooltip>
+                <md-icon class="material-icons">save</md-icon>
+            </md-button>
+
+            <md-button type="button" class="md-button md-raised "
+                       ng-click="cancelDialog();"
+                       >
+                <md-tooltip md-direction="top">cancel</md-tooltip>
+                <md-icon class="material-icons">not_interested</md-icon>
+            </md-button>
+
+        </div>
 
     </form>
 </md-content>

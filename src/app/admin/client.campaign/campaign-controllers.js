@@ -6,20 +6,12 @@
 (function() {
   'use strict';
 
-  // Controller for new campaign creation.
-  angular.module('frontend.admin.client.campaign')
-    .controller('CampaignAddController', [
-      '$scope', '$state',
-      'MessageService',
-      'CampaignModel',
-      '_client',
-      '_lists',
-      function controller(
+	var CampaignAddController = function CampaignAddController(
         $scope, $state,
         MessageService,
         CampaignModel,
         _client,
-        _lists
+        _lists, dataProvider, $mdDialog
       ) {
   
         // expose state
@@ -32,7 +24,6 @@
         // Initialize campaign model
         $scope.campaign = {
             name: '',
-            
             contactName: '',
             phone1: '',
             email1: '',
@@ -58,35 +49,23 @@
             .create(angular.copy($scope.campaign))
             .then(
               function onSuccess(result) {
-                MessageService.success('New campaign added successfully');
-
-                $state.go('campaign', {campaignId: result.data.id});
+                MessageService.success('New campaign added REALLY successfully');
+								$mdDialog.hide();
+								dataProvider.triggerFetchData();
               }
             )
           ;
         };
         
       }
-    ])
-  ;
-
-  // Controller to show single campaign on GUI.
-  angular.module('frontend.admin.client.campaign')
-    .controller('CampaignController', 
-    [
-      '$scope', '$state',
-      '$mdDialog',
-      'UserService', 'MessageService',
-      'CampaignModel', 'ListModel',
-      '_client',
-      '_campaign', '_lists',
-      function controller(
+		
+		
+	var CampaignEditController = function CampaignEditController(
         $scope, $state,
-        $mdDialog,
         UserService, MessageService,
         CampaignModel, ListModel,
         _client,
-        _campaign, _lists
+        _campaign, _lists, $mdDialog, dataProvider
       ) {
         // expose state
         $scope.$state = $state;
@@ -130,6 +109,8 @@
             .then(
               function onSuccess() {
                 MessageService.success('Campaign "' + $scope.campaign.name + '" updated successfully');
+								$mdDialog.hide();
+								dataProvider.triggerFetchData();
               }
             )
           ;
@@ -168,6 +149,36 @@
             });
           };        
       }
+			
+
+  // Controller for new campaign creation.
+  angular.module('frontend.admin.client.campaign')
+    .controller('CampaignAddController', [
+      '$scope', '$state',
+      'MessageService',
+      'CampaignModel',
+      '_client',
+      '_lists',
+			'dataProvider',
+			'$mdDialog',
+			CampaignAddController
+
+    ])
+  ;
+	
+
+  // Controller to show single campaign on GUI.
+  angular.module('frontend.admin.client.campaign')
+    .controller('CampaignController', 
+    [
+      '$scope', '$state',
+      'UserService', 'MessageService',
+      'CampaignModel', 'ListModel',
+      '_client',
+      '_campaign', '_lists',
+			'$mdDialog',
+			'dataProvider',
+			CampaignEditController
     ])
   ;
 
@@ -180,7 +191,7 @@
       'UserService', 'CampaignModel', 'ListModel',
       'DataProvider',
       '_client',
-      '_items', '_count', '_lists',
+      '_items', '_count', '_lists', '$mdDialog',
       function controller(
         $scope, $q, $timeout,
         _,
@@ -188,7 +199,7 @@
         UserService, CampaignModel, ListModel,
         DataProvider,
         _client,
-        _items, _count, _lists
+        _items, _count, _lists, $mdDialog
       ) {
   
         // Set current scope reference to models
@@ -218,6 +229,51 @@
             searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
+				
+				//dialogs
+				$scope.addCampaignDialog = function (ev) {
+					$mdDialog.show({
+            controller: CampaignAddController,
+            locals: {
+              dataProvider: $scope.dataProvider,
+							_client: _client,
+							_lists: _lists
+            },
+            templateUrl: '/frontend/admin/client.campaign/campaign.html',
+//              parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false
+          });
+				};
+				
+				$scope.editCampaignDialog = function(ev,item,column) {
+					$mdDialog.show ({
+						controller: ClientEditController,
+						locals: {
+							dataProvider: $scope.dataProvider
+						},
+						resolve: {
+							_client:
+									function resolve (CampaignModel) {
+										return CampaignModel.fetch(data.id);
+									}
+						},
+						templateUrl: '/frontend/admin/client.campaign/campaign.html',
+						targetEvent: ev,
+						clickOutsideToClose: false
+					});
+				}
+				
+				//ra-md-toolbar buttons
+				
+				$scope.toolbarBtns = [
+					{
+						btnTooltip: 'Add Campaign',
+						btnIcon: 'playlist_add',
+						btnAction: $scope.addCampaignDialog
+					}
+				];
+				
 
       }
     ])

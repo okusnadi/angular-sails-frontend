@@ -31,7 +31,7 @@
 <md-content>
 <!--<h3>material tabs</h3>-->
 
-<md-tabs>
+<md-tabs md-selected="activeIndex">
     <md-tab ng-repeat="item in navigationItems" ui-sref="{{item.state}}">
         <a ng-if="item.state" >
             {{item.title}}

@@ -91,10 +91,10 @@
   angular.module('frontend.core.layout')
     .controller('NavigationController', [
       '$scope', '$state', '$uibModal',
-      '_items',
+      '_items', '_',
       function controller(
         $scope, $state, $modal,
-        _items
+        _items, _
       ) {
         $scope.navigationItems = _items;
 
@@ -120,6 +120,18 @@
             }
           });
         };
+				
+				//select active tab
+				$scope.$on('$stateChangeSuccess', function(){
+					$scope.activeIndex = _.findIndex($scope.navigationItems, function(item) { 
+						return $state.current.name.indexOf(item.state) >-1 ;
+					});
+				});
+				
+//				$scope.activeIndex = _.findIndex($scope.navigationItems, function(item) { 
+//					return $state.current.name.indexOf(item.state) >-1 ;
+//				});
+				
       }
     ])
   ;
@@ -147,6 +159,7 @@
         $scope.dismiss = function dismiss() {
           $modalInstance.dismiss();
         };
+				
       }
     ])
   ;

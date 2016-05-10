@@ -45,8 +45,6 @@
             </ul>
         </div>
     </div>-->
-    
-
 
     <md-toolbar id="main-toolbar">
           <div class="md-toolbar-tools">
@@ -57,8 +55,9 @@
                        data-ui-sref="{{ item.state }}"
                        data-ng-repeat="item in navigationItems"
                        data-ng-show="auth.authorize(item.access)"
-                       data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
+                       data-ng-class="{'not-active': isNotActive(item), 'md-raised': isActive(item)}"
                        data-ui-sref-active="active"
+                       ui-sref-opts="{reload:true}"
             >
                 {{ item.title }}
             </md-button>
