@@ -225,8 +225,8 @@ var globalNet;
           
           $scope.msTemplate = [
             '<cc-action-form af-action="item"',
-            'af-email-templates="ccParams.emailTemplates"',
-            'af-statuses="ccParams.statuses">',
+            'af-email-templates="msParams.emailTemplates"',
+            'af-statuses="msParams.statuses">',
              '</cc-action-form>'
           ].join(' ');
 
