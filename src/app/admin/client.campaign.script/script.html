@@ -35,7 +35,7 @@
           </div>
         </md-input-container>              
           </md-card>
-        <vis-network-info ni-element="np.selected" ni-edit-script="editScriptPage(ev, node)"></vis-network-info>
+        <vis-network-info ng-if="!(np.selected|isEmpty)" ni-element="np.selected" ni-edit-script="editScriptPage(ev, node)"></vis-network-info>
       </div>
 
       <div flex="80" layout-fill>
