@@ -1,0 +1,40 @@
+<ng-form name="miForm">
+  <div layout="row" class="multi-input-item" ng-repeat="item in msItems">
+    <div flex="25">
+      <md-input-container class="md-block" flex>
+        <label>{{msLabelPrefix + ' ' + $index + 1}}</label>
+        <md-select 
+          ng-model="item.value" 
+          aria-label="{{msLabelPrefix + ' ' + $index + 1}}" 
+          >
+          <md-option 
+            ng-value="option.value" 
+            ng-repeat="option in suggestions"
+            >{{option.display}}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div flex="50" class="ms-container">
+      <cc-action-form 
+        af-action="item" 
+        af-email-templates="msParams.emailTemplates"
+        af-statuses="msParams.statuses"
+        >                      
+      </cc-action-form>
+    </div>
+
+    <!--<div class="ms-container"></div>-->
+    <div flex="25">
+      <md-button ng-if="!msStatic" class="md-fab md-mini md-primary md-hue-2 roll-left" ng-click="addField($index)" tabIndex="-1"
+                 ng-class="{ 'roll-left-active' : msItems.length < 2 }">
+        <md-tooltip>Add new level</md-tooltip>
+        <md-icon class="material-icons md-light" >add</md-icon>
+      </md-button>
+      <md-button ng-if="!msStatic && msItems.length > 1" class="md-fab md-mini md-warn roll-in" ng-click="deleteField($index)" tabIndex="-1">
+        <md-tooltip>Remove this level</md-tooltip>
+        <md-icon class="material-icons md-light" >clear</md-icon>
+      </md-button>
+    </div>
+  </div>
+</ng-form>
+  

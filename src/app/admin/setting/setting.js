@@ -32,7 +32,11 @@
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/setting/setting-main.html',
-                controller: function($scope){ }
+                controller: ['$scope', '$state', function ($scope, $state) {
+                    if ($state.current.name === 'admin.settings') {
+                      $state.go('links');
+                    }
+                  }]
               }
             }
           })
@@ -41,8 +45,9 @@
             parent: 'admin.settings',
             url: '/links',
             data: {
-              'selectedTab' : 0,
-              'type'        : 'FIELDS'
+              'selectedTab':  0,
+              'type':         'FIELDS',
+              'title':        'Links'
             },
             views: {
               'tabContent': {
@@ -55,8 +60,9 @@
             parent: 'admin.settings',
             url: '/statuses',
             data: {
-              'selectedTab': 1,
-              'type'        : 'STATUSES'
+              'selectedTab':  1,
+              'type':         'STATUSES',
+              'title':        'Status list'
             },
             views: {
               'tabContent': {

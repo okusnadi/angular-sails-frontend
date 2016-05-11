@@ -8,6 +8,7 @@
     "cc-action-form": {
       "attributes": {
         "af-action": {},
+        "af-statuses": {},
         "action": {},
         "af-email-templates": {}
       }
@@ -63,6 +64,16 @@
     "md-menu-item": {
       "attributes": {
         "ng-repeat": {}
+      }
+    },
+    "md-multi-select": {
+      "attributes": {
+        "ms-params": {},
+        "ms-template": {},
+        "ms-suggestions": {},
+        "ms-max": {},
+        "ms-label-prefix": {},
+        "ms-items": {}
       }
     },
     "md-fab-trigger": {

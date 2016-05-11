@@ -8,37 +8,19 @@
 
       <div flex="100" layout-margin>
 
-        <!--<md-file-upload fu-file-name="'filesToUpload'" fu-payload="{listId : list.id }" fu-upload-url="'http://localhost:5037/list/upload'">-->
           <md-file-upload 
             fu-file-name="'filesToUpload'" 
             fu-accepted-files="'.csv'"
-            fu-upload-url="'http://localhost:5057/list/upload/'+list.id"
+            fu-upload-url="importUrl"
             fu-on-success="onSuccess(response)"
             fu-on-error="onError(error)"
             >
           </md-file-upload>
-<!--          <md-card>
-            <md-data-table 
-              dt-items="query.items"
-              dt-item-count="query.itemCount"
-              dt-columns="query.columns"
-              dt-page="query.currentPage"
-              dt-limit="query.itemsPerPage"
-              dt-order="query.order"
-              dt-on-reorder="dataProvider.onReorder"
-              dt-on-paginate="dataProvider.onPaginate"
-              >
-            </md-data-table>
-          </md-card>-->
-
+            
       </div>
 
       <div flex="100" layout="row">
         <div flex></div>
-<!--        <md-button type="submit" class="md-primary md-raised "
-                   ng-disabled="!listForm.$valid">
-          Save
-        </md-button>-->
 
         <md-button type="button" class="md-button md-raised "
                    ng-click="cancelDialog();"

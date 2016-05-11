@@ -213,15 +213,35 @@ var globalNet;
         };
 
 
-        function editActionNodeController($mdDialog, $scope, _, node, emailTemplates) {
+        function editActionNodeController(
+          $mdDialog, $scope, _, node, 
+          _emailTemplates, _statuses
+            ) {
 
           $scope.actionTypes = actionTypes;
           $scope.node = node;
-          $scope.emailTemplates = emailTemplates;
+          $scope.emailTemplates = _emailTemplates;
+          $scope.statuses = _statuses[0].settings;
           
-          console.log('Controller!', $scope);
+          $scope.msTemplate = [
+            '<cc-action-form af-action="item"',
+            'af-email-templates="ccParams.emailTemplates"',
+            'af-statuses="ccParams.statuses">',
+             '</cc-action-form>'
+          ].join(' ');
+
+          $scope.msParams = {
+            emailTemplates: _emailTemplates,
+            statuses: _statuses[0].settings
+          };
+          
+//          console.log('Controller!', $scope);
           $scope.cancelDialog = function () {
             $mdDialog.cancel();
+          };
+
+          $scope.saveAction = function () {
+            console.log(node);
           };
 
         }
@@ -237,22 +257,27 @@ var globalNet;
 
           $mdDialog.show({
             controller: [
-              '$mdDialog', '$scope', '_', 'node', 'emailTemplates',
+              '$mdDialog', '$scope', '_', 'node', 
+              '_emailTemplates', '_statuses',
               editActionNodeController
             ],
             locals: {
               node: node,
             },
             resolve: {
-              emailTemplates: ['EmailTemplateModel',
+              _emailTemplates: ['EmailTemplateModel',
                 function resolve(EmailTemplateModel) {
-                  var parameters = {
+                  return EmailTemplateModel.load({
                     sort: 'name ASC',
-                    where: {
-                      campaign: self.campaignId
-                    }
-                  };
-                  return EmailTemplateModel.load(parameters);
+                    where: { campaign: self.campaignId }
+                  });
+                }
+              ],
+              _statuses: ['SettingModel',
+                function resolve(SettingModel) {
+                  return SettingModel.load({
+                    where: { type: 'STATUSES' }
+                  });
                 }
               ]
             },
