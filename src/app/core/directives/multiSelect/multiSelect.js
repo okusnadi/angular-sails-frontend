@@ -78,15 +78,15 @@
           msParams: '='
         },
         templateUrl: '/frontend/core/directives/multiSelect/multiSelect.html',        
-//        link: MultiSelectLink,
-        link: function(scope, element, attrs) {
-          console.log('LINK!');          
-          console.log(element[0].querySelector('.ms-container'));  
-        },
-        compile: function(element, attrs) {
-          console.log('COMPILE!');          
-          console.log(element[0].querySelector('.ms-container'));  
-        }
+        link: MultiSelectLink,
+//        link: function(scope, element, attrs) {
+//          console.log('LINK!');          
+//          console.log(element[0].querySelector('.ms-container'));  
+//        },
+//        compile: function(element, attrs) {
+//          console.log('COMPILE!');          
+//          console.log(element[0].querySelector('.ms-container'));  
+//        }
         
       };
     });
