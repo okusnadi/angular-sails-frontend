@@ -52,10 +52,11 @@
         $scope.isActive = function isActive(item) {
           var bits = $state.current.name.toString().split('.');
 
-          return !!(
-            (item.state === $state.current.name) ||
-            (item.state === bits[0] && $state.current.name !== 'examples.about')
-            );
+//          return !!(
+//            (item.state === $state.current.name) ||
+//            (item.state === bits[0] && $state.current.name !== 'examples.about')
+//            );
+					return $state.includes(item.state);
         };
 
         // Simple helper function which triggers user logout action.
