@@ -234,14 +234,16 @@ var globalNet;
             emailTemplates: _emailTemplates,
             statuses: _statuses[0].settings
           };
+          $scope.oldActions = angular.copy($scope.node.actions);
           
 //          console.log('Controller!', $scope);
           $scope.cancelDialog = function () {
+            $scope.node.actions = $scope.oldActions;
             $mdDialog.cancel();
           };
 
           $scope.saveAction = function () {
-            console.log(node);
+            $mdDialog.hide();
           };
 
         }
