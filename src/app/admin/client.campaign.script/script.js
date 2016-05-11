@@ -28,7 +28,7 @@
             views: {
               'content@': {
                 templateUrl: '/frontend/admin/client.campaign.script/script-list.html',
-                controller: 'ScriptListController',
+                controller: 'ScriptListController'
               }
             }
           })
@@ -55,6 +55,9 @@
                 controller: 'ScriptController',
                 resolve: {
                 }
+              },
+							'pageNavigation@': {
+                template: ''
               }
             }
           })

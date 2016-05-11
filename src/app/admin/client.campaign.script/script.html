@@ -1,12 +1,27 @@
-
-<md-content layout-padding>
+<md-toolbar class="md-primary md-hue-3">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button">
+            <md-icon class='material-icons'>line_style</md-icon>
+            </md-button>
+            <h2>Script Builder - <span class="highlight">{{ script.name }}</span></h2>
+          <span flex></span>
+              <md-button type="button" class="md-warn md-raised"
+               ng-show="$state.current.name === 'script'"
+               ng-click="confirmDelete($event)"
+               >
+                Delete
+              </md-button>
+        </div>
+</md-toolbar>
+<div class='cards-container'>
 
   <form class="form-vertical" role="form" name="scriptForm"
         autocomplete="off" 
         ng-submit="$event.preventDefault();"
         >
     <div layout="row">
-      <div flex="20" layout-margin>
+      <div flex="20">
+          <md-card layout-padding>
         <md-input-container class="md-block">
           <label>Script name</label>
           <input type="text" name="name" 
@@ -19,38 +34,35 @@
             <div ng-message="required">Name is required.</div>
           </div>
         </md-input-container>              
-
+          </md-card>
         <vis-network-info ni-element="np.selected" ni-edit-script="editScriptPage(ev, node)"></vis-network-info>
-
       </div>
 
       <div flex="80" layout-fill>
-        <md-card flex>
+        <md-card flex class="relative">
+            <h2 class="map-heading">Map</h2>
 
           <vis-network data="data" options="options" events="events" network="network" ></vis-network>
         </md-card>
       </div>
 
     </div>
+      <div layout='row'>
+    <div flex></div>
+    <md-button type="button" class="md-button md-raised "
+               ng-click="$state.go('scripts')"
+               >
+      Cancel
+    </md-button>
     <md-button type="button" class="md-primary md-raised "
                ng-disabled="!scriptForm.$valid"
                ng-click="saveScript()"
                >
       Save
     </md-button>
+      </div>
 
-    <md-button type="button" class="md-button md-raised "
-               ng-click="$state.go('scripts')"
-               >
-      Cancel
-    </md-button>
 
-    <md-button type="button" class="md-warn md-raised"
-               ng-show="$state.current.name === 'script'"
-               ng-click="confirmDelete($event)"
-               >
-      Delete
-    </md-button>
 
   </form>
-</md-content>
+</div>

@@ -337,13 +337,13 @@
   // Controller which contains all necessary logic for script list GUI on boilerplate application.
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptListController', [
-      '$scope', '$q', '$timeout',
+      '$scope', '$q', '$timeout', '$state',
       '_',
       'ScriptModel',
       'DataProvider',
       '_campaign',
       function controller(
-        $scope, $q, $timeout,
+        $scope, $q, $timeout, $state,
         _,
         ScriptModel,
         DataProvider,
@@ -376,6 +376,19 @@
             searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
+				
+				$scope.addScript = function(){
+					$state.go('script.add');
+				};
+				
+				$scope.toolbarBtns = [
+					{
+						btnTooltip: 'Add Script',
+						btnIcon: 'playlist_add',
+						btnAction: $scope.addScript
+					}
+				];
+				
       }
     ])
     ;

@@ -30,6 +30,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
 	background-color: #eee;
 }
 
+
+
 //toasts 
 //===================================
 
@@ -111,6 +113,16 @@ md-autocomplete[md-floating-label] md-input-container {
 
 .add-client-modal {
 	overflow-x: hidden;
+}
+
+//script
+//========================================
+//map
+.map-heading {
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+    text-shadow: 1px 2px 9px white;
 }
 
 //animations
@@ -347,3 +359,9 @@ perspective: 500px;
     min-width: 100%;
     border-radius: 0; } 
 /*}*/
+
+
+//helper
+//========================
+
+.relative {position: relative}

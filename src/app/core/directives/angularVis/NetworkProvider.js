@@ -69,7 +69,7 @@ var globalNet;
             hoverConnectedEdges: false
           },
           manipulation: {
-            enabled: true,
+            enabled: false,
             initiallyActive: true
           },
           edges: {

@@ -1,29 +1,14 @@
-
+<div class="cards-container">
 <section layout="column">
     <!--Table header-->
     <md-card>
-        <md-toolbar class="md-table-toolbar">
-            <div class="md-toolbar-tools">
-                <h2>
-                    <a data-ui-sref="campaigns">
-                        <md-tooltip>Go back to campaign list</md-tooltip>
-                        <md-icon class="material-icons md-light">arrow_back</md-icon>
-                        <strong>{{campaign.name}}</strong>
-                        </a> Scripts ({{query.itemCount}})
-                </h2>
-                <div flex></div>
-              <form flex="" name="filterForm" class="flex">
-                <input type="text" ng-model="query.searchWord" placeholder="search" aria-invalid="false">
-              </form>
-                <md-button>
-                    <md-icon class="material-icons md-light">search</md-icon>
-                </md-button>
-                <md-button class="md-fab" data-ui-sref="script.add">
-                    <md-tooltip>Add script</md-tooltip>
-                    <md-icon class="material-icons md-light" >note_add</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
+        
+        <ra-data-table-toolbar
+          table-title=" campaign.name + ' Scripts'"
+          toolbar-btns='toolbarBtns'
+          query='query'
+          >
+        </ra-data-table-toolbar>
 
         <md-data-table 
             dt-items="query.items"
@@ -40,3 +25,4 @@
         </md-card>
 </section>
 
+</div>
