@@ -87,7 +87,7 @@
     $scope.testForm = function (ev) {
       $mdDialog.show({
         controller: [
-          '$scope', '$validator', '$mdDialog', 'emailTemplates',
+          '$scope', '$validator', '$mdDialog', 
           testFormController
         ],
         templateUrl: '/frontend/admin/client.campaign.script/script-test.html',

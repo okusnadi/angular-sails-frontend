@@ -5,8 +5,9 @@
 
  function MultiSelectLink(scope, element, attr) {
 
+    console.log(element[0].querySelector('.ms-container'));
     element.addClass('current-ms');
-    console.log(document.querySelector('.current-ms'));
+    console.log(document.querySelector('.current-ms div'));
     element.removeClass('current-ms');
     
     if( angular.isDefined(scope.msTemplate) ) {
@@ -76,8 +77,17 @@
           msTemplate: '=',
           msParams: '='
         },
-        link: MultiSelectLink,
         templateUrl: '/frontend/core/directives/multiSelect/multiSelect.html',        
+//        link: MultiSelectLink,
+        link: function(scope, element, attrs) {
+          console.log('LINK!');          
+          console.log(element[0].querySelector('.ms-container'));  
+        },
+        compile: function(element, attrs) {
+          console.log('COMPILE!');          
+          console.log(element[0].querySelector('.ms-container'));  
+        }
+        
       };
     });
 
