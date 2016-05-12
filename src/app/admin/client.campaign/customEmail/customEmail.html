@@ -1,0 +1,26 @@
+
+<ng-form>
+  <div layout="row">
+    <div flex="50%">
+      <md-input-container>
+        <label>Name</label>
+        <input type="text" 
+               data-ng-model="$ctrl.ceItem.name"
+               data-ng-minlength="3"
+               required="required" 
+               />
+      </md-input-container>
+    </div>
+    <div flex="50%">
+      <md-input-container>
+        <label>Email</label>
+        <input type="email" 
+               data-ng-model="$ctrl.ceItem.email"
+               data-ng-minlength="3"
+               required="required" 
+               />
+      </md-input-container>
+    </div>
+  </div>
+</ng-form>
+
