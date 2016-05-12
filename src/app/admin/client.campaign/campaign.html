@@ -5,7 +5,7 @@
           ng-submit="saveCampaign()"
           >
         <div layout="row">
-            <div flex="50" layout-margin>
+            <div flex="25" layout-margin>
                 <md-input-container class="md-block">
                     <label>Campaign Name</label>
                     <input type="text" name="name" 
@@ -51,6 +51,17 @@
                     </textarea>
                 </md-input-container>
 
+            </div>
+
+            <div flex="25" layout-margin>
+                
+                <md-multi-input 
+                    mi-static="true"
+                    mi-items="ounits" 
+                    mi-max="6"
+                    mi-suggestions="suggestions">
+                </md-multi-input>
+                
             </div>
 
             <div flex="50" layout-margin>

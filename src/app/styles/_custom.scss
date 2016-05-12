@@ -439,7 +439,7 @@ perspective: 500px;
 .material-icons.md-light { color: rgba(255, 255, 255, 1) !important; }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3) !important; }
 
-//helper
+/* helper */
 .wide-min-width {min-width:600px;}
 
 .transition {
@@ -464,13 +464,11 @@ perspective: 500px;
 /*}*/
 
 
-//helper
-//========================
+/* helper
+//========================*/
 
 .relative {position: relative}
 .anti-header {margin-top:-68px;}
-
-
 
 //MEDIA Qs
 /*========================*/
@@ -479,6 +477,5 @@ perspective: 500px;
 @media only screen and (min-width:1280px) {
 	.cards-container {
 		padding:20px;
-	}
-
 }
+
