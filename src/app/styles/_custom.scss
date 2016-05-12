@@ -12,12 +12,12 @@ and open the template in the editor.
 //=================================
 
 body {
-  background: #f5f4f4;
+  background: #eee;
 	/*margin-top: 68px;*/
 }
 #container.main-container {
   margin-top:0px;
-  padding-top:88px;
+  padding:0;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
@@ -26,7 +26,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
 
 //cards
 .cards-container {
-	padding:20px;
 	background-color: #eee;
 }
 
@@ -67,7 +66,7 @@ div[data-ui-view='header'] {position:relative;z-index:999}
 }
 
 #main-toolbar {
-  position:fixed;
+/*  position:fixed;*/
   top:0;
   padding-bottom:4px;
   /*background-color: lightslategray;*/
@@ -319,6 +318,110 @@ perspective: 500px;
 
 }
 
+.slideup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+}
+.slideup.ng-enter,
+.slideup.ng-leave {
+ @extend .transition;
+}
+.slideup.ng-enter {
+    top: 100vh;
+}
+.slideup.ng-enter-active {
+    top: 0;
+}
+.slideup.ng-leave {
+    top: 0;
+}
+.slideup.ng-leave-active {
+    top: -100vh;
+}
+
+.perspective-container {
+	-webkit-transition: -webkit-transform 1s;
+	-webkit-perspective: 600px;
+}
+.perspective-container .flip {
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+	@extend .transition;
+}
+.perspective-container .flip.ng-enter {
+    -webkit-transform: rotateY(-180deg);
+}
+.perspective-container .flip.ng-enter-active {
+	-webkit-transform: rotateY(0deg);
+}
+.perspective-container .flip.ng-leave {
+	-webkit-transform: rotateY(0deg);
+}
+.perspective-container .flip.ng-leave-active {
+	-webkit-transform: rotateY(180deg);
+}
+
+.slide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.slide.ng-enter,
+.slide.ng-leave {
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+.slide.ng-enter {
+    left: 100%;
+}
+.slide.ng-enter-active {
+    left: 0;
+}
+.slide.ng-leave {
+    left: 0;
+}
+.slide.ng-leave-active {
+    left: -100%;
+}
+
+.fade {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    opacity: 1;
+}
+.fade.ng-enter,
+.fade.ng-leave {
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+.fade.ng-enter {
+    opacity: 0;
+		position:absolute;
+}
+.fade.ng-enter-active {
+    opacity: 1;
+		position:absolute;
+}
+.fade.ng-leave {
+		position:absolute;
+    opacity: 1;
+}
+.fade.ng-leave-active {
+		position:absolute;
+    opacity: 0;
+}
+
+
+
+
 /*MATERIAL ICONS*/
 /*==========================================*/
 /* Rules for sizing the icon. */
@@ -365,9 +468,15 @@ perspective: 500px;
 //========================*/
 
 .relative {position: relative}
+.anti-header {margin-top:-68px;}
 
+//MEDIA Qs
+/*========================*/
 
- /*guess who? ;)*/ 
-md-dialog {
-  min-width: 60%;
+//wide screens up
+@media only screen and (min-width:1280px) {
+	.cards-container {
+		padding:20px;
+	}
 }
+

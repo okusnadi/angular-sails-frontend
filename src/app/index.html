@@ -17,14 +17,13 @@
     <body data-ng-cloak class="ng-cloak">
         <div data-ui-view="header"></div>
         
-        <div id="container" class="container main-container">
-            <md-card>
+        <div id="container" class="container main-container perspective-container" layout="column">
                 <!--<md-content>-->
                     <div data-ui-view="pageNavigation"></div>
-                    <div data-ui-view="content">
+                    <div flex class="relative">
+                        <div data-ui-view="content" class="slide"></div>
+                    </div>
                 <!--</md-content>-->
-            </md-card>
-            </div>
         </div>
 
         <div data-ui-view="footer"></div>
