@@ -27,24 +27,25 @@
     <div flex="50%">
       <md-input-container>
         <label>Status</label>
-        <md-select ng-model="$ctrl.afAction.form.status">
-          <md-option ng-value="status.id" ng-repeat="status in $ctrl.afStatuses">{{ status.name}}</md-option>
+        <md-select 
+          ng-model="$ctrl.afAction.form.status" 
+          ng-model-options="{trackBy: '$value.name'}"
+          >
+          <md-option 
+            ng-repeat="status in $ctrl.afStatuses"
+            ng-value="status" 
+            >{{status.name}}</md-option>
         </md-select>
-<!--        <input type="text" 
-               data-ng-model="$ctrl.afAction.form.status"
-               data-ng-minlength="3"
-               required="required" name="status"
-               />-->
       </md-input-container>
     </div>
     <div flex="50%">
       <md-input-container>
         <label>Value</label>
-        <input type="text" 
-               data-ng-model="$ctrl.afAction.form.value"
-               data-ng-minlength="3"
-               required="required" name="value"
-               />
+        <md-select ng-model="$ctrl.afAction.form.value">
+          <md-option 
+            ng-repeat="value in $ctrl.afAction.form.status.mappedTo"
+            >{{value.value}}</md-option>
+        </md-select>
       </md-input-container>
     </div>
   </div>

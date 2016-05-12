@@ -15,31 +15,23 @@
             msStatic: '=',
             msLabelPrefix: '@',
             msTemplate: '@',
-            msParams: '@'
+            msParams: '='
           },
           templateUrl: '/frontend/core/directives/multiSelect/multiSelect.html',
-//          link: MultiSelectLink,
-//        link: function(scope, element, attrs) {
-//          console.log('LINK!');          
-//          console.log(element[0].querySelector('.ms-container'));  
-//        },
-          compile: function (element, attrs) {
-//          if( angular.isDefined(attrs.msTemplate)) {
-//            angular.element(element[0].querySelector('.ms-container')).html(attrs.msTemplate);
-//          }
-            console.log('COMPILE!');
-            console.log(element[0].querySelector('.ms-container'));
-            console.log(attrs);
-            return {
-              pre: function (scope, element, attrs) {
-                console.log('PRE!');
-                console.log(element[0].querySelector('.ms-container'));
-              },
-              post: function MultiSelectLink(scope, element, attr) {
+//          compile: function (element, attrs) {
+//            return {
+//              pre: function (scope, element, attrs) {
+//                console.log('PRE!');
+//                console.log(element[0].querySelector('.ms-container'));
+//              },
+//              post: function MultiSelectLink(scope, element, attr) {
+              link: function MultiSelectLink(scope, element, attr) {
 
-                if (angular.isDefined(scope.msTemplate)) {
-                  scope.msTemplate = $sce.trustAsHtml(scope.msTemplate);
-                }
+                console.log(scope);
+                
+//                if (angular.isDefined(scope.msTemplate)) {
+//                  scope.msTemplate = $sce.trustAsHtml(scope.msTemplate);
+//                }
 
                 scope.suggestions = loadAll();
 
@@ -94,7 +86,6 @@
             };
           }
 
-        };
-      }]);
+      ]);
 
 }());
