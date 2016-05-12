@@ -1,0 +1,14 @@
+<ng-form name="meForm">
+    <div layout="row" class="multi-input-item" ng-repeat="item in $ctrl.meItems">
+      <div bind-html-compile="$ctrl.meTemplate" flex></div>
+        <md-button ng-if="!$ctrl.meStatic" class="md-fab md-mini md-primary md-hue-2 roll-left" ng-click="$ctrl.addField($index)" tabIndex="-1"
+                   ng-class="{ 'roll-left-active' : $ctrl.meItems.length < 2 }">
+            <md-tooltip>Add new level</md-tooltip>
+            <md-icon class="material-icons md-light" >add</md-icon>
+        </md-button>
+        <md-button ng-if="!$ctrl.meStatic && $ctrl.meItems.length > 1" class="md-fab md-mini md-warn roll-in" ng-click="$ctrl.deleteField($index)" tabIndex="-1">
+            <md-tooltip>Remove this level</md-tooltip>
+            <md-icon class="material-icons md-light" >clear</md-icon>
+        </md-button>
+    </div>
+</ng-form>

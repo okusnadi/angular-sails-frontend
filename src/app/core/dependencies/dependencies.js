@@ -27,7 +27,7 @@
     'ngMaterial',
     'md.data.table',
     'frontend.core.filters',
-//    'ngVis'
-    'ngAnimate-animate.css'
+    'ngAnimate-animate.css',
+    'angular-bind-html-compile'
   ]);
 }());
