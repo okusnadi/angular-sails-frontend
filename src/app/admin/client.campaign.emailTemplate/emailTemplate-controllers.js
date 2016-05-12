@@ -35,8 +35,8 @@
               };
               
   $scope.tinymceOptions = {
-    plugins: 'link image code',
-    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+    plugins: 'link image code example',
+    toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code'
   };              
               
               $scope.dropHandler = function(file, insertAction) {

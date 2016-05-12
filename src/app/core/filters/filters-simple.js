@@ -7,7 +7,7 @@
       return $sce.trustAsHtml;
     })
 
-    .filter('isEmpty', function () {
+    .filter('isObjectEmpty', function () {
       var bar;
       return function (obj) {
         for (bar in obj) {

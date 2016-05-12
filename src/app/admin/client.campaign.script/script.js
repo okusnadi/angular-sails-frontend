@@ -58,7 +58,11 @@
               },
 							'pageNavigation@': {
                 template: ''
-              }
+              },
+							'header@':{
+								templateUrl:'/frontend/core/layout/partials/header-disabled.html',
+								controller: 'HeaderController'
+							}
             }
           })
 

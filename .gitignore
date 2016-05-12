@@ -4,3 +4,5 @@ dist/*
 .tmp/
 .idea/
 config/config.json
+.netbeans.xml
+

@@ -44,6 +44,7 @@
         "fb-default": {},
         "ng-model": {},
         "fb-form": {},
+        "bind-html-compile": {},
         "fb-components": {},
         "ng.repeat": {},
         "class": {}
@@ -242,6 +243,13 @@
         "dt-click": {},
         "dt-mapped-pristine": {},
         "dt-column-title": {}
+      }
+    },
+    "cc-multi-element": {
+      "attributes": {
+        "me-template": {},
+        "me-items": {},
+        "me-max": {}
       }
     }
   },

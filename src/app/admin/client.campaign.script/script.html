@@ -1,4 +1,4 @@
-<md-toolbar class="md-primary md-hue-3">
+<md-toolbar class="md-primary md-hue-3 anti-header">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button">
             <md-icon class='material-icons'>line_style</md-icon>
@@ -35,7 +35,7 @@
           </div>
         </md-input-container>              
           </md-card>
-        <vis-network-info ng-if="!(np.selected|isEmpty)" ni-element="np.selected" ni-edit-script="editScriptPage(ev, node)"></vis-network-info>
+        <vis-network-info ng-if="!(np.selected|isObjectEmpty)" ni-element="np.selected" ni-edit-script="editScriptPage(ev, node)"></vis-network-info>
       </div>
 
       <div flex="80" layout-fill>
