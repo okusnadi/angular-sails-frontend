@@ -50,7 +50,8 @@
     "ngAnimate-animate.css": "^0.1.1",
     "ng-contextmenu": "^0.4.1",
     "angular-form-builder": "^0.1.0",
-    "angular-validator": "^0.2.6"
+    "angular-validator": "^0.2.6",
+    "angular-bind-html-compile": "^1.2.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.5"
@@ -87,8 +88,7 @@
       ]
     },
     "angular-form-builder": {
-      "main": [
-      ]
+      "main": []
     }
   },
   "resolutions": {

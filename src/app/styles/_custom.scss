@@ -336,7 +336,7 @@ perspective: 500px;
 .material-icons.md-light { color: rgba(255, 255, 255, 1) !important; }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3) !important; }
 
-//helper
+/* helper */
 .wide-min-width {min-width:600px;}
 
 .transition {
@@ -361,7 +361,13 @@ perspective: 500px;
 /*}*/
 
 
-//helper
-//========================
+/* helper
+//========================*/
 
 .relative {position: relative}
+
+
+ /*guess who? ;)*/ 
+md-dialog {
+  min-width: 60%;
+}
