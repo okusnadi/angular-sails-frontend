@@ -60,7 +60,8 @@
                 template: ''
               },
 							'header@':{
-								template:''
+								templateUrl:'/frontend/core/layout/partials/header-disabled.html',
+								controller: 'HeaderController'
 							}
             }
           })
