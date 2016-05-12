@@ -50,13 +50,17 @@
          * @returns {boolean}
          */
         $scope.isActive = function isActive(item) {
-          var bits = $state.current.name.toString().split('.');
-
+//          var bits = $state.current.name.toString().split('.');
+					var stateCheck = item.state;
+					if (item.state.substring(item.state.length-1)==='s') {
+						stateCheck = item.state.substring(0,item.state.length-1);
+					}
+					
 //          return !!(
 //            (item.state === $state.current.name) ||
 //            (item.state === bits[0] && $state.current.name !== 'examples.about')
 //            );
-					return $state.includes(item.state);
+					return $state.includes(stateCheck) || $state.includes(item.state);
         };
 
         // Simple helper function which triggers user logout action.
@@ -125,7 +129,11 @@
 				//select active tab
         $scope.$on('$stateChangeSuccess', function () {
           $scope.activeIndex = _.findIndex($scope.navigationItems, function (item) {
-            return $state.includes(item.state);
+						var stateCheck = item.state;
+						if (item.state.substring(item.state.length-1)==='s') {
+							stateCheck = item.state.substring(0,item.state.length-1);
+						}
+            return $state.includes(stateCheck) || $state.includes(item.state);
           });
         });
       }

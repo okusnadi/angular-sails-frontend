@@ -330,7 +330,7 @@ perspective: 500px;
  @extend .transition;
 }
 .slideup.ng-enter {
-    top: 100%;
+    top: 100vh;
 }
 .slideup.ng-enter-active {
     top: 0;
@@ -339,7 +339,7 @@ perspective: 500px;
     top: 0;
 }
 .slideup.ng-leave-active {
-    top: -100%;
+    top: -100vh;
 }
 
 .perspective-container {
