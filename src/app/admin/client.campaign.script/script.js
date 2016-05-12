@@ -58,7 +58,10 @@
               },
 							'pageNavigation@': {
                 template: ''
-              }
+              },
+							'header@':{
+								template:''
+							}
             }
           })
 
