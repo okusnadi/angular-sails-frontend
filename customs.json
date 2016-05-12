@@ -217,6 +217,12 @@
         "network": {}
       }
     },
+    "mce-editor": {
+      "attributes": {
+        "mce-model": {},
+        "mce-options": {}
+      }
+    },
     "md-input-container": {
       "attributes": {
         "md-no-float": {},

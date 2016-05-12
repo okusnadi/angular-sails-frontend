@@ -29,7 +29,6 @@
     'frontend.core.libraries',
     'frontend.core.models',
     'frontend.core.services',
-    'frontend.core.formBuilder',
-    'frontend.core.mcePlugins'
+    'frontend.core.formBuilder'
   ]);
 }());
