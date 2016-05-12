@@ -98,7 +98,6 @@
 									var stateName = angular.isDefined(state.parent) ? state.parent : state.name;
 									var mainSection = stateName.split('.')[0];
 									return _.findIndex(items[mainSection], function (item) {
-										console.log(item,stateName)
 										return item.state === stateName;
 									});
 								}
