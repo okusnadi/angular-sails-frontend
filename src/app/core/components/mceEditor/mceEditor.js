@@ -3,7 +3,7 @@
 
   'use strict';
 
-  angular.module('frontend.core.components', []);
+//  angular.module('frontend.core.components', []);
 
   angular.module('frontend.core.components').component('mceEditor', {
     templateUrl: '/frontend/core/mceEditor/mceEditor.html',
@@ -16,7 +16,6 @@
       console.log(ctrl);
     }
   });
-
   angular.module('frontend.core.components').service('mceService',
     function () {
       var customFields = {
