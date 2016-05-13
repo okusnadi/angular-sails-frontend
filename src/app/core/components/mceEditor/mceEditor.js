@@ -15,7 +15,8 @@
       var ctrl = this;
       
       ctrl.dataLinks = mceService.getDataLinks();
-      console.log(ctrl);
+      ctrl.category = null;
+      ctrl.field = null;
     }]
   });
 

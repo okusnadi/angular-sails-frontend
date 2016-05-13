@@ -1,9 +1,32 @@
 
-<cc-data-link dt-links="$ctrl.dataLinks">
-</cc-data-link>
-<textarea 
-  ui-tinymce="$ctrl.mceOptions" 
-  ng-model="$ctrl.mceModel"
-  aria-label="HTML Editor"
-  >
-</textarea>
+<div layout="row">
+
+  <div flex="25">
+    Data link
+  </div>
+
+  <div flex="50">
+    <cc-data-link 
+      dt-links="$ctrl.dataLinks" 
+      dt-category="$ctrl.category"
+      dt-field="$ctrl.field"
+      >
+    </cc-data-link>
+  </div>
+
+
+    <div flex="25">
+      <md-button 
+        class="md-primary md-raised" 
+        ng-click="$ctrl.dtCallback()"
+        ng-disabled="!$ctrl.field"
+        >Add</md-button>
+    </div>
+  </div>
+
+  <textarea 
+    ui-tinymce="$ctrl.mceOptions" 
+    ng-model="$ctrl.mceModel"
+    aria-label="HTML Editor"
+    >
+  </textarea>

@@ -168,7 +168,9 @@
     },
     "cc-data-link": {
       "attributes": {
-        "dt-links": {}
+        "dt-links": {},
+        "dt-category": {},
+        "dt-field": {}
       }
     },
     "md-item-template": {},
@@ -203,6 +205,7 @@
         "ng-if": {},
         "md-search-text": {},
         "required": {},
+        "ng-disabled": {},
         "md-item-text": {},
         "md-select-on-focus": {},
         "md-selected-item-change": {},
@@ -211,6 +214,7 @@
         "md-min-length": {},
         "name": {},
         "md-floating-label": {},
+        "md-no-cache": {},
         "md-items": {}
       }
     },

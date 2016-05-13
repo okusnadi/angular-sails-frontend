@@ -1,48 +1,39 @@
+  <div layout="row">
 
-<div layout="row">
-
-  <div flex="25%">
-        <label>Data Links</label>
-    </div>
-  
-  <div flex="25%">
-      <md-input-container>
+    <div flex="50">
+      <md-input-container class="md-block">
         <label>Category</label>
         <md-select 
-          ng-model="$ctrl.category"
+          ng-model="$ctrl.dtCategory"
           ng-model-options="{trackBy: '$value.label'}"
+          ng-change="$ctrl.categoryChange()"
           >
           <md-option 
             ng-value="category" 
             ng-repeat="category in $ctrl.dtLinks"
-            >{{ category.label }}</md-option>
+            >{{ category.label}}</md-option>
         </md-select>
       </md-input-container>
     </div>
-  
-    <div flex="25%">
-      <md-input-container>
-        <label>Field</label>
-<!--        <md-select ng-model="$ctrl.field">
-          <md-option 
-            ng-value="field" 
-            ng-repeat="field in $ctrl.category.links"
-            >{{ field.label}}</md-option>
-        </md-select>-->
-<md-autocomplete
-   md-items="field in $ctrl.category.links"
-   md-item-text="field.label"
-   md-search-text="$ctrl.field"
-   md-selected-item="$ctrl.selected"
-  >
-</md-autocomplete>
 
-      </md-input-container>
+    <div flex="50">
+      <md-autocomplete
+        ng-disabled="!$ctrl.dtCategory"
+        md-no-cache="true"
+        md-items="field in $ctrl.querySearch()"
+        md-item-text="field.label"
+        md-search-text="$ctrl.query"
+        md-selected-item="$ctrl.dtField"
+        md-floating-label="Field"
+        md-min-length="0"
+        flex
+        >
+        <md-item-template>
+          <span md-highlight-text="$ctrl.query">{{field.label}}</span>
+        </md-item-template>
+
+      </md-autocomplete>
     </div>
 
-  <div flex="25%">
-        <md-buton>Add</md-button>
-    </div>
-  
-</div>
+  </div>
 

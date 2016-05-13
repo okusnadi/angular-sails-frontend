@@ -13,7 +13,7 @@
     }
 
     if (angular.isUndefined(ctrl.miLabelPrefix)) {
-      ctrl.miLabelPrefix = "Level";
+      ctrl.miLabelPrefix = 'Level';
     }
 
     ctrl.addField = function (index) {
@@ -27,7 +27,7 @@
       }
     };
 
-    ctrl.querySearch = function (query, item) {
+    ctrl.querySearch = function (query) {
       var result = query ? ctrl.suggestions.filter(createFilterFor(query)) : ctrl.suggestions;
       return result;
     };
@@ -50,8 +50,9 @@
 
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(state) {
-        return (state.value.indexOf(lowercaseQuery) === 0);
+      return function filterFn(item) {
+        return angular.lowercase(item.value).indexOf(lowercaseQuery) > -1;
+//        return (item.value.indexOf(lowercaseQuery) === 0);
       };
     }
   }

@@ -5,7 +5,7 @@
             md-floating-label="{{item.label?item.label:$ctrl.miLabelPrefix+' '+($index+1)}}"
             md-selected-item="item.selectedItem" 
             md-search-text="item.value" 
-            md-items="sugg in $ctrl.querySearch(item.value, item)" 
+            md-items="sugg in $ctrl.querySearch(item.value)" 
             md-item-text="sugg.display"
             md-min-length="0"
             ng-click=""
