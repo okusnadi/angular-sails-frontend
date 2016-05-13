@@ -33,18 +33,18 @@
 
           // Single client
           .state('admin.client', {
-            resolve: { 
-                // current client needed in child states too
-                _client: [
-                    '$stateParams',
-                    'ClientModel',
-                    function resolve(
-                      $stateParams,
-                      ClientModel
-                    ) {
-                      return ClientModel.fetch($stateParams.clientId, {populate: 'campaigns'});
-                    }
-                ]
+            resolve: {
+              // current client needed in child states too
+              _client: [
+                '$stateParams',
+                'ClientModel',
+                function resolve(
+                  $stateParams,
+                  ClientModel
+                  ) {
+                  return ClientModel.fetch($stateParams.clientId, {populate: 'campaigns'});
+                }
+              ]
             },
             url: '/admin/client/:clientId',
             views: {
@@ -56,18 +56,18 @@
           })
 
           // Add new client
-          .state('admin.client.add', {
-            url: '/add',
-            data: {
-              access: 2
-            },
-            views: {
-              'content@': {
-                templateUrl: '/frontend/admin/client/client.html',
-                controller: 'ClientAddController',
-              }
-            }
-          })
+//          .state('admin.client.add', {
+//            url: '/add',
+//            data: {
+//              access: 2
+//            },
+//            views: {
+//              'content@': {
+//                templateUrl: '/frontend/admin/client/client.html',
+//                controller: 'ClientAddController',
+//              }
+//            }
+//          })
         ;
       }
     ])

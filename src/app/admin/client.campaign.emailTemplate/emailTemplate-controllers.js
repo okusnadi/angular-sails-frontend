@@ -6,6 +6,12 @@
 (function () {
   'use strict';
 
+  var tinymceOptions = {
+    height: 300,
+    plugins: 'link image code example',
+    toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code'
+  };
+  
   // Controller for new emailTemplate creation.
   angular.module('frontend.admin.client.campaign.emailTemplate')
     .controller('EmailTemplateAddController', [
@@ -17,7 +23,6 @@
         MessageService, EmailTemplateModel, mceService,
         _client, _campaign
         ) {
-
         // expose state
         $scope.$state = $state;
         // Store parent campaign
@@ -26,27 +31,10 @@
         $scope.mceService = mceService;
 
         // Initialize emailTemplate model
-        $scope.emailTemplate = {
-          name: '',
-          body: ''
-        };
+        $scope.emailTemplate = {name: '', body: ''};
 
-        $scope.tinymceOptions = {
-          plugins: 'link image code example',
-          toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code'
-        };
+        $scope.tinymceOptions = tinymceOptions;
 
-        $scope.dropHandler = function (file, insertAction) {
-
-          console.log('DROPPED - ', file, insertAction);
-
-        };
-
-
-        /**
-         * Scope function to store new emailTemplate to database. After successfully save emailTemplate will be redirected
-         * to view that new created emailTemplate.
-         */
         $scope.saveEmailTemplate = function () {
           $scope.emailTemplate.campaign = $scope.campaign;
           EmailTemplateModel
@@ -54,13 +42,10 @@
             .then(
               function onSuccess(result) {
                 MessageService.success('New emailTemplate added successfully');
-
-                $state.go('emailTemplate', {emailTemplateId: result.data.id});
+                $state.go('emailTemplates');
               }
-            )
-            ;
+            );
         };
-
       }
     ])
     ;
@@ -93,25 +78,23 @@
           $scope.emailTemplate = _emailTemplate;
           $scope.selectList = _emailTemplate.list ? _emailTemplate.list.id : null;
 
-          // EmailTemplate delete dialog buttons configuration
-          $scope.confirmButtonsDelete = {
-            ok: {
-              label: 'Delete',
-              className: 'btn-danger',
-              callback: function callback() {
-                $scope.deleteEmailTemplate();
-              }
-            },
-            cancel: {
-              label: 'Cancel',
-              className: 'btn-default pull-left'
-            }
-          };
+          $scope.tinymceOptions = tinymceOptions;
 
-          /**
-           * Scope function to save the modified emailTemplate. This will send a
-           * socket request to the backend server with the modified object.
-           */
+          // EmailTemplate delete dialog buttons configuration
+//          $scope.confirmButtonsDelete = {
+//            ok: {
+//              label: 'Delete',
+//              className: 'btn-danger',
+//              callback: function callback() {
+//                $scope.deleteEmailTemplate();
+//              }
+//            },
+//            cancel: {
+//              label: 'Cancel',
+//              className: 'btn-default pull-left'
+//            }
+//          };
+
           $scope.saveEmailTemplate = function () {
             var data = angular.copy($scope.emailTemplate);
 
@@ -121,22 +104,18 @@
               .then(
                 function onSuccess() {
                   MessageService.success('Email template "' + $scope.emailTemplate.name + '" updated successfully');
+                  $state.go('emailTemplates');
                 }
               )
               ;
           };
 
-          /**
-           * Scope function to delete current emailTemplate. This will send DELETE query to backend via web socket
-           * query and after successfully delete redirect emailTemplate back to emailTemplate list.
-           */
           $scope.deleteEmailTemplate = function deleteEmailTemplate() {
             EmailTemplateModel
               .delete($scope.emailTemplate.id)
               .then(
                 function onSuccess() {
                   MessageService.success('Email template "' + $scope.emailTemplate.title + '" deleted successfully');
-
                   $state.go('emailTemplates');
                 }
               )
@@ -170,21 +149,23 @@
       'EmailTemplateModel',
       'DataProvider',
       '_campaign',
-//      '_items', '_count', 
+      '_items', '_count',
       function controller(
         $scope, $q, $timeout,
         _,
         EmailTemplateModel,
         DataProvider,
-        _campaign
-//        _items, _count
+        _campaign,
+        _items, _count
         ) {
         // Set current scope reference to models
-        EmailTemplateModel.setScope($scope, false, 'items', 'itemCount');
+        EmailTemplateModel.setScope($scope, false, '_items', '_itemCount');
 
         // Set initial data
         $scope.campaign = _campaign;
         $scope.query = {
+          items: _items,
+          itemCount: _count.count,
           order: 'name',
           searchWord: '',
           where: {

@@ -6,7 +6,7 @@
 //  angular.module('frontend.core.components', []);
 
   angular.module('frontend.core.components').component('mceEditor', {
-    templateUrl: '/frontend/core/mceEditor/mceEditor.html',
+    templateUrl: '/frontend/core/components/mceEditor/mceEditor.html',
     bindings: {
       mceOptions: '=',
       mceModel: '='
@@ -16,6 +16,7 @@
       console.log(ctrl);
     }
   });
+  
   angular.module('frontend.core.components').service('mceService',
     function () {
       var customFields = {
