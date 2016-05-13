@@ -80,21 +80,6 @@
 
           $scope.tinymceOptions = tinymceOptions;
 
-          // EmailTemplate delete dialog buttons configuration
-//          $scope.confirmButtonsDelete = {
-//            ok: {
-//              label: 'Delete',
-//              className: 'btn-danger',
-//              callback: function callback() {
-//                $scope.deleteEmailTemplate();
-//              }
-//            },
-//            cancel: {
-//              label: 'Cancel',
-//              className: 'btn-default pull-left'
-//            }
-//          };
-
           $scope.saveEmailTemplate = function () {
             var data = angular.copy($scope.emailTemplate);
 
@@ -134,7 +119,6 @@
             $mdDialog.show(confirm).then(function () {
               $scope.deleteEmailTemplate();
             }, function () {
-
             });
           };
         }
@@ -182,7 +166,6 @@
             if (searchWordTimer) {
               $timeout.cancel(searchWordTimer);
             }
-
             searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);

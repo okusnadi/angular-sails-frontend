@@ -11,80 +11,98 @@
       mceOptions: '=',
       mceModel: '='
     },
-    controller: function () {
+    controller: ['mceService', function (mceService) {
       var ctrl = this;
+      
+      ctrl.dataLinks = mceService.getDataLinks();
       console.log(ctrl);
-    }
+    }]
   });
-  
+
   angular.module('frontend.core.components').service('mceService',
     function () {
-      var customFields = {
-        client: {
-          name: {
-            label: 'Name',
-            field: 'name',
-            type: 'string'
-          },
-          email1: {
-            label: 'Primary e-mail',
-            field: 'email1',
-            type: 'email'
-          },
-          email2: {
-            label: 'Secondary e-mail',
-            field: 'email2',
-            type: 'email'
-          },
-          phone1: {
-            label: 'Primary phone',
-            field: 'phone1',
-            type: 'string'
-          },
-          phone2: {
-            label: 'Secondary phone',
-            field: 'phone2',
-            type: 'string'
-          }
+      var dataLinks = [
+        {
+          label: 'Client',
+          links: [
+            {
+              label: 'Name',
+              field: 'name',
+              type: 'string'
+            },
+            {
+              label: 'Primary e-mail',
+              field: 'email1',
+              type: 'email'
+            },
+            {
+              label: 'Secondary e-mail',
+              field: 'email2',
+              type: 'email'
+            },
+            {
+              label: 'Primary phone',
+              field: 'phone1',
+              type: 'string'
+            },
+            {
+              label: 'Secondary phone',
+              field: 'phone2',
+              type: 'string'
+            }
+          ]
         },
-        campaign: {
-          name: {
-            label: 'Name',
-            field: 'name',
-            type: 'string'
-          },
-          contacts: {
-            label: 'E-mails',
-            field: ['name', 'email'],
-            type: 'array'
-          },
-          orgUnits: {
-            label: 'Org Units',
-            field: ['label'],
-            type: 'array'
-          }
+        {
+          label: 'Campaign',
+          links: [
+            {
+              label: 'Name',
+              field: 'name',
+              type: 'string'
+            },
+            {
+              label: 'E-mails',
+              field: ['name', 'email'],
+              type: 'array'
+            },
+            {
+              label: 'Org Units',
+              field: ['label'],
+              type: 'array'
+            }
+          ]
         },
-        list: {
-          name: {
-            label: 'Name',
-            field: 'name',
-            type: 'string'
-          }
+        {
+          label: 'List',
+          links: [
+            {
+              label: 'Name',
+              field: 'name',
+              type: 'string'
+            }
+          ]
         },
-        operator: {
-          firstName: {
-            label: 'Name',
-            field: 'firstName',
-            type: 'string'
-          }
+        {
+          label: 'Operator',
+          links: [
+            {
+              label: 'Name',
+              field: 'firstName',
+              type: 'string'
+            }
+          ]
         }
+      ];
+
+      this.getDataLinks = function getDataLinks() {
+        return dataLinks;
       };
 
       this.selectField = function () {
         $mdDialog.show({
           controller: [
-            function() {
-              
+            function () {
+
             }
           ],
           locals: {
@@ -125,22 +143,83 @@
   tinymce.PluginManager.add('example', function (editor, url) {
     // Add a button that opens a window
     editor.addButton('example', {
+      type: 'menubutton',
       text: 'Add custom field',
       icon: false,
-      onclick: function () {
-        getMceService().getName();
-        // Open window
-        editor.windowManager.open({
-          title: 'Example plugin',
-          body: [
-            {type: 'textbox', name: 'title', label: 'Title'}
-          ],
-          onsubmit: function (e) {
-            // Insert content when the window form is submitted
-            editor.insertContent('Title: ' + e.data.title);
-          }
-        });
-      }
+      menu: [
+        {text: 'Menu item 1',
+          menu: [
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+            {text: 'Menu item 1'},
+          ]
+        },
+        {text: 'Menu item 2', onclick: function () {
+            editor.insertContent('Menu item 2');
+          }}
+      ],
+//      onclick: function () {
+
+      // Open window
+//        editor.windowManager.open({
+//          title: 'Example plugin',
+//          body: [
+//            {type: 'textbox', name: 'title', label: 'Title'}
+//          ],
+//          onsubmit: function (e) {
+//            // Insert content when the window form is submitted
+//            editor.insertContent('Title: ' + e.data.title);
+//          }
+//        });
+//      }
     });
 
     // Adds a menu item to the tools menu

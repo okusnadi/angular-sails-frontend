@@ -1,0 +1,32 @@
+
+<div layout="row">
+
+  <div flex="50%">
+      <md-input-container>
+        <label>Category</label>
+        <md-select 
+          ng-model="$ctrl.category"
+          ng-model-options="{trackBy: '$value.label'}"
+          >
+          <md-option 
+            ng-value="category" 
+            ng-repeat="category in $ctrl.dtLinks"
+            >{{ category.label }}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  
+    <div flex="50%">
+      <md-input-container>
+        <label>Field</label>
+        <md-select ng-model="$ctrl.field">
+          <md-option 
+            ng-value="field" 
+            ng-repeat="field in $ctrl.category.links"
+            >{{ field.label}}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  
+</div>
+

@@ -166,6 +166,11 @@
         "multiple": {}
       }
     },
+    "cc-data-link": {
+      "attributes": {
+        "dt-links": {}
+      }
+    },
     "md-item-template": {},
     "md-file-upload": {
       "attributes": {
