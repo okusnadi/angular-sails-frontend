@@ -7,9 +7,10 @@
     'use strict';
 
     angular.module('frontend.core.services')
-      .service('SettingService', function (
-            $log, $q, _,
-            SettingModel
+      .service('SettingService', [
+            '$q', 'SettingModel',
+            function (
+            $q, SettingModel
             ) {
 
             var settings = [];
@@ -41,5 +42,5 @@
             };
             
 
-          });
+          }]);
 }());

@@ -6,13 +6,6 @@
 (function () {
   'use strict';
 
-  var tinymceOptions = {
-    height: 300,
-    plugins: 'link image code example',
-    toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code',
-    extended_valid_elements: "md-button"
-  };
-  
   // Controller for new emailTemplate creation.
   angular.module('frontend.admin.client.campaign.emailTemplate')
     .controller('EmailTemplateAddController', [
@@ -34,7 +27,7 @@
         // Initialize emailTemplate model
         $scope.emailTemplate = {name: '', body: ''};
 
-        $scope.tinymceOptions = tinymceOptions;
+//        $scope.tinymceOptions = tinymceOptions;
 
         $scope.saveEmailTemplate = function () {
           $scope.emailTemplate.campaign = $scope.campaign;
@@ -79,7 +72,7 @@
           $scope.emailTemplate = _emailTemplate;
           $scope.selectList = _emailTemplate.list ? _emailTemplate.list.id : null;
 
-          $scope.tinymceOptions = tinymceOptions;
+//          $scope.tinymceOptions = tinymceOptions;
 
           $scope.saveEmailTemplate = function () {
             var data = angular.copy($scope.emailTemplate);

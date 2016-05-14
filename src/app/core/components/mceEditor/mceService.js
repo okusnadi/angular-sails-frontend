@@ -14,9 +14,8 @@
         SettingService.getSetting('FIELDS')
           .then(
             function onSuccess(response) {
-              console.log(response);
               var globalLinks = {
-                label: 'Prospect (global links)',
+                label: 'Prospect',
                 links: _.map(response.settings, function (obj) {
                   return {
                     label: obj.name,
@@ -25,12 +24,15 @@
                   };
                 })
               };
-              console.log(globalLinks);
               dataLinks.push(globalLinks);
             });
 
         this.getDataLinks = function getDataLinks() {
           return dataLinks;
+        };
+
+        this.getOptions = function getOptions() {
+          return tinymceOptions;
         };
 
         this.getActiveEditor = function getActiveEditor() {
@@ -41,6 +43,47 @@
           return $compile(element)(self.scope);
         };
 
+        this.selectField = function () {
+          $mdDialog.show({
+            controller: [
+              function () {
+
+              }
+            ],
+            locals: {
+              node: node,
+            },
+            resolve: {
+              _emailTemplates: ['EmailTemplateModel',
+                function resolve(EmailTemplateModel) {
+                  return EmailTemplateModel.load({
+                    sort: 'name ASC',
+                    where: {campaign: self.campaignId}
+                  });
+                }
+              ],
+              _statuses: ['SettingModel',
+                function resolve(SettingModel) {
+                  return SettingModel.load({
+                    where: {type: 'STATUSES'}
+                  });
+                }
+              ]
+            },
+            templateUrl: '/frontend/admin/client.campaign.script/script-action.html',
+            targetEvent: event,
+            clickOutsideToClose: true
+          });
+
+        };
+
+        var tinymceOptions = {
+          height: 300,
+          plugins: 'link image code example noneditable',
+          toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code',
+          extended_valid_elements: "cc-data-link[class|dl-category|dl-field]",
+          custom_elements: "~cc-data-link"
+        };
 
         var dataLinks = [
           {
@@ -115,39 +158,6 @@
           }
         ];
 
-        this.selectField = function () {
-          $mdDialog.show({
-            controller: [
-              function () {
-
-              }
-            ],
-            locals: {
-              node: node,
-            },
-            resolve: {
-              _emailTemplates: ['EmailTemplateModel',
-                function resolve(EmailTemplateModel) {
-                  return EmailTemplateModel.load({
-                    sort: 'name ASC',
-                    where: {campaign: self.campaignId}
-                  });
-                }
-              ],
-              _statuses: ['SettingModel',
-                function resolve(SettingModel) {
-                  return SettingModel.load({
-                    where: {type: 'STATUSES'}
-                  });
-                }
-              ]
-            },
-            templateUrl: '/frontend/admin/client.campaign.script/script-action.html',
-            targetEvent: event,
-            clickOutsideToClose: true
-          });
-
-        };
       }]);
 
 // please rememebr to inject mceService into controller using <mce-editor> !!!!

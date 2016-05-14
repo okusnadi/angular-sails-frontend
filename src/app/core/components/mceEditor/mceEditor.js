@@ -8,23 +8,29 @@
   angular.module('frontend.core.components').component('mceEditor', {
     templateUrl: '/frontend/core/components/mceEditor/mceEditor.html',
     bindings: {
-      mceOptions: '=',
+//      mceOptions: '=',
       mceModel: '='
     },
-    controller: ['mceService','$compile', function (mceService, $compile) {
+    controller: ['mceService', function (mceService) {
       var ctrl = this;
       
       ctrl.dataLinks = mceService.getDataLinks();
+      ctrl.mceOptions = mceService.getOptions();
       ctrl.category = null;
       ctrl.field = null;
       
-      ctrl.addDataLink = function addDataLink() {
-//        console.log(ctrl.category, ctrl.field);
-      var element = mceService.compileElement('<md-button>Menu item 2</md-button>');
-        console.log(element);
-      mceService.getActiveEditor().insertContent('<md-button>Menu item 2</md-button>');
-//        tinymce.Editor.insertContent(ctrl.category.name);
+      ctrl.addDataLink = function addDataLink() {      
+        mceService.getActiveEditor().insertContent(createDataLink());
+        ctrl.category = null;
       };
+      
+      function createDataLink() {
+        return '<cc-data-link class="mceNonEditable" dl-category="'+ 
+                ctrl.category.label + '" dl-field="' + 
+                ctrl.field.field + '">[' +
+                ctrl.category.label + '.' + ctrl.field.field + 
+                ']</cc-data-link>';
+      }
     }]
   });
 
