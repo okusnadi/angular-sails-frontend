@@ -6,7 +6,7 @@
   </div>
 
   <div flex="50">
-    <cc-data-link 
+    <cc-select-data-link 
       dt-links="$ctrl.dataLinks" 
       dt-category="$ctrl.category"
       dt-field="$ctrl.field"
@@ -18,7 +18,7 @@
     <div flex="25">
       <md-button 
         class="md-primary md-raised" 
-        ng-click="$ctrl.dtCallback()"
+        ng-click="$ctrl.addDataLink()"
         ng-disabled="!$ctrl.field"
         >Add</md-button>
     </div>

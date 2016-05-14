@@ -46,6 +46,7 @@
         "fb-form": {},
         "bind-html-compile": {},
         "fb-components": {},
+        "style": {},
         "ng.repeat": {},
         "class": {}
       }
@@ -164,6 +165,13 @@
     "ng-messages": {
       "attributes": {
         "multiple": {}
+      }
+    },
+    "cc-select-data-link": {
+      "attributes": {
+        "dt-links": {},
+        "dt-category": {},
+        "dt-field": {}
       }
     },
     "cc-data-link": {

@@ -5,8 +5,8 @@
 
 //  angular.module('frontend.core.components', []);
 
-  angular.module('frontend.core.components').component('ccDataLink', {
-    templateUrl: '/frontend/core/components/mceEditor/dataLink.html',
+  angular.module('frontend.core.components').component('ccSelectDataLink', {
+    templateUrl: '/frontend/core/components/selectDataLink/selectDataLink.html',
     bindings: {
       dtLinks:    '<',
       dtCategory: '=',
@@ -14,12 +14,10 @@
     },
     controller: function () {
       var ctrl = this;
-      console.log(ctrl);
       
       ctrl.suggestions = [];
 
       ctrl.categoryChange = function categoryChange() {
-      console.log(ctrl);
         ctrl.suggestions = ctrl.dtCategory.links;
         ctrl.query = null;
       };

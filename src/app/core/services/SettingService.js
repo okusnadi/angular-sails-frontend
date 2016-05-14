@@ -13,19 +13,7 @@
             ) {
 
             var settings = [];
-            
-//            (function init() {
-//              console.log('INIT!!!');
-//              SettingModel.load().
-//                then( function onSuccess(response) {
-//                  console.log('LOADED!!!');
-//                  angular.forEach(response, function(item) {
-//                    settings[item.type] = item;
-//                  });
-//                  console.log(settings);
-//              });
-//            })();
-            
+                        
             this.checkMapping = function getSetting(type) {
               return settings[type];
             };
@@ -36,7 +24,7 @@
               }
               return SettingModel.load({ where: { type: type } })
                 .then( function onSuccess(response) {
-                  settings[type] = $q.resolve(response);
+                  settings[type] = $q.resolve(response[0]);
                   return settings[type];                  
               });
 

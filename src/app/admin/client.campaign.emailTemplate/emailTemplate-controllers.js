@@ -9,7 +9,8 @@
   var tinymceOptions = {
     height: 300,
     plugins: 'link image code example',
-    toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code'
+    toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code',
+    extended_valid_elements: "md-button"
   };
   
   // Controller for new emailTemplate creation.

@@ -11,128 +11,22 @@
       mceOptions: '=',
       mceModel: '='
     },
-    controller: ['mceService', function (mceService) {
+    controller: ['mceService','$compile', function (mceService, $compile) {
       var ctrl = this;
       
       ctrl.dataLinks = mceService.getDataLinks();
       ctrl.category = null;
       ctrl.field = null;
+      
+      ctrl.addDataLink = function addDataLink() {
+//        console.log(ctrl.category, ctrl.field);
+      var element = mceService.compileElement('<md-button>Menu item 2</md-button>');
+        console.log(element);
+      mceService.getActiveEditor().insertContent('<md-button>Menu item 2</md-button>');
+//        tinymce.Editor.insertContent(ctrl.category.name);
+      };
     }]
   });
-
-  angular.module('frontend.core.components').service('mceService',
-    function () {
-      var dataLinks = [
-        {
-          label: 'Client',
-          links: [
-            {
-              label: 'Name',
-              field: 'name',
-              type: 'string'
-            },
-            {
-              label: 'Primary e-mail',
-              field: 'email1',
-              type: 'email'
-            },
-            {
-              label: 'Secondary e-mail',
-              field: 'email2',
-              type: 'email'
-            },
-            {
-              label: 'Primary phone',
-              field: 'phone1',
-              type: 'string'
-            },
-            {
-              label: 'Secondary phone',
-              field: 'phone2',
-              type: 'string'
-            }
-          ]
-        },
-        {
-          label: 'Campaign',
-          links: [
-            {
-              label: 'Name',
-              field: 'name',
-              type: 'string'
-            },
-            {
-              label: 'E-mails',
-              field: ['name', 'email'],
-              type: 'array'
-            },
-            {
-              label: 'Org Units',
-              field: ['label'],
-              type: 'array'
-            }
-          ]
-        },
-        {
-          label: 'List',
-          links: [
-            {
-              label: 'Name',
-              field: 'name',
-              type: 'string'
-            }
-          ]
-        },
-        {
-          label: 'Operator',
-          links: [
-            {
-              label: 'Name',
-              field: 'firstName',
-              type: 'string'
-            }
-          ]
-        }
-      ];
-
-      this.getDataLinks = function getDataLinks() {
-        return dataLinks;
-      };
-
-      this.selectField = function () {
-        $mdDialog.show({
-          controller: [
-            function () {
-
-            }
-          ],
-          locals: {
-            node: node,
-          },
-          resolve: {
-            _emailTemplates: ['EmailTemplateModel',
-              function resolve(EmailTemplateModel) {
-                return EmailTemplateModel.load({
-                  sort: 'name ASC',
-                  where: {campaign: self.campaignId}
-                });
-              }
-            ],
-            _statuses: ['SettingModel',
-              function resolve(SettingModel) {
-                return SettingModel.load({
-                  where: {type: 'STATUSES'}
-                });
-              }
-            ]
-          },
-          templateUrl: '/frontend/admin/client.campaign.script/script-action.html',
-          targetEvent: event,
-          clickOutsideToClose: true
-        });
-
-      };
-    });
 
 // please rememebr to inject mceService into controller using <mce-editor> !!!!
   function getMceService() {
@@ -150,56 +44,6 @@
       menu: [
         {text: 'Menu item 1',
           menu: [
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
-            {text: 'Menu item 1'},
             {text: 'Menu item 1'},
           ]
         },
