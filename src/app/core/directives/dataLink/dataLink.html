@@ -1,5 +1,11 @@
-<span class="data-link" ng-if="!editable">{{dataLink}}</span>
-<md-input-container ng-if="editable">
-  <input ng-model="dataLink">
-</md-input-container>
+<span class="data-link" ng-if="!dlEditable">{{dataLink}}</span>
+<!--<md-input-container ng-if="dlEditable">-->
+<span ng-click="editClick()">
+<input ng-if="dlEditable" 
+       ng-model="dataLink" 
+       ng-disabled="disabledEdit"        
+       ng-blur="editBlur()"
+       >
+</span>
+<!--</md-input-container>-->
 

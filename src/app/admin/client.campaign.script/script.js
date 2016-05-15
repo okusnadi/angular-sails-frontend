@@ -6,7 +6,7 @@
  *
  * All of these are wrapped to 'frontend.admin.client.script.script' angular module.
  */
-(function() {
+(function () {
   'use strict';
 
   // Define frontend.admin.client.script.script angular module
@@ -38,16 +38,16 @@
             parent: 'campaign',
             url: '/script/:scriptId',
             resolve: {
-                _script: [
-                    '$stateParams',
-                    'ScriptModel',
-                    function resolve(
-                      $stateParams,
-                      ScriptModel
-                    ) {
-                      return ScriptModel.fetch($stateParams.scriptId);
-                    }
-                  ]
+              _script: [
+                '$stateParams',
+                'ScriptModel',
+                function resolve(
+                  $stateParams,
+                  ScriptModel
+                  ) {
+                  return ScriptModel.fetch($stateParams.scriptId);
+                }
+              ]
             },
             views: {
               'content@': {
@@ -56,13 +56,13 @@
                 resolve: {
                 }
               },
-							'pageNavigation@': {
+              'pageNavigation@': {
                 template: ''
               },
-							'header@':{
-								templateUrl:'/frontend/core/layout/partials/header-disabled.html',
-								controller: 'HeaderController'
-							}
+              'header@': {
+                templateUrl: '/frontend/core/layout/partials/header-disabled.html',
+                controller: 'HeaderController'
+              }
             }
           })
 
@@ -74,7 +74,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/frontend/admin/client.campaign.script/script-page.html',
+                templateUrl: '/frontend/admin/client.campaign.script/node-form.html',
                 controller: 'ScriptPageController',
                 resolve: {
                 }
@@ -98,8 +98,8 @@
               }
             }
           })
-        ;
+          ;
       }
     ])
-  ;
+    ;
 }());

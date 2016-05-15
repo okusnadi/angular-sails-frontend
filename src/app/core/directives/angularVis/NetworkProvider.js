@@ -102,12 +102,12 @@ var globalNet;
                 from: {max: 0}
               }
             },
-            Script: {
+            Form: {
               shape: 'square',
               physics: true,
               color: groupColours[4],
               icon: 'assignment',
-              title: 'Questionnaire',
+              title: 'Form',
               edit: {
                 sref: 'node({nodeId: $ctrl.niElement.id})'
               },
@@ -120,7 +120,7 @@ var globalNet;
             Decision: {
               shape: 'dot',
               physics: true,
-              color: groupColours[9],
+              color: groupColours[5],
               icon: 'call_split',
               title: 'Decision point',
               validation: {
@@ -170,9 +170,20 @@ var globalNet;
           }
         ];
 
+        var desicionTypes = [
+          {
+            value: 'Form result',
+            display: 'Form result'
+          },
+          {
+            value: 'Expression',
+            display: 'Expression'
+          }
+        ];
+
         var startNodes = [
           {id: 1, label: 'Start', group: 'Start', x: -200, y: 100},
-          {id: 2, label: 'Script page 1', group: 'Script'},
+          {id: 2, label: 'Form 1', group: 'Form'},
           {id: 3, label: 'Decison point 1', group: 'Decision'},
           {id: 4, label: 'Actions', group: 'Action'},
           {id: 999, label: 'End', group: 'End', x: 200, y: 100}
@@ -283,7 +294,7 @@ var globalNet;
                 }
               ]
             },
-            templateUrl: '/frontend/admin/client.campaign.script/script-action.html',
+            templateUrl: '/frontend/admin/client.campaign.script/node-action.html',
             targetEvent: event,
             clickOutsideToClose: true
           });

@@ -1,0 +1,44 @@
+<md-content layout-padding class="wide-min-width">
+    <h4>Decision point</h4>
+    <form class="" role="form" name="settingForm"
+          autocomplete="off" 
+          data-ng-submit="saveAction()"
+          >
+
+        <!--<div layout="row">-->
+          <!--<div flex="40" layout-margin>-->
+                <md-multi-select ms-items="node.actions" ms-max="10" 
+                            ms-suggestions="actionTypes" ms-label-prefix="'Action'"
+                            ms-template="{{msTemplate}}" ms-params="msParams"
+                            >
+                </md-multi-select>
+            <!--</div>-->
+<!--            <div flex="60" layout-margin>
+                <div ng-repeat="action in node.actions" class="multi-input-item">
+                  <cc-action-form 
+                    af-action="action" 
+                    af-email-templates="emailTemplates"
+                    af-statuses="statuses"
+                    >                      
+                </cc-action-form>
+                </div>
+            </div>-->
+        <!--</div>-->
+
+        <div flex="100" layout="row">
+            <div flex></div>
+            <md-button type="submit" class="md-primary md-raised "
+                       data-ng-disabled="!settingForm.$valid">
+                Continue
+            </md-button>
+
+            <md-button type="button" class="md-button md-raised "
+                       ng-click="cancelDialog();"
+                       >
+                Cancel
+            </md-button>
+        </div>
+
+
+    </form>
+</md-content>

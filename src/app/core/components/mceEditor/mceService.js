@@ -82,7 +82,7 @@
           height: 300,
           plugins: 'link image code example noneditable',
           toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code',
-          extended_valid_elements: 'cc-data-link[class|dl-category|dl-field]',
+          extended_valid_elements: 'cc-data-link[class|dl-category|dl-field|dl-editable]',
           custom_elements: '~cc-data-link',
           content_style: 
             'cc-data-link { '+ [
@@ -174,8 +174,9 @@
             ]
           }
         ];
-
+        
       }]);
+
 
 // please rememebr to inject mceService into controller using <mce-editor> !!!!
   window.getMceService = function getMceService() {
