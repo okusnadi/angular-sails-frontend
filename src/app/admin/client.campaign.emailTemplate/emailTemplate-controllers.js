@@ -19,9 +19,9 @@
         ) {
         // expose state
         $scope.$state = $state;
-        // Store parent campaign
-        $scope.campaign = _campaign;
+        $scope.currentUser = UserService.user();
         $scope.client = _client;
+        $scope.campaign = _campaign;
         $scope.mceService = mceService;
 
         // Initialize emailTemplate model
@@ -52,14 +52,14 @@
         '$mdDialog',
         'UserService', 'MessageService',
         'EmailTemplateModel',
-        '_campaign',
+        '_client', '_campaign',
         '_emailTemplate',
         function controller(
           $scope, $state,
           $mdDialog,
           UserService, MessageService,
           EmailTemplateModel,
-          _campaign,
+          _client, _campaign,
           _emailTemplate
           ) {
           // expose state
@@ -69,6 +69,8 @@
 
           // Initialize scope data
           $scope.currentUser = UserService.user();
+          $scope.client = _client;
+          $scope.campaign = _campaign;
           $scope.emailTemplate = _emailTemplate;
           $scope.selectList = _emailTemplate.list ? _emailTemplate.list.id : null;
 

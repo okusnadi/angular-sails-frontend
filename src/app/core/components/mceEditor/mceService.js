@@ -16,6 +16,7 @@
             function onSuccess(response) {
               var globalLinks = {
                 label: 'Prospect',
+                entity: 'prospect',
                 links: _.map(response.settings, function (obj) {
                   return {
                     label: obj.name,
@@ -88,6 +89,7 @@
         var dataLinks = [
           {
             label: 'Client',
+            entity: 'client',
             links: [
               {
                 label: 'Name',
@@ -118,6 +120,7 @@
           },
           {
             label: 'Campaign',
+            entity: 'campaign',
             links: [
               {
                 label: 'Name',
@@ -138,6 +141,7 @@
           },
           {
             label: 'List',
+            entity: 'list',
             links: [
               {
                 label: 'Name',
@@ -148,6 +152,7 @@
           },
           {
             label: 'Operator',
+            entity: 'currentUser',
             links: [
               {
                 label: 'Name',

@@ -4,7 +4,8 @@
   'use strict';
 
   angular.module('frontend.core.components').directive('ccDataLink', [
-    function ccDataLinkController() {
+    '_', 'mceService',
+    function ccDataLinkController(_, mceService) {
       return {
         restrict: 'E',
         templateUrl: '/frontend/core/directives/dataLink/dataLink.html',
@@ -13,7 +14,9 @@
           dlField: '@'
         },
         link: function (scope) {
-          console.log('DATA LINK!', scope.$parent);
+          var model = _.findWhere(mceService.getDataLinks(),{ label:scope.dlCategory });
+
+          scope.dataLink = scope.$parent[model.entity][scope.dlField];
         }
       };
 
