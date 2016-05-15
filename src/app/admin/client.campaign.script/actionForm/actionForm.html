@@ -1,7 +1,7 @@
 
 <ng-form ng-if="$ctrl.afAction.value === 'Send Email'">
   <div layout="row">
-    <div flex="50%">
+    <div flex="50">
       <md-input-container>
         <label>Recipients</label>
         <input type="text" 
@@ -11,7 +11,7 @@
                />
       </md-input-container>
     </div>
-    <div flex="50%">
+    <div flex="50">
       <md-input-container>
         <label>Template</label>
         <md-select ng-model="$ctrl.afAction.form.template">
@@ -24,7 +24,7 @@
 
 <ng-form ng-if="$ctrl.afAction.value === 'Set Status'">
   <div layout="row">
-    <div flex="50%">
+    <div flex="50">
       <md-input-container>
         <label>Status</label>
         <md-select 
@@ -38,7 +38,7 @@
         </md-select>
       </md-input-container>
     </div>
-    <div flex="50%">
+    <div flex="50">
       <md-input-container>
         <label>Value</label>
         <md-select ng-model="$ctrl.afAction.form.value">

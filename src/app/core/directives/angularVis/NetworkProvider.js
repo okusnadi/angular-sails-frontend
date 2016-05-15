@@ -123,6 +123,9 @@ var globalNet;
               color: groupColours[5],
               icon: 'call_split',
               title: 'Decision point',
+              edit: {
+                handler: editDecisionNode
+              },
               validation: {
                 count: {},
                 to: {max: 1},
@@ -170,14 +173,14 @@ var globalNet;
           }
         ];
 
-        var desicionTypes = [
+        var decisionTypes = [
           {
             value: 'Form result',
-            display: 'Form result'
+            display: 'Form result - based on prospect answers'
           },
           {
             value: 'Expression',
-            display: 'Expression'
+            display: 'Expression - based on prospect data'
           }
         ];
 
@@ -224,6 +227,68 @@ var globalNet;
         };
 
 
+        function editDecisionNodeController(
+          $mdDialog, $scope, _, node
+            ) {
+
+          $scope.decisionTypes = decisionTypes;
+          $scope.formNodes = self.getNodeType('Form');
+          $scope.node = node;
+          
+          $scope.oldDecision = angular.copy($scope.node.decision);
+          
+          $scope.cancelDialog = function cancelDialog() {
+            MessageService.info('Changes cancelled');
+            $scope.node.decision = $scope.oldDecision;
+            $mdDialog.cancel();
+          };
+
+          $scope.saveAction = function saveAction() {
+            MessageService.info('Changes stored locally - please rememember to save!');
+            $mdDialog.hide();
+          };
+
+          $scope.typeChange = function typeChange() {
+            $scope.node.decision.formNode = null;
+          };
+          
+          $scope.formChange = function formChange() {
+            $scope.node.decision.element = null;
+          };
+          
+          $scope.filterFields = function filterFields() {
+            if( angular.isUndefined($scope.node.decision.formNode) ) {
+              return [];
+            }
+            return _.filter($scope.node.decision.formNode.formBuilder, function(element) {
+              return _.contains(['radio', 'checkbox', 'select' ], element.component);
+            });
+          };
+
+        }
+
+        function editDecisionNode(event, node) {
+          if (angular.isUndefined(node.decision)) {
+            node.decision = {};
+          }
+
+          $mdDialog.show({
+            controller: [
+              '$mdDialog', '$scope', '_', 'node', 
+              editDecisionNodeController
+            ],
+            locals: {
+              node: node
+            },
+            resolve: {
+            },
+            templateUrl: '/frontend/admin/client.campaign.script/node-decision.html',
+            targetEvent: event,
+            clickOutsideToClose: true
+          });
+
+        }
+
         function editActionNodeController(
           $mdDialog, $scope, _, node, 
           _emailTemplates, _statuses
@@ -247,18 +312,18 @@ var globalNet;
           };
           $scope.oldActions = angular.copy($scope.node.actions);
           
-//          console.log('Controller!', $scope);
           $scope.cancelDialog = function () {
+            MessageService.info('Changes cancelled');
             $scope.node.actions = $scope.oldActions;
             $mdDialog.cancel();
           };
 
           $scope.saveAction = function () {
+            MessageService.info('Changes stored locally - please rememember to save!');
             $mdDialog.hide();
           };
 
         }
-
 
         function editActionNode(event, node) {
           if (angular.isUndefined(node.actions)) {
@@ -275,7 +340,7 @@ var globalNet;
               editActionNodeController
             ],
             locals: {
-              node: node,
+              node: node
             },
             resolve: {
               _emailTemplates: ['EmailTemplateModel',
@@ -323,17 +388,21 @@ var globalNet;
           return self.selected;
         };
 
+        self.getNodeType = function getNodeType(nodeType) {
+          return self.network.body.data.nodes.get({
+            filter: function (item) {
+              return item.group === nodeType;
+            }
+          });
+        };
+
         /*
          * function to check if new node of given type can be added (as defined in groups max limit)
          * @param {type} nodeType
          * @returns {Boolean}
          */
-        self.checkAddNodeType = function (nodeType) {
-          var count = self.network.body.data.nodes.get({
-            filter: function (item) {
-              return item.group === nodeType;
-            }
-          }).length;
+        self.checkAddNodeType = function checkAddNodeType(nodeType) {
+          var count = self.getNodeType(nodeType).length;
           var max = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].validation.count.max;
           if (max && (count >= max)) {
             return false;
@@ -347,11 +416,12 @@ var globalNet;
          * @returns {Boolean}
          */
         function checkDeleteNodeType(nodeType) {
-          var count = self.network.body.data.nodes.get({
-            filter: function (item) {
-              return item.group === nodeType;
-            }
-          }).length;
+          var count = self.getNodeType(nodeType).length;
+//          var count = self.network.body.data.nodes.get({
+//            filter: function (item) {
+//              return item.group === nodeType;
+//            }
+//          }).length;
           var min = angular.isDefined(options.groups[nodeType]) && options.groups[nodeType].validation.count.min;
           if (min && (count <= min)) {
             return false;
@@ -377,11 +447,12 @@ var globalNet;
                 return item.to === id;
               }
             });
-            node.count = self.network.body.data.nodes.get({
-              filter: function (item) {
-                return item.group === node.group;
-              }
-            }).length;
+            node.count = self.getNodeType(node.group).length;
+//            node.count = self.network.body.data.nodes.get({
+//              filter: function (item) {
+//                return item.group === node.group;
+//              }
+//            }).length;
           }
           return node;
         }

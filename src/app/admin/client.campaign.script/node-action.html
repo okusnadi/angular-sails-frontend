@@ -1,6 +1,6 @@
 <md-content layout-padding class="wide-min-width">
     <h4>Actions</h4>
-    <form class="" role="form" name="settingForm"
+    <form class="" role="form" name="actionForm"
           autocomplete="off" 
           data-ng-submit="saveAction()"
           >
@@ -28,7 +28,7 @@
         <div flex="100" layout="row">
             <div flex></div>
             <md-button type="submit" class="md-primary md-raised "
-                       data-ng-disabled="!settingForm.$valid">
+                       data-ng-disabled="!actionForm.$valid">
                 Continue
             </md-button>
 

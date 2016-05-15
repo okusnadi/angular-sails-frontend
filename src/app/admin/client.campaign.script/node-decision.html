@@ -1,44 +1,68 @@
 <md-content layout-padding class="wide-min-width">
-    <h4>Decision point</h4>
-    <form class="" role="form" name="settingForm"
-          autocomplete="off" 
-          data-ng-submit="saveAction()"
-          >
+  <h4>Decision point</h4>
+  <form class="" role="form" name="decisionForm"
+        autocomplete="off" 
+        data-ng-submit="saveAction()"
+        >
+    <div layout="row">
+      <div flex="50">
+        <md-input-container class="md-block">
+          <label>Decision type</label>
+          <md-select 
+            required
+            ng-model="node.decision.type"
+            ng-model-options="{trackBy: '$value.value'}"
+            ng-change="typeChange()"
+            >
+            <md-option ng-value="decision" ng-repeat="decision in decisionTypes">{{decision.display}}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
 
-        <!--<div layout="row">-->
-          <!--<div flex="40" layout-margin>-->
-                <md-multi-select ms-items="node.actions" ms-max="10" 
-                            ms-suggestions="actionTypes" ms-label-prefix="'Action'"
-                            ms-template="{{msTemplate}}" ms-params="msParams"
-                            >
-                </md-multi-select>
-            <!--</div>-->
-<!--            <div flex="60" layout-margin>
-                <div ng-repeat="action in node.actions" class="multi-input-item">
-                  <cc-action-form 
-                    af-action="action" 
-                    af-email-templates="emailTemplates"
-                    af-statuses="statuses"
-                    >                      
-                </cc-action-form>
-                </div>
-            </div>-->
-        <!--</div>-->
-
-        <div flex="100" layout="row">
-            <div flex></div>
-            <md-button type="submit" class="md-primary md-raised "
-                       data-ng-disabled="!settingForm.$valid">
-                Continue
-            </md-button>
-
-            <md-button type="button" class="md-button md-raised "
-                       ng-click="cancelDialog();"
-                       >
-                Cancel
-            </md-button>
-        </div>
+    <div layout="row" ng-if="node.decision.type.value === 'Form result'">
+      <div flex="50">
+        <md-input-container class="md-block">
+          <label>Select form node</label>
+          <md-select 
+            required
+            ng-model="node.decision.formNode"
+            ng-model-options="{trackBy: '$value.id'}"
+            ng-change="formChange()"
+            >
+            <md-option ng-value="node" ng-repeat="node in formNodes">{{node.label}}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div flex="50" ng-if="node.decision.formNode">
+        <md-input-container class="md-block">
+          <label>Select element</label>
+          <md-select 
+            required
+            ng-model="node.decision.element"
+            ng-model-options="{trackBy: '$value.id'}"
+            >
+            <md-option ng-value="element" ng-repeat="element in filterFields()">{{element.label}}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
 
 
-    </form>
+    <div flex="100" layout="row">
+      <div flex></div>
+      <md-button type="submit" class="md-primary md-raised "
+                 data-ng-disabled="!decisionForm.$valid">
+        Continue
+      </md-button>
+
+      <md-button type="button" class="md-button md-raised "
+                 ng-click="cancelDialog();"
+                 >
+        Cancel
+      </md-button>
+    </div>
+
+
+  </form>
 </md-content>

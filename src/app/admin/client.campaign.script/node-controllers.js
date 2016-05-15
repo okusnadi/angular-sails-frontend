@@ -51,10 +51,10 @@
       return;
     }
 
-    $scope.oldScript = angular.copy($scope.node.script);
+    $scope.oldFormBuilder = angular.copy($scope.node.formBuilder);
 
-    if (angular.isUndefined($scope.node.script)) {
-      $scope.node.script = [
+    if (angular.isUndefined($scope.node.formBuilder)) {
+      $scope.node.formBuilder = [
         {"id": 0, "component": "textInput", "editable": true, "index": 0, "label": "Name", "description": "Your name", "placeholder": "Your name", "options": [], "required": true, "validation": "/.*/"},
         {"id": 1, "component": "checkbox", "editable": true, "index": 1, "label": "Pets", "description": "Do you have any pets?", "placeholder": "placeholder", "options": ["Dog", "Cat"], "required": false, "validation": "/.*/"},
         {"id": 2, "component": "select", "editable": true, "index": 2, "label": "Select", "description": "description", "placeholder": "placeholder", "options": ["value one", "value two"], "required": false, "validation": "/.*/"},
@@ -86,7 +86,7 @@
       popoverTemplateUrl: '/frontend/core/formBuilder/templates/popoverTemplate.html'
     });
 
-    $formBuilder.forms['default'] = $scope.node.script;
+    $formBuilder.forms['default'] = $scope.node.formBuilder;
     $scope.form = $formBuilder.forms['default'];
 
     $scope.testForm = function (ev) {
@@ -108,7 +108,7 @@
 
     $scope.cancelScript = function (ev) {
       MessageService.info('Form changes cancelled');
-      $scope.node.script = angular.copy($scope.oldScript);
+      $scope.node.formBuilder = angular.copy($scope.oldFormBuilder);
       $state.go('^');
     };
 
