@@ -6,7 +6,9 @@
 (function () {
   'use strict';
 
-  var testFormController = function ($scope, $validator, $mdDialog) {
+  var testFormController = function (
+    $scope, $validator, $mdDialog
+    ) {
 
     $scope.input = [];
     $scope.defaultValue = {};
@@ -26,13 +28,16 @@
   };
 
   var scriptPageController = function (
-    $mdDialog, $stateParams, $state, $scope,
-    $formBuilder, NetworkProvider, MessageService, _,
-    _script
+    $mdDialog, $stateParams, $state, $scope, $formBuilder, 
+    NetworkProvider, MessageService, mceService, _,
+    _client, _campaign, _script
     )
   {
+    
     // don't recreate network on comming back to previous page
     NetworkProvider.preserveState = true;
+    mceService.scope.client = _client;
+    mceService.scope.campaign = _campaign;
 
     if (angular.isDefined(NetworkProvider.selected.id)) {
       $scope.node = NetworkProvider.selected;
@@ -111,9 +116,9 @@
 
   angular.module('frontend.admin.client.campaign.script')
     .controller('ScriptPageController', [
-      '$mdDialog', '$stateParams', '$state', '$scope',
-      '$formBuilder', 'NetworkProvider', 'MessageService', '_',
-      '_script',
+      '$mdDialog', '$stateParams', '$state', '$scope', '$formBuilder', 
+      'NetworkProvider', 'MessageService', 'mceService', '_',
+      '_client', '_campaign', '_script',
       scriptPageController
     ]);
 
@@ -376,19 +381,19 @@
             searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
           }
         }, true);
-				
-				$scope.addScript = function(){
-					$state.go('script.add');
-				};
-				
-				$scope.toolbarBtns = [
-					{
-						btnTooltip: 'Add Script',
-						btnIcon: 'playlist_add',
-						btnAction: $scope.addScript
-					}
-				];
-				
+
+        $scope.addScript = function () {
+          $state.go('script.add');
+        };
+
+        $scope.toolbarBtns = [
+          {
+            btnTooltip: 'Add Script',
+            btnIcon: 'playlist_add',
+            btnAction: $scope.addScript
+          }
+        ];
+
       }
     ])
     ;

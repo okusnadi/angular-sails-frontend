@@ -14,9 +14,16 @@
           dlField: '@'
         },
         link: function (scope) {
+          
           var model = _.findWhere(mceService.getDataLinks(),{ label:scope.dlCategory });
 
-          scope.dataLink = scope.$parent[model.entity][scope.dlField];
+          if( angular.isDefined(scope.$parent[model.entity]) ) {
+            scope.dataLink = scope.$parent[model.entity][scope.dlField];            
+          }
+          
+          if( !scope.dataLink && angular.isDefined(mceService.scope[model.entity]) ) {
+            scope.dataLink = mceService.scope[model.entity][scope.dlField];                        
+          }
         }
       };
 

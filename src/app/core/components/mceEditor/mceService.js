@@ -82,8 +82,20 @@
           height: 300,
           plugins: 'link image code example noneditable',
           toolbar: 'example | undo redo | bold italic | alignleft aligncenter alignright | code',
-          extended_valid_elements: "cc-data-link[class|dl-category|dl-field]",
-          custom_elements: "~cc-data-link"
+          extended_valid_elements: 'cc-data-link[class|dl-category|dl-field]',
+          custom_elements: '~cc-data-link',
+          content_style: 
+            'cc-data-link { '+ [
+              'background: #eee;',
+              'font-weight: 400;',
+              'font-size: 1em;',
+              'border-radius: 2px;',
+              'border: 1px solid #ddd;',
+              'padding: 0 3px;',
+              'display: inline-block;'
+            ].join(' ') +
+            ' }'
+          
         };
 
         var dataLinks = [
