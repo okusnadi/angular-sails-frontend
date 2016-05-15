@@ -229,14 +229,14 @@ var globalNet;
 
         function editDecisionNodeController(
           $mdDialog, $scope, _, node
-            ) {
+          ) {
 
           $scope.decisionTypes = decisionTypes;
           $scope.formNodes = self.getNodeType('Form');
           $scope.node = node;
-          
+
           $scope.oldDecision = angular.copy($scope.node.decision);
-          
+
           $scope.cancelDialog = function cancelDialog() {
             MessageService.info('Changes cancelled');
             $scope.node.decision = $scope.oldDecision;
@@ -246,25 +246,49 @@ var globalNet;
           $scope.saveAction = function saveAction() {
             MessageService.info('Changes stored locally - please rememember to save!');
             $mdDialog.hide();
+            $scope.node.label = $scope.node.decision.element.label;
+            self.network.body.data.nodes.update($scope.node);
+            updateOptionNodes($scope.node);
           };
 
           $scope.typeChange = function typeChange() {
             $scope.node.decision.formNode = null;
           };
-          
+
           $scope.formChange = function formChange() {
             $scope.node.decision.element = null;
           };
-          
+
           $scope.filterFields = function filterFields() {
-            if( angular.isUndefined($scope.node.decision.formNode) ) {
+            if (angular.isUndefined($scope.node.decision.formNode)) {
               return [];
             }
-            return _.filter($scope.node.decision.formNode.formBuilder, function(element) {
-              return _.contains(['radio', 'checkbox', 'select' ], element.component);
+            return _.filter($scope.node.decision.formNode.formBuilder, function (element) {
+              return _.contains(['radio', 'checkbox', 'select'], element.component);
             });
           };
+        }
 
+        function updateOptionNodes(node) {
+          var info = getNodeInfo(node.id);
+          console.log(info);
+          angular.forEach(info.from, function (edge) {
+            deleteNodeAndConnections(edge.to);
+          });
+          angular.forEach(node.decision.element.options, function (option) {
+            self.network.setSelection({nodes: [node.id]});
+            self.addNode('Option', true, {
+              id: new Date().getTime(),
+              label: option,
+              group: 'Option'              
+            });
+          });
+          info = getNodeInfo(node.id);
+        }
+
+        function deleteNodeAndConnections(nodeId) {
+          self.network.body.data.edges.remove(self.network.getConnectedEdges(nodeId));
+          self.network.body.data.nodes.remove(nodeId);
         }
 
         function editDecisionNode(event, node) {
@@ -274,7 +298,7 @@ var globalNet;
 
           $mdDialog.show({
             controller: [
-              '$mdDialog', '$scope', '_', 'node', 
+              '$mdDialog', '$scope', '_', 'node',
               editDecisionNodeController
             ],
             locals: {
@@ -290,20 +314,20 @@ var globalNet;
         }
 
         function editActionNodeController(
-          $mdDialog, $scope, _, node, 
+          $mdDialog, $scope, _, node,
           _emailTemplates, _statuses
-            ) {
+          ) {
 
           $scope.actionTypes = actionTypes;
           $scope.node = node;
           $scope.emailTemplates = _emailTemplates;
           $scope.statuses = _statuses[0].settings;
-          
+
           $scope.msTemplate = [
             '<cc-action-form af-action="item"',
             'af-email-templates="msParams.emailTemplates"',
             'af-statuses="msParams.statuses">',
-             '</cc-action-form>'
+            '</cc-action-form>'
           ].join(' ');
 
           $scope.msParams = {
@@ -311,7 +335,7 @@ var globalNet;
             statuses: _statuses[0].settings
           };
           $scope.oldActions = angular.copy($scope.node.actions);
-          
+
           $scope.cancelDialog = function () {
             MessageService.info('Changes cancelled');
             $scope.node.actions = $scope.oldActions;
@@ -335,7 +359,7 @@ var globalNet;
 
           $mdDialog.show({
             controller: [
-              '$mdDialog', '$scope', '_', 'node', 
+              '$mdDialog', '$scope', '_', 'node',
               '_emailTemplates', '_statuses',
               editActionNodeController
             ],
@@ -347,14 +371,14 @@ var globalNet;
                 function resolve(EmailTemplateModel) {
                   return EmailTemplateModel.load({
                     sort: 'name ASC',
-                    where: { campaign: self.campaignId }
+                    where: {campaign: self.campaignId}
                   });
                 }
               ],
               _statuses: ['SettingModel',
                 function resolve(SettingModel) {
                   return SettingModel.load({
-                    where: { type: 'STATUSES' }
+                    where: {type: 'STATUSES'}
                   });
                 }
               ]
@@ -520,18 +544,20 @@ var globalNet;
          * @param {boolean} addConnection - tries to also add connection between current and new node
          * @returns {undefined}
          */
-        self.addNode = function (nodeType, addConnection) {
+        self.addNode = function (nodeType, addConnection, newNode) {
           if (self.checkAddNodeType(nodeType) !== true) {
             MessageService.warning('Reached max limit of this type of nodes');
             return;
           }
-          var newNode = {
-            id: new Date().getTime(),
-            x: self.canvasPosition.x,
-            y: self.canvasPosition.y,
-            label: '* new *',
-            group: nodeType
-          };
+          if (angular.isUndefined(newNode)) {
+            newNode = {
+              id: new Date().getTime(),
+              x: self.canvasPosition.x,
+              y: self.canvasPosition.y,
+              label: '* new *',
+              group: nodeType
+            };
+          }
           self.network.body.data.nodes.add(newNode);
           if (addConnection === true) {
             var selection = self.network.getSelection();
