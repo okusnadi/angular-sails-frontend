@@ -128,7 +128,7 @@ var globalNet;
               },
               validation: {
                 count: {},
-                to: {max: 1},
+                to: {min: 1},
                 from: {min: 1}
               }
             },

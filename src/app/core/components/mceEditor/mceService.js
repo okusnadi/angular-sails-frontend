@@ -167,8 +167,18 @@
             entity: 'currentUser',
             links: [
               {
-                label: 'Name',
+                label: 'First Name',
                 field: 'firstName',
+                type: 'string'
+              },
+              {
+                label: 'Last Name',
+                field: 'lastName',
+                type: 'string'
+              },
+              {
+                label: 'Username',
+                field: 'username',
                 type: 'string'
               }
             ]

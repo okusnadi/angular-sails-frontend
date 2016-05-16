@@ -27,7 +27,7 @@
       function createDataLink() {
         return '<cc-data-link class="mceNonEditable" dl-category="'+ 
                 ctrl.category.label + '" dl-field="' + 
-                ctrl.field.field + '" dl-editable="true">' +
+                ctrl.field.field + '">' +
                 ctrl.category.label + '.' + ctrl.field.field + 
                 '</cc-data-link>';
       }

@@ -8,13 +8,11 @@
 
   angular.module('frontend.core.models')
     .factory('DataModel', [
-      '$sailsSocket', '$log',
-      '_',
-      'DataService',
+      '$sailsSocket', '$log','_',
+      'DataService', 'UserService',
       function(
-        $sailsSocket, $log,
-        _,
-        DataService
+        $sailsSocket, $log, _,
+        DataService, UserService
       ) {
         /**
          * Constructor for actual data model.
@@ -362,6 +360,10 @@
         DataModel.prototype.create = function create(data) {
           var self = this;
 
+          var user = UserService.user();
+          if( angular.isDefined(user)) {
+            data.createdBy = user;
+          }
           return DataService
             .create(self.endpoint, data)
             .then(
@@ -389,6 +391,10 @@
         DataModel.prototype.update = function update(identifier, data) {
           var self = this;
 
+          var user = UserService.user();
+          if( angular.isDefined(user)) {
+            data.updatedBy = user;
+          }
           return DataService
             .update(self.endpoint, identifier, data)
             .then(
