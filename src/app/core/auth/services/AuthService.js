@@ -46,10 +46,10 @@
   angular.module('frontend.core.auth.services')
     .factory('AuthService', [
       '$http', '$state', '$localStorage',
-      'AccessLevels', 'BackendConfig', 'MessageService',
+      'AccessLevels', 'BackendConfig', 'MessageService', 'UserStatusService',
       function factory(
         $http, $state, $localStorage,
-        AccessLevels, BackendConfig, MessageService
+        AccessLevels, BackendConfig, MessageService, UserStatusService
       ) {
         return {
           /**
@@ -95,8 +95,8 @@
               .then(
                 function(response) {
                   MessageService.success('You have been logged in.');
-
                   $localStorage.credentials = response.data;
+                  UserStatusService.saveStatus('LOGIN');
                 }
               )
             ;
@@ -109,10 +109,9 @@
            * Question still: Should we make logout process to backend side?
            */
           logout: function logout() {
+            UserStatusService.saveStatus('LOGOUT');
             $localStorage.$reset();
-
             MessageService.success('You have been logged out.');
-
             $state.go('auth.login');
           }
         };
