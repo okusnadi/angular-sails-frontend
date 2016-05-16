@@ -23,6 +23,29 @@
          *        }}
          */
         var titleItems = {
+          userStatus: [
+            {
+              title: 'Type',
+              column: 'type',
+              class: 'col-xs-2',
+              sortable: true,
+              inSearch: true,
+            },
+            {
+              title: 'Created',
+              column: 'createdAt',
+              class: 'col-xs-2',
+              inSearch: false,
+              sortable: true,
+            },
+            {
+              title: 'Updated',
+              column: 'updatedAt',
+              class: 'col-xs-2',
+              inSearch: false,
+              sortable: true,
+            }
+          ],
           settingFields: [
             {
               title: 'Name',

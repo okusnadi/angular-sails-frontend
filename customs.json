@@ -62,6 +62,14 @@
         "class": {}
       }
     },
+    "cc-data-list": {
+      "attributes": {
+        "dl-query-params": {},
+        "dl-title": {},
+        "dl-data-model": {},
+        "dl-selected": {}
+      }
+    },
     "md-menu-content": {},
     "md-menu-item": {
       "attributes": {
@@ -243,10 +251,8 @@
     "ra-data-table-toolbar": {
       "attributes": {
         "table-title": {},
-        "toolbar-btns": {},
         "query": {},
-        "tt-search-change": {},
-        "toolbar-selected-btns": {}
+        "tt-search-change": {}
       }
     },
     "md-input-container": {
@@ -275,8 +281,7 @@
         "dt-on-click": {},
         "dt-click": {},
         "dt-mapped-pristine": {},
-        "dt-column-title": {},
-        "dt-single-select": {}
+        "dt-column-title": {}
       }
     },
     "cc-multi-element": {

@@ -13,36 +13,51 @@
     .controller('UserStatusListController', [
       '$scope', '$q', '$timeout', '$mdDialog',
       '_',
-      'ListConfig', 'ClientModel',
+      'UserModel', 'UserStatusModel',
       'DataProvider',
       function controller(
         $scope, $q, $timeout, $mdDialog,
         _,
-        ListConfig, ClientModel,
+        UserModel, UserStatusModel,
         DataProvider
         ) {
         // Set current scope reference to models
-        ClientModel.setScope($scope, false, 'items', 'itemCount');
+//        ClientModel.setScope($scope, false, 'items', 'itemCount');
 
-        $scope.query = {
-          order: 'name',
-          searchWord: '',
-          populate: ['campaigns']
+        $scope.userModel = UserModel;
+        $scope.userStatusModel = UserStatusModel;
+        
+        $scope.userParams = {
+          order: 'username'          
         };
-
-        $scope.dataProvider = new DataProvider(ClientModel, $scope.query);
-
-        var searchWordTimer;
-
-        $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
-          if (valueNew !== valueOld) {
-            if (searchWordTimer) {
-              $timeout.cancel(searchWordTimer);
-            }
-
-            searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
-          }
-        }, true);
+        
+        $scope.userStatusParams = {
+          order: 'createdAt'      
+        };
+        
+        $scope.selectedUser = null;
+        
+        console.log($scope);
+//
+//        $scope.query = {
+//          order: 'name',
+//          searchWord: '',
+//          populate: ['campaigns']
+//        };
+//
+//        $scope.dataProvider = new DataProvider(ClientModel, $scope.query);
+//
+//        var searchWordTimer;
+//
+//        $scope.$watch('query.searchWord', function watcher(valueNew, valueOld) {
+//          if (valueNew !== valueOld) {
+//            if (searchWordTimer) {
+//              $timeout.cancel(searchWordTimer);
+//            }
+//
+//            searchWordTimer = $timeout($scope.dataProvider.triggerFetchData, 400);
+//          }
+//        }, true);
 
       }
     ])

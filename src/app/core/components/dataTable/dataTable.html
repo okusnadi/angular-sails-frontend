@@ -50,7 +50,7 @@
             md-select="item" md-select-id="" 
             ng-repeat="item in $ctrl.dtItems"
             class="ngr-fade-in"
-            ng-attr-ng-click="$ctrl.dtOnRowClick({event: $event, item: item})"
+            ng-attr-ng-click="$ctrl.dtOnRowClick({event: $event, item: item, index: $index})"
             >
           <td md-cell
               ng-repeat="column in $ctrl.dtColumns"

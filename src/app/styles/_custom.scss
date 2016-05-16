@@ -541,3 +541,18 @@ perspective: 500px;
 	}
 }
 
+/* ==============================
+ mareks-hidden-area {
+  display: none
+  editable: false
+}
+*/
+// added table row hover 
+table.md-table tbody.md-body > tr.md-row:not([disabled]):hover {
+  background-color: #eeeeee !important;
+}
+table.md-table tbody.md-body > tr.md-row.md-selected {
+  background-color: #f5f5f5;
+}
+
+/* ============================== */

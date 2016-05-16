@@ -1,7 +1,7 @@
 <ra-data-table-toolbar
-  table-title=" 'Users' "
   query = "$ctrl.query"
   tt-search-change="$ctrl.dataProvider.fetchData"
+  table-title="$ctrl.dlTitle"
   >    
 </ra-data-table-toolbar>
 <!--  toolbar-btns ="toolbarBtns"
@@ -17,7 +17,7 @@
   dt-order="$ctrl.query.order"
   dt-on-reorder="$ctrl.dataProvider.onReorder"
   dt-on-paginate="$ctrl.dataProvider.onPaginate"
-  dt-on-row-click="$ctrl.onRowClick(event, item)"
+  dt-on-row-click="$ctrl.onRowClick(event, item, index)"
   >
 </md-data-table>
   <!--dt-selected="$ctrl.query.selected"-->
