@@ -2,7 +2,7 @@
 
     'use strict';
 
-    function FileUploadController($scope, $element, $attrs, fileUploadService) {
+    function FileUploadController($element, fileUploadService) {
 
         var ctrl = this;
 
@@ -43,7 +43,9 @@
 
     angular.module('frontend.core.components')
       .component('mdFileUpload', {
-          controller: FileUploadController,
+          controller: [
+            '$element', 'fileUploadService' ,
+            FileUploadController],
           templateUrl: '/frontend/core/components/fileUpload/fileUpload.html',
           bindings: {
               fuFileName: '<?',

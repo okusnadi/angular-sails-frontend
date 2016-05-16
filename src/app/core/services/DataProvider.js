@@ -56,6 +56,7 @@
           };
 
           var fetchData = function () {
+            console.log('FETCH!!!');
 //                      loading = true;
 
             // Common parameters for count and data query

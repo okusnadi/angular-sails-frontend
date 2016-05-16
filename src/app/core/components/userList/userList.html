@@ -1,0 +1,24 @@
+<ra-data-table-toolbar
+  table-title=" 'Users' "
+  query = "$ctrl.query"
+  tt-search-change="$ctrl.dataProvider.fetchData"
+  >    
+</ra-data-table-toolbar>
+<!--  toolbar-btns ="toolbarBtns"
+  toolbar-selected-btns="toolbarSelectedBtns"-->
+
+<!--table-->
+<md-data-table 
+  dt-items="$ctrl.query.items"
+  dt-item-count="$ctrl.query.itemCount"
+  dt-columns="$ctrl.query.columns"
+  dt-page="$ctrl.query.currentPage"
+  dt-limit="$ctrl.query.itemsPerPage"
+  dt-order="$ctrl.query.order"
+  dt-on-reorder="$ctrl.dataProvider.onReorder"
+  dt-on-paginate="$ctrl.dataProvider.onPaginate"
+  dt-on-row-click="$ctrl.onRowClick(event, item)"
+  >
+</md-data-table>
+  <!--dt-selected="$ctrl.query.selected"-->
+  <!--dt-on-click="editUserDialog(event, item, column)"-->

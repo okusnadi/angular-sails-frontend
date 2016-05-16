@@ -1,0 +1,163 @@
+<md-content class="wide-min-width" class="add-client-modal">
+
+    <form class="form-vertical" role="form" name="clientForm"
+          autocomplete="off" 
+          ng-submit="saveClient()"
+          >
+        <md-toolbar>
+            <div class="md-toolbar-tools md-primary">
+                <h2>Client Details</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelDialog()">
+                    <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div class="md-dialog-content layout-padding">
+            <div layout="row">
+                <div flex="50" layout-margin>
+                    <md-input-container class="md-block">
+                        <label>Company Name</label>
+                        <input type="text" name="name" 
+                               ng-model="client.name"
+                               minlength="3"
+                               required 
+                               />
+                        <div ng-messages="clientForm.name.$error" multiple md-auto-hide="false">
+                            <div ng-message="minlength">The name has to be at least 3 characters.</div>
+                            <div ng-message="required">Name is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Address 1</label>
+                        <input type="text" name="address1"
+                               ng-model="client.address1"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Address 2</label>
+                        <input type="text" name="address2"
+                               ng-model="client.address2"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Address 3</label>
+                        <input type="text" name="address3"
+                               ng-model="client.address3"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Town</label>
+                        <input type="text" name="town"
+                               ng-model="client.town"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>County</label>
+                        <input type="text" name="county"
+                               ng-model="client.county"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Country</label>
+                        <input type="text" name="country"
+                               ng-model="client.country"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Notes</label>
+                        <textarea name="notes" rows="5"
+                                  ng-model="client.notes"
+                                  >                                  
+                        </textarea>
+                    </md-input-container>
+
+                </div>
+
+                <div flex="50" layout-margin>
+
+                    <md-input-container class="md-block">
+                        <label>Contact name</label>
+                        <input type="text" name="contactName"
+                               ng-model="client.contactName"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Primary E-mail</label>
+                        <input type="email"  name="email1"
+                               ng-model="client.email1"
+                               />
+                        <div ng-messages="clientForm.email1.$error" multiple md-auto-hide="false">
+                            <div ng-message="email">Please enter a valid e-mail.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Secondary E-mail</label>
+                        <input type="email"  name="email2"
+                               ng-model="client.email2"
+                               />
+                        <div ng-messages="clientForm.email2.$error" multiple md-auto-hide="false">
+                            <div ng-message="email">Please enter a valid e-mail.</div>
+                        </div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block">
+                        <label>Primary phone number</label>
+                        <input type="text"  name="phone1"
+                               ng-model="client.phone1"
+                               />
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Secondary phone number</label>
+                        <input type="text"  name="phone2"
+                               ng-model="client.phone2"
+                               />
+                    </md-input-container>
+
+                    <h5>Company Structure</h5>
+
+                    <md-multi-input mi-items="items" mi-max="6" mi-suggestions="suggestions">
+                    </md-multi-input>
+                </div>
+
+            </div>
+            <div layout="row">
+                <md-button type="button" class="md-warn md-raised"
+                           ng-show="client.id"
+                           ng-click="confirmDelete($event, client)"
+                           >
+                    <md-tooltip md-direction="top">delete</md-tooltip>
+                    <md-icon class="material-icons">delete</md-icon>
+                    <!--Delete-->
+                </md-button>
+                <div flex></div>
+
+                <md-button type="button" class="md-button md-raised "
+                           ng-click="cancelDialog();"
+                           >
+                    <md-tooltip md-direction="top">cancel</md-tooltip>
+                    <md-icon class="material-icons">not_interested</md-icon>
+                    <!--Cancel-->
+                </md-button>
+                <md-button type="submit" class="md-primary md-raised "
+                           ng-disabled="!clientForm.$valid"
+                           >
+                    <md-tooltip md-direction="top">save</md-tooltip>
+                    <md-icon class="material-icons">save</md-icon>
+                    <!--Save-->
+                </md-button>
+            </div>
+        </div><!-- layout padding-->
+    </form>
+</md-content>

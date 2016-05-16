@@ -95,6 +95,7 @@
         dtOnReorder: '&',
         dtOnPaginate: '&',
         dtOnClick: '&?',
+        dtOnRowClick: '&?',
 
         dtSuggestions: '<?',
         dtMappedTo: '=?',

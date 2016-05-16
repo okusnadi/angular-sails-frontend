@@ -2,7 +2,7 @@
 <md-table-container>
   <!--FAB-->
   <ng-form name="dtForm">
-    <table md-table ng-attr-md-row-select="$ctrl.dtSelected === undefined?undefined:true" ng-attr-ng-model="$ctrl.dtSelected"  multiple>
+    <table md-table ng-attr-md-row-select="$ctrl.dtSelected === undefined?undefined:true" ng-attr-ng-model="$ctrl.dtSelected"  >
       <thead md-head md-order="$ctrl.dtOrder" md-on-reorder="$ctrl.dtOnReorder({order:order})">
         <tr md-row ng-if="$ctrl.dtMappedTo">
           <th md-column 
@@ -46,7 +46,12 @@
       </tr>
       </thead>
       <tbody md-body class="">
-        <tr md-row md-auto-select md-select="item" md-select-id="" ng-repeat="item in $ctrl.dtItems" class="ngr-fade-in">
+        <tr md-row md-auto-select tabindex="-1"
+            md-select="item" md-select-id="" 
+            ng-repeat="item in $ctrl.dtItems"
+            class="ngr-fade-in"
+            ng-attr-ng-click="$ctrl.dtOnRowClick({event: $event, item: item})"
+            >
           <td md-cell
               ng-repeat="column in $ctrl.dtColumns"
               >

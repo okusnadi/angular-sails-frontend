@@ -15,7 +15,8 @@
     'frontend.admin.user',
     'frontend.admin.role',
     'frontend.admin.client',
-    'frontend.admin.setting'
+    'frontend.admin.setting',
+    'frontend.admin.userStatus'
   ]);
 
   // Module configuration

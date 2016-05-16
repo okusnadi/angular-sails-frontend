@@ -240,6 +240,15 @@
         "mce-options": {}
       }
     },
+    "ra-data-table-toolbar": {
+      "attributes": {
+        "table-title": {},
+        "toolbar-btns": {},
+        "query": {},
+        "tt-search-change": {},
+        "toolbar-selected-btns": {}
+      }
+    },
     "md-input-container": {
       "attributes": {
         "md-no-float": {},
@@ -255,6 +264,7 @@
         "dt-item-count": {},
         "dt-page": {},
         "dt-suggestions": {},
+        "dt-on-row-click": {},
         "dt-limit": {},
         "dt-on-reorder": {},
         "dt-on-paginate": {},
@@ -265,7 +275,8 @@
         "dt-on-click": {},
         "dt-click": {},
         "dt-mapped-pristine": {},
-        "dt-column-title": {}
+        "dt-column-title": {},
+        "dt-single-select": {}
       }
     },
     "cc-multi-element": {

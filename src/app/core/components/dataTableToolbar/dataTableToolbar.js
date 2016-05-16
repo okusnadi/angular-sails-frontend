@@ -18,6 +18,12 @@
             ctrl.buttons = [];
         }
         
+        ctrl.onSearchChange = function onSearchChange() {
+          if( angular.isDefined(ctrl.ttSearchChange) ) {
+            ctrl.ttSearchChange()();
+          }
+        };
+        
         ctrl.startFilter = function(event){
           ctrl.showFilter = true;  
           event.stopPropagation(); setTimeout(function () {
@@ -28,7 +34,7 @@
         ctrl.removeFilter = function(){
            ctrl.showFilter = false;
            ctrl.query.searchWord = '';
-        }
+        };
     }
 
     angular.module('frontend.core.components')
@@ -36,12 +42,13 @@
           controller: dataTableToolbar,
           templateUrl: '/frontend/core/components/dataTableToolbar/dataTableToolbar.html',
           bindings: {
+              query:'<',
               tableTitle: '<?',
               toolbarClass: '<?',
               toolbarBtns: '<?', //format [ {btnTitle: value, btnIcon:value,btnTooltip:val, btnAction:value } ]
               toolbarSelectedBtns: '<?', //show when rows are selected. same format as toolBarBtns ]
               searchBar: '<?', //defaults to TRUE
-              query:'<'
+              ttSearchChange: '&?' // called when search box change
           }
 
       });
