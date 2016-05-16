@@ -110,10 +110,10 @@
 	 */
 	angular.module('frontend.core.layout')
 					.controller('NavigationController', [
-						'$scope', '$state', '$uibModal',
+						'$scope', '$state', '$uibModal', '$animate',
 						'_items', '_', 'ContentNavigationItems',
 						function controller(
-										$scope, $state, $modal,
+										$scope, $state, $modal, $animate,
 										_items, _, ContentNavigationItems
 										) {
 							$scope.navigationItems = _items;
@@ -142,18 +142,54 @@
 							};
 
 							//select active tab
+							
 							$scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
 								
 								$scope.activeIndex = ContentNavigationItems.getStateIndex(to);
 								$scope.lastIndex = ContentNavigationItems.getStateIndex(from);
+								var mainPanel = angular.element(document.getElementsByClassName('main-panel')).removeClass().addClass('main-panel');	
+
+								if ( $scope.activeIndex < 0 || $scope.lastIndex < 0) {	
+									console.log(to, from);
+									
+//									console.log('parents (f/t): ' +from.parent + ' ' +to.parent);
+//									console.log('name (f/t): '+ from.name + ' ' +to.name); 
+									
+									
+									//going to parent
+									if (from.parent !== undefined && to.name !== undefined && to.name.indexOf(from.parent) > -1) {
+										console.log('to parent');
+										mainPanel.addClass('slidedown');
+									}
+									//going to child
+									if (to.parent !== undefined && from.name !== undefined && from.name.indexOf(to.parent) > -1)  {
+										console.log('to child');
+										mainPanel.addClass('slideup');
+									}
+									
+									
+//									if ( to.name.match(/(lists|campaigns|)/) ){ 
+//										console.log('found');
+//										mainPanel.addClass('slideup');
+//									}
+									return;
+								}
 								
-								var mainPanel = angular.element(document.getElementsByClassName('main-panel')).removeClass().addClass('main-panel');
+								console.log($scope.activeIndex, $scope.lastIndex);
+								console.log(to);
 								if ($scope.activeIndex >= $scope.lastIndex) {
 										mainPanel.addClass('slide-left');
 								} else {
 										mainPanel.addClass('slide-right');
 								}
 							});
+							
+//							$animate.on('enter', angular.element('body'), function callback(element, phase){
+//								if ( element.hasClass('main-panel') && phase === 'close' ) {
+//									element.removeClass().addClass('main-panel fade');
+//								}
+//							});
+							
 						}
 					])
 					;
