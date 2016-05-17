@@ -270,11 +270,20 @@
           $state.go('script.add');
         };
 
+        $scope.goBack = function (ev) {
+          $state.go('campaigns');
+        };
+
         $scope.toolbarBtns = [
           {
             btnTooltip: 'Add Script',
             btnIcon: 'playlist_add',
             btnAction: $scope.addScript
+          },
+          {
+            btnTooltip: 'Go back to campaigns',
+            btnIcon: 'arrow_back',
+            btnAction: $scope.goBack
           }
         ];
 

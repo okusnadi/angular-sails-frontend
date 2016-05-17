@@ -82,25 +82,21 @@
     $scope.ounits = angular.fromJson($scope.campaign.orgUnits);
 
     // Campaign delete dialog buttons configuration
-    $scope.confirmButtonsDelete = {
-      ok: {
-        label: 'Delete',
-        className: 'btn-danger',
-        callback: function callback() {
-          $scope.deleteCampaign();
-        }
-      },
-      cancel: {
-        label: 'Cancel',
-        className: 'btn-default pull-left'
-      }
-    };
+//    $scope.confirmButtonsDelete = {
+//      ok: {
+//        label: 'Delete',
+//        className: 'btn-danger',
+//        callback: function callback() {
+//          $scope.deleteCampaign();
+//        }
+//      },
+//      cancel: {
+//        label: 'Cancel',
+//        className: 'btn-default pull-left'
+//      }
+//    };
+//
 
-
-    /**
-     * Scope function to save the modified campaign. This will send a
-     * socket request to the backend server with the modified object.
-     */
     $scope.saveCampaign = function () {
       $scope.campaign.orgUnits = angular.toJson($scope.ounits);
       var data = angular.copy($scope.campaign);
@@ -156,19 +152,15 @@
   // Controller which contains all necessary logic for campaign list GUI on boilerplate application.
   angular.module('frontend.admin.client.campaign')
     .controller('CampaignListController', [
-      '$scope', '$q', '$timeout', '$mdDialog',
+      '$scope', '$state', '$q', '$timeout', '$mdDialog',
       '_',
-      'UserService', 'CampaignModel',
-      'DataProvider',
-      '_client',
-      '_campaigns', '_count',
+      'UserService', 'CampaignModel', 'DataProvider',
+      '_client', '_campaigns', '_count',
       function controller(
-        $scope, $q, $timeout, $mdDialog,
+        $scope, $state, $q, $timeout, $mdDialog,
         _,
-        UserService, CampaignModel,
-        DataProvider,
-        _client,
-        _campaigns, _count
+        UserService, CampaignModel, DataProvider,
+        _client, _campaigns, _count
         ) {
 
         // Set current scope reference to models
@@ -239,7 +231,7 @@
         };
 
         $scope.goBack = function (ev) {
-
+          $state.go('admin.clients');
         };
 
         //ra-md-toolbar buttons
@@ -249,6 +241,11 @@
             btnTooltip: 'Add Campaign',
             btnIcon: 'playlist_add',
             btnAction: $scope.addCampaignDialog
+          },
+          {
+            btnTooltip: 'Go back to clients',
+            btnIcon: 'arrow_back',
+            btnAction: $scope.goBack
           }
         ];
 

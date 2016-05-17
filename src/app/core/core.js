@@ -29,6 +29,7 @@
     'frontend.core.libraries',
     'frontend.core.models',
     'frontend.core.services',
-    'frontend.core.formBuilder'
+    'frontend.core.formBuilder',
+    'frontend.core.script'
   ]);
 }());
