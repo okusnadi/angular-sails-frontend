@@ -11,10 +11,10 @@
 angular.module('frontend')
   .config([
     '$locationProvider', '$httpProvider', '$sailsSocketProvider',
-    '$uibTooltipProvider', 'cfpLoadingBarProvider', 'toastrConfig', '$mdThemingProvider',
+    'cfpLoadingBarProvider', 'toastrConfig', '$mdThemingProvider',
     function config(
       $locationProvider, $httpProvider, $sailsSocketProvider,
-      $tooltipProvider, cfpLoadingBarProvider, toastrConfig, $mdThemingProvider
+      cfpLoadingBarProvider, toastrConfig, $mdThemingProvider
       ) {
       $httpProvider.defaults.useXDomain = true;
 
@@ -27,11 +27,6 @@ angular.module('frontend')
       // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
       angular.forEach($httpProvider.interceptors, function iterator(interceptor) {
         $sailsSocketProvider.interceptors.push(interceptor);
-      });
-
-      // Set tooltip options
-      $tooltipProvider.options({
-        appendToBody: true
       });
 
       // Disable spinner from cfpLoadingBar

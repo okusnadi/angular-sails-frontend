@@ -110,36 +110,36 @@
 	 */
 	angular.module('frontend.core.layout')
 					.controller('NavigationController', [
-						'$scope', '$state', '$uibModal', '$animate',
+						'$scope', '$state', '$animate',
 						'_items', '_', 'ContentNavigationItems',
 						function controller(
-										$scope, $state, $modal, $animate,
+										$scope, $state, $animate,
 										_items, _, ContentNavigationItems
 										) {
 							$scope.navigationItems = _items;
-
-							// Helper function to open information modal about current GUI.
-							$scope.openInformation = function openInformation() {
-								$modal.open({
-									templateUrl: '/frontend/core/layout/partials/help.html',
-									controller: 'NavigationModalController',
-									size: 'lg',
-									resolve: {
-										'_title': function resolve() {
-											return $state.current.name.toString();
-										},
-										'_files': [
-											'NavigationInfoModalFiles',
-											function resolve(NavigationInfoModalFiles) {
-												return NavigationInfoModalFiles.get($state.current.name.toString());
-											}
-										],
-										'_template': function resolve() {
-											return $state.current.views['content@'].templateUrl.replace('.html', '-info.html');
-										}
-									}
-								});
-							};
+//
+//							// Helper function to open information modal about current GUI.
+//							$scope.openInformation = function openInformation() {
+//								$modal.open({
+//									templateUrl: '/frontend/core/layout/partials/help.html',
+//									controller: 'NavigationModalController',
+//									size: 'lg',
+//									resolve: {
+//										'_title': function resolve() {
+//											return $state.current.name.toString();
+//										},
+//										'_files': [
+//											'NavigationInfoModalFiles',
+//											function resolve(NavigationInfoModalFiles) {
+//												return NavigationInfoModalFiles.get($state.current.name.toString());
+//											}
+//										],
+//										'_template': function resolve() {
+//											return $state.current.views['content@'].templateUrl.replace('.html', '-info.html');
+//										}
+//									}
+//								});
+//							};
 
 							//select active tab
 							
@@ -150,7 +150,7 @@
 								var mainPanel = angular.element(document.getElementsByClassName('main-panel')).removeClass().addClass('main-panel');	
 
 								if ( $scope.activeIndex < 0 || $scope.lastIndex < 0) {	
-									console.log(to, from);
+//									console.log(to, from);
 									
 //									console.log('parents (f/t): ' +from.parent + ' ' +to.parent);
 //									console.log('name (f/t): '+ from.name + ' ' +to.name); 
@@ -158,25 +158,15 @@
 									
 									//going to parent
 									if (from.parent !== undefined && to.name !== undefined && to.name.indexOf(from.parent) > -1) {
-										console.log('to parent');
 										mainPanel.addClass('slidedown');
 									}
 									//going to child
 									if (to.parent !== undefined && from.name !== undefined && from.name.indexOf(to.parent) > -1)  {
-										console.log('to child');
 										mainPanel.addClass('slideup');
 									}
-									
-									
-//									if ( to.name.match(/(lists|campaigns|)/) ){ 
-//										console.log('found');
-//										mainPanel.addClass('slideup');
-//									}
 									return;
 								}
 								
-								console.log($scope.activeIndex, $scope.lastIndex);
-								console.log(to);
 								if ($scope.activeIndex >= $scope.lastIndex) {
 										mainPanel.addClass('slide-left');
 								} else {
@@ -184,11 +174,11 @@
 								}
 							});
 							
-//							$animate.on('enter', angular.element('body'), function callback(element, phase){
-//								if ( element.hasClass('main-panel') && phase === 'close' ) {
-//									element.removeClass().addClass('main-panel fade');
-//								}
-//							});
+							$animate.on('enter', angular.element('body'), function callback(element, phase){
+								if ( element.hasClass('main-panel') && phase === 'close' ) {
+									element.removeClass().addClass('main-panel fade');
+								}
+							});
 							
 						}
 					])

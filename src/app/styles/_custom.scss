@@ -527,7 +527,10 @@ perspective: 500px;
 
 /* helper
 //========================*/
-
+.animate-height {
+	height: 0;
+	transition: height 0.2s ease-in-out;
+}
 .relative {position: relative}
 .anti-header {margin-top:-68px;}
 
