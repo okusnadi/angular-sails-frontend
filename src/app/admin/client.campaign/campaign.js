@@ -31,7 +31,7 @@
                 templateUrl: '/frontend/admin/client.campaign/campaign-list.html',
                 controller: 'CampaignListController',
                 resolve: {
-                  _items: [
+                  _campaigns: [
                     'ListConfig',
                     'CampaignModel',
                     '_client',
@@ -58,12 +58,6 @@
                     'CampaignModel',
                     function resolve(CampaignModel) {
                       return CampaignModel.count();
-                    }
-                  ],
-                  _lists: [
-                    'ListModel',
-                    function resolve(ListModel) {
-                      return ListModel.load();
                     }
                   ]
                 }

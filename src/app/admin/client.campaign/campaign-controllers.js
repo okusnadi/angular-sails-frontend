@@ -7,22 +7,18 @@
   'use strict';
 
   var ceTemplate = [
-            '<cc-custom-email ce-item="item"',
-             '</cc-custom-email>'
-          ].join(' ');
+    '<cc-custom-email ce-item="item"',
+    '</cc-custom-email>'
+  ].join(' ');
 
   var CampaignAddController = function CampaignAddController(
-    $scope, $state,
-    MessageService,
-    CampaignModel,
-    _client,
-    _lists, dataProvider, $mdDialog
+    $scope, $state, $mdDialog,
+    MessageService, dataProvider,
+    CampaignModel, _client
     ) {
 
     // expose state
     $scope.$state = $state;
-    // Store lists
-    $scope.lists = _lists;
     // Store parent client
     $scope.client = _client;
 
@@ -45,10 +41,6 @@
 
     $scope.meTemplate = ceTemplate;
 
-    /**
-     * Scope function to store new campaign to database. After successfully save campaign will be redirected
-     * to view that new created campaign.
-     */
     $scope.saveCampaign = function () {
       $scope.campaign.client = $scope.client;
       $scope.campaign.orgUnits = angular.toJson($scope.ounits);
@@ -65,18 +57,15 @@
     };
 
     $scope.cancelDialog = function () {
-      console.log('lala');
       $mdDialog.cancel();
     };
 
   };
 
   var CampaignEditController = function CampaignEditController(
-    $scope, $state,
-    UserService, MessageService,
-    CampaignModel, ListModel,
-    _client,
-    _campaign, _lists, $mdDialog, dataProvider
+    $scope, $state, $mdDialog,
+    UserService, MessageService, dataProvider,
+    CampaignModel, _campaign
     ) {
     // expose state
     $scope.$state = $state;
@@ -88,7 +77,6 @@
     // Initialize scope data
     $scope.currentUser = UserService.user();
     $scope.campaign = _campaign;
-    $scope.lists = _lists;
     $scope.selectList = _campaign.list ? _campaign.list.id : null;
 
     $scope.ounits = angular.fromJson($scope.campaign.orgUnits);
@@ -130,10 +118,6 @@
         ;
     };
 
-    /**
-     * Scope function to delete current campaign. This will send DELETE query to backend via web socket
-     * query and after successfully delete redirect campaign back to campaign list.
-     */
     $scope.deleteCampaign = function deleteCampaign() {
       CampaignModel
         .delete($scope.campaign.id)
@@ -169,55 +153,22 @@
   }
 
 
-  // Controller for new campaign creation.
-  angular.module('frontend.admin.client.campaign')
-    .controller('CampaignAddController', [
-      '$scope', '$state',
-      'MessageService',
-      'CampaignModel',
-      '_client',
-      '_lists',
-      'dataProvider',
-      '$mdDialog',
-      CampaignAddController
-
-    ])
-    ;
-
-
-  // Controller to show single campaign on GUI.
-  angular.module('frontend.admin.client.campaign')
-    .controller('CampaignController',
-      [
-        '$scope', '$state',
-        'UserService', 'MessageService',
-        'CampaignModel', 'ListModel',
-        '_client',
-        '_campaign', '_lists',
-        '$mdDialog',
-        'dataProvider',
-        CampaignEditController
-      ])
-    ;
-
   // Controller which contains all necessary logic for campaign list GUI on boilerplate application.
   angular.module('frontend.admin.client.campaign')
     .controller('CampaignListController', [
-      '$scope', '$q', '$timeout',
+      '$scope', '$q', '$timeout', '$mdDialog',
       '_',
-      'ListConfig', 'SocketHelperService',
-      'UserService', 'CampaignModel', 'ListModel',
+      'UserService', 'CampaignModel',
       'DataProvider',
       '_client',
-      '_items', '_count', '_lists', '$mdDialog',
+      '_campaigns', '_count',
       function controller(
-        $scope, $q, $timeout,
+        $scope, $q, $timeout, $mdDialog,
         _,
-        ListConfig, SocketHelperService,
-        UserService, CampaignModel, ListModel,
+        UserService, CampaignModel,
         DataProvider,
         _client,
-        _items, _count, _lists, $mdDialog
+        _campaigns, _count
         ) {
 
         // Set current scope reference to models
@@ -225,6 +176,8 @@
 
         // Initialize query parameters
         $scope.query = {
+          items: _campaigns,
+          itemCount: _count.count,
           order: 'name',
           searchWord: '',
           populate: ['lists', 'emailTemplates', 'scripts'],
@@ -251,14 +204,17 @@
         //dialogs
         $scope.addCampaignDialog = function (ev) {
           $mdDialog.show({
-            controller: CampaignAddController,
+            controller: [
+              '$scope', '$state', '$mdDialog',
+              'MessageService', 'dataProvider',
+              'CampaignModel', '_client',
+              CampaignAddController
+            ],
             locals: {
               dataProvider: $scope.dataProvider,
-              _client: _client,
-              _lists: _lists
+              _client: _client
             },
             templateUrl: '/frontend/admin/client.campaign/campaign.html',
-//              parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: false
           });
@@ -267,29 +223,24 @@
         $scope.editCampaignDialog = function (ev, item, column) {
           $mdDialog.show({
             controller: [
-              '$scope', '$state',
-              'UserService', 'MessageService',
-              'CampaignModel', 'ListModel',
-              '_client',
-              '_campaign', '_lists',
-              '$mdDialog',
-              'dataProvider', CampaignEditController],
+              '$scope', '$state', '$mdDialog',
+              'UserService', 'MessageService', 'dataProvider',
+              'CampaignModel', '_campaign',
+              CampaignEditController],
             locals: {
               dataProvider: $scope.dataProvider,
               _client: _client,
-              _lists: _lists
-            },
-            resolve: {
-              _campaign: ['CampaignModel',
-                function resolve(CampaignModel) {
-                  return CampaignModel.fetch(item.id);
-                }]
+              _campaign: item
             },
             templateUrl: '/frontend/admin/client.campaign/campaign.html',
             targetEvent: ev,
             clickOutsideToClose: false
           });
-        }
+        };
+
+        $scope.goBack = function (ev) {
+
+        };
 
         //ra-md-toolbar buttons
 
@@ -306,3 +257,36 @@
     ])
     ;
 }());
+
+
+// Controller for new campaign creation.
+//  angular.module('frontend.admin.client.campaign')
+//    .controller('CampaignAddController', [
+//      '$scope', '$state',
+//      'MessageService',
+//      'CampaignModel',
+//      '_client',
+//      '_lists',
+//      'dataProvider',
+//      '$mdDialog',
+//      CampaignAddController
+//
+//    ])
+//    ;
+
+
+// Controller to show single campaign on GUI.
+//  angular.module('frontend.admin.client.campaign')
+//    .controller('CampaignController',
+//      [
+//        '$scope', '$state',
+//        'UserService', 'MessageService',
+//        'CampaignModel', 'ListModel',
+//        '_client',
+//        '_campaign', '_lists',
+//        '$mdDialog',
+//        'dataProvider',
+//        CampaignEditController
+//      ])
+//    ;
+
