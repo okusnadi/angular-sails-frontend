@@ -33,7 +33,9 @@
             var columns = _.filter(filters.columns, function iterator(column) {
               return column.inSearch;
             });
-
+            if(angular.isUndefined(filters.searchWord)) {
+              filters.searchWord = '';
+            }
             // Determine search words
             var words = _.filter(filters.searchWord.split(' '));
 

@@ -3,21 +3,21 @@
   <div layout="row">
     <md-card flex="50">
       <cc-data-list
-        dl-data-model="userModel"
-        dl-query-params="userParams"
+        dl-data-provider="userProvider"
         dl-selected="selectedUser"
         dl-title="'Please select user'"
         >          
       </cc-data-list>
+        <!--dl-query-params="userParams"-->
     </md-card>
     <md-card flex="50">
       <cc-data-list
-        dl-data-model="userStatusModel"
-        dl-query-params="userStatusParams"
+        dl-data-provider="userStatusProvider"
         dl-title="'User history - ' + selectedUser.username"
         >          
       </cc-data-list>
       <!--{{selectedUser}}-->
+        <!--dl-query-params="userStatusParams"-->
     </md-card>
   </div>
 </div>

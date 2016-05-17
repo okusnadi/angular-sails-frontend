@@ -15,9 +15,9 @@
         $log, $q, _
         ) {
 
-        return function (dataModel, query) {
+        return function (dataModel, queryParam) {
           var dataModel = dataModel;
-          var query = query;
+          var query = queryParam;
 
           var config = ListConfig.getConfig();
 

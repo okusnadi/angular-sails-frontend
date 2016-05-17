@@ -1,24 +1,19 @@
 <ra-data-table-toolbar
-  query = "$ctrl.query"
-  tt-search-change="$ctrl.dataProvider.fetchData"
+  query = "$ctrl.dlDataProvider.query"
+  tt-search-change="$ctrl.dlDataProvider.triggerFetchData"
   table-title="$ctrl.dlTitle"
   >    
 </ra-data-table-toolbar>
-<!--  toolbar-btns ="toolbarBtns"
-  toolbar-selected-btns="toolbarSelectedBtns"-->
 
-<!--table-->
 <md-data-table 
-  dt-items="$ctrl.query.items"
-  dt-item-count="$ctrl.query.itemCount"
-  dt-columns="$ctrl.query.columns"
-  dt-page="$ctrl.query.currentPage"
-  dt-limit="$ctrl.query.itemsPerPage"
-  dt-order="$ctrl.query.order"
-  dt-on-reorder="$ctrl.dataProvider.onReorder"
-  dt-on-paginate="$ctrl.dataProvider.onPaginate"
+  dt-items="$ctrl.dlDataProvider.query.items"
+  dt-item-count="$ctrl.dlDataProvider.query.itemCount"
+  dt-columns="$ctrl.dlDataProvider.query.columns"
+  dt-page="$ctrl.dlDataProvider.query.currentPage"
+  dt-limit="$ctrl.dlDataProvider.query.itemsPerPage"
+  dt-order="$ctrl.dlDataProvider.query.order"
+  dt-on-reorder="$ctrl.dlDataProvider.onReorder"
+  dt-on-paginate="$ctrl.dlDataProvider.onPaginate"
   dt-on-row-click="$ctrl.onRowClick(event, item, index)"
   >
 </md-data-table>
-  <!--dt-selected="$ctrl.query.selected"-->
-  <!--dt-on-click="editUserDialog(event, item, column)"-->

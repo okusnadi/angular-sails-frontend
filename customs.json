@@ -66,6 +66,7 @@
       "attributes": {
         "dl-query-params": {},
         "dl-title": {},
+        "dl-data-provider": {},
         "dl-data-model": {},
         "dl-selected": {}
       }
@@ -251,8 +252,10 @@
     "ra-data-table-toolbar": {
       "attributes": {
         "table-title": {},
+        "toolbar-btns": {},
         "query": {},
-        "tt-search-change": {}
+        "tt-search-change": {},
+        "toolbar-selected-btns": {}
       }
     },
     "md-input-container": {
@@ -281,7 +284,8 @@
         "dt-on-click": {},
         "dt-click": {},
         "dt-mapped-pristine": {},
-        "dt-column-title": {}
+        "dt-column-title": {},
+        "dt-single-select": {}
       }
     },
     "cc-multi-element": {

@@ -109,7 +109,6 @@
 				
 				function _makeToast(message, options) {
 					  //default position
-						console.log('ll');
 						var toastXy = {
 							bottom: false,
 							top: true,
@@ -147,15 +146,12 @@
 						
 						var toastPosition = Object.keys(position)
 										.filter(function(pos) {return position[pos];})
-										.join(' ');
-						
-						console.log( 'message:' + message,  'xy:' + position,  'delay:' + delay, 'theme: ' + theme);
-						
+										.join(' ');						
+//						console.log( 'message:' + message,  'xy:' + position,  'delay:' + delay, 'theme: ' + theme);						
 //						$mdToast.show(
 //										$mdToast.position(
 //											{top:true}
-//										).showSimple(message)
-										
+//										).showSimple(message)										
 //										);
 
 						var template = [

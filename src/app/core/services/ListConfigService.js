@@ -25,6 +25,13 @@
         var titleItems = {
           userStatus: [
             {
+              title: 'User',
+              column: ['user', 'username'],
+              class: 'col-xs-2',
+              sortable: true,
+              inSearch: true,
+            },
+            {
               title: 'Type',
               column: 'type',
               class: 'col-xs-2',

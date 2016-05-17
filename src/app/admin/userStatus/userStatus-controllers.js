@@ -22,22 +22,40 @@
         DataProvider
         ) {
         // Set current scope reference to models
-//        ClientModel.setScope($scope, false, 'items', 'itemCount');
+        UserModel.setScope($scope, false);
+        UserStatusModel.setScope($scope, false);
 
-        $scope.userModel = UserModel;
+        $scope.userProvider = UserModel;
         $scope.userStatusModel = UserStatusModel;
-        
+
         $scope.userParams = {
-          order: 'username'          
+          order: 'username',
         };
-        
+
         $scope.userStatusParams = {
-          order: 'createdAt'      
+          order: 'createdAt',
+          direction: 'DESC',
+          populate: 'user',
         };
-        
+
+        $scope.userProvider = new DataProvider(UserModel, $scope.userParams);
+        $scope.userStatusProvider = new DataProvider(UserStatusModel, $scope.userStatusParams);
+
         $scope.selectedUser = null;
+
+        $scope.$watch('selectedUser', function watcher(valueNew, valueOld) {
+          if (valueNew !== valueOld) {
+            if( $scope.selectedUser ) {
+              $scope.userStatusParams.where = { user: $scope.selectedUser.id };
+            }
+            else {
+              delete $scope.userStatusParams.where;
+            }
+          }
+          $scope.userStatusProvider.fetchData();
+        });
         
-        console.log($scope);
+//        console.log($scope);
 //
 //        $scope.query = {
 //          order: 'name',

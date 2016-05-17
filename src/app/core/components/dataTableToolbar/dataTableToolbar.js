@@ -34,6 +34,7 @@
         ctrl.removeFilter = function(){
            ctrl.showFilter = false;
            ctrl.query.searchWord = '';
+           ctrl.onSearchChange();
         };
     }
 
