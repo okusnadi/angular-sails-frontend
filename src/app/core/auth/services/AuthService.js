@@ -40,7 +40,7 @@
  * @todo  Revoke method?
  * @todo  Text localizations?
  */
-(function() {
+(function () {
   'use strict';
 
   angular.module('frontend.core.auth.services')
@@ -50,7 +50,7 @@
       function factory(
         $http, $state, $localStorage,
         AccessLevels, BackendConfig, MessageService, UserStatusService
-      ) {
+        ) {
         return {
           /**
            * Method to authorize current user with given access level in application.
@@ -68,7 +68,6 @@
               return accessLevel === AccessLevels.anon;
             }
           },
-
           /**
            * Method to check if current user is authenticated or not. This will just
            * simply call 'Storage' service 'get' method and returns it results.
@@ -78,7 +77,6 @@
           isAuthenticated: function isAuthenticated() {
             return Boolean($localStorage.credentials);
           },
-
           /**
            * Method make login request to backend server. Successfully response from
            * server contains user data and JWT token as in JSON object. After successful
@@ -93,15 +91,14 @@
             return $http
               .post(BackendConfig.url + '/login', credentials, {withCredentials: true})
               .then(
-                function(response) {
+                function (response) {
                   MessageService.success('You have been logged in.');
                   $localStorage.credentials = response.data;
                   UserStatusService.saveStatus('LOGIN');
                 }
               )
-            ;
+              ;
           },
-
           /**
            * The backend doesn't care about actual user logout, just delete the token
            * and you're good to go.
@@ -109,13 +106,15 @@
            * Question still: Should we make logout process to backend side?
            */
           logout: function logout() {
-            UserStatusService.saveStatus('LOGOUT');
-            $localStorage.$reset();
-            MessageService.success('You have been logged out.');
-            $state.go('auth.login');
+            UserStatusService.saveStatus('LOGOUT')
+              .then(function (response) {
+                $localStorage.$reset();
+                MessageService.success('You have been logged out.');
+                $state.go('auth.login');
+              });
           }
         };
       }
     ])
-  ;
+    ;
 }());
