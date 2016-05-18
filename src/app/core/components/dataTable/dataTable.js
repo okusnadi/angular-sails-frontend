@@ -11,6 +11,12 @@
     ctrl.isClickable = function (item, column) {
       return angular.isDefined(column.clickable) ? eval(column.clickable) : false;
     };
+		
+		ctrl.getHoverIcon = function(column) {
+			console.log('kk');
+			return angular.isDefined(column.hoverIcon) ? column.hoverIcon : 'edit';
+			
+		}
 
     // method to check if spinner needs to be displayed
     ctrl.isSpinner = function (item, column) {

@@ -138,10 +138,11 @@
               clickable: true,
               spinner: 'item.import === "ONGOING"',
               enum: {
-                'NO':       'None - click to import',
-                'ONGOING':  'In progress',    
-                'DONE':     'Imported - click to see'
-              }
+                'NO':       'click to import',
+                'ONGOING':  'importing list',    
+                'DONE':     'manage list'
+              },
+							hoverIcon: 'build'
             },
             {
               title: 'Mapped',

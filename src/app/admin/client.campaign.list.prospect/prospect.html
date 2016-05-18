@@ -4,6 +4,16 @@
         autocomplete="off" 
         ng-submit="saveList()"
         >
+      <h1>hkafsdjkhadskjhfda</h1>
+    <md-toolbar>
+          <div class="md-toolbar-tools md-primary">
+              <h2>Define new list</h2>
+              <span flex></span>
+              <md-button class="md-icon-button" ng-click="cancelDialog()">
+                  <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+              </md-button>
+          </div>
+      </md-toolbar>
     <div layout="row">
       <div flex="50" layout-margin>
         <md-input-container class="md-block">
@@ -29,11 +39,12 @@
         </md-input-container>
       </div>
     </div>
-
+      
     <div layout="row">
       <div flex="100" layout-margin>
         <md-input-container class="md-block">
-          <text-angular 
+            <label>Description <span style="color:red">*</span></label>
+          <text-angular
             required
             ng-model="list.info"
             >                        

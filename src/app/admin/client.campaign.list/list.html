@@ -1,10 +1,22 @@
-<md-content layout-padding>
+<md-content class="wide-min-width">
 
   <form class="form-vertical" role="form" name="listForm"
         autocomplete="off" 
         ng-submit="saveList()"
         >
+      <md-toolbar>
+          <div class="md-toolbar-tools md-hue-3">
+              <h2>Define new list</h2>
+              <span flex></span>
+              <md-button class="md-icon-button" ng-click="cancelDialog()">
+                  <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+              </md-button>
+          </div>
+      </md-toolbar>
+              <div class="md-dialog-content">
+
     <div layout="row">
+          
       <div flex="50" layout-margin>
         <md-input-container class="md-block">
           <label>List name</label>
@@ -33,6 +45,7 @@
     <div layout="row">
       <div flex="100" layout-margin>
         <md-input-container class="md-block">
+            <label>Description</label>
           <textarea 
             required
             ui-tinymce
@@ -55,6 +68,7 @@
                  >
         Cancel
       </md-button>
+    </div>
     </div>
 
   </form>
