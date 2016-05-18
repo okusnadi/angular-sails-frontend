@@ -29,7 +29,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill  {
 	background-color: #eee;
 }
 
+//forms 
+//===================================
 
+fieldset {boder:1px solid #ddd}
 
 //toasts 
 //===================================
@@ -113,6 +116,20 @@ md-autocomplete[md-floating-label] md-input-container {
 .add-client-modal {
 	overflow-x: hidden;
 }
+
+
+//buttons
+//========================================
+
+//hover-icons
+.hover-icon {
+	overflow:initial;
+	md-icon {position:absolute;right:-40px;top:4px;opacity:0;width:0; margin:0;font-size:1px;@extend .transition.fast}
+	&:hover {
+		md-icon {opacity:1; width:40px;font-size:22px;}
+	}
+}
+
 
 //script
 //========================================

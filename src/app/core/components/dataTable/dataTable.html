@@ -59,10 +59,14 @@
                  ng-if="column.sref" 
                  data-ui-sref="{{column.sref}}"
                  >{{$ctrl.getValue(item, column)}}</md-button>
-      <md-button class="md-primary" 
+      <!--<span ng-if="$ctrl.isClickable(item, column) && $ctrl.dtOnClick">{{$ctrl.getValue(item, column)}}</span>-->
+      <md-button class="md-primary hover-icon" 
                  ng-if="$ctrl.isClickable(item, column) && $ctrl.dtOnClick" 
                  ng-click="$ctrl.dtOnClick({event: $event, item: item, column: column});$event.stopPropagation();"
-                 >{{$ctrl.getValue(item, column)}}</md-button>
+                 >
+          <span>{{$ctrl.getValue(item, column)}}</span>
+          <md-icon class="material-icons md-accent">edit</md-icon>
+      </md-button>
       <span ng-if="!(column.sref || ($ctrl.isClickable(item, column) && $ctrl.dtOnClick))">{{$ctrl.getValue(item, column)}}</span>
       <img style="height:48px;width:auto" ng-if="$ctrl.isSpinner(item, column);" ng-src="{{$ctrl.dtSpinner}}"/>
       </td>

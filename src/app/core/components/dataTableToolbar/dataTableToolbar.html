@@ -42,7 +42,7 @@
                     <div flex></div>
                     <md-button class="md-icon-button" ng-click="$ctrl.query.selected.length=0;">
                         <md-tooltip>Clear selection</md-tooltip>
-                        <md-icon>not_interested</md-icon>
+                        <md-icon class="material-icons">not_interested</md-icon>
                     </md-button>
                     <md-button ng-repeat="sBtn in $ctrl.toolbarSelectedBtns" class="md-icon-button" ng-click="sBtn.btnAction($ctrl.query.selected)">
                         <md-tooltip>{{ sBtn.btnTooltip }}</md-tooltip>
